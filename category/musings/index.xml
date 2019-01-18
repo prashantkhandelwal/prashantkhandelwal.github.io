@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Musings on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/musings/</link>
+    <description>Recent content in Musings on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Jul 2015 13:51:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/musings/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>.NET Projects You Should Be Following On Github</title>
+      <link>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</link>
+      <pubDate>Sun, 19 Jul 2015 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</guid>
+      <description>Open-source has entirely change the programming and developers world. Today you can create any application, game, mobile app without spending a single penny. Thanks to open-source software and awesome community of developers and people behind them. As a .NET developer I have been developing enterprise applications for quite a long time and now I have shifted my focus towards developing products and understanding what it takes to make a successful product launch.</description>
+    </item>
+    
+    <item>
+      <title>New Blogging Engine!</title>
+      <link>https://prashantkhandelwal.github.io/post/new-blogging-engine/</link>
+      <pubDate>Thu, 03 Apr 2014 15:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/new-blogging-engine/</guid>
+      <description>I like Wordpress but not as much as I like BlogEngine.NET. I have to move to Wordpress because of a very serious issue in BlogEngine.NET. I am on a shared hosting and they are very peculiar about the memory/CPU usage of a site. So, The problem I faced was that if I use SQL Server CE as your data store than it will increase the disk usage time which in turn shuts down my site application pool and cause 503 service unavailable error.</description>
+    </item>
+    
+    <item>
+      <title>Developer Buzz (Dev Buzz) - Sharing My Bookmarks</title>
+      <link>https://prashantkhandelwal.github.io/post/developer-buzz-dev-buzz-sharing-my-bookmarks/</link>
+      <pubDate>Sun, 16 Jun 2013 11:24:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/developer-buzz-dev-buzz-sharing-my-bookmarks/</guid>
+      <description>Dev Buzz is an abbreviated form of Developer Buzz which will be a carrier of my bookmarks. There is no point of saving me a bookmark if I can’t share out with other developers (this is my thought on bookmarks). Therefore, from today onward I’ll be doing a blog post week or may be monthly to share by bookmark with the rest of you guys and moreover I have a huge collection of funny programmer pics which also accompany my bookmarks.</description>
+    </item>
+    
+    <item>
+      <title>Adobe Photoshop v1.0.1 Source Code Now Available For Download</title>
+      <link>https://prashantkhandelwal.github.io/post/adobe-photoshop-v101-source-code-now-available-for-download/</link>
+      <pubDate>Tue, 19 Feb 2013 14:57:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/adobe-photoshop-v101-source-code-now-available-for-download/</guid>
+      <description>Download the source code for the very 1st version and one of its kind, the legendary photo editing software Adobe Photoshop. I remember, I read somewhere that they distributed the code on floppy disks. But here it is, after more than a decade the source code is now available to public.
+The source code is just 588KB!! and is hosted at computerhistory.org. You can download the complete source code here.</description>
+    </item>
+    
+    <item>
+      <title>What&#39;s Inside DZONE Goodie Box</title>
+      <link>https://prashantkhandelwal.github.io/post/whats-inside-dzone-goodie-box/</link>
+      <pubDate>Thu, 07 Feb 2013 17:23:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/whats-inside-dzone-goodie-box/</guid>
+      <description>I have been blogging for more than 4 years now and my articles also got published in many online tech journals, blogs and may be re-written without even my consent. I got lots of email
+I have been awarded DZone MVB few years back. The DZone MVB (Most Valuable Blogger) award is a big motivation for bloggers like me. Few weeks back I received an email from DZone after they have shipped a goodie box to my address.</description>
+    </item>
+    
+    <item>
+      <title>Happy New Year To All</title>
+      <link>https://prashantkhandelwal.github.io/post/happy-new-year-to-all/</link>
+      <pubDate>Mon, 31 Dec 2012 23:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/happy-new-year-to-all/</guid>
+      <description>A blog post to wish all the readers of my blog a very happy new year!? Not my style but still….
+Wish you and your family a very happy and prosperous new year!! I hope this new year bring lot of happiness to you, family and friends.</description>
+    </item>
+    
+    <item>
+      <title>How To Be A Rockstar Freelancer</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-be-a-rockstar-freelancer/</link>
+      <pubDate>Fri, 10 Jun 2011 02:23:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-be-a-rockstar-freelancer/</guid>
+      <description>A friend of mine who is a freelancer purchased the PDF version of this book and sends over me a copy to read today. If you are a freelancer or working from home then this is the book you should read and follow. I am bit lazy in reading non-tech related books or articles but this book is worth reading as compared to some other tech books. I am reading this book at the moment and I must said that this is the best book available for freelancers and for the people who are working from home.</description>
+    </item>
+    
+  </channel>
+</rss>

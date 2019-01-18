@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jquery on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/jquery/</link>
+    <description>Recent content in Jquery on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 17 Oct 2016 21:41:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/jquery/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Upload Files In .NET Core By Drag And Drop Using Dropzone.JS</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</link>
+      <pubDate>Mon, 17 Oct 2016 21:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</guid>
+      <description>Mostly all web applications out there has some way or the other amazing ways to upload a single or multiple files. While surfing on Github I found this amazing library to upload the files to the server in a unique way with lot of configurations. It support parallel uploads along with cancellation of the files which are in the upload queue along with a good looking progress bar to show the progress of upload.</description>
+    </item>
+    
+    <item>
+      <title>ASP.NET Postback Issue with Colorbox jQuery Plugin</title>
+      <link>https://prashantkhandelwal.github.io/post/aspnet-postback-issue-with-colorbox-jquery-plugin/</link>
+      <pubDate>Sun, 19 Aug 2012 15:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/aspnet-postback-issue-with-colorbox-jquery-plugin/</guid>
+      <description>Yesterday, while working on a project I came across a weird problem while working with Colorbox jquery plugin and ASP.NET. The problem is not only with Colorbox but also with another famous plugin called Fancybox. If you plan to use the plugine just to show dialog boxes, then this plugin works perfectly fine. Integrating the plugin with ASP.NET works fine but prevents post back if you have server controls on the colorbox dialog box (which is actually an invisible div on the page).</description>
+    </item>
+    
+    <item>
+      <title>Infinite Scrolling In ASP.NET With jQuery</title>
+      <link>https://prashantkhandelwal.github.io/post/infinite-scrolling-in-aspnet-with-jquery/</link>
+      <pubDate>Sat, 28 Apr 2012 12:53:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/infinite-scrolling-in-aspnet-with-jquery/</guid>
+      <description>I didn&amp;rsquo;t create the whole solution by myself. The initial idea is from the All-In-One Code Framework sample. I was just customizing my BlogEngine and for one of the module I thought it would be nice not to use paging and I should go for infinite scrolling stuff. This idea seems cool to me and without wasting any time I just do a quick web search and I came across a solution which is a part of a All-In-One Code Framework.</description>
+    </item>
+    
+    <item>
+      <title>Awesome jQuery Image Plugins For Web Developers</title>
+      <link>https://prashantkhandelwal.github.io/post/awesome-jquery-image-plugins-for-web-developers/</link>
+      <pubDate>Sun, 22 Apr 2012 03:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/awesome-jquery-image-plugins-for-web-developers/</guid>
+      <description>I am not a web developer but still I love working with jQuery, CSS3, HTML5 and other web development frameworks. But as a programmer I love collect code snippets for my ease and store them on the cloud so I can get the access when I am in need and want to save my time while I am writing code. Out of the box I have a list of few image manipulation plugins which seems pretty impressive to me.</description>
+    </item>
+    
+    <item>
+      <title>BingMap.JS - Jquery Plugin For Bing Maps</title>
+      <link>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</link>
+      <pubDate>Sat, 10 Mar 2012 16:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</guid>
+      <description>Bing maps are out there for a long time now and is getting mature pretty fast. I have used Bing maps myself in few of my projects and I remember as a first time user I have a hard time configuring it according to my project requirement. To get myself out of the overhead I searched the web for a jquery plugin, but I can&amp;rsquo;t find a single jquery plugin for Bing Maps instead I found few for Google Maps.</description>
+    </item>
+    
+    <item>
+      <title>HTML5 File Drag and Drop Upload With jQuery and ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/html5-file-drag-and-drop-upload-with-jquery-and-aspnet/</link>
+      <pubDate>Sat, 28 Jan 2012 12:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/html5-file-drag-and-drop-upload-with-jquery-and-aspnet/</guid>
+      <description>I came across an article on Tutorialzine which demonstrate file drag and drop upload with jQuery and PHP. As a curious reader, I downloaded the sample files and took a look and also get it running on my LINUX VM. It worked like a charm. But I am a Windows user and .NET programmer, the question is how can I do the same in ASP.NET?
+So, to get myself started I used the same downloaded files that I used to check the PHP version of the file drag and drop.</description>
+    </item>
+    
+    <item>
+      <title>Upload and Show Image Without Post Back With Jquery</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-and-show-image-without-post-back-with-jquery/</link>
+      <pubDate>Sun, 11 Sep 2011 14:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-and-show-image-without-post-back-with-jquery/</guid>
+      <description>Previously in a lot of hurry I wrote a post on how to upload files in MVC3 with the help of Uploadify, a famous jQuery plugin to upload files. If you have not heard about it yet, then it is time for you to check and find out what this plugin can do for you. Appending my last post about this plugin (which was not very well written) I tried one more thing with it today.</description>
+    </item>
+    
+    <item>
+      <title>Social Counter: JQuery Plugin To Get Twitter, Facebook And Feed Readers Count</title>
+      <link>https://prashantkhandelwal.github.io/post/social-counter-jquery-plugin-to-get-twitter-facebook-and-feed-readers-count/</link>
+      <pubDate>Fri, 02 Sep 2011 16:53:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/social-counter-jquery-plugin-to-get-twitter-facebook-and-feed-readers-count/</guid>
+      <description>Appending my previous post, I have created a plugin in JQuery to get twitter followers count, facebook likes and feed readers count. In my previous post, I have shown a way to get the counts in ASP.NET and I have created this plugin so that everyone can use and show counts on their blogs or site.
+To get started add the two javascript files, one is the jquery file and the other one is the plugin file.</description>
+    </item>
+    
+    <item>
+      <title>Handling Text Changed Event In ASP.NET MVC 3 With JQuery</title>
+      <link>https://prashantkhandelwal.github.io/post/handling-text-changed-event-in-aspmvc-3-with-jquery/</link>
+      <pubDate>Sat, 16 Jul 2011 13:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/handling-text-changed-event-in-aspmvc-3-with-jquery/</guid>
+      <description>In my quest of learning MVC I came across many problems and here is one of them. I was trying to fire an event whenever a text changed event occurred. I am using JQuery to handle the text changed event but eventually the text changed event doesn&amp;rsquo;t seems to be working in MVC as it is working for a text box changed event in web forms. The solution I found seems to be working fine for me as I don&amp;rsquo;t want to fire an event on every key press.</description>
+    </item>
+    
+    <item>
+      <title>Prepare Your Site For IE9 With Pinify</title>
+      <link>https://prashantkhandelwal.github.io/post/prepare-your-site-for-ie9-with-pinify/</link>
+      <pubDate>Sat, 14 May 2011 23:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/prepare-your-site-for-ie9-with-pinify/</guid>
+      <description>This is great stuff. If you own a website or a blog you should use this excellent feature of pinning fav links of your site on user&amp;rsquo;s Windows 7 taskbar. Though this feature of IE9 was on hype since it&amp;rsquo;s beta realease. Now it&amp;rsquo;s time to use this feature for my blog. But before you start grab the latest stable version of the Pinify (formerly know as IE9ify) from Codeplex.</description>
+    </item>
+    
+    <item>
+      <title>Upload Files In RAZOR With jQuery Uploadify Plugin</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-files-in-razor-with-jquery-uploadify-plugin/</link>
+      <pubDate>Wed, 16 Mar 2011 16:35:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-files-in-razor-with-jquery-uploadify-plugin/</guid>
+      <description>A Few months back I wrote a post on how to use jQuery plugin Uploadify to upload single/multiple files without postback in ASP.NET. The program works similarly to simple file upload sites in its ease of use. Now a few days back I was working on a demo project which is on MVC 3 Razor and I use the same plugin without any problems. But the files that are being uploaded are uploaded to the root folder instead of the folder I specified to upload the files.</description>
+    </item>
+    
+    <item>
+      <title>Using jQuery To Get Your Tweets</title>
+      <link>https://prashantkhandelwal.github.io/post/using-jquery-to-get-your-tweets/</link>
+      <pubDate>Mon, 27 Dec 2010 16:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-jquery-to-get-your-tweets/</guid>
+      <description>If you are a blogger and using Twitter, then you must want to show some of your latest tweets on your blog space. I do have a custom widget for my blog which can display 3 of my latest tweets and I can customize it show more of my tweets. But the widgets cannot be used in every scenario and this is why some people find it difficult to use the widget provided by Twitter to display their tweets.</description>
+    </item>
+    
+    <item>
+      <title>Autocomplete With jQuery and ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</link>
+      <pubDate>Sun, 19 Dec 2010 01:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</guid>
+      <description>Building auto-complete feature with jQuery is easy and you can build this in no time. It&amp;rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&amp;rsquo;s begin up getting files under one hood.
+Use the below live links for jQuery auto-complete and CSS.
+&amp;lt;link rel=&#34;stylesheet&#34; href=&#34;http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css&#34; type=&#34;text/css&#34; /&amp;gt; &amp;lt;script type=&#34;</description>
+    </item>
+    
+    <item>
+      <title>Upload Multiple Files With jQuery &#39;Uploadify&#39;</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-multiple-files-with-jquery-uploadify/</link>
+      <pubDate>Sun, 12 Sep 2010 11:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-multiple-files-with-jquery-uploadify/</guid>
+      <description>I have found many web developers seeking for help to upload a file in AJAX style, I am not a web developer but among the list of people who used to search the web for some control, way or a workaround to do this. I found a .NET control to do this, but like all good controls&amp;hellip;.it wasn&amp;rsquo;t free. But the control worth it.
+But now we have an excellent open source plugin called Uploadify.</description>
+    </item>
+    
+    <item>
+      <title>Change Page Themes Dynamically Using JQuery Theme Roller</title>
+      <link>https://prashantkhandelwal.github.io/post/change-page-themes-dynamically-using-jquery-theme-roller/</link>
+      <pubDate>Sun, 04 Jul 2010 12:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/change-page-themes-dynamically-using-jquery-theme-roller/</guid>
+      <description>If you are using JQuery controls like date picker, accordion, progress bar, slider, tabs, dialog etc. You can set the theme of your choice or you can also allow the user to set the theme of their choice. For those folks who don’t know about the JQuery Theme Roller, then take a look at official Jquery site demonstrating the Jquery Theme Roller. The best part is when you select the theme from the theme roller control all the JQuery controls on the page will automatically inherit the color scheme of the theme.</description>
+    </item>
+    
+    <item>
+      <title>Calling ASP.NET Web Service Using Jquery - Part III - Fetch Data From SQL Server</title>
+      <link>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-iii-fetch-data-from-sql-server/</link>
+      <pubDate>Thu, 11 Mar 2010 01:29:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-iii-fetch-data-from-sql-server/</guid>
+      <description>My previous two posts on using Jquery for calling ASP.NET web service takes you to the basics of calling a web service using Jquery AJAX. In this last post of the series I will show hot to fetch data from the SQL Server through a web service.
+In this example I am going to show on how we can fetch data from SQL Server. I am using pretty well known Adventure Works database for this example.</description>
+    </item>
+    
+    <item>
+      <title>Calling ASP.NET Web Service Using Jquery - Part II - Passing Parameters</title>
+      <link>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-ii/</link>
+      <pubDate>Fri, 05 Mar 2010 18:35:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-ii/</guid>
+      <description>In my previous post I have shown with a simple example on how you call an ASP.NET web service using JQuery. In this post I will show how you on how can you pass parameters to the web method and get the result using the web service. If you have read my previous post, you have seen that we have just called a web method which returns a simple string back to us.</description>
+    </item>
+    
+    <item>
+      <title>Calling ASP.NET Web Service Using Jquery - Part I</title>
+      <link>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-i/</link>
+      <pubDate>Fri, 05 Mar 2010 01:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-i/</guid>
+      <description>Jquery is now one of the most favorite JavaScript frameworks to play around. It offers some more advance feature to the developers and UI designers to accomplish their task easily and more conveniently. Take an example of AJAX and think where you can face the problems when you have to deal with different browsers who support XMLHTTP request and the one who don’t. I remember, I use to initialize the AJAX’s XMLHTTP object keeping in mind what will be my client’s browser.</description>
+    </item>
+    
+    <item>
+      <title>Enable intellisense Jquery in Visual Studio 2008</title>
+      <link>https://prashantkhandelwal.github.io/post/enable-intellisense-jquery-in-visual-studio-2008/</link>
+      <pubDate>Fri, 15 Jan 2010 18:16:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/enable-intellisense-jquery-in-visual-studio-2008/</guid>
+      <description>Microsoft with Jquery team have added the intellisense support for VS2008. I am using Jquery for the past few months, but never thought that it would be great if there would be intellisense support for Jquery. I read Scott Gu’s post of enable intellisense support for Jquery in Visual Studio. The new Visual Studio 2010 comes pre-packed with Jquery intellisense support.</description>
+    </item>
+    
+  </channel>
+</rss>

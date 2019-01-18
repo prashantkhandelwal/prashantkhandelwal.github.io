@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Recurring Tasks Inside ASP.NET Applications Using HangFire • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Recurring Tasks Inside ASP.NET Applications Using HangFire"/>
+<meta name="twitter:description" content="This is open-source at its best. Running background task to work in context with ASP.NET was and is still a big deal for few developers. I user QueueUserWorkItem to schedule emails when a new comment is added on my blog. This makes sure that the UI is responsive and the user can close or navigate to other post. I have been working on enterprise applications for many years now and most of the long running tasks are running in the background i."/>
+
+<meta property="og:title" content="Recurring Tasks Inside ASP.NET Applications Using HangFire" />
+<meta property="og:description" content="This is open-source at its best. Running background task to work in context with ASP.NET was and is still a big deal for few developers. I user QueueUserWorkItem to schedule emails when a new comment is added on my blog. This makes sure that the UI is responsive and the user can close or navigate to other post. I have been working on enterprise applications for many years now and most of the long running tasks are running in the background i." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/" /><meta property="article:published_time" content="2014-06-15T07:39:00&#43;00:00"/>
+<meta property="article:modified_time" content="2014-06-15T07:39:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Recurring Tasks Inside ASP.NET Applications Using HangFire</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Jun 15, 2014
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/c">C#</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/sql">SQL</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/web">WEB</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>This is open-source at its best. Running background task to work in context with ASP.NET was and is still a big deal for few developers. I user QueueUserWorkItem to schedule emails when a new comment is added on my blog. This makes sure that the UI is responsive and the user can close or navigate to other post. I have been working on enterprise applications for many years now and most of the long running tasks are running in the background i.e. windows services.</p>
+
+<blockquote>
+<p>HangFire is not limited to ASP.NET applications, you can even use it in your console applications.</p>
+</blockquote>
+
+<p>HangFire is an open-source project which allows us to run recurring tasks within the ASP.NET application. No need of scheduling tasks and windows services. Everything will be within the ASP.NET application. When a new comment is added on my blog, an email is sent to my inbox as a notification to moderate it. In a normal scenario it will take a bit more than a normal time to add a comment because an email is also being sent to my inbox. To overcome this problem, I queued the mail process in the background like so:</p>
+
+<pre class="brush: csharp">
+bool commentSave = _db.AddComment(comment);
+if (commentSave)
+{
+    System.Threading.ThreadPool.QueueUserWorkItem(s=&gt; BlogEmail.SendEmail(comment));
+    return Json(new { message = "Thanks for your comment. The comment is now awaiting moderation" });
+}
+else
+    return Json(new { message = "There is an error while saving comment. Please try again later" });
+</pre>
+
+<p>As soon as a comment is added, user will be prompted that comment is added in the DB but the process of sending the email is scheduled in the background. But this approach has a drawback. What if the email sending is failed? As the admin of my blog, will I be able to see the status of the process? HangFire resolves all these questions and it comes with an awesome HangFire monitor which displays the status of all the background tasks in real-time. I will discuss about the HangFire monitor later in this post, but first let&rsquo;s get started with HangFire.</p>
+
+<h4 id="installing-hangfire">Installing HangFire</h4>
+
+<p>HangFire is available on <a href="https://www.nuget.org/packages/HangFire/0.9.1">NuGet</a>. Firing the below command will automatically add the references in your project and takes care of all the configuration.</p>
+
+<pre class="brush: plain">
+Install-Package HangFire
+Attempting to resolve dependency 'HangFire.SqlServer (= 0.9.1)'.
+Attempting to resolve dependency 'HangFire.Core (= 0.9.1)'.
+Attempting to resolve dependency 'Common.Logging (= 2.1.2)'.
+Attempting to resolve dependency 'Newtonsoft.Json (= 5.0.0)'.
+Attempting to resolve dependency 'ncrontab (= 1.0.0)'.
+Attempting to resolve dependency 'Dapper (= 1.13)'.
+Attempting to resolve dependency 'HangFire.Web (= 0.9.1)'.
+Attempting to resolve dependency 'CronExpressionDescriptor (= 1.10.1)'.
+Attempting to resolve dependency 'WebActivatorEx (= 2.0.1)'.
+Attempting to resolve dependency 'Microsoft.Web.Infrastructure (= 1.0.0.0)'.
+Installing 'Common.Logging 2.1.2'.
+Successfully installed 'Common.Logging 2.1.2'.
+Installing 'ncrontab 1.0.0'.
+Successfully installed 'ncrontab 1.0.0'.
+Installing 'HangFire.Core 0.9.1'.
+Successfully installed 'HangFire.Core 0.9.1'.
+Installing 'Dapper 1.13'.
+Successfully installed 'Dapper 1.13'.
+Installing 'HangFire.SqlServer 0.9.1'.
+Successfully installed 'HangFire.SqlServer 0.9.1'.
+Installing 'CronExpressionDescriptor 1.10.1'.
+Successfully installed 'CronExpressionDescriptor 1.10.1'.
+Installing 'WebActivatorEx 2.0.1'.
+Successfully installed 'WebActivatorEx 2.0.1'.
+Installing 'HangFire.Web 0.9.1'.
+Successfully installed 'HangFire.Web 0.9.1'.
+Installing 'HangFire 0.9.1'.
+Successfully installed 'HangFire 0.9.1'.
+Adding 'Common.Logging 2.1.2' to HangfireDemo.
+Successfully added 'Common.Logging 2.1.2' to HangfireDemo.
+Adding 'ncrontab 1.0.0' to HangfireDemo.
+Successfully added 'ncrontab 1.0.0' to HangfireDemo.
+Adding 'HangFire.Core 0.9.1' to HangfireDemo.
+Successfully added 'HangFire.Core 0.9.1' to HangfireDemo.
+Adding 'Dapper 1.13' to HangfireDemo.
+Successfully added 'Dapper 1.13' to HangfireDemo.
+Adding 'HangFire.SqlServer 0.9.1' to HangfireDemo.
+Successfully added 'HangFire.SqlServer 0.9.1' to HangfireDemo.
+Adding 'CronExpressionDescriptor 1.10.1' to HangfireDemo.
+Successfully added 'CronExpressionDescriptor 1.10.1' to HangfireDemo.
+Adding 'WebActivatorEx 2.0.1' to HangfireDemo.
+Successfully added 'WebActivatorEx 2.0.1' to HangfireDemo.
+Adding 'HangFire.Web 0.9.1' to HangfireDemo.
+Successfully added 'HangFire.Web 0.9.1' to HangfireDemo.
+Adding 'HangFire 0.9.1' to HangfireDemo.
+Successfully added 'HangFire 0.9.1' to HangfireDemo.
+</pre>
+
+<p>I am using HangFire with ASP.NET MVC application. Here are the few things that you need to configure before you dive in. When installing HangFire via NuGet, it adds <code>HangFireConfig.cs</code> under <code>App_Start</code> folder. HangFire supports Redis, SQL Server, SQL Azure or MSMQ. I am using SQL Server in this demo. The reason we require this storage because it is being used by the HangFire monitor to display the real-time data of the jobs. To configure HangFire to use SQL Server, open HangFireConfig.cs file and change the connection string as per your SQL Server installation.</p>
+
+<pre class="brush: csharp">
+JobStorage.Current = new SqlServerStorage(
+    @"Server=GHOST\SERVER; Database=Jobs;user id=sa; password=pass#w0rd1;");
+</pre>
+
+<p>When the application first starts, all required database objects are created.</p>
+
+<p><img src="/images/sql-object-browser.png" alt="SQL Server DB for HangFire" /></p>
+
+<p>You can find the scripts inside the downloaded package <code>HangFire.SqlServer.0.9.1\Tools\install.sql</code>. The jobs and monitor will be using this database to show me the real-time status of the jobs running in the background. To view the HangFire monitor, simply navigate to <code>http://&lt;sitename&gt;/hangfire.axd</code>. As it is a handler, you can see it in your web.config file. Let&rsquo;s see it in action:</p>
+
+<p><img src="/images/hangfire-dashboard.png" alt="HangFire Dashboard" /></p>
+
+<p>The navigation pane on the right, lets you see the jobs and their status. It let&rsquo;s you even see the queues which are currently running.</p>
+
+<h4 id="scheduling-the-jobs">Scheduling the Jobs</h4>
+
+<p>Scheduling jobs using HangFire is easier then I thought it would be. Talking about the same example from my blog which sends email in my inbox when a new comment is added. If I want to schedule the mail send process as a background job I can do it easily using the <code>BackgroundJob</code> class.</p>
+
+<pre class="brush: csharp">
+bool commentSave = _db.AddComment(comment);
+if (commentSave)
+{
+    BackgroundJob.Enqueue(() => BlogEmail.SendEmail(comment));
+    return Json(new { message = "Thanks for your comment. The comment is now awaiting moderation" });
+}
+else
+    return Json(new { message = "There is an error while saving comment. Please try again later" });
+</pre>
+
+<p>As I require it to run only once I just have queue it using the <code>BackgroundJob.Enqueue()</code> method. I can also delay the execution of the job using the <code>Schedule</code> method of the <code>BackgroundJob</code> class.</p>
+
+<pre class="brush: csharp">
+bool commentSave = _db.AddComment(comment);
+if (commentSave)
+{
+    BackgroundJob.Schedule(() => BlogEmail.SendEmail(comment), TimeSpan.FromMinutes(60));
+    return Json(new { message = "Thanks for your comment. The comment is now awaiting moderation" });
+}
+else
+    return Json(new { message = "There is an error while saving comment. Please try again later" });
+</pre>
+
+<p>What if the email sending is failed? The <code>SendMail</code> method throws an exception that the mail sending is failed. HangFire will handle this by default and it will retry automatically 3 more times after a consecutive delay after each retry. But if I want to retry it more than 3 times then I can make use of the <code>AutomaticRetry</code> attribute and pass the number of retries I want, something like this:</p>
+
+<pre class="brush: csharp">
+[AutomaticRetry(Attempts = 5)]
+public bool SendEmail(Comment comment)
+{
+    //Email code
+}
+</pre>
+
+<p>Let&rsquo;s say if I do have another method that I want to run every minute (it&rsquo;s an overkill for my blog) then I will make use of <code>RecurringJob</code> class.</p>
+
+<pre class="brush: csharp">
+RecurringJob.AddOrUpdate(() => Storage.PunchIt(), Cron.Minutely);
+</pre>
+
+<p><code>Cron</code> enum allows me to schedule a job daily, weekly, monthly, yearly, hourly and minutely. Now as my job is schedule in the background, time to take a look at HangFire monitor.</p>
+
+<p><img src="/images/recurring-jobs.png" alt="Recurring Jobs in HangFire" /></p>
+
+<p><img src="/images/succeeded-jobs.png" alt="Succeeded Jobs in HangFire" /></p>
+
+<p>I have no idea why my Recurring Jobs screen is showing Next and Last execution time as 44 years ago. But you can see the Succeeded Jobs with a minute interval (#5 and #4). HangFire uses persistent storage and therefore you can trigger the job at your will or remove it when you feel like it. That means you configure the job in the code and manage it from the HangFire monitor.</p>
+
+<h4 id="what-else-you-can-do-with-hangfire">What else you can do with HangFire</h4>
+
+<p>I just showed you how easy it can be scheduling jobs using HangFire. But there are more advanced topics which you should be looking into for more complex implementation. HangFire supports logging, dependency injection using Ninject, multiple queue processing and more.</p>
+
+<h4 id="references">References</h4>
+
+<ul>
+<li><a href="https://github.com/odinserj/HangFire">HangFire - Github</a></li>
+<li><a href="http://hangfire.io/">HangFire.io - Offical site</a></li>
+<li><a href="http://docs.hangfire.io/en/latest/advfeatures.html">HangFire - Advance Features</a></li>
+<li><a href="http://docs.hangfire.io/en/latest/quickstart.html">HangFire - Quick Start</a></li>
+<li><a href="https://www.nuget.org/packages?q=hangfire">NuGet - HangFire libraries</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/building-real-time-applications-with-firebase-and-angularjs/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Building Real Time Applications With Firebase And AngularJS</span>
+    </a>
+    
+    
+    <a href="/post/how-generic-the-code-can-be-resolving-type-t-at-compile-time/" class="navigation-next">
+      <span class="navigation-tittle">How Generic The Code Can Be - Resolving Type T at Compile Time</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

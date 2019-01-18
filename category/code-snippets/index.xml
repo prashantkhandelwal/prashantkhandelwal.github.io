@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code Snippets on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/code-snippets/</link>
+    <description>Recent content in Code Snippets on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 02 Sep 2011 03:40:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/code-snippets/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Get Twitter, Facebook And Feed Readers Count In ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/</link>
+      <pubDate>Fri, 02 Sep 2011 03:40:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/</guid>
+      <description>I am working on some web stuff these days and surfing around to look at some of the best web developer&amp;rsquo;s work around the web. As I was surfing I came across one of the most popular and reputed web tutorials site Nettus+. I am not going talking about any tutorial or article published on this site, but one thing that attracts my attention was the way they are displaying their followers count on twitter, facebook likes and RSS readers.</description>
+    </item>
+    
+    <item>
+      <title>Syntax Highlighter In WPF</title>
+      <link>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</link>
+      <pubDate>Mon, 09 May 2011 16:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</guid>
+      <description>If you are writing code for a while now then by now you must have a lot of code snippets which you will be using in your application development, and you use them because they save a lot of development time. At this moment I have now a huge collection of code snippets which includes functions, classes, extension methods and functions that I have extracted from different open source applications.</description>
+    </item>
+    
+    <item>
+      <title>Code Snippet: Remove Duplicates From ArrayList</title>
+      <link>https://prashantkhandelwal.github.io/post/code-snippet-remove-duplicates-from-arraylist/</link>
+      <pubDate>Sat, 30 Apr 2011 02:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/code-snippet-remove-duplicates-from-arraylist/</guid>
+      <description>Two methods to remove Duplicates from ArrayList.
+Method 1:
+private static ArrayList RemoveDuplicates(ArrayList arrList) { ArrayList list = new ArrayList(); foreach (string item in arrList) { if (!list.Contains(item)) { list.Add(item); } } return list; }  Method 2:
+private static string[] RemoveDuplicates(ArrayList arrList) { HashSet&amp;lt;string Hset = new HashSet&amp;lt;string((string[])arrList.ToArray(typeof(string))); string[] Result = new string[Hset.Count]; Hset.CopyTo(Result); return Result; }   Note: I found this method on the net and therefore I am sharing it as it is.</description>
+    </item>
+    
+    <item>
+      <title>Code Snippet: Export DataGridView To Excel With Columns</title>
+      <link>https://prashantkhandelwal.github.io/post/code-snippet-export-datagridview-to-excel-with-columns/</link>
+      <pubDate>Tue, 25 Jan 2011 16:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/code-snippet-export-datagridview-to-excel-with-columns/</guid>
+      <description>This is among one of the best code snippet I have and using since long to export the datagridview to excel. The best part of this code snippet is that it just don&amp;rsquo;t uses the excel interop, so you need not to worry about the Office version or PIAs installed at user&amp;rsquo;s machine. What actualy is needed is just a Reflection namespace - System.Reflection and it will bind the data to the instance of the excel application.</description>
+    </item>
+    
+    <item>
+      <title>Disable &#39;X&#39; Close Button On Your Windows Form Application</title>
+      <link>https://prashantkhandelwal.github.io/post/disable-x-close-button-on-your-windows-form-application/</link>
+      <pubDate>Sun, 12 Dec 2010 07:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/disable-x-close-button-on-your-windows-form-application/</guid>
+      <description>Recently, someone on MSDN forums asked this question on how to disable the &amp;ldquo;X&amp;rdquo; a.k.a. close button in his windows form application so the user is forced to close the application from the cancel button on the form and not from the close button. He wanted this for his application which requires registration first before a user can start using his application.
+I don&amp;rsquo;t know the answer so I bing arond a bit and find a solution posted by someone though I don&amp;rsquo;t have the name but it worked like a charm&amp;hellip;.</description>
+    </item>
+    
+    <item>
+      <title>A Time Wrapper Class in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/a-time-wrapper-class-in-c/</link>
+      <pubDate>Tue, 30 Nov 2010 13:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/a-time-wrapper-class-in-c/</guid>
+      <description>I was just surfing the net in search for some fundoo tutorial on WPF and by chance (I don&amp;rsquo;t meant to visit that site), I get this class which I feel is pretty helpful. A simple wrapper class to conver time. the class allows you to convert:
+ To Days To Hours To Minutes To Seconds To MilliSeconds  This can be pretty usefull. The class is as follows:
+using System; public static class TimeSpanUtil { #region To days public static double ConvertMillisecondsToDays(double milliseconds) { return TimeSpan.</description>
+    </item>
+    
+    <item>
+      <title>How To Find Whether The Machine Is of 32-Bit/64-Bit Architecture</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-find-whether-the-machine-is-32-bit-64-bit/</link>
+      <pubDate>Thu, 13 May 2010 22:22:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-find-whether-the-machine-is-32-bit-64-bit/</guid>
+      <description>The easiest way to find out the processor architecture is to use the Environment class GetEnvironmentVariable method.
+Console.WriteLine(Environment.GetEnvironmentVariable(&#34;PROCESSOR_ARCHITECTURE&#34;));  This will print the processor architecture on the console window i.e. x86 and x64 for 32-bit and 64-bit respectively.</description>
+    </item>
+    
+    <item>
+      <title>Removing Duplicates from a List in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/removing-duplicates-from-a-list-in-c/</link>
+      <pubDate>Thu, 24 Dec 2009 18:25:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/removing-duplicates-from-a-list-in-c/</guid>
+      <description>For more details and detailed explaination of the code visit this link.
+static List removeDuplicates(List inputList) { Dictionary uniqueStore = new Dictionary(); List finalList = new List(); foreach (string currValue in inputList) { if (!uniqueStore.ContainsKey(currValue)) { uniqueStore.Add(currValue, 0); finalList.Add(currValue); } } return finalList; }  </description>
+    </item>
+    
+    <item>
+      <title>Retrieve Key from Value in Hash Table</title>
+      <link>https://prashantkhandelwal.github.io/post/retrieve-key-from-value-in-hash-table/</link>
+      <pubDate>Wed, 16 Dec 2009 02:19:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/retrieve-key-from-value-in-hash-table/</guid>
+      <description>Working with hash tables is pretty simple but few days back I was having a problem in retrieving a key from a value in hash table. I was bit lazy to find a way myself, so I searched the net and here is what I got&amp;hellip;.a simple piece of code which lead to me to complete my task and so I thought I should share it with everyone here.
+public string FindKey(string Value, Hashtable HT) { string Key = &amp;ldquo;&amp;rdquo;; IDictionaryEnumerator e = HT.</description>
+    </item>
+    
+    <item>
+      <title>Read/Write settings to INI File using C#</title>
+      <link>https://prashantkhandelwal.github.io/post/readwrite-settings-to-ini-file-using-c/</link>
+      <pubDate>Wed, 21 Oct 2009 18:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/readwrite-settings-to-ini-file-using-c/</guid>
+      <description>When we design application we always face problems to save settings for the application and to achieve that we use different options available to us. A very common method to use in accordance of complexity XML files, Registry, Application.config or other/normal files. Best option is to use application configuration file but it seems that most of the people are not fully aware with the usage of the application configuration file. I will discuss late on the application configuration file a.</description>
+    </item>
+    
+    <item>
+      <title>C# Method: Encrypting a string using MD5 algorithm</title>
+      <link>https://prashantkhandelwal.github.io/post/c-method-encrypting-a-string-using-md5-algorithm/</link>
+      <pubDate>Mon, 20 Jul 2009 00:40:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/c-method-encrypting-a-string-using-md5-algorithm/</guid>
+      <description>Encrypting a string using the MD5 algorithm
+This C# method will encrypt any string using MD5 algorithm. It generates the same hash as the PHP MD5() function.
+using System;using System.Collections.Generic; using System.Linq;using System.Text; using System.Text.RegularExpressions; using System.Security.Cryptography; namespace EncryptString { class Program { public static string EncodePassword(string originalPassword) { Byte[] originalBytes; Byte[] encodedBytes; MD5 md5; md5 = new MD5CryptoServiceProvider(); originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword); encodedBytes = md5.ComputeHash(originalBytes); return Regex.Replace(BitConverter.ToString(encodedBytes), &#34;-&#34;, &#34;&#34;).ToLower(); } static void Main(string[] args) { Console.</description>
+    </item>
+    
+    <item>
+      <title>GUIDs in C# / SQL</title>
+      <link>https://prashantkhandelwal.github.io/post/guids-in-c-sql/</link>
+      <pubDate>Fri, 26 Jun 2009 15:37:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/guids-in-c-sql/</guid>
+      <description>GUID pronounced as goo&amp;rsquo;id - Globally unique identifier is a 128-bit integer that can be used to uniquely identify something. If you want to identify the large collection of data GUID is the best approach in my view. Also you can use the autoincremental integer to identify records, this is the basic approach programmer&amp;rsquo;s use.
+GUID method can be found under the System namespace and it also provides some overloads. Here is how we can use the GUID overloads:</description>
+    </item>
+    
+    <item>
+      <title>Set the default printer for printing programatically</title>
+      <link>https://prashantkhandelwal.github.io/post/set-the-default-printer-for-printing-programatically/</link>
+      <pubDate>Tue, 16 Jun 2009 15:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/set-the-default-printer-for-printing-programatically/</guid>
+      <description>You need to print the document but you don&amp;rsquo;t want to go to control panel or printer and faxes options and just want to get it changed automatically. You can even set the shared local network printer with this code.
+Just with the code you can override the system settings and change the default printer for your system.
+You need to use the namespace so in order to use the DLLImport attribute.</description>
+    </item>
+    
+    <item>
+      <title>Shoutdown/Logoff/Hibernate/Stand By - Use CODE to do &#39;em all</title>
+      <link>https://prashantkhandelwal.github.io/post/shoutdownlogoffhibernatestand-by-use-code-to-do-em-all/</link>
+      <pubDate>Fri, 12 Jun 2009 17:32:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/shoutdownlogoffhibernatestand-by-use-code-to-do-em-all/</guid>
+      <description>Step 1: Add the following line to use the namespace. This is necessary as we need to use the User32.dll with DLLImport attribute.
+using System.Runtime.InteropServices;  Step 2: Now add the below line to your code to use the methods from the User32.dll.
+[DllImport(&#34;user32.dll&#34;)] public static extern void LockWorkStation(); [DllImport(&#34;user32.dll&#34;)] public static extern int ExitWindowsEx(int uFlags, int dwReason);  Step 3: Once you complete the above two steps, you can now call the methods on button click or after some or with some particular event or the way you like.</description>
+    </item>
+    
+    <item>
+      <title>Convert ASCII values from hex to characters</title>
+      <link>https://prashantkhandelwal.github.io/post/convert-ascii-values-from-hex-to-characters/</link>
+      <pubDate>Sat, 30 May 2009 15:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/convert-ascii-values-from-hex-to-characters/</guid>
+      <description>This C# code takes in a list of ASCII values (hexadecimal) and shows the actual characters behind, thus converting hex values to strings.
+// An object storing the hex value string HexValue = &#34;4765656B7065646961&#34;; // An object storing the string value string StrValue = &#34;&#34;; // While there&#39;s still something to convert in the hex string while (HexValue.Length  0) { // Use ToChar() to convert each ASCII value (two hex digits) to the actual character StrValue += Convert.</description>
+    </item>
+    
+    <item>
+      <title>Convert Numbers to Words in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/convert-numbers-to-words-in-c/</link>
+      <pubDate>Sun, 24 May 2009 13:18:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/convert-numbers-to-words-in-c/</guid>
+      <description>Use the below code to convert numbers to words and currency to word programatically (Check the code below). Instead you can create a DLL and use it or whatever the way you like.
+Usage:
+Download: Num2Wrd.cs (8.30 kb)</description>
+    </item>
+    
+  </channel>
+</rss>

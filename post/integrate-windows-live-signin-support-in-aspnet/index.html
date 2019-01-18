@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Integrate Windows Live SignIn Support In ASP.NET • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Integrate Windows Live SignIn Support In ASP.NET"/>
+<meta name="twitter:description" content="Last year I wrote a post on how you can integrate OpenID support in your ASP.NET application. Few days back as usual I was chasing Windows Live SDK updates on Twitter and yes the most awaited SkyDrive API was made available to all the developers. I will be writing a post later on how to upload files using SkyDrive API.
+Setting up the application To integrate Windows Live Sign-In support I have downloaded the LiveService samples from Github and take a look at ASP."/>
+
+<meta property="og:title" content="Integrate Windows Live SignIn Support In ASP.NET" />
+<meta property="og:description" content="Last year I wrote a post on how you can integrate OpenID support in your ASP.NET application. Few days back as usual I was chasing Windows Live SDK updates on Twitter and yes the most awaited SkyDrive API was made available to all the developers. I will be writing a post later on how to upload files using SkyDrive API.
+Setting up the application To integrate Windows Live Sign-In support I have downloaded the LiveService samples from Github and take a look at ASP." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/integrate-windows-live-signin-support-in-aspnet/" /><meta property="article:published_time" content="2012-07-28T12:35:00&#43;00:00"/>
+<meta property="article:modified_time" content="2012-07-28T12:35:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Integrate Windows Live SignIn Support In ASP.NET</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Jul 28, 2012
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/api">API</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Last year I wrote a post on how you can <a href="http://midnightprogrammer.net/post/Add-Google-Login-Support-In-ASPNET-With-OAuth.aspx">integrate OpenID support in your ASP.NET application</a>. Few days back as usual I was chasing Windows Live SDK updates on Twitter and yes the most awaited SkyDrive API was made available to all the developers. I will be writing a post later on how to upload files using SkyDrive API.</p>
+
+<h4 id="setting-up-the-application">Setting up the application</h4>
+
+<p>To integrate Windows Live Sign-In support I have downloaded the <a href="https://github.com/liveservices/LiveSDK">LiveService samples</a> from <a href="https://github.com/">Github</a> and take a look at ASP.NET sample. All the hard work has been done for you from before. First you need to create an application at <a href="https://manage.dev.live.com/">https://manage.dev.live.com</a>. Once you create an application, you will get the <code>Client ID</code> and <code>Client secret</code> for the application which we will be using in our application.</p>
+
+<p><img src="/images/live-api-settings.png" alt="Windows Live API Settings Page" /></p>
+
+<p>Now you have the Client ID and Client secret, you then need to update the same in the Callback.aspx code-behind. The redirect domain will be the name of the domain. In my case I have hosted the complete solution which you can try <a href="http://midnightprogrammer.net/live/oauthsample/default.html">here</a>. The pretty looking Sign In button rendered on the page is from the JavaScript code.</p>
+
+<p><img src="/images/live-llivetest.png" alt="Windows Live Test Page" /></p>
+
+<p>When you click on the button it will open a window which will ask your Live or Hotmail credentials.</p>
+
+<p><img src="/images/live-login-page.png" alt="Windows Live Login Page" /></p>
+
+<p>After you successfully authenticated from Live service, it will return you the authentication code. For your ease I have made the authentication code (along with the URL that retrieves the user&rsquo;s image) available to you through a JavaScript alert.</p>
+
+<p><img src="/images/live-token-alert.png" alt="Windows Live Token Alert Dialog" /></p>
+
+<p>Don&rsquo;t waste your time in looking into the alert message. Just press CTRL+C to copy the whole message and paste it into notepad. Now it&rsquo;s time to look into it carefully. If you quickly open a new tab in your browser and paste the copied URL, then you will get the image of the user who is authenticated. To get more information about the user, modify the URL in the notepad to this:</p>
+
+<pre class="brush:plain">
+https://apis.live.net/v5.0/me?access_token=EwBAAq1DBAAUlbRWyAJjK5w968Ru3Cyt/6GvwXwAAf/Zr2CM5/qilrH.......
+</pre>
+
+<p>Note that from the URL above I have removed <code>/picture</code>. Now hit the new URL to the browser again, and this time the output has more information:</p>
+
+<p><img src="/images/live-response-user.png" alt="Windows Live user details" /></p>
+
+<p>The question comes here is: What if I want to get the contacts of the authenticated user or want to get the list of folders in his/her SkyDrive? To understand this, consider that Windows Live is a big application which is built up with small applications like mail, SkyDrive, calendar etc. Now if someone wants to access any part of the application we need to specify which part of the application we need to access. For us (programmers) it is called <code>Scope</code>. The test application I am demonstrating here has the following scopes: <code>wl.signin</code>, <code>wl.basic</code>, <code>wl.offline_access</code>, <code>wl.skydrive</code>. To grant access to your application you should provide the correct scopes in your application. To know more about scopes read <a href="http://msdn.microsoft.com/en-us/library/live/hh243646.aspx">here</a>.</p>
+
+<p>After everything went fine and I was successfully authenticated I get my picture with Windows Live (it&rsquo;s 2 year old) and the Sign in button changed to Sign out:</p>
+
+<p><img src="/images/live-user-pic.png" alt="Windows Live user image" /></p>
+
+<p>You can also display other user information, if you wish. I have compiled all the files under one hood for your ease and you only have to create a new application, get the Client ID and Client secret and update it into the application.</p>
+
+<p><strong>Download</strong>: <a href="/files/Live-SignIn.zip">Live-SignIn.zip (9.71 kb)</a></p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">MP3APP - A Web Application To Get Lyrics, Album Name, Album Art and More</span>
+    </a>
+    
+    
+    <a href="/post/deploying-net-application-to-appharbor-using-git/" class="navigation-next">
+      <span class="navigation-tittle">Deploying .NET Application To Appharbor Using Git</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

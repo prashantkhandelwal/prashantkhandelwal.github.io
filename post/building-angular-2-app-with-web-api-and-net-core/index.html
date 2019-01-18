@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Building Angular 2 App With Web API And .NET Core • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Building Angular 2 App With Web API And .NET Core"/>
+<meta name="twitter:description" content="Setting up the new Angular 2 app with Web API and .NET core is easy but can be a bit tricky. The older beta releases of Angular 2 works fine as there are not many files to refer and to work with. When I started using Angular 2 it was in RC1 and the way the files are being referenced in the app is bit different than the older versions of Angular 2."/>
+
+<meta property="og:title" content="Building Angular 2 App With Web API And .NET Core" />
+<meta property="og:description" content="Setting up the new Angular 2 app with Web API and .NET core is easy but can be a bit tricky. The older beta releases of Angular 2 works fine as there are not many files to refer and to work with. When I started using Angular 2 it was in RC1 and the way the files are being referenced in the app is bit different than the older versions of Angular 2." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/building-angular-2-app-with-web-api-and-net-core/" /><meta property="article:published_time" content="2016-05-21T18:45:00&#43;00:00"/>
+<meta property="article:modified_time" content="2016-05-21T18:45:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Building Angular 2 App With Web API And .NET Core</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> May 21, 2016
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>Setting up the new Angular 2 app with Web API and .NET core is easy but can be a bit tricky. The older beta releases of Angular 2 works fine as there are not many files to refer and to work with. When I started using Angular 2 it was in RC1 and the way the files are being referenced in the app is bit different than the older versions of Angular 2. I don&rsquo;t want to repeat these steps again and again so I put up a Github repo for this seed project. You clone it and hit F5 and you will have your Angular 2 app with Web API.</p>
+
+<blockquote>
+<p>At the time of writing this post I am using .NET Core version 1.0.0-preview1-002702. The complete seed project is available on <a href="https://github.com/prashantkhandelwal/Angular2WebAPI-Seed">GitHub</a>.</p>
+</blockquote>
+
+<p>Here is how I did it. Select <code>ASP.NET Core Web Application (.NET Core)</code>. I have installed the new .NET Core RC2. Name the project as you like.</p>
+
+<p><img src="/images/vs-new-project.png" alt="Visual Studio New Project" /></p>
+
+<p>Select the <code>Web API</code> project template.</p>
+
+<p><img src="/images/vs-new-add-api.png" alt="Visual Studio Add Web API" /></p>
+
+<p>After the project creation is successfull. The first thing is to create a <code>Views</code> folder. The folder structure is like the same like it is for MVC application. This is how the folder structure looks like.</p>
+
+<p><img src="/images/vs-view-project-files.png" alt="Visual Studio Project Files View" /></p>
+
+<p>Because its a a Web API project, by default it will not render the views and therefore we have to add some dependencies in <code>project.json</code> file.</p>
+
+<pre class="brush: plain">
+"Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
+"Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0-rc2-final",
+"Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0-rc2-final"
+</pre>
+
+<p>The <code>project.json</code> file is different than that of the older version of the .NET Core. You will see the difference when you see it.
+Next we set the routes for the views we have in the <code>Startup.cs</code> file.</p>
+
+<pre class="brush: csharp">
+app.UseMvc(routes =&gt;
+{
+    routes.MapRoute("default",
+                    "{controller=Home}/{action=Index}/{id?}");
+ 
+    routes.MapWebApiRoute("defaultApi",
+                          "api/{controller}/{id?}");
+});
+</pre>
+
+<p>The routes are now set and you can run the application and check if you can see the view or not. Once that is set, let start adding the support for Angular. Here is the list of the files which we need to add.</p>
+
+<p><code>tsconfig.json</code> file</p>
+
+<p><img src="/images/add-tsconfig-file.png" alt="Add tsconfig.json file" /></p>
+
+<p>Add the below code to the file and save it.</p>
+
+<pre class="brush: plain">
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "system",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "rootDir": "wwwroot",
+    "outDir": "wwwroot",
+    "listFiles": true,
+    "noLib": false,
+    "diagnostics": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
+</pre>
+
+<p><code>typings.json</code> file</p>
+
+<p>Add a blank <code>.json file</code> and name it <code>typings.json</code></p>
+
+<p><img src="/images/add-typings.json.png" alt="Add typings.json file" /></p>
+
+<p>Add below lines to the <code>typings.json</code> file.</p>
+
+<pre class="brush: plain">
+{
+  "ambientDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160412134438"
+  }
+}
+</pre>
+
+<p>As per the official <a href="https://angular.io/docs/ts/latest/quickstart.html">Angular documentation</a>, we will stick with <code>NPM</code> to fulfill the client-side dependencies. Start with adding new <code>npm Configuration File</code>. The content of the <code>NPM</code> file is almost the same, but I made few changes as per my requirement. Here is the complete configuration file.</p>
+
+<p><img src="/images/npm-configuration-file.png" alt="NPM Configuration File" /></p>
+
+<pre class="brush: plain">
+{
+  "name": "Angular2WebAPI-Seed",
+  "version": "1.0.0",
+  "scripts": {
+    "postinstall": "typings install"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/http": "2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
+    "@angular/router": "2.0.0-rc.1",
+    "@angular/router-deprecated": "2.0.0-rc.1",
+    "@angular/upgrade": "2.0.0-rc.1",
+ 
+    "lodash": "4.12.0",
+    "systemjs": "0.19.27",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "^0.6.12",
+    "angular2-in-memory-web-api": "0.0.7",
+    "bootstrap": "^3.3.6"
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "concurrently": "^2.0.0",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1"
+  }
+}
+</pre>
+
+<p>Notice the <code>postinstall</code> section in the npm configuration file. In this section we are installing the types required by our Angular 2 application. Now we can start setting up the Angular stuff in the <code>wwwroot</code> folder. Create an <code>app</code> and <code>js</code> folder inside this folder. Inside <code>app</code> folder create a new <code>.ts</code> file (TypeScript file). Here is the folder structure looks like in the <code>wwwroot</code> folder.</p>
+
+<p><img src="/images/angular-files.png" alt="Angular Files Structure" /></p>
+
+<p>You can see a <code>system.config.js</code> file is the same as you can see the Angular quickstart guide. I just have map the paths for the dependencies so that can be loaded without any problem. The <code>main.ts</code> file will be the main bootstrapper and <code>app.component.ts</code> file is the component file which will render the content on the page. At this point running the application will fail and it will give you several warnings and errors. To resolve that we need to add the references and we can do this easily by using a gulp file. The gulp file will automate the copying of dependencies in the <code>wwwroot</code> folder and ease our task.</p>
+
+<p><img src="/images/add-gulp-config-file.png" alt="Add Gulp Configuration File" /></p>
+
+<p>The content of the gulp file in this case looks like this.</p>
+
+<pre class="brush: plain">
+/// <binding BeforeBuild='default' />
+ 
+var _ = require('lodash');
+var gulp = require('gulp');
+ 
+var js = [
+    'node_modules/zone.js/dist/zone.min.js',
+    'node_modules/systemjs/dist/system.js',
+    'node_modules/reflect-metadata/Reflect.js',
+    'node_modules/es6-shim/es6-shim.min.js'
+];
+ 
+var map = [
+    'node_modules/es6-shim/es6-shim.map',
+    'node_modules/reflect-metadata/reflect.js.map',
+    'node_modules/systemjs/dist/system.js.map'
+];
+ 
+var folders = [
+    'node_modules/@angular/**/*.*',
+    'node_modules/rxjs/**/*.*'
+];
+ 
+gulp.task('copy-js', function () {
+    _.forEach(js, function (file, _) {
+        gulp.src(file)
+       .pipe(gulp.dest('./wwwroot/js'))
+    });
+});
+ 
+gulp.task('copy-map', function () {
+    _.forEach(map, function (file, _) {
+        gulp.src(file)
+        .pipe(gulp.dest('./wwwroot/js'))
+    });
+});
+ 
+gulp.task('copy-folders', function () {
+    _.forEach(folders, function (folder) {
+        gulp.src(folder, { base: 'node_modules' })
+            .pipe(gulp.dest('./wwwroot/js'))
+    });
+})
+ 
+gulp.task('default', ['copy-js', 'copy-map', 'copy-folders']);
+</pre>
+
+<p>Notice the very first line in the file above. We want to execute the task on every time before the build is triggered. The gulp file will only be copying the required files to the <code>js</code> folder and other unnecessary files will not be required. After the task is executed here is the how the final directiry structure will look like under <code>wwwroot</code>.</p>
+
+<p><img src="/images/angular-wwwroot-content.png" alt="Angular wwwroot content" /></p>
+
+<p>Depending on the selector you have in your component, you need to add the selector to your view. In my case the selector is <code>app</code>, hence add <code>&lt;app&gt;&lt;/app&gt;</code> in your <code>Index.cshtml</code> file.</p>
+
+<p>After you set up the index page, there is one more thing that you have to do is to set the launch URL.</p>
+
+<p><img src="/images/launch-settings.png" alt="App Launch Settings" /></p>
+
+<p>The URL may change and differ as per your API endpoint. Press F5 to run the application.</p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/dev-buzz-3-bookmarks/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Dev Buzz #3 - Bookmarks</span>
+    </a>
+    
+    
+    <a href="/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/" class="navigation-next">
+      <span class="navigation-tittle">Visualizing ADXL345 Accelerometer Output In Windows Forms From Raspberry PI 2</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

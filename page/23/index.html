@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+
+<title>Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Midnight Programmer"/>
+<meta name="twitter:description" content="Programming For Fun"/>
+
+<meta property="og:title" content="Midnight Programmer" />
+<meta property="og:description" content="Programming For Fun" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/" />
+<meta property="og:updated_time" content="2010-05-13T22:22:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+<link href="https://prashantkhandelwal.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Midnight Programmer" />
+<link href="https://prashantkhandelwal.github.io/index.xml" rel="feed" type="application/rss+xml" title="Midnight Programmer" />
+
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+<div class="post-list">
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-find-whether-the-machine-is-32-bit-64-bit/">How To Find Whether The Machine Is of 32-Bit/64-Bit Architecture</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 13, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>The easiest way to find out the processor architecture is to use the Environment class <code>GetEnvironmentVariable</code> method.</p>
+
+<pre class="brush:csharp">
+Console.WriteLine(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
+</pre>
+
+<p>This will print the processor architecture on the console window i.e. x86 and x64 for 32-bit and 64-bit respectively.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-sql-clr-stored-procedure-track-ip-address/">Using SQL CLR Stored Procedure To Track IP Address</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 24, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL&#34;</a>
+      
+      
+      
+      
+    </span>
+    <p>Recently I was asked by one of my friend how to call a web service directly from a stored procedure. He needs to track IP addresses using a stored procedures so, I suggested him two ways to call a web service using the SQL Procedure.</p>
+
+<ul>
+<li>Using SP_OACREATE with MSXML</li>
+<li>Create an assembly using SQL CLR using C#.</li>
+</ul>
+
+<p>I personally tried using the first way to call a web service but was not successful. Then I learnt about SQL CLR programming with Visual Studio and C# and get it done in a first go. As a good friend I create the whole project for my friend. And if your thinking that this is going to be a difficult, this is not so.</p>
+
+<p>To start creating a project, open Visual Studio and create a new project.</p>
+
+<p><img src="/images/sqlclr-newproject.png" alt="SQL CLR new Visual Studio project" /></p>
+
+<p>Before the project gets loaded completely, you will be asked to add database reference. Here select the database you want to build the assembly for. If you don’t want to add a database reference then just simply cancel. But if you choose the reference to add at this point then this would really be of help as this will allow you to deploy your assembly directly to the SQL Server database but if you have not then you need to write some SQL scripts.</p>
+
+<p><img src="/images/sqlclr-add-db-ref.png" alt="Add a database reference to the project" /></p>
+
+<blockquote>
+<p><strong>NOTE:</strong> If you have added a database reference then it doesn’t mean that your assembly is build specifically for that database you can still deploy your assembly in other database also.</p>
+</blockquote>
+
+<p>As I am creating a stored procedure, I then have to add a <code>New Item</code> to my project. Right-click project choose <code>Add&gt;Stored Procedure</code>. Here give a name of your choice to stored procedure. In my case it is <code>IPInfo</code>.</p>
+
+<p><img src="/images/sqlclr-add-new-item.png" alt="Add a new stored procedure" /></p>
+
+<p>Change the static method here to accept a parameter. Our parameter will be an IP address, which I have set as of string type.</p>
+
+<pre class="brush:csharp">
+public static void GetIPInfo(string IP)
+{  
+//Do something here
+}
+</pre>
+
+<p>Now the question here is from where we can the information of the IP Addresses? I do some search and found a website <a href="http://www.geobytes.com">http://www.geobytes.com</a>. It offers some rich information of the IP Address you want to track, so out of five sources I choose to go with geobytes.</p>
+
+<p>Lets take a quick look at the code. This is not a web service as you can see from the code below, I am just making a http request and then get the response in an XML form so I can easily traverse the nodes and read/save the information I received.</p>
+
+<pre class="brush:csharp">
+string XMLResponse;
+IPAddress = IP;
+byte[] XMLResults;
+string str = "http://www.geobytes.com/IpLocator.htm?GetLocation&template=xml.txt"
++ "&IpAddress=" + IP;
+XMLResults = new WebClient().DownloadData(str.ToString());
+XMLResponse = Encoding.UTF8.GetString(XMLResults);
+</pre>
+
+<p>Note the fourth line where I have built the URL. The parameter Template should always have a value to xml.txt. If you change the name, it won’t throw any error but the data received cannot be read and saved in a database table. Convert the response to string format and then read the nodes one by one using the below code.</p>
+
+<pre class="brush:csharp">
+try
+        {
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(XMLResponse);
+            XmlNode documentElement = document.DocumentElement;
+            if (documentElement.HasChildNodes)
+            {
+                for (int i = 0; i < documentElement.ChildNodes.Count; i++)
+                {
+                    if (documentElement.ChildNodes[i].NodeType == XmlNodeType.Element)
+                    {
+                        switch (documentElement.ChildNodes[i].Name)
+                        {
+                            case "locationcode":
+                                LocationCode = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "fips":
+                                FIPS104 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "iso2":
+                                ISO2 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "iso3":
+                                ISO3 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "ison":
+                                ISON = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "internet":
+                                Internet = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "countryid":
+                                CountryID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "country":
+                                Country = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "regionid":
+                                RegionID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "region":
+                                Region = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "code":
+                                RegionCode = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "adm":
+                                Admn1Code = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "cityid":
+                                CityID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "city":
+                                City = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "latitude":
+                                Latitude = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "longitude":
+                                Longitude = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "timezone":
+                                TimeZone = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "certainty":
+                                Certainty = documentElement.ChildNodes[i].InnerText;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception) { }
+</pre>
+
+<p>Build you project and you will see a DLL file in your debug/release folder. But this will not work. You will still have to set some permission level to assembly and to SQL Server database.</p>
+
+<p><strong>Set Assembly Permissions</strong></p>
+
+<p>Before you build the final version of the assembly go the project properties and set the permissions as shown below.</p>
+
+<p>Under <code>Build</code> select option for <code>Generate Serialization Assembly</code> to <code>On</code>.</p>
+
+<p><img src="/images/sqlclr-assembly-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
+
+<p>Under <code>Database</code> select <code>Permission Level</code> to <code>Unsafe</code></p>
+
+<p><img src="/images/sqlclr-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
+
+<p><strong>SQL Server Permissions</strong></p>
+
+<p>If you find problems while deploying your assembly, then make sure you have CLR enabled and set the <code>Trustworthy</code> property for the database to ON.</p>
+
+<p>You can find all the scripts in the attached solution below.</p>
+
+<p><strong>Deploying your assembly</strong></p>
+
+<p>To deploy your assembly use the below SQL command:</p>
+
+<pre class="brush:sql">
+CREATE ASSEMBLY IPTracker from 'C:\IPInfo.dll' WITH PERMISSION_SET = EXTERNAL_ACCESS
+GO
+</pre>
+
+<p>To create a stored procedure whcih in trun calls the SQL method from the deployed assembly:</p>
+
+<pre class="brush:sql">
+CREATE PROC TrackIP(@IP as nvarchar(50))AS
+-- [Assembly Name].[Class Name].[CLR function Name]
+EXTERNAL NAME IPTracker.StoredProcedures.GetIPInfo 
+GO
+</pre>
+
+<p>And execute the procedure to get the IP information.</p>
+
+<p><img src="/images/sqlclr-execution-output.png" alt="SQL CLR procedure output" /></p>
+
+<p><strong>Download: <a href="/files/IPInfo.zip">IPInfo.zip (19.46 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-7-development-creating-jumplist-in-windows-7/">Windows 7 Development: Creating Jumplist In Windows 7</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 28, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>I am quite fascinated with Windows 7 before even I get it started using it. Actually I have just started on a fun project for my personal use which includes jump list. Why I am doing this? To navigate and get access to the application and internet addresses I need anytime. I am tired of typing addresses and navigating to the programs I frequently use. I have just started so I thought I must blog about my jump list experience with you all. You won&rsquo;t believe but I am still using Visual Studio 2008 with .NETFX 3.5. Ok, Let&rsquo;s talk about some Windows development. In my last post on Windows 7 development I explain how can you have Aero effects for your Windows applications. If you haven&rsquo;t read my post on <a href="http://midnightprogrammer.net/post/windows-7-development-aero-effects-in-net-applications">Aero effects in Windows Application</a> then you should have a look at this.</p>
+
+<p>Windows 7 API Code Pack comes packed up with some serious development stuff for Windows 7. If you don&rsquo;t have it yet then check my post for Windows 7 Development resources.</p>
+
+<p>We all know and view the new taskbar in Windows 7 and when your program got pinned in the taskbar you can simply left click to run your program or right-click to view more options associated with your program. To make it more clear I give you an example. I use Winsnap (a tool to take screenshots with dropshadows) to take screenshots and yes I use it quite frequently, so I pinned it to my taskbar.</p>
+
+<p><img src="/images/win7-jumplist.png" alt="Windows 7 jumplist" /></p>
+
+<p>That&rsquo;s the third icon from the Windows start button. When I click it normally it opens up the Winsnap application and show me the panel from where I can take and make settings for my next screenshot. but when I right-click the pinned Winsnap icon on my taskbar it show me the same basic settings which I will be using if I would have launched the application.</p>
+
+<p><img src="/images/win7-jumplist-options.png" alt="Windows 7 jumplist options" /></p>
+
+<p>Now when I have to take screenshots with my utility I just right-click Winsnap icon pinned to my taskbar and I am done. The items that you see under the heading Tasks is having all your jump list items. It is indeed possible to have some common functions from your application to be included in the jump list or can have some external links for applications like calculator, notepad, paint etc. If you don&rsquo;t know (just in case) if you can pin something on the taskbar then you can also unpin it.</p>
+
+<p>I hope now I am quite clear with jump list in Windows 7. So lets gets our hands on developing an application with jump list.</p>
+
+<p><strong>Getting Started</strong></p>
+
+<p>Start it up creating a simple windows forms application with a name of your choice. As we are delaing with Windows 7 API we need to have it added in our project references. Files you need to add to references are:</p>
+
+<ul>
+<li>Microsoft.WindowsAPICodePack.DLL</li>
+<li>Microsoft.WindowsAPICodePack.Shell.DLL</li>
+</ul>
+
+<p>You can have these API libraries once you donwlod the API code pack. After you are done adding the required references, you can switch to the code window and do the rest of the work.</p>
+
+<p><strong>Creating Jump List</strong></p>
+
+<p>Start up with adding the namespace:</p>
+
+<pre class="brush:csharp">
+using Microsoft.WindowsAPICodePack.Taskbar;
+using Microsoft.WindowsAPICodePack.Shell;
+</pre>
+
+<p>Create a jump list by calling <code>CreateJumpList</code> method, which is a part of <code>Microsoft.WindowsAPICodePack.Taskbar.JumpList</code> namespace.</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+</pre>
+
+<p>If you want to show the most recent files you have used, then you can do that by using this line of code:</p>
+
+<pre class="brush:csharp">
+list.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
+</pre>
+
+<p><code>JumpListKnownCategoryType</code> is an enumeration which will let you accomplish this. You can also have some other available options.</p>
+
+<ul>
+<li><strong>Frequent:</strong> Display the frequent known category.</li>
+<li><strong>Neither:</strong> Don&rsquo;t display either known category. You must have atleast one user task and or custom category link in order to not see the default &lsquo;Recent&rsquo; known category.</li>
+<li><strong>Recent:</strong> Display the recent known category.</li>
+</ul>
+
+<p>To add some commonly used applications to the jump list then you can have it with in less than a jiffy. Create a <code>JumpListLink</code> class object and associate it with the <code>JumpList</code> class object. I use notepad a lot to note down my work, now I want to add to the jump list and I code it this way:</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
+"notepad.exe");
+JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
+list.AddUserTasks(JLink);
+list.Refresh();
+</pre>
+
+<p>One line of code can be used to include icon for your program. The <code>IconReference</code> property will let you add the icon the jump list item. Set the default value to &lsquo;0&rsquo;, if you want to use the default icon for the application.</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
+"notepad.exe");
+JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
+JLink.IconReference = new IconReference(SysPath, 0);
+list.AddUserTasks(JLink);
+</pre>
+
+<p><img src="/images/win7-customjumplist.png" alt="Windows 7 jumplist" /></p>
+
+<p>Categorizing programs is bit easy this way. I can categorize web URLs, my favourites programs and some other places/links on my computer. There is lot more you can do with Jump Lists. I hope the explaination above can let you create your own applications with jump lists.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/submit-your-site-blog-to-bing-search/">Submit Your Site To Bing Search</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 26, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      
+      
+      
+      
+    </span>
+    <p>If you want your website or blog content to be noticed or searched by Microsoft Bing search engine, then you can do this to get your work noticed. But beofre you can do this you need a Live ID a.k.a. Hotmail ID.</p>
+
+<p>Go to <a href="http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx">http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx</a></p>
+
+<p><img src="/images/bing-1.png" alt="Bing webmaster" /></p>
+
+<p>Fill up your web address and sitemap address. Though the sitemap address is optional, but I recommened to give a sitemap as it help the crawlers to crawl all the pages on your website. You can also sign up for a webmaster&rsquo;s e-mail, just in case if Bing encouters somes issues with your website. When you are done click the submit button and you are prompted with a confirmation with an authentication code.</p>
+
+<p><img src="/images/bing-2.png" alt="Bing webmaster" /></p>
+
+<p>Now when you are done it is time for authentication. When you submit a website to Bing search it asks for an authentication, just to ensure that you are the owner and so provides you with an authentication key which is used to autheticate the ownership in two different ways.</p>
+
+<ul>
+<li>You can have a XML fle with authentication code in the root of your website. Read more instructions on the screen OR</li>
+<li>You can add the authentication code within meta tag in your page head section of your default page.</li>
+</ul>
+
+<p>And this is it, your website is submitted on the Bing. Now to check it back click the <code>Return to Site List</code> button to view the site you have submitted. And yes you get it right you can submit a number of sites to Bing. Below is what a <code>Site List</code> look like:</p>
+
+<p><img src="/images/bing-3.png" alt="Bing webmaster" /></p>
+
+<p>lick on the Web Address, and you will get a detailed list of your website, if Bing crawlers didn&rsquo;t found any problems with your website.</p>
+
+<p>When you get the meta tag in your head section of your website default page or have placed the XML file in the root folder as metioned in the above step, you now need to take a nap for a while and give the search engine crawler a bit of time to crawl you webpage. I actually don&rsquo;t know when to check the site list and other information and whether the crawlers have crawl my website or not, by the way I have checked my website status on Bing after 24 hrs. So after 24 hrs you can also check and this is what you will see. You can see the last crawl date and other information of your website.</p>
+
+<p><img src="/images/bing-4.png" alt="Bing webmaster" /></p>
+
+<p>So don&rsquo;t wait&hellip;.leave no opportunity to draw more traffic to your website or blog.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/visual-studio-theme-generator/">Visual Studio Theme Generator</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 24, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p>I just Got bored looking at the same code editor in Visual Studio. Same old white background and same syntax colour highlighting. So I give it a go and jump to Visual Studio options and start playing around with the option available to change the look and feel of the code editor. After trying for a while and working around with some customizations, I gave a second go and do a quick bing search in a hope that I will find some theme for my Visual Studio and Voila! I got one, not a theme but a tool indeed which allows me to customize theme as I want and the name is <a href="http://frickinsweet.com/tools/Theme.mvc.aspx">Visual Studio Theme Generator</a>. It&rsquo;s an online free tool with some simple controls on the page which helps you in customizing your code editor by changing the main colour, background colour, foreground colour and also set he contrast. The tool also gives you the option to choose from a variety of colours. You can see the screenshot of this online tool below.</p>
+
+<p><img src="/images/vs-theme-1.png" alt="Visual Studio Theme" /></p>
+
+<p>Make some customizations and click the <code>Refresh</code> button on the top right corner of the page to reflect the changes. Once you are finish with the customizations you can then hit the <code>Create</code> button to save you Visual Studio theme settings, save it to your local disk and import it using <code>Import/Export settings</code> wizard in Visual Studio.</p>
+
+<p>I have downloaded the default theme from the page and here is how my Visual Studio code editor looks like now:</p>
+
+<p><img src="/images/vs-theme-2.png" alt="Visual Studio Theme" /></p>
+
+<p><strong>NOTE:</strong> <em>You can read the detailed step on the website to import the settings. But before you can import the settings it is recommended that you first take the backup of your current/original Visual Studio settings. This tool is a work of javascript so before you hit it make sure you have javascript enabled for you browser.</em></p>
+
+  </div>
+  
+</div>
+
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="/page/22/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/22/">22</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/page/23/">23</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/24/">24</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/24/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+
+        </div>
+        
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+    </body>
+</html>

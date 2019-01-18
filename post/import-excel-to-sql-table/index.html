@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Import Excel to SQL Table • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Import Excel to SQL Table"/>
+<meta name="twitter:description" content="Using bulk operations using code with sql can be complex, time consuming and tedious for most of the programmers. I just used a stored procedure in one of my projects instead of traversing from cell to cell and save the value in the database, so I search the net and found this SQL Stored Procedure achieve this. I have just copied and paste the code as it is.
+set ANSI_NULLS ON set QUOTED_IDENTIFIER ON go --drop procedure sp_excel_Convert_Excel_To_Table --go Create procedure [dbo]."/>
+
+<meta property="og:title" content="Import Excel to SQL Table" />
+<meta property="og:description" content="Using bulk operations using code with sql can be complex, time consuming and tedious for most of the programmers. I just used a stored procedure in one of my projects instead of traversing from cell to cell and save the value in the database, so I search the net and found this SQL Stored Procedure achieve this. I have just copied and paste the code as it is.
+set ANSI_NULLS ON set QUOTED_IDENTIFIER ON go --drop procedure sp_excel_Convert_Excel_To_Table --go Create procedure [dbo]." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/import-excel-to-sql-table/" /><meta property="article:published_time" content="2009-07-23T15:57:00&#43;00:00"/>
+<meta property="article:modified_time" content="2009-07-23T15:57:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Import Excel to SQL Table</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Jul 23, 2009
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>Using bulk operations using code with sql can be complex, time consuming and tedious for most of the programmers. I just used a stored procedure in one of my projects instead of traversing from cell to cell and save the value in the database, so I search the net and found this SQL Stored Procedure achieve this. I have just copied and paste the code as it is.</p>
+
+<pre class="brush:sql">
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+go
+--drop procedure sp_excel_Convert_Excel_To_Table
+--go
+Create procedure [dbo].[sp_excel_Convert_Excel_To_Table]
+(
+@excel_full_file_name varchar(666)
+,@convert_to_table_name varchar(50)
+,@transfer_to_table bit=1
+,@clear_existing_records_first bit=1
+,@good int =null output
+,@error_code int =null
+,@error_description varchar(255) = null output
+)
+as
+set nocount on
+declare @command varchar(8000)
+-- copy excel file under temp and change worksheet name
+set @good=0
+set @error_description = ''
+set @error_code=0
+declare @object int
+,@hr int
+,@src varchar(255)
+exec @hr = master.dbo.sp_OACreate 'Excel.Application', @object out
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '1. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=1
+set @good=0
+goto error
+end
+exec @hr = master.dbo.sp_OASetProperty @object, 'DisplayAlerts', 'false'
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '2. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=2
+set @good=0
+goto error
+end
+declare @workbook int
+,@workbook_path_save_as varchar(666)
+set @workbook_path_save_as = 'c:\test.xls'
+exec @hr = master.dbo.sp_oaMethod @Object,'WorkBooks.Open',@workbook out,@excel_full_file_name
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '3. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=3
+set @good=0
+goto error
+end
+exec @hr = master.dbo.sp_OASetProperty @object, 'Workbooks(1).Worksheets(1).Name','excel_data'
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '4. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=4
+set @good=0
+goto error
+end
+exec @hr = master.dbo.sp_oaMethod @workbook ,'SaveAs',null,@workbook_path_save_as
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '5. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=5
+set @good=0
+goto error
+end
+-- get full file name
+exec @hr = master.dbo.sp_OAGetProperty @object, 'Workbooks(1).FullName',
+@workbook_path_save_as output
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '6. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=6
+set @good=0
+goto error
+end
+exec @hr = master.dbo.sp_oaMethod @Object,'Application.Quit'--,@workbook out,@workbook_path
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '7. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=7
+set @good=0
+goto error
+end
+if @transfer_to_table = 1
+begin
+if @clear_existing_records_first=1
+begin
+set @command = 'delete from ' + @convert_to_table_name
+exec (@command)
+end
+-- copy records from excel into table:
+set @command = 'insert into ' + @convert_to_table_name +
+' select * from ' +
+' OpenRowSet(''MSDASQL'' '+
+', ''Driver={Microsoft Excel Driver (*.xls)};'+
+'DBQ=' + @workbook_path_save_as + ''''+
+',''SELECT * FROM [excel_data$]'')'
+print @command
+exec (@command)
+set @command = 'select * from ' + @convert_to_table_name
+exec (@command)
+end
+error:
+select @error_description as 'Error', @error_code as 'Error Code'
+exec @hr = master.dbo.sp_OADestroy @workbook
+if @hr <> 0
+begin
+set @error_description = '7. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=7
+set @good=0
+end
+exec @hr = master.dbo.sp_OADestroy @object
+if @hr <> 0
+begin
+set @error_description = '8. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=8
+set @good=0
+end
+</pre>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/c-method-encrypting-a-string-using-md5-algorithm/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">C# Method: Encrypting a string using MD5 algorithm</span>
+    </a>
+    
+    
+    <a href="/post/laws-of-computer-programming/" class="navigation-next">
+      <span class="navigation-tittle">Laws of Computer Programming</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Minify Your CSS &amp; Javascript With SquishIt • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Minify Your CSS &amp; Javascript With SquishIt"/>
+<meta name="twitter:description" content="No one likes if their favourite site is loading up slow. Using CSS sprites instead of using individual images and minify javascript and css files is a way to minimize the request send to the server and also saves you few KBs or may be even MBs. If your site is high on using javacript and CSS then you should minimize them.
+I recently used SquishIt to combine/minimize my CSS and javascript files."/>
+
+<meta property="og:title" content="Minify Your CSS &amp; Javascript With SquishIt" />
+<meta property="og:description" content="No one likes if their favourite site is loading up slow. Using CSS sprites instead of using individual images and minify javascript and css files is a way to minimize the request send to the server and also saves you few KBs or may be even MBs. If your site is high on using javacript and CSS then you should minimize them.
+I recently used SquishIt to combine/minimize my CSS and javascript files." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/minify-your-css-javascript-with-squishit/" /><meta property="article:published_time" content="2012-04-15T03:42:00&#43;00:00"/>
+<meta property="article:modified_time" content="2012-04-15T03:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Minify Your CSS &amp; Javascript With SquishIt</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Apr 15, 2012
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/api">API</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/web">WEB</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>No one likes if their favourite site is loading up slow. Using CSS sprites instead of using individual images and minify javascript and css files is a way to minimize the request send to the server and also saves you few KBs or may be even MBs. If your site is high on using javacript and CSS then you should minimize them.</p>
+
+<p>I recently used <a href="http://nuget.org/packages/SquishIt">SquishIt</a> to combine/minimize my CSS and javascript files. I found 2 major benefits, first, I am able to combine all of my CSS files into one and minimize it, and second it reduces the request sent to the server to load several .css and .js files. In a typical web application I can have one style sheet and one javascript or jQuery file, but if I am planning to use some plugins then there might be more than one style sheet and javascript files which will get loaded on every page request. Here is an example of a sample web forms application loading two css and javascript files which includes the plugin code.</p>
+
+<p><img src="/images/console-network-tab.png" alt="Loading time of static assets in browser console" /></p>
+
+<p>Here you can see that there are 4 requests in total to load site CSS and Javascript files. Though in this case the size of the file is less but when you have really large files then it can really affect your site performance and also save MBs in a long run. So, what happens when I use SquishIt? Install the package by firing the below command at <a href="http://nuget.org/">NuGet</a> console.</p>
+
+<p><img src="/images/nuget-squishit.png" alt="Nuget SquishIt Command" /></p>
+
+<p>SquishIt is not an independent package, it has dependencies which is doing all the work of minifying and compressing CSS and JS files behind the scenes.</p>
+
+<p><img src="/images/nuget-dependencies.png" alt="Nuget dependencies" /></p>
+
+<p>After the package is installed successfully, time to squish the files. Open the web page or the master page where you are loading CSS and JS files (in my case it is <code>site.master</code>) and add a reference to the SquishIt assembly on the top of that page.</p>
+
+<pre class="brush: csharp">
+<%@ Import Namespace="SquishIt.Framework" %>
+</pre>
+
+<p>In the head section of your page we can then combine all the CSS and JS files and then render them into ONE single file. There are two different methods to minimize CSS and JS files i.e. <code>Bundle.Css()</code> for CSS files and <code>Bundle.JavaScript()</code> for JS files. Here is an example:</p>
+
+<p><strong>To bundle CSS:</strong></p>
+
+<pre class="brush: csharp">
+<%= Bundle.Css()
+       .Add("Styles/adipoli.css")
+       .Add("Styles/Site.css")
+       .Render("Styles/squishstyle#.css")
+%>
+</pre>
+
+<p><strong>To bundle JavaScript:</strong></p>
+
+<pre class="brush: csharp">
+<%= Bundle.JavaScript()
+       .Add("Scripts/jquery-1.7.1.min.js")
+       .Add("Scripts/jquery.adipoli.min.js")
+       .Render("Scripts/squishjs#.js")
+%>
+</pre>
+
+<p>You can go on adding all the css and javascript files using the <code>Add()</code> method. After all the files has been added call the <code>Render()</code> method. You can say that the <code>Add()</code> method just keep all the files in a stack and the <code>Render()</code> method will combine and minimize the files. If you look closely in the <code>Render()</code> method has a new file name with a (hash) <code>#</code>. The hash symbol is just generates a new unique id of the bundled script.</p>
+
+<p>When you run the application and check the network call stack in your browser, you&rsquo;ll find that the files are not combined. The page is still loading 4 files!? To overcome this set the <code>debug</code> mode to <code>false</code> in the <code>web.config</code> file.</p>
+
+<pre class="brush: xml">
+&lt;compilation debug="false" targetFramework="4.0" /&gt;
+</pre>
+
+<p>Now if you look in the network call stack, you will find the files have been squished and minimised and compressed!!</p>
+
+<p><img src="/images/console-loading-time.png" alt="Console log for asset loading time after the use of SquishIT" /></p>
+
+<p>And here are my saving statistics:</p>
+
+<p><strong>Without SquishIt:</strong></p>
+
+<p>Four requests in total!!</p>
+
+<table>
+<thead>
+<tr>
+<th>Name/Path</th>
+<th>Type</th>
+<th>Size Content</th>
+<th>Time Latency</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>adipoli.cs</td>
+<td>text/css</td>
+<td>683B</td>
+<td>62ms</td>
+</tr>
+
+<tr>
+<td>/Styles</td>
+<td>text/css</td>
+<td>441B</td>
+<td>55ms</td>
+</tr>
+
+<tr>
+<td>Site.css</td>
+<td>text/css</td>
+<td>4.40KB</td>
+<td>68ms</td>
+</tr>
+
+<tr>
+<td>/Styles</td>
+<td>text/css</td>
+<td>4.16KB</td>
+<td>61ms</td>
+</tr>
+
+<tr>
+<td>jquery-1.7.1.min.js</td>
+<td>application/x-javascript</td>
+<td>109.91KB</td>
+<td>80ms</td>
+</tr>
+
+<tr>
+<td>/Scripts</td>
+<td>application/x-javascript</td>
+<td>109.65KB</td>
+<td>67ms</td>
+</tr>
+
+<tr>
+<td>jquery.adipoli.min.js</td>
+<td>application/x-javascript</td>
+<td>7.57KB</td>
+<td>242ms</td>
+</tr>
+
+<tr>
+<td>/Scripts</td>
+<td>application/x-javascript</td>
+<td>7.32KB</td>
+<td>163ms</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>The Squish effect:</strong></p>
+
+<p>Two requests in total. Check out the file size and content being loaded.</p>
+
+<table>
+<thead>
+<tr>
+<th>Name/Path</th>
+<th>Type</th>
+<th>Size Content</th>
+<th>Time Latency</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>squishstyle6788C36F832FE70161B88F2D08193F3E.css</td>
+<td>text/css</td>
+<td>2.95KB</td>
+<td>80ms</td>
+</tr>
+
+<tr>
+<td>/Styles</td>
+<td>text/css</td>
+<td>2.71KB</td>
+<td>72ms</td>
+</tr>
+
+<tr>
+<td>squishjs0F44BB5917C6332E4D49DFCDA5F3556D.js</td>
+<td>application/x-javascript</td>
+<td>98.29KB</td>
+<td>91ms</td>
+</tr>
+
+<tr>
+<td>/Scripts</td>
+<td>text/css</td>
+<td>98.03KB</td>
+<td>76ms</td>
+</tr>
+</tbody>
+</table>
+
+<p>The same can be done in MVC with this <a href="http://nuget.org/packages/SquishIt.Mvc">NuGet package</a>.</p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/bingmapjs-jquery-plugin-for-bing-maps/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">BingMap.JS - Jquery Plugin For Bing Maps</span>
+    </a>
+    
+    
+    <a href="/post/awesome-jquery-image-plugins-for-web-developers/" class="navigation-next">
+      <span class="navigation-tittle">Awesome jQuery Image Plugins For Web Developers</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

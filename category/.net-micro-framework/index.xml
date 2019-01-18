@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>.Net Micro Framework on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/.net-micro-framework/</link>
+    <description>Recent content in .Net Micro Framework on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 25 Jun 2011 08:59:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/.net-micro-framework/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting Started With NETMF And Netduino</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-netmf-and-netduino/</link>
+      <pubDate>Sat, 25 Jun 2011 08:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-netmf-and-netduino/</guid>
+      <description>My Netduino card arrived this Sunday but I was not able to play with my new development board due to some serious &amp;ldquo;crap work&amp;rdquo; I was doing. Today I was able to run a small piece of code which blinks the user LED on the Netduino board. The code is simple enough and just like &amp;ldquo;hello world&amp;rdquo; example like we have for all other programming languages.
+Here is my Netduino kit:</description>
+    </item>
+    
+  </channel>
+</rss>

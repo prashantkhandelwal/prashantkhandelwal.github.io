@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Change Page Themes Dynamically Using JQuery Theme Roller • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Change Page Themes Dynamically Using JQuery Theme Roller"/>
+<meta name="twitter:description" content="If you are using JQuery controls like date picker, accordion, progress bar, slider, tabs, dialog etc. You can set the theme of your choice or you can also allow the user to set the theme of their choice. For those folks who don’t know about the JQuery Theme Roller, then take a look at official Jquery site demonstrating the Jquery Theme Roller. The best part is when you select the theme from the theme roller control all the JQuery controls on the page will automatically inherit the color scheme of the theme."/>
+
+<meta property="og:title" content="Change Page Themes Dynamically Using JQuery Theme Roller" />
+<meta property="og:description" content="If you are using JQuery controls like date picker, accordion, progress bar, slider, tabs, dialog etc. You can set the theme of your choice or you can also allow the user to set the theme of their choice. For those folks who don’t know about the JQuery Theme Roller, then take a look at official Jquery site demonstrating the Jquery Theme Roller. The best part is when you select the theme from the theme roller control all the JQuery controls on the page will automatically inherit the color scheme of the theme." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/change-page-themes-dynamically-using-jquery-theme-roller/" /><meta property="article:published_time" content="2010-07-04T12:21:00&#43;00:00"/>
+<meta property="article:modified_time" content="2010-07-04T12:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Change Page Themes Dynamically Using JQuery Theme Roller</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Jul 4, 2010
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>If you are using JQuery controls like date picker, accordion, progress bar, slider, tabs, dialog etc. You can set the theme of your choice or you can also allow the user to set the theme of their choice. For those folks who don’t know about the <a href="http://jqueryui.com/themeroller/">JQuery Theme Roller</a>, then take a look at official Jquery site demonstrating the Jquery Theme Roller. The best part is when you select the theme from the theme roller control all the JQuery controls on the page will automatically inherit the color scheme of the theme.</p>
+
+<p>To incorporate Theme Roller in your page, build a simple page and link some CSS and some JavaScript</p>
+
+<pre class="brush:jscript">
+&lt;link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" /&gt;
+&lt;link rel="stylesheet"
+href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css"
+type="text/css" media="all" /&gt;
+&lt;link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css"
+type="text/css" media="all" /&gt;
+&lt;script type="text/javascript" src="http://jqueryui.com/js/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"
+type="text/javascript"&gt;&lt;/script&gt;
+</pre>
+
+<p>Now under the head section we will have the JQuery Theme Roller control.</p>
+
+<pre class="brush:jscript">
+&dollar;(document).ready(function () {
+    &dollar;('#ThemeRoller').themeswitcher();
+});
+</pre>
+
+<p>Notice the <code>ThemeRoller</code> id of the control passed in the JQuery code to initialize the Theme Roller/Switcher. Now in the Body tag of your page set a div with id as ThemeRoller or whatever the name you want to give, but make sure you use the same name as your control id.</p>
+
+<pre class="brush:jscript">
+&lt;script type="text/javascript"
+  src="http://jqueryui.com/themeroller/themeswitchertool/"&gt;
+&lt;/script&gt;
+&lt;div id="ThemeRoller"&gt;&lt;/div&gt;
+</pre>
+
+<p>I have set the theme roller on the body of the page and therefore all the controls on the page will automatically change the theme accordingly set by the user using the theme roller on the page. You can also set a <strong>DIV</strong> or a form on your page instead of setting it for the complete page. Set some other controls on the page like date picker, progress bar, dialog etc. Html code for the controls.</p>
+
+<p>Set some other controls on the page like date picker, progress bar, dialog etc.</p>
+
+<pre class="brush:jscript">
+&lt;p&gt;Date: &lt;input id="datepicker" type="text" /&gt;
+&lt;/p&gt;
+     
+&lt;div id="dialog" title="Basic dialog"&gt;
+    &lt;p&gt;
+    This is a Demo Dialog box using JQuery!!&lt;br /&gt;
+    Change theme to see this Dialog in different theme.
+    &lt;/p&gt;
+&lt;/div&gt;
+    &lt;div id="progressbar" style="width:200px;"&gt;
+ 
+    &lt;/div&gt;
+</pre>
+
+<p>Placing HTML code isn’t enough. You also need to set the JQuery code in the head section of the page to get the controls working. When you set all the JQuery code for the controls you body and head section of the page looks something like this.</p>
+
+<p><strong>Body</strong> section of the page:</p>
+
+<pre class="brush:jscript">
+&lt;body style="font-size:62.5%;"&gt;
+   
+&lt;script type="text/javascript"
+  src="http://jqueryui.com/themeroller/themeswitchertool/"&gt;
+&lt;/script&gt;
+&lt;div id="ThemeRoller"&gt;&lt;/div&gt;
+ 
+&lt;p&gt;Date: &lt;input id="datepicker" type="text" /&gt;
+&lt;/p&gt;
+     
+&lt;div id="dialog" title="Basic dialog"&gt;
+    &lt;p&gt;
+    This is a Demo Dialog box using JQuery!!&lt;br /&gt;
+    Change theme to see this Dialog in different theme.
+    &lt;/p&gt;
+&lt;/div&gt;
+    &lt;div id="progressbar" style="width:200px;"&gt;
+ 
+    &lt;/div&gt;
+&lt;/body&gt;
+</pre>
+
+<p><strong>Head</strong> section of the page:</p>
+
+<pre class="brush:jscript">
+&lt;head&gt;
+&lt;title&gt;JQuery Theme Roller&lt;/title&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" /&gt;
+&lt;link rel="stylesheet"
+ 
+href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css"
+ 
+type="text/css" media="all" /&gt;
+&lt;link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css"
+ 
+type="text/css" media="all" /&gt;
+&lt;script type="text/javascript" src="http://jqueryui.com/js/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+ 
+type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"
+ 
+type="text/javascript"&gt;&lt;/script&gt;
+ 
+ 
+&lt;script type="text/javascript"&gt;
+//Set theme roller 
+    &dollar;(document).ready(function () {
+        &dollar;('#ThemeRoller').themeswitcher();
+    });
+ 
+//Show date time picker control
+    &dollar;(function () {
+        &dollar;("#datepicker").datepicker();
+});
+ 
+//Show Dialog
+    &dollar;(function () {
+        &dollar;("#dialog").dialog();
+    });
+ 
+//Progress Bar
+    &dollar;(function () {
+        &dollar;("#progressbar").progressbar({
+            value: 50
+        });
+    });
+ 
+&lt;/script&gt;
+&lt;/head&gt;
+</pre>
+
+<p>Now try setting the theme of the page in one click using the Theme Roller.</p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/url-routing-with-aspnet-4-web-forms/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">URL Routing With ASP.NET 4 - Web Forms</span>
+    </a>
+    
+    
+    <a href="/post/deprecated-apis-and-net-40/" class="navigation-next">
+      <span class="navigation-tittle">Deprecated APIs In .NET 4.0</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

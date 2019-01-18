@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>.Net Framework on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/.net-framework/</link>
+    <description>Recent content in .Net Framework on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Jun 2015 22:59:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/.net-framework/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting Started With ASP.NET 5 On Ubuntu</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</link>
+      <pubDate>Tue, 16 Jun 2015 22:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</guid>
+      <description>Ever since the .NET stack went open source last year, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites.</description>
+    </item>
+    
+    <item>
+      <title>Free e-Books From Microsoft And Telerik That You Should Be Reading</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-books-from-microsoft-and-telerik-that-you-should-be-reading/</link>
+      <pubDate>Sun, 14 Jun 2015 08:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-books-from-microsoft-and-telerik-that-you-should-be-reading/</guid>
+      <description>I am involving myself in reading book these days rather than reading blogs. Here are 2 free e-books, one from Microsoft Press with a valuable insights on Cloud, Fundamental of Azure and the other from Telerik, The Developer&#39;s Guide To The New .NET. I encourage you to read both the books, but if you are not about cloud then you should read the book from Telerik.
+Microsoft Press - Fundamentals of Azure (Download)</description>
+    </item>
+    
+    <item>
+      <title>How Generic The Code Can Be - Resolving Type T at Compile Time</title>
+      <link>https://prashantkhandelwal.github.io/post/how-generic-the-code-can-be-resolving-type-t-at-compile-time/</link>
+      <pubDate>Sun, 07 Jun 2015 08:07:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-generic-the-code-can-be-resolving-type-t-at-compile-time/</guid>
+      <description>It is fun working with Generics, but sometimes it just won&amp;rsquo;t work as I intended it to work. While working on a personal project, I was trying to write the code as generic as possible so I can re-use the functions or extension methods in my other projects as well. But it is not always the case, things will not always work as you want it to be. Here is the case of what I was trying to do.</description>
+    </item>
+    
+    <item>
+      <title>ASYNC Controller In MVC 4</title>
+      <link>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</link>
+      <pubDate>Tue, 30 Apr 2013 22:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</guid>
+      <description>I have build many small applications so far in MVC to help myself in understanding the framework more deeply. Now I am planning to write a blog engine on MVC. It will not be an easy task but I will be going to learn a lot of things. As I was planning things ahead I came across a problem where I have to load my blog stats like FeedBurner readers, Facebook page likes, Google +1 count, twitter followers inside a div on the page.</description>
+    </item>
+    
+    <item>
+      <title>Windows Live Theme For BlogEngine.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</link>
+      <pubDate>Thu, 17 Mar 2011 16:03:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</guid>
+      <description>If you have long URLs and other and want to create short URLs then Bit.ly API can help. I wrote a wrapper class which can let me create short URLs in jiffy. I was working on Bit.ly API to create my short URLs with a click of a button (that&amp;rsquo;s for my personal use). Therefore, I ended up with a &amp;lsquo;short&amp;rsquo; class to create short URLs using Bit.ly API. What you need is a login and an apikey, which you can have one for yourself by signing up for a free account.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7: Create Jumplists In WPF Application Without Using Windows 7 API Code Pack</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack/</link>
+      <pubDate>Sat, 26 Feb 2011 14:24:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack/</guid>
+      <description>I wrote a blog post on how you can add a custom Jumplist on your Windows form application for Windows 7 platform using the Windows 7 API Code Pack, but that is for Windows Form applications running on Windows 7.
+WPF makes Jumplists more simpler. You need not to add any API reference or any other reference in your project. You can just make the use of Jumplists for better navigation for your users.</description>
+    </item>
+    
+    <item>
+      <title>Deprecated APIs In .NET 4.0</title>
+      <link>https://prashantkhandelwal.github.io/post/deprecated-apis-and-net-40/</link>
+      <pubDate>Tue, 20 Jul 2010 11:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/deprecated-apis-and-net-40/</guid>
+      <description>A number of existing APIs are deprecated in .NET Framework 4.0. A complete listing of deprecated APIs in .NET Framework 4.0 can be found here at MSDN:
+ Obsolete Types in the .NET Framework 4 Obsolete Members in the .NET Framework 4  </description>
+    </item>
+    
+    <item>
+      <title>URL Routing With ASP.NET 4 - Web Forms</title>
+      <link>https://prashantkhandelwal.github.io/post/url-routing-with-aspnet-4-web-forms/</link>
+      <pubDate>Sat, 26 Jun 2010 18:38:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/url-routing-with-aspnet-4-web-forms/</guid>
+      <description>URL Routing was first introduced in .NET framework 3.5 SP1 but MVC has built-in and works pretty decently to create SEO friendly URL and prevents URL hacking. ASP.NET 4.0 is now introduced with a new feature called URL routing with web forms. URL routing help developers to create short and friendly URLs which enhance search engine page ranking. There are few other ways to create short friendly URLs like URLrewriter.net extension or if you have a physical access to IIS you can have installed URL Rewriter extension for IIS 7 to create short friendly URLs.</description>
+    </item>
+    
+    <item>
+      <title>How To Find Whether The Machine Is of 32-Bit/64-Bit Architecture</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-find-whether-the-machine-is-32-bit-64-bit/</link>
+      <pubDate>Thu, 13 May 2010 22:22:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-find-whether-the-machine-is-32-bit-64-bit/</guid>
+      <description>The easiest way to find out the processor architecture is to use the Environment class GetEnvironmentVariable method.
+Console.WriteLine(Environment.GetEnvironmentVariable(&#34;PROCESSOR_ARCHITECTURE&#34;));  This will print the processor architecture on the console window i.e. x86 and x64 for 32-bit and 64-bit respectively.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 API Development and Training Kit</title>
+      <link>https://prashantkhandelwal.github.io/post/development-in-and-with-windows-7/</link>
+      <pubDate>Fri, 15 Jan 2010 12:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/development-in-and-with-windows-7/</guid>
+      <description>I recently installed Windows 7® Ultimate on my machine and found it more soothing and reliable in terms of preformance than Windows Vista® Ultimate. As a tech enthusiast, I do some serach on the internet and found two links from Microsoft website that will allow developers to develop applications specifically for Windows 7. The Windows API code pack allows developers to develop those features which are not available with .NET Framework.</description>
+    </item>
+    
+    <item>
+      <title>How to plug-in a DLL into a C# project</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-plug-in-a-dll-into-a-c-project/</link>
+      <pubDate>Thu, 07 Jan 2010 16:58:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-plug-in-a-dll-into-a-c-project/</guid>
+      <description>John Grove share a code at MSDN on how can we call DLLs methods dynamically using C# code.
+The below code can further be modified and a developer can easily extend the functionality of his application to create a application which accepts DLLs as plug-ins. This concept is useful when different users have different requirements in a generalized application like in the case of famous photo editing program Photoshop from Adobe.</description>
+    </item>
+    
+    <item>
+      <title>Removing Duplicates from a List in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/removing-duplicates-from-a-list-in-c/</link>
+      <pubDate>Thu, 24 Dec 2009 18:25:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/removing-duplicates-from-a-list-in-c/</guid>
+      <description>For more details and detailed explaination of the code visit this link.
+static List removeDuplicates(List inputList) { Dictionary uniqueStore = new Dictionary(); List finalList = new List(); foreach (string currValue in inputList) { if (!uniqueStore.ContainsKey(currValue)) { uniqueStore.Add(currValue, 0); finalList.Add(currValue); } } return finalList; }  </description>
+    </item>
+    
+    <item>
+      <title>Protect your .NET Applications/Libraries from &#39;Reflection&#39;</title>
+      <link>https://prashantkhandelwal.github.io/post/protect-your-net-applicationslibraries-from-reflection/</link>
+      <pubDate>Thu, 24 Dec 2009 00:18:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/protect-your-net-applicationslibraries-from-reflection/</guid>
+      <description>As a programmer, you put a lot of effort to create an application and incorporate some unique features in your application, which in turn makes your application more feature rich and different from other applications. The question here is, how do you feel when you come to know that someone has played with your code and then make a same application with his name&amp;hellip;You did all the hard work and some random guy on this blue planet stole your code and takes all the credit.</description>
+    </item>
+    
+    <item>
+      <title>Using Background Worker in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/using-background-worker-in-c/</link>
+      <pubDate>Fri, 27 Nov 2009 15:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-background-worker-in-c/</guid>
+      <description>Performance of an application matters a lot for a developer. None of the developer wants his application freezes or crashes. But what are measures a developer should takes to keep it all good going. When I used to develop application I saw whenever I try to perform some heavy or bulky task like uploading files, copying files from place to other and other DB related but heavy task which includes CPU as well as hard drive.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft WMI Code Creator</title>
+      <link>https://prashantkhandelwal.github.io/post/microsoft-wmi-code-creator/</link>
+      <pubDate>Tue, 27 Oct 2009 01:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/microsoft-wmi-code-creator/</guid>
+      <description>The WMI Code Creator tool generates code that uses WMI to obtain management information or perform management tasks. You can use the tool to learn how to manage computers using WMI scripting and WMI .NET. The tool generates code that runs on the local computer, a remote computer, or a group of remote computers based on your selection from the Target Computer menu on the tool. You can also execute the generated code directly from the tool.</description>
+    </item>
+    
+    <item>
+      <title>Requesting delivery/read receipt from C# using MailMessage class</title>
+      <link>https://prashantkhandelwal.github.io/post/requesting-deliveryread-receipt-from-c-using-mailmessage-class/</link>
+      <pubDate>Fri, 16 Oct 2009 15:38:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/requesting-deliveryread-receipt-from-c-using-mailmessage-class/</guid>
+      <description>Sending e-mail through code is easy, but how do we get to know that an e-mail that we send is delivered and read by the intended recipient. When we send e-mail through code we can request a delivery notification and read receipt from the receiver, similar to the way we do in outlook. But the problem is not every mail server supports this kind of request from the code. We set a mail header while sending mail from code which is then processed by the mail server and the sender of the mail gets the intended response.</description>
+    </item>
+    
+  </channel>
+</rss>

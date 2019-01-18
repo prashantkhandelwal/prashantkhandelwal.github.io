@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Html5 on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/html5/</link>
+    <description>Recent content in Html5 on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 17 Nov 2013 22:41:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/html5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Desktop Notifications In HTML5</title>
+      <link>https://prashantkhandelwal.github.io/post/desktop-notifications-in-html5/</link>
+      <pubDate>Sun, 17 Nov 2013 22:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/desktop-notifications-in-html5/</guid>
+      <description>If you are using Google chat on your browser you can see a notification pop-up when a new chat message arrives. I don’t use Google chat or GTalk a lot for communication so I am not very well versed about its over all functionality and coolness. But one thing that always got my attention in the past was the notification that I get on my desktop from Google. This is a very cool feature and my colleagues find it a very important feature of chat as it get their attention immediately.</description>
+    </item>
+    
+    <item>
+      <title>HTML5 Video - Capture And Upload Image To Azure Storage</title>
+      <link>https://prashantkhandelwal.github.io/post/html5-video-capture-and-upload-image-to-azure-storage/</link>
+      <pubDate>Sun, 02 Jun 2013 23:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/html5-video-capture-and-upload-image-to-azure-storage/</guid>
+      <description>I was exploring Github for some image effects/filters and I found some but still keep exploring and found an interesting plugin called face-detection. This plugin uses HTML5 getUserMedia to use your web camera only if your browser supports it. Unfortunately, IE10 still doesn’t support it. This seems cool to me, so I created a sample application to test it. This sample application will let you preview the video using your web camera and allows you to capture the image from your web camera and upload it to the Azure storage.</description>
+    </item>
+    
+    <item>
+      <title>HTML5 File Drag and Drop Upload With jQuery and ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/html5-file-drag-and-drop-upload-with-jquery-and-aspnet/</link>
+      <pubDate>Sat, 28 Jan 2012 12:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/html5-file-drag-and-drop-upload-with-jquery-and-aspnet/</guid>
+      <description>I came across an article on Tutorialzine which demonstrate file drag and drop upload with jQuery and PHP. As a curious reader, I downloaded the sample files and took a look and also get it running on my LINUX VM. It worked like a charm. But I am a Windows user and .NET programmer, the question is how can I do the same in ASP.NET?
+So, to get myself started I used the same downloaded files that I used to check the PHP version of the file drag and drop.</description>
+    </item>
+    
+  </channel>
+</rss>

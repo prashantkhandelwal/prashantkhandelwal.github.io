@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visual Studio on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/visual-studio/</link>
+    <description>Recent content in Visual Studio on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Jun 2015 22:59:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/visual-studio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting Started With ASP.NET 5 On Ubuntu</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</link>
+      <pubDate>Tue, 16 Jun 2015 22:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</guid>
+      <description>Ever since the .NET stack went open source last year, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites.</description>
+    </item>
+    
+    <item>
+      <title>ASYNC Controller In MVC 4</title>
+      <link>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</link>
+      <pubDate>Tue, 30 Apr 2013 22:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</guid>
+      <description>I have build many small applications so far in MVC to help myself in understanding the framework more deeply. Now I am planning to write a blog engine on MVC. It will not be an easy task but I will be going to learn a lot of things. As I was planning things ahead I came across a problem where I have to load my blog stats like FeedBurner readers, Facebook page likes, Google +1 count, twitter followers inside a div on the page.</description>
+    </item>
+    
+    <item>
+      <title>Pretty Paste - Visual Studio Extension Which Makes Pretty Paste</title>
+      <link>https://prashantkhandelwal.github.io/post/pretty-paste-visual-studio-extension-which-makes-pretty-paste/</link>
+      <pubDate>Sun, 31 Mar 2013 16:52:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/pretty-paste-visual-studio-extension-which-makes-pretty-paste/</guid>
+      <description>This is a much needed extension for every developer out there. How many times you have been yelling when you paste the code from a blog post or from an article which eventually turns out to be a nightmare for you to re-format it? I came across a VS extension that can actually get this done for me. The good thing about this extension is that it is open-source and you can extend and contribute to it to make it more awesome.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio 2012 Features Comparison Chart</title>
+      <link>https://prashantkhandelwal.github.io/post/visual-studio-2012-features-comparison-chart/</link>
+      <pubDate>Tue, 04 Sep 2012 02:25:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/visual-studio-2012-features-comparison-chart/</guid>
+      <description>Visual Studio 2012 is now available and here is a chart that compares the features of different versions of Visual Studio 2012.</description>
+    </item>
+    
+    <item>
+      <title>Death Of Visual Studio Installer Projects After Visual Studio 2010 And NSIS &amp; Inno Setup Installers</title>
+      <link>https://prashantkhandelwal.github.io/post/death-of-visual-studio-installer-projects-after-visual-studio-2010-and-nsis-inno-setup-installers/</link>
+      <pubDate>Thu, 08 Mar 2012 03:36:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/death-of-visual-studio-installer-projects-after-visual-studio-2010-and-nsis-inno-setup-installers/</guid>
+      <description>I came across an announcement made by Candy Chiang at MSDN Forums at ClickOnce and Setup &amp;amp; Deployment Projects forums.
+ In Visual Studio 2010, we have partnered with Flexera, makers of InstallShield, to create InstallShield Limited Edition 2010 just for Visual Studio 2010 customers. The InstallShield Limited Edition 2010 offers comparable functionality to the Visual Studio Installer projects. In addition, you can build your deployment projects using Team Foundation Server and MSBuild.</description>
+    </item>
+    
+    <item>
+      <title>Introducing Visual Studio Achievements - Bringing Some Game To The Code</title>
+      <link>https://prashantkhandelwal.github.io/post/introducing-visual-studio-achievements-bringing-some-game-to-the-code/</link>
+      <pubDate>Sun, 22 Jan 2012 13:19:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/introducing-visual-studio-achievements-bringing-some-game-to-the-code/</guid>
+      <description>Another awesome stuff for developers from Microsoft! This past Wednesday Microsoftie Karsten Januszewski announced the Visual Studio Achievement Beta at Channel9. Guess what? as a developer, you are writing hundred lines of code every day without even getting noticed by the community!!? Well, you will get noticed now. Here is an extract from the official post from Channel9:
+ Bring Some Game To Your Code!
+A software engineer&amp;rsquo;s glory so often goes unnoticed.</description>
+    </item>
+    
+    <item>
+      <title>Top Visual Studio Extensions</title>
+      <link>https://prashantkhandelwal.github.io/post/top-visual-studio-extensions/</link>
+      <pubDate>Wed, 18 Jan 2012 04:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/top-visual-studio-extensions/</guid>
+      <description>Visual Studio comes up with loads of stuff making everyday life of a developer easy. But there are few extensions which Microsoft and other developers have created and are available for free to the community members. I have compiled a list of free and powerful extensions which will take your programming experience few more steps ahead with Visual Studio.
+NuGet Package Manager
+You should have a very good reason if you are not using this or if you are not aware what NuGet is.</description>
+    </item>
+    
+    <item>
+      <title>Bin Deploy ASP.NET MVC 3 Application With SQL CE 4.0 &amp; Entity Framework</title>
+      <link>https://prashantkhandelwal.github.io/post/bin-deploy-aspnet-mvc-3-application-with-sql-ce-40-entity-framework/</link>
+      <pubDate>Mon, 04 Jul 2011 14:26:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bin-deploy-aspnet-mvc-3-application-with-sql-ce-40-entity-framework/</guid>
+      <description>A few days back Phil Haack wrote a blog post on how to bin deploy ASP.NET MVC 3 application on the web server where ASP.NET MVC 3 is not installed. Like many users I am also on shared hosting and therefore I do not have full control over IIS or the remote machine so I can install or update ASP.NET MVC 3, SQL Server CE 4.0 and other development related stuff.</description>
+    </item>
+    
+    <item>
+      <title>Syntax Highlighter In WPF</title>
+      <link>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</link>
+      <pubDate>Mon, 09 May 2011 16:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</guid>
+      <description>If you are writing code for a while now then by now you must have a lot of code snippets which you will be using in your application development, and you use them because they save a lot of development time. At this moment I have now a huge collection of code snippets which includes functions, classes, extension methods and functions that I have extracted from different open source applications.</description>
+    </item>
+    
+    <item>
+      <title>Crystal Reports For Visual Studio 2010</title>
+      <link>https://prashantkhandelwal.github.io/post/crystal-reports-for-visual-studio-2010/</link>
+      <pubDate>Thu, 02 Dec 2010 05:40:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/crystal-reports-for-visual-studio-2010/</guid>
+      <description>Crystal reports is one of the most widely used reporting component in Visual Studio. But this time it goes missing from the final release of Visual Studio 2010. Crystal Reports for Visual Studio 2010 is now available for download to all the Visual Studio 2010 users and is for free of cost as always.
+Download Links:
+Download Crystal Reports for Visual Studio 2010
+ Complete Package (EXE) Click Once Merge Modules Redist Installation (32 bit) Redist Installation (64 bit)  Getting Started with Crystal Reports for Visual Studio 2010</description>
+    </item>
+    
+    <item>
+      <title>RAZOR: View Engine In ASP.NET MVC 3</title>
+      <link>https://prashantkhandelwal.github.io/post/razor-view-engine-in-aspnet-mvc-3/</link>
+      <pubDate>Mon, 06 Sep 2010 16:26:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/razor-view-engine-in-aspnet-mvc-3/</guid>
+      <description>A new view engine is introduced in ASP.NET MVC 3 called RAZOR. You can download Preview 1 from Microsoft&amp;rsquo;s download center and get it running on your machine to check the new features in MVC 3. Just in case if you are thinking that installing MVC 3 will mess your current MVC 2 installation&amp;hellip;.No, it won&amp;rsquo;t. I came across a Webcamp video where Phil Haack with James Senior demonstrate this view engine.</description>
+    </item>
+    
+    <item>
+      <title>Add OpenID Login Support In Your ASP.NET Application</title>
+      <link>https://prashantkhandelwal.github.io/post/add-openid-login-support-in-your-aspnet-application/</link>
+      <pubDate>Sun, 29 Aug 2010 14:50:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/add-openid-login-support-in-your-aspnet-application/</guid>
+      <description>Few days back I was looking at Scott Hanselman and friend&amp;rsquo;s Open Source Nerddinner project, learning and grabbing some new things from there. Apart from looking some internals I looked at the OpenID implementation. This was all a week ago and now it&amp;rsquo;s time for me to write and give some thoughts on DotNetOpenAuth. For folks who are new to OpenID I am going to demonstrate how you can implement one in your project with ease.</description>
+    </item>
+    
+    <item>
+      <title>Deprecated APIs In .NET 4.0</title>
+      <link>https://prashantkhandelwal.github.io/post/deprecated-apis-and-net-40/</link>
+      <pubDate>Tue, 20 Jul 2010 11:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/deprecated-apis-and-net-40/</guid>
+      <description>A number of existing APIs are deprecated in .NET Framework 4.0. A complete listing of deprecated APIs in .NET Framework 4.0 can be found here at MSDN:
+ Obsolete Types in the .NET Framework 4 Obsolete Members in the .NET Framework 4  </description>
+    </item>
+    
+    <item>
+      <title>Build “Out of Browser” Applications with Silverlight</title>
+      <link>https://prashantkhandelwal.github.io/post/build-e2809cout-of-browsere2809d-applications-with-silverlight/</link>
+      <pubDate>Sun, 20 Jun 2010 09:30:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/build-e2809cout-of-browsere2809d-applications-with-silverlight/</guid>
+      <description>If you think that Silverlight applications are only intended to be run on web browsers, then you are wrong! Silverlight is now widely used to build Rich Internet Application (RIA) allowing users to work more efficiently and make a working session more interactive and attractive. As we all know a customer will always seek for a short-cut method, he will never listen to your comments or suggestions and wants everything to be done in few mouse clicks.</description>
+    </item>
+    
+    <item>
+      <title>How To Build UAC Compatible Application In .NET</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</link>
+      <pubDate>Sun, 23 May 2010 21:01:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</guid>
+      <description>We all know about a feature called User Account Control (UAC) which introduced with the launch of Windows Vista. By default, UAC is enabled and provides users a better and safer computing experience, but most of the users find it irritating when the UAC prompts everytime they try to run a program. Disabling UAC is not recommended at all.
+With UAC enabled programmers find it difficult to access some of the locations on the local drive.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Theme Generator</title>
+      <link>https://prashantkhandelwal.github.io/post/visual-studio-theme-generator/</link>
+      <pubDate>Wed, 24 Mar 2010 01:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/visual-studio-theme-generator/</guid>
+      <description>I just Got bored looking at the same code editor in Visual Studio. Same old white background and same syntax colour highlighting. So I give it a go and jump to Visual Studio options and start playing around with the option available to change the look and feel of the code editor. After trying for a while and working around with some customizations, I gave a second go and do a quick bing search in a hope that I will find some theme for my Visual Studio and Voila!</description>
+    </item>
+    
+    <item>
+      <title>Enable intellisense Jquery in Visual Studio 2008</title>
+      <link>https://prashantkhandelwal.github.io/post/enable-intellisense-jquery-in-visual-studio-2008/</link>
+      <pubDate>Fri, 15 Jan 2010 18:16:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/enable-intellisense-jquery-in-visual-studio-2008/</guid>
+      <description>Microsoft with Jquery team have added the intellisense support for VS2008. I am using Jquery for the past few months, but never thought that it would be great if there would be intellisense support for Jquery. I read Scott Gu’s post of enable intellisense support for Jquery in Visual Studio. The new Visual Studio 2010 comes pre-packed with Jquery intellisense support.</description>
+    </item>
+    
+  </channel>
+</rss>

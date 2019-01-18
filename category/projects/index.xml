@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/projects/</link>
+    <description>Recent content in Projects on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Apr 2017 07:39:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</title>
+      <link>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</link>
+      <pubDate>Sun, 02 Apr 2017 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</guid>
+      <description>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</description>
+    </item>
+    
+    <item>
+      <title>Controlling 16x2 LCD With Raspberry PI 2 Using Adafruit Library</title>
+      <link>https://prashantkhandelwal.github.io/post/controlling-16x2-lcd-with-raspberry-pi-2-using-adafruit-library/</link>
+      <pubDate>Mon, 20 Jul 2015 12:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/controlling-16x2-lcd-with-raspberry-pi-2-using-adafruit-library/</guid>
+      <description>As an enthusiast, I started working with embedded with Netduino. It was fun but at the same time Netduino was not offering that much things that I can do now. For a person like me who has no knowledge of electronics and C/C++, this was a gift. Now here I am using Raspberry PI&amp;rsquo;s latest version and I have everything I ever wanted on a single piece of hardware.
+To get started with Python and Raspberry PI, I looked into the &amp;ldquo;Hello World&amp;rdquo; sort of LED blinking example.</description>
+    </item>
+    
+    <item>
+      <title>Turn Your Google Drive Folder In An Online Album Viewer</title>
+      <link>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</link>
+      <pubDate>Sun, 04 May 2014 15:09:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</guid>
+      <description>Working with Google Drive API is fun. The documentation is good and will let you get started with the API pretty quickly. I have my whole complete family album on OneDrive, but the API is still a bit hard to use as compared to Google Drive API or maybe it is just for me. But while playing around with Drive API I ended up creating a small razor based web page application which will allow you to show your folder as an online web album.</description>
+    </item>
+    
+    <item>
+      <title>Using Skydrive REST API</title>
+      <link>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</link>
+      <pubDate>Sun, 28 Apr 2013 21:52:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</guid>
+      <description>I have created a wrapper class to simplify my work with REST API. I assume that you will be using a web application. First step is to create an application at dev.live.com. Once the application is created you will have the ClientID, Client Secret and Redirect domain. We will be using a ClientID and Redirect domain. Remember that the Redirect domain value cannot have localhost. You must provide a correct domain name as after successful authentication you, the user will be redirected to the domain along with the access token.</description>
+    </item>
+    
+    <item>
+      <title>BingMap.JS - Jquery Plugin For Bing Maps</title>
+      <link>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</link>
+      <pubDate>Sat, 10 Mar 2012 16:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</guid>
+      <description>Bing maps are out there for a long time now and is getting mature pretty fast. I have used Bing maps myself in few of my projects and I remember as a first time user I have a hard time configuring it according to my project requirement. To get myself out of the overhead I searched the web for a jquery plugin, but I can&amp;rsquo;t find a single jquery plugin for Bing Maps instead I found few for Google Maps.</description>
+    </item>
+    
+    <item>
+      <title>Syntax Highlighter In WPF</title>
+      <link>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</link>
+      <pubDate>Mon, 09 May 2011 16:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</guid>
+      <description>If you are writing code for a while now then by now you must have a lot of code snippets which you will be using in your application development, and you use them because they save a lot of development time. At this moment I have now a huge collection of code snippets which includes functions, classes, extension methods and functions that I have extracted from different open source applications.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Logon Screen Changer</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</link>
+      <pubDate>Sat, 29 May 2010 22:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</guid>
+      <description>Recently I was reading an article on some Windows 7 forums on how to change Windows Logon Background. There are manual steps which helps me to change the longon background, but its tedious if I have to do it manually everytime. So I decided to make a tool which can do it for me.
+I start up a new project in Visual Studio 2010 and create a new windows application. I am not writing about how I did it, I am just giving away this tool for use.</description>
+    </item>
+    
+  </channel>
+</rss>

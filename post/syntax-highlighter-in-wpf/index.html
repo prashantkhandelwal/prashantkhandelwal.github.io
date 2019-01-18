@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Syntax Highlighter In WPF • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Syntax Highlighter In WPF"/>
+<meta name="twitter:description" content="If you are writing code for a while now then by now you must have a lot of code snippets which you will be using in your application development, and you use them because they save a lot of development time. At this moment I have now a huge collection of code snippets which includes functions, classes, extension methods and functions that I have extracted from different open source applications."/>
+
+<meta property="og:title" content="Syntax Highlighter In WPF" />
+<meta property="og:description" content="If you are writing code for a while now then by now you must have a lot of code snippets which you will be using in your application development, and you use them because they save a lot of development time. At this moment I have now a huge collection of code snippets which includes functions, classes, extension methods and functions that I have extracted from different open source applications." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/" /><meta property="article:published_time" content="2011-05-09T16:55:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-05-09T16:55:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Syntax Highlighter In WPF</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> May 9, 2011
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/c">C#</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/projects">PROJECTS</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/wpf">WPF</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>If you are writing code for a while now then by now you must have a lot of code snippets which you will be using in your application development, and you use them because they save a lot of development time. At this moment I have now a huge collection of code snippets which includes functions, classes, <a href="http://www.extensionmethod.net/">extension methods</a> and functions that I have extracted from different open source applications.</p>
+
+<p>As I was progressing towards building an application in WPF which helps me managing all my code, a thought ran into my mind that it would be good if I could use syntax highlighting in the code. As usual I began my search to find a control in WPF which supports syntax highlighting and what I found, I was and I am at present satisfied. The control called <code>AvalonEdit</code> is a part of the free IDE called <a href="http://www.icsharpcode.net/opensource/sd/">SharpDevelop</a> for C# and VB.NET and Boo projects.</p>
+
+<p>Languages support by the control:</p>
+
+<ul>
+<li>ASP/XHTML</li>
+<li>HTML</li>
+<li>JavaScript</li>
+<li>XML</li>
+<li>XMLDoc</li>
+<li>VB.NET</li>
+<li>C#</li>
+<li>C++</li>
+<li>Coco</li>
+<li>Java</li>
+<li>PHP</li>
+<li>Patch</li>
+<li>Boo</li>
+<li>TeX</li>
+<li>Custom Highlighting</li>
+</ul>
+
+<p>I am a .NET guy so I will be using it for highlighting C# code. Fire Visual Studio and create a new WPF project. Add <code>ICSharpCode.AvalonEdit.dll</code> in the reference of your project.</p>
+
+<p><img src="/images/wpf-syntax-highlighter.png" alt="Adding syntax highlighting to WPF application" /></p>
+
+<p>After adding the reference in your project, add below XAML code on the window where you have your code window.</p>
+
+<pre class="brush:csharp; highlight:[4,7]">
+&lt;Window x:Class="SyntaxHighlighter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        Title="MainWindow" Height="401" Width="617" Loaded="Window_Loaded"&gt;
+    &lt;Grid&gt;
+&lt;avalonEdit:TextEditor  Name="txtCode"
+    FontFamily="Consolas"
+    FontSize="10pt"/&gt;       
+    &lt;/Grid&gt;
+&lt;/Window&gt;
+</pre>
+
+<p>At line 4, we will use custom mapping (because it is a third-party control) so we can use the control in our project. At line 7, I have used <code>TextEditor</code> class of the <code>AvalonEdit</code> namespace. The font name and size is the same as of the source code text editor in Visual Studio 2010.</p>
+
+<p>To get the control working with least configuration set some namespaces on the top, and two lines of code on window load for syntax highlighting and to show line numbers respectively.</p>
+
+<p><strong>Namespaces:</strong></p>
+
+<pre class="brush:csharp">
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Folding;
+using ICSharpCode.AvalonEdit.Highlighting;
+</pre>
+
+<p><strong>Window_Loaded:</strong></p>
+
+<pre class="brush:csharp">
+txtCode.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("C#");
+txtCode.ShowLineNumbers = true;
+</pre>
+
+<p>If you wish to change the language, then just change the name of the language which is passed as a parameter in the <code>GetDefinition</code> method. The code in the <code>Window_Loaded</code> method will allow you to set syntax highlighting specifically for C#, pretty simple but not very useful. Check out the other way where the text editor will load the file and by reading the file extension, it will set the syntax highlighting. Above method will be useful if the user wants to set syntax highlighting of his choice. But if you want to detect the language and get the syntax highlighting automatically, then use the below code.</p>
+
+<pre class="brush:csharp">
+txtCode.Load("d:\\Data.cs");
+txtCode.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(System.IO.Path.GetExtension("D:\\Data.cs"));
+txtCode.ShowLineNumbers = true;
+</pre>
+
+<p>The first line of code will <code>Load</code> the file and the second file will first get the extension of the file loaded, set the instance of the <code>HighlightingManager</code> class and in the end set the syntax highlighting. This is what I got in the end (I am using the second way to load the file).</p>
+
+<p><img src="/images/wpf-syntaxhighlighter-inaction.png" alt="WPF application with syntax highlighting" /></p>
+
+<blockquote>
+<p><strong>Note:</strong> To make sure that the second method work, you need to make sure that the file should have a language extension like .cs for C#, cpp for C++, xml for XML files etc. AvalonEdit is an open source code, so you can play around with it and can have your own customizations. There are lots of in-built configurations that you can do to set up your syntax highlighting control. I strongly recommend you to download the below files and take a look at the sample application.</p>
+</blockquote>
+
+<p><strong>Download: <a href="/files/AvalonEdit_Source.zip">AvalonEdit_Source.zip (861.02 kb)</a></strong></p>
+
+<p><strong>Related Links:</strong></p>
+
+<ul>
+<li><a href="http://www.icsharpcode.net/opensource/sd/">SharpDevelop</a></li>
+<li><a href="http://wiki.sharpdevelop.net/AvalonEdit.ashx">Avalon Edit</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/code-snippet-remove-duplicates-from-arraylist/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Code Snippet: Remove Duplicates From ArrayList</span>
+    </a>
+    
+    
+    <a href="/post/prepare-your-site-for-ie9-with-pinify/" class="navigation-next">
+      <span class="navigation-tittle">Prepare Your Site For IE9 With Pinify</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

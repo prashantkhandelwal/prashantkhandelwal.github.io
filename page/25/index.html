@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+
+<title>Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Midnight Programmer"/>
+<meta name="twitter:description" content="Programming For Fun"/>
+
+<meta property="og:title" content="Midnight Programmer" />
+<meta property="og:description" content="Programming For Fun" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/" />
+<meta property="og:updated_time" content="2010-02-25T20:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+<link href="https://prashantkhandelwal.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Midnight Programmer" />
+<link href="https://prashantkhandelwal.github.io/index.xml" rel="feed" type="application/rss+xml" title="Midnight Programmer" />
+
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+<div class="post-list">
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/sql-server-performance-and-nocount/">SQL Server performance and NOCOUNT</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 25, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>Performance of SQL server matters while working with large enterprise applications and where performance really bothers the business workflow. When NOCOUNT is ON, the count of rows by the execution of the query (T-SQL statements) is not returned. You must have noticed that when you perform operations by executing INSERT, UPDATE, DELETE or SELECT statements, the server returns the number of rows. The count of rows is necessary while debugging your queries, when you are done with debugging you can turn NOCOUNT ON. To view the number of rows affected use the command SET NOCOUNT OFF. You can try writing a normal select query with NOCOUNT as OFF, when NOCOUNT is OFF you can see the number of rows affected, but when you set NOCOUNT ON, you will not see any message related to the count of rows which are affected when you execute select statement or T-SQL statement.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/single-instance-of-child-forms-in-mdi-applications/">Single Instance of Child Forms in MDI Applications</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 22, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>In MDI application we can have multiple forms and can work with multiple forms i.e. MDI childs at a time but while developing applications we don&rsquo;t pay attention to the minute details of memory management. Take this as an example, when we develop application say preferably an MDI application, we have multiple child forms inside one parent form. On MDI parent form we would like to have menu strip and tab strip which in turn calls other forms which build the other parts of the application. This also makes our application looks pretty and eye-catching (not much actually). Now on a first go when a user clicks a menu item or a button on a tab strip an application initialize a new instance of a form and shows it to the user inside the MDI parent, if a user again clicks the same button the application creates another new instance for the form and presents it to the user, this will result in the un-necessary usage of the memory. Therefore, if you wish to have your application to prevent generating new instances of the forms then use the below method which will first check if the the form is visible among the list of all the child forms and then compare their types, if the form types matches with the form we are trying to initialize then the form will get activated or we can say it will be bring to front else it will be initialize and set visible to the user in the MDI parent window. The method we are using:</p>
+
+<pre class="brush:csharp">
+private bool CheckForDuplicateForm(Form newForm)
+{
+     bool bValue = false;
+     foreach (Form frm in this.MdiChildren)
+     {
+         if (frm.GetType() == newForm.GetType())
+         {
+             frm.Activate();
+             bValue = true;
+         }
+      }
+      return bValue;
+}
+</pre>
+
+<p><strong>Usage:</strong> First we need to initialize the form using the NEW keyword</p>
+
+<pre class="brush:csharp">
+ReportForm ReportForm = new ReportForm();
+</pre>
+
+<p>We can now check if there is another form present in the MDI parent. Here, we will use the above method to check the presence of the form and set the result in a bool variable as our function return bool value.</p>
+
+<pre class="brush:csharp">
+bool frmPresent = CheckForDuplicateForm(Reportfrm);
+</pre>
+
+<p>Once the above check is done then depending on the value received from the method we can set our form.</p>
+
+<pre class="brush:csharp">
+if (frmPresent)
+    return;
+else if (!frmPresent)
+{
+    Reportfrm.MdiParent = this;
+    Reportfrm.Show();
+}
+</pre>
+
+<p>In the end this is the code you will have at you menu item or tab strip click:</p>
+
+<pre class="brush:csharp">
+ReportForm Reportfrm = new ReportForm();
+bool frmPresent = CheckForDuplicateForm(Reportfrm);
+if (frmPresent)
+return;
+else if (!frmPresent)
+{
+    Reportfrm.MdiParent = this;
+    Reportfrm.Show();
+}
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-openxml-to-insert-data-in-sql-server/">using-openxml-to-insert-data-in-sql-server</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 19, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft SQL Server provides the mechanism to save XML data to the SQL table using OpenXML. We can use a stored procedure and pass a XML text as a string. It is useful when we have a large data in XML format and we want to save the whole data in different tables.</p>
+
+<p>So first start declaring the variables. The first declare the document variable and a XML document variable as <code>Varchar(8000)</code> or <code>Varchar(MAX)</code> - It&rsquo;s a same thing</p>
+
+<pre class="brush:sql">
+DECLARE @idoc int
+DECLARE @doc varchar(8000)
+</pre>
+
+<p>Now we can set the value to the <code>@doc</code> variable, the <code>@doc</code> variable will accept the XML file as a parameter. We can also have a complete XML data in the parameter only if the XML data is less.</p>
+
+<p><strong>OpenXML takes 3 parameters:</strong></p>
+
+<ul>
+<li>The handler which we have declare at the begining will holds the XML document in the memory.</li>
+<li>XPath variable to access the various elements of the XML document.</li>
+<li>The last parameter here &lsquo;2&rsquo; allows us to access XPath as elements.</li>
+</ul>
+
+<p>Here I have read a XML file in the document variable and store in the table. Here is the full SQL query to achieve this. You can also convert the below code to stored procedure and pass XML file or string as a parameter.</p>
+
+<pre class="brush:sql">
+DECLARE @idoc int
+DECLARE @doc varchar(8000)
+SET @doc ='&lt;ROOT&gt;&lt;student&gt;
+&lt;id&gt;1&lt;/id&gt;
+&lt;name&gt;Prashant&lt;/name&gt;
+&lt;age&gt;32&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;2&lt;/id&gt;
+&lt;name&gt;Swami&lt;/name&gt;
+&lt;age&gt;42&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;3&lt;/id&gt;
+&lt;name&gt;Ash&lt;/name&gt;
+&lt;age&gt;23&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;4&lt;/id&gt;
+&lt;name&gt;Kris&lt;/name&gt;
+&lt;age&gt;12&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;5&lt;/id&gt;
+&lt;name&gt;Derek&lt;/name&gt;
+&lt;age&gt;75&lt;/age&gt;
+&lt;/student&gt;
+&lt;/ROOT&gt;'
+ 
+--Create an internal representation of the XML document.
+EXEC sp_xml_preparedocument @idoc OUTPUT, @doc
+-- Execute a SELECT statement that uses the OPENXML rowset provider.
+Insert into Students SELECT id, name, age from
+OPENXML (@idoc, '/ROOT/student',2)
+WITH (id  int, name varchar(50), age int)
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/enable-intellisense-jquery-in-visual-studio-2008/">Enable intellisense Jquery in Visual Studio 2008</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 15, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft with Jquery team have added the intellisense support for VS2008. I am using Jquery for the past few months, but never thought that it would be great if there would be intellisense support for Jquery. I read <a href="http://weblogs.asp.net/scottgu">Scott Gu’s</a> post of <a href="http://weblogs.asp.net/scottgu/archive/2008/11/21/jquery-intellisense-in-vs-2008.aspx">enable intellisense support for Jquery in Visual Studio</a>. The new Visual Studio 2010 comes pre-packed with Jquery intellisense support.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/development-in-and-with-windows-7/">Windows 7 API Development and Training Kit</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 15, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft-windows">MICROSOFT WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>I recently installed Windows 7® Ultimate on my machine and found it more soothing and reliable in terms of preformance than Windows Vista® Ultimate. As a tech enthusiast, I do some serach on the internet and found two links from Microsoft website that will allow developers to develop applications specifically for Windows 7. The Windows API code pack allows developers to develop those features which are not available with .NET Framework. So to get started visit:</p>
+
+<ul>
+<li><a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows® Code Pack API for Windows 7 &amp; Windows Vista</a></li>
+<li><a href="http://www.microsoft.com/downloads/details.aspx?familyid=1C333F06-FADB-4D93-9C80-402621C600E7&amp;displaylang=en">Windows Training Kit</a></li>
+</ul>
+
+<p>The training kit includes the demos and presentations, hand-on labs for developers. I haven&rsquo;t yet started with Windows 7 development. But as soon as I get started I will blog some demo for Windows 7.</p>
+
+  </div>
+  
+</div>
+
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="/page/24/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/24/">24</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/page/25/">25</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/26/">26</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/26/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+
+        </div>
+        
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+    </body>
+</html>

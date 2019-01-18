@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Calling ASP.NET Web Service Using Jquery - Part I • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Calling ASP.NET Web Service Using Jquery - Part I"/>
+<meta name="twitter:description" content="Jquery is now one of the most favorite JavaScript frameworks to play around. It offers some more advance feature to the developers and UI designers to accomplish their task easily and more conveniently. Take an example of AJAX and think where you can face the problems when you have to deal with different browsers who support XMLHTTP request and the one who don’t. I remember, I use to initialize the AJAX’s XMLHTTP object keeping in mind what will be my client’s browser."/>
+
+<meta property="og:title" content="Calling ASP.NET Web Service Using Jquery - Part I" />
+<meta property="og:description" content="Jquery is now one of the most favorite JavaScript frameworks to play around. It offers some more advance feature to the developers and UI designers to accomplish their task easily and more conveniently. Take an example of AJAX and think where you can face the problems when you have to deal with different browsers who support XMLHTTP request and the one who don’t. I remember, I use to initialize the AJAX’s XMLHTTP object keeping in mind what will be my client’s browser." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-i/" /><meta property="article:published_time" content="2010-03-05T01:27:00&#43;00:00"/>
+<meta property="article:modified_time" content="2010-03-05T01:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Calling ASP.NET Web Service Using Jquery - Part I</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Mar 5, 2010
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>Jquery is now one of the most favorite JavaScript frameworks to play around. It offers some more advance feature to the developers and UI designers to accomplish their task easily and more conveniently. Take an example of AJAX and think where you can face the problems when you have to deal with different browsers who support XMLHTTP request and the one who don’t. I remember, I use to initialize the AJAX’s XMLHTTP object keeping in mind what will be my client’s browser. So, on the first go I have to detect the client’s browser and then set the XMLHTTP object and then process requests.</p>
+
+<p>But Jquery gives us a tons of features to be happy and so as with handling data. In Jquery we have not to worry about what will our client’s browser and what will be the request object. Jquery handles all this for us and makes its pretty easy to use.</p>
+
+<p>So start up with creating a new ASP.NET website project.</p>
+
+<p><img src="/images/ajax-new-proj.png" alt="Create new project" /></p>
+
+<p>When you create a new project a new page named Default.aspx is added by default. I am going to use the same page in this example. If you wish you can change the name of the page. Add a button on the page and a label to show text.</p>
+
+<p><img src="/images/ajax-markup.png" alt="Markup" /></p>
+
+<p>Right-Click the project and add choose New Item. Add a new Web Service.</p>
+
+<p><img src="/images/ajax-websrv.png" alt="Add web service" /></p>
+
+<p>After this add the below code to the web service code behind file. But before you do that there are some things we need to keep in mind. Let’s talk about a normal web service which we are going to consume in a normal way i.e. using the server-side code. But this is not the case I am explaining here. What we are going to do is to consume the web service on the client-side using Jquery.</p>
+
+<p>Now the changes that you have to made in the code-behind file to allow the web service to be consumed by the client-side script is as follows:</p>
+
+<p>First you have to add or un-comment the attribute above of the web service class. This attribute allows the web service to be called from the client-side script (Jquery or other client-side scripts).</p>
+
+<pre class="brush:plain">
+[System.Web.Script.Services.ScriptService]
+</pre>
+
+<p>After this you can write your method the same way you use to write with attribute [WebMethod]. I am just writing a simple method which will return a string.</p>
+
+<pre class="brush:csharp">
+[WebMethod]
+Public string Hello()
+{
+    Return “Welcome to ASP.NET Web Services and Jquery”;
+}
+</pre>
+
+<p>We have our web service ready and now we have to write client-side script to consume this webservice. The method in our web service will return only a plain simple string to the client. First I have added a button and a label to the page. On button click I have called the method (Jquery method) which will call the web service. The response of the web service is then shown on the label. On the page from where we are calling the web service, add the following Jquery script to call the web service.</p>
+
+<pre class="brush:jscript">
+function CallService()
+{
+      &dollar;.ajax({
+          type: "POST",
+          url: "Service.asmx/Hello",
+          data: "{}",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: OnSuccess,
+          error: OnError
+      });
+}
+
+function OnSuccess(data, status) 
+{
+      &dollar;("#lblResult").html(data.d);
+}
+ 
+function OnError(request, status, error)
+{
+      &dollar;("#lblResult").html(request.statusText);
+}
+</pre>
+
+<p>In the above code I have created a method and named it CallService(). Inside this method there are several parameters that we have to set to call the web service.</p>
+
+<ul>
+<li><strong>type:</strong> Can be POST or GET. Web Services do not work with &ldquo;GET&rdquo; by default, as to prevent cross-site request forgeries. (Thanks <a href="http://leedumond.com/">Lee Dumond</a> for pointing this out to me)</li>
+<li><strong>url:</strong> Name of the web service. In the above code you can see I have called the web method ‘Hello’ from the web service named ‘Service’. If you are consuming or calling other web service which is not a part of your project or solution then you need to enter the fully qualified name of the web service with method name you are going to call.</li>
+<li><strong>data:</strong> In this example the data will remain empty, as we are only calling a method which return a simple string and don’t accept any parameter. If the method has some parameters then we will pass the parameters. I will explain on passing parameters in my coming posts.</li>
+<li><strong>contentType:</strong> Should remain the same.</li>
+<li><strong>datatype:</strong> Should remain as it is.</li>
+<li><strong>success:</strong> Here I have called the OnSuccess when the call is complete successfully. If you check the OnSuccess method you will see that I have set the returned result from the web service to the label. In the OnSuccess method body you see ‘data.d’. The ‘d’ here is the short form of data.</li>
+<li><strong>Error:</strong> Same as I have done with OnSuccess. If any error occurred while retrieving the data then the OnError method is invoked.</li>
+</ul>
+
+<p>Run the project and see it in action.</p>
+
+<p><img src="/images/ajax-web-demo.png" alt="Web app demo" /></p>
+
+<p>In my coming post on calling web service in ASP.NET using Jquery I will show on how to pass parameters to a web service and get the result and on how can we interact with SQL Server to fetch data and lots of other stuff in Jquery and ASP.NET.</p>
+
+<p><strong>Download: <a href="/files/JqueryAjaxDemo.zip">JqueryAjaxDemo.zip (87.55 kb)</a></strong></p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/passing-parameters-and-loading-crystal-report-programmatically/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Passing Parameters and Loading Crystal Report Programmatically</span>
+    </a>
+    
+    
+    <a href="/post/calling-aspnet-web-service-using-jquery-part-ii/" class="navigation-next">
+      <span class="navigation-tittle">Calling ASP.NET Web Service Using Jquery - Part II - Passing Parameters</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

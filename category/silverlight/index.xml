@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Silverlight on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/silverlight/</link>
+    <description>Recent content in Silverlight on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 20 Jun 2010 09:30:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/silverlight/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Build “Out of Browser” Applications with Silverlight</title>
+      <link>https://prashantkhandelwal.github.io/post/build-e2809cout-of-browsere2809d-applications-with-silverlight/</link>
+      <pubDate>Sun, 20 Jun 2010 09:30:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/build-e2809cout-of-browsere2809d-applications-with-silverlight/</guid>
+      <description>If you think that Silverlight applications are only intended to be run on web browsers, then you are wrong! Silverlight is now widely used to build Rich Internet Application (RIA) allowing users to work more efficiently and make a working session more interactive and attractive. As we all know a customer will always seek for a short-cut method, he will never listen to your comments or suggestions and wants everything to be done in few mouse clicks.</description>
+    </item>
+    
+  </channel>
+</rss>

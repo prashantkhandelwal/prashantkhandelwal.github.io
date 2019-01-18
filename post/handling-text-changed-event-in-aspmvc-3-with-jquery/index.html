@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Handling Text Changed Event In ASP.NET MVC 3 With JQuery • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Handling Text Changed Event In ASP.NET MVC 3 With JQuery"/>
+<meta name="twitter:description" content="In my quest of learning MVC I came across many problems and here is one of them. I was trying to fire an event whenever a text changed event occurred. I am using JQuery to handle the text changed event but eventually the text changed event doesn&rsquo;t seems to be working in MVC as it is working for a text box changed event in web forms. The solution I found seems to be working fine for me as I don&rsquo;t want to fire an event on every key press."/>
+
+<meta property="og:title" content="Handling Text Changed Event In ASP.NET MVC 3 With JQuery" />
+<meta property="og:description" content="In my quest of learning MVC I came across many problems and here is one of them. I was trying to fire an event whenever a text changed event occurred. I am using JQuery to handle the text changed event but eventually the text changed event doesn&rsquo;t seems to be working in MVC as it is working for a text box changed event in web forms. The solution I found seems to be working fine for me as I don&rsquo;t want to fire an event on every key press." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/handling-text-changed-event-in-aspmvc-3-with-jquery/" /><meta property="article:published_time" content="2011-07-16T13:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-07-16T13:00:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Handling Text Changed Event In ASP.NET MVC 3 With JQuery</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Jul 16, 2011
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>In my quest of learning MVC I came across many problems and here is one of them. I was trying to fire an event whenever a text changed event occurred. I am using JQuery to handle the text changed event but eventually the text changed event doesn&rsquo;t seems to be working in MVC as it is working for a text box changed event in web forms. The solution I found seems to be working fine for me as I don&rsquo;t want to fire an event on every key press.</p>
+
+<p>To get started fire Visual Studio and create a new MVC 3 application with RAZOR view engine. I have build a simple contact manager application which allows the user to create a new contact, edit and delete existing contacts. While creating a new contact, what I want is when the user enters the e-mail address of the contact I want to make an AJAX call, which then call the method in the controller and return the <a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString</a> which will then show the <a href="http://en.gravatar.com/">Gravatar</a> on the webpage.</p>
+
+<p>Here is the default view of the index view. I will ask the user to enter some very basic information like name, address, email and phone.</p>
+
+<p><img src="/images/app-add-contacts.png" alt="Adding a contact page" /></p>
+
+<p>Now, when the user enters the email address of the contact and press TAB key to move to another field or just click somewhere else on the page, the focus on the text field will be changed and the controller function then returns HtmlString to show the Gravatar image.</p>
+
+<p><strong>Here is the markup of the Create View (Create.cshtml):</strong></p>
+
+<pre class="brush:html; highlight:[32,33,34]">
+@model TextChangedMVC.Models.Contacts
+@{
+    ViewBag.Title = "Create";
+}
+&lt;h2&gt;
+    Create&lt;/h2&gt;
+&lt;script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"&gt;&lt;/script&gt;
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    &lt;fieldset&gt;
+        &lt;legend&gt;Contacts&lt;/legend&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Name)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Name)
+            @Html.ValidationMessageFor(model =&gt; model.Name)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Address)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Address)
+            @Html.ValidationMessageFor(model =&gt; model.Address)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Email)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Email)
+            &lt;div id="Gravatar"&gt;
+            &lt;/div&gt;
+            @Html.ValidationMessageFor(model =&gt; model.Email)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Phone)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Phone)
+            @Html.ValidationMessageFor(model =&gt; model.Phone)
+        &lt;/div&gt;
+        &lt;p&gt;
+            &lt;input type="submit" value="Create" /&gt;
+        &lt;/p&gt;
+    &lt;/fieldset&gt;
+}
+&lt;div&gt;
+    @Html.ActionLink("Back to List", "Index")
+&lt;/div&gt;
+</pre>
+
+<p>Check the highlighted code in the above markup where I have a DIV called <code>Gravatar</code>. This is where I will display the <code>Gravatar</code> of the person. Remember, when the user enters the email address we need to make sure that the Gravatar of the person displays without being an obstruction to the user, so an AJAX request to the controller will help in achieving this.</p>
+
+<p>Below is the Jquery which will call the controller method called <code>Avatar</code> which accepts <code>email</code> as a parameter of string type.</p>
+
+<pre class="brush:jscript; highlight:[6,8]">
+&lt;script type="text/javascript"&gt;
+    $('#Email').change(function () {
+        $('#Gravatar').html('');
+        var selection = $('#Email').val();
+        if (selection.length > 0) {
+            $.post("/Home/Avatar", { email: selection },
+        function (data) {
+            $('#Gravatar').html(data)
+        })
+        }
+    });
+&lt;/script&gt;
+</pre>
+
+<p>The above script is simple and here I am calling the controller&rsquo;s <code>Avatar</code> method which returns an <code>HtmlString</code>. At line 6, we are making a request and calling the controller&rsquo;s method. At line 8, the data (which is a HTML) returned will be set on the DIV called Gravatar (the placeholder for the Gravatar image).</p>
+
+<p><img src="/images/app-gravatar.png" alt="Gravatar being rendered on web page" /></p>
+
+<p>The controller method <code>Avatar</code> is as follows:</p>
+
+<pre class="brush:csharp">
+public HtmlString Avatar(string email)
+{
+      return Gravatar.GetHtml(email, defaultImage: "http://midnightprogrammer.net/pics/default.gif");
+}
+</pre>
+
+<p>Gravatar is a method is a part of the Microsoft Web Helpers. You can use web helpers by downloading it via <a href="http://nuget.org/">NuGet</a>. Check it out <a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">here</a> if you miss my blog post on how to use Microsoft Web Helpers in MVC.</p>
+
+<p><strong>Related Post:</strong></p>
+
+<ul>
+<li><a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString Class - MSDN</a></li>
+<li><a href="http://nuget.org/List/Packages/microsoft-web-helpers">ASP.NET Web Helpers Library</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/angry-birds-theme-for-windows-7/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Angry Birds Theme For Windows 7</span>
+    </a>
+    
+    
+    <a href="/post/using-recaptcha-in-aspnet-webforms-and-mvc/" class="navigation-next">
+      <span class="navigation-tittle">Using ReCaptcha In ASP.NET WebForms And MVC</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Building Real Time Applications With Firebase And AngularJS • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Building Real Time Applications With Firebase And AngularJS"/>
+<meta name="twitter:description" content="Building real-time applications with SignalR is easy. But building real-time applications with JavaScript will be a problem if you are not aware of Firebase. I first heard of it when I was learning AngularJS. The official AngularJS site has the example where you can add, edit and delete the detials in real-time. This example uses Firebase as the storage and updates the UI in real time.
+The data is stored in JSON format and accessing it using jQuery makes it very easy."/>
+
+<meta property="og:title" content="Building Real Time Applications With Firebase And AngularJS" />
+<meta property="og:description" content="Building real-time applications with SignalR is easy. But building real-time applications with JavaScript will be a problem if you are not aware of Firebase. I first heard of it when I was learning AngularJS. The official AngularJS site has the example where you can add, edit and delete the detials in real-time. This example uses Firebase as the storage and updates the UI in real time.
+The data is stored in JSON format and accessing it using jQuery makes it very easy." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/building-real-time-applications-with-firebase-and-angularjs/" /><meta property="article:published_time" content="2014-05-17T23:25:00&#43;00:00"/>
+<meta property="article:modified_time" content="2014-05-17T23:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Building Real Time Applications With Firebase And AngularJS</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> May 17, 2014
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/api">API</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/web">WEB</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Building real-time applications with SignalR is easy. But building real-time applications with JavaScript will be a problem if you are not aware of <a href="https://www.firebase.com/">Firebase</a>. I first heard of it when I was learning <a href="http://angularjs.org/">AngularJS</a>. The official AngularJS site has the example where you can add, edit and delete the detials in real-time. This example uses Firebase as the storage and updates the UI in real time.</p>
+
+<p>The data is stored in JSON format and accessing it using jQuery makes it very easy. Firebase API is pretty powerful and lets you get started in minutes. To get started with Firebase, you have to first <a href="https://www.firebase.com/signup/">create a new account with Firebase</a>. It&rsquo;s a paid service but for now you can opt for a developer account. As soon as your account is created you will be redirected to your dashboard where you can create a new application or use the one which is there by default from Firebase. Take the note of the URL ending with <code>firebaseIO.com</code>, we will be needing it later on at the time of implementing.</p>
+
+<p><img src="/images/firebase-create-new-app.png" alt="Firebase New App" /></p>
+
+<p>Clicking on Manage App button will take you to the details page of the application. Where you can view/edit/import/export the data in the JSON format, authentication from Facebook, Twitter, Google etc, simulate read/write operation and more. You can see the sample data in JSON format I have been testing in the below screenshot. If you already have a JSON file, you can directly import it from the dashboard using the <code>Import JSON</code> feature.</p>
+
+<p><img src="/images/firebase-dashboard.png" alt="Firebase Dashboard" /></p>
+
+<p>For this example I am using jQuery and AngularJS. If you wish you can just stick to jQuery. Create a new HTML page and add Firebase JS references in the head section. I am using AngularJS so I am going to add AngularJS reference as well.</p>
+
+<pre class="brush: js">
+&lt;script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.firebase.com/js/client/1.0.11/firebase.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>You get the first three references but the last reference is the AngularFire which is a quick way to work with Firebase applications with AngularJS. This is AngularJS code with firebase dependency.</p>
+
+<pre class="brush: js">
+var feedApp = angular.module('feedDataApp', ['firebase']);
+ 
+feedApp.controller('feedListController', function ($scope, $firebase) {
+    var fbURL = new Firebase("https://scorching-fire-0000.firebaseio.com/Feeds/");
+    $scope.feedsList = $firebase(fbURL);
+ 
+    $scope.save = function () {
+        $scope.feedsList.$add({
+            Name: $scope.feedsList.Name,
+            Url: $scope.feedsList.Url,
+            Description: $scope.feedsList.Description
+             
+        });
+        $(":text").val('');
+    }
+});
+</pre>
+
+<p>I am not getting into the basics of AngularJS, but I will explain few things in the above code. The first line in the above code has the dependency named <code>firebase</code>, in simple AngularJS apps we could have skip the dependecies. Then I have the controller named <code>feeListController</code>, which is accompanied by a very own <code>$scope</code> and new param which is <code>$firebase</code>. Inside the controller I have a variable <code>fbURL</code> which holds my Firebase URL. If you see here, you willl notice that I have appended the URL with <code>Feeds</code>. This is because I want my data to be saved inside the Feeds section in the Firebase storage. The <code>$scope.feedsList</code> will hold the collection of all my entries I have in my storage. I have the save function which will save the details to my storage. Inside the Firebase&rsquo;s <code>$add</code> function, I have passed <code>Name</code>, <code>Url</code> and <code>Description</code>. You can pass as many params as you want. the best thing is that you don&rsquo;t even have to set the storage schema. As soon as you click the save button, a new entry is created in the storage. This is my storage looks like.</p>
+
+<p><img src="/images/firebase-json-tree.png" alt="Firebase JSON Viewer" /></p>
+
+<p>If you don&rsquo;t want to save it under the <code>Feeds</code> section then in the above JS file you just have to remove the <code>Feeds</code> from the above URL. The UI for this demo is simple, just listing down the saved JSON data in a readable form using AngularJS.</p>
+
+<pre class="brush: html">
+&lt;div ng-controller="feedListController"&gt;
+    &lt;table class="table"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                Name
+            &lt;/td&gt;
+            &lt;td&gt;
+                Url
+            &lt;/td&gt;
+            &lt;td&gt;
+                Description
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr ng-repeat=" feeds in feedsList"&gt;
+            &lt;td&gt;{{feeds.Name}}&lt;/td&gt;
+            &lt;td&gt;{{feeds.Url}}&lt;/td&gt;
+            &lt;td&gt;{{feeds.Description}}&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Name" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Url" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Description" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button type="submit" ng-click="save()"&gt;Add Feed&lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+</pre>
+
+<p>Using a simple design I have displayed the details using AngularJS.</p>
+
+<p><img src="/images/firebase-web-app.png" alt="Firebase Angular Web App" /></p>
+
+<p>The best part is the as soon as I add a new feed details, it will get updated in the UI in real-time. Open the same page on a different browser and add a new entry. You will notice that the data is updated in real-time.</p>
+
+<p><img src="/images/firebase-json-db.png" alt="Firebase DB" /></p>
+
+<p><img src="/images/firebase-ng-app-output.png" alt="Firebase Angular Web App" /></p>
+
+<p>Firebase is not limited for web, it is available for iOS/OS x, Java/Android, Node.js, Ember etc. Building mobile applications using Firebase as a real-time storage will be an amazing thing to do. This is not a very good example for Firebase with AngularJS but this will get you started with Firebase and let you test a part of your application using this awesome real-time storage.</p>
+
+<p>I would recommend you to look at <a href="https://github.com/firebase/firereader">this web application</a> build completely on Firebase and AngularJS.</p>
+
+<h4 id="references">References</h4>
+
+<ul>
+<li><a href="https://www.firebase.com/">Firebase</a></li>
+<li><a href="http://angularfire.com/">AngularFire</a> / <a href="https://github.com/firebase/angularFire">Github</a> / <a href="https://www.firebase.com/docs/angular/reference.html">Reference</a></li>
+<li><a href="https://www.firebase.com/docs/">Firebase - Getting started docs</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/turn-your-google-drive-folder-in-an-online-album-viewer/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Turn Your Google Drive Folder In An Online Album Viewer</span>
+    </a>
+    
+    
+    <a href="/post/recurring-tasks-inside-aspnet-applications-using-hangfire/" class="navigation-next">
+      <span class="navigation-tittle">Recurring Tasks Inside ASP.NET Applications Using HangFire</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

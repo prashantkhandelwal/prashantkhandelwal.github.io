@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Api on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/api/</link>
+    <description>Recent content in Api on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Jul 2015 13:51:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/api/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>.NET Projects You Should Be Following On Github</title>
+      <link>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</link>
+      <pubDate>Sun, 19 Jul 2015 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</guid>
+      <description>Open-source has entirely change the programming and developers world. Today you can create any application, game, mobile app without spending a single penny. Thanks to open-source software and awesome community of developers and people behind them. As a .NET developer I have been developing enterprise applications for quite a long time and now I have shifted my focus towards developing products and understanding what it takes to make a successful product launch.</description>
+    </item>
+    
+    <item>
+      <title>Building Real Time Applications With Firebase And AngularJS</title>
+      <link>https://prashantkhandelwal.github.io/post/building-real-time-applications-with-firebase-and-angularjs/</link>
+      <pubDate>Sat, 17 May 2014 23:25:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-real-time-applications-with-firebase-and-angularjs/</guid>
+      <description>Building real-time applications with SignalR is easy. But building real-time applications with JavaScript will be a problem if you are not aware of Firebase. I first heard of it when I was learning AngularJS. The official AngularJS site has the example where you can add, edit and delete the detials in real-time. This example uses Firebase as the storage and updates the UI in real time.
+The data is stored in JSON format and accessing it using jQuery makes it very easy.</description>
+    </item>
+    
+    <item>
+      <title>Turn Your Google Drive Folder In An Online Album Viewer</title>
+      <link>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</link>
+      <pubDate>Sun, 04 May 2014 15:09:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</guid>
+      <description>Working with Google Drive API is fun. The documentation is good and will let you get started with the API pretty quickly. I have my whole complete family album on OneDrive, but the API is still a bit hard to use as compared to Google Drive API or maybe it is just for me. But while playing around with Drive API I ended up creating a small razor based web page application which will allow you to show your folder as an online web album.</description>
+    </item>
+    
+    <item>
+      <title>JSON Based Document Storage Using Biggy In ASP.NET MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</link>
+      <pubDate>Sat, 03 May 2014 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</guid>
+      <description>While working with a small web based project many developers will take advantage of web.config and XML files to read settings for the application. Using web.config is a good way but you cannot change the settings from within the application and when done manually it causes the website to restart. XML is good but many of us has a problem when it comes to update the details in XML. Biggy is an awesome library developed by Rob Conery to work with document storage.</description>
+    </item>
+    
+    <item>
+      <title>Building MVC Application With Multiple Database Support Using Ninject</title>
+      <link>https://prashantkhandelwal.github.io/post/building-mvc-application-with-multiple-database-support-using-ninject/</link>
+      <pubDate>Mon, 13 May 2013 14:33:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-mvc-application-with-multiple-database-support-using-ninject/</guid>
+      <description>I used to have BlogEngine.NET as my blogging platform before switching to WordPress, and that is because of my poor hosting provider who can’t afford few MBs on the shared hosting plans. I like BlogEngine.NET a lot because it is in .NET and on the other hand WordPress is on PHP which I don’t know. BlogEngine.NET is still evolving and is getting better with every release. BlogEngine.NET supports multiple databases like SQL Server, SQL Server CE, MySQL, XML file, VistaDB and may be few more.</description>
+    </item>
+    
+    <item>
+      <title>Using Skydrive REST API</title>
+      <link>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</link>
+      <pubDate>Sun, 28 Apr 2013 21:52:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</guid>
+      <description>I have created a wrapper class to simplify my work with REST API. I assume that you will be using a web application. First step is to create an application at dev.live.com. Once the application is created you will have the ClientID, Client Secret and Redirect domain. We will be using a ClientID and Redirect domain. Remember that the Redirect domain value cannot have localhost. You must provide a correct domain name as after successful authentication you, the user will be redirected to the domain along with the access token.</description>
+    </item>
+    
+    <item>
+      <title>Integrate Windows Live SignIn Support In ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/integrate-windows-live-signin-support-in-aspnet/</link>
+      <pubDate>Sat, 28 Jul 2012 12:35:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/integrate-windows-live-signin-support-in-aspnet/</guid>
+      <description>Last year I wrote a post on how you can integrate OpenID support in your ASP.NET application. Few days back as usual I was chasing Windows Live SDK updates on Twitter and yes the most awaited SkyDrive API was made available to all the developers. I will be writing a post later on how to upload files using SkyDrive API.
+Setting up the application To integrate Windows Live Sign-In support I have downloaded the LiveService samples from Github and take a look at ASP.</description>
+    </item>
+    
+    <item>
+      <title>Minify Your CSS &amp; Javascript With SquishIt</title>
+      <link>https://prashantkhandelwal.github.io/post/minify-your-css-javascript-with-squishit/</link>
+      <pubDate>Sun, 15 Apr 2012 03:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/minify-your-css-javascript-with-squishit/</guid>
+      <description>No one likes if their favourite site is loading up slow. Using CSS sprites instead of using individual images and minify javascript and css files is a way to minimize the request send to the server and also saves you few KBs or may be even MBs. If your site is high on using javacript and CSS then you should minimize them.
+I recently used SquishIt to combine/minimize my CSS and javascript files.</description>
+    </item>
+    
+    <item>
+      <title>BingMap.JS - Jquery Plugin For Bing Maps</title>
+      <link>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</link>
+      <pubDate>Sat, 10 Mar 2012 16:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</guid>
+      <description>Bing maps are out there for a long time now and is getting mature pretty fast. I have used Bing maps myself in few of my projects and I remember as a first time user I have a hard time configuring it according to my project requirement. To get myself out of the overhead I searched the web for a jquery plugin, but I can&amp;rsquo;t find a single jquery plugin for Bing Maps instead I found few for Google Maps.</description>
+    </item>
+    
+    <item>
+      <title>Add Google Login Support In ASP.NET With OpenID</title>
+      <link>https://prashantkhandelwal.github.io/post/add-google-login-support-in-aspnet-with-oauth/</link>
+      <pubDate>Sat, 18 Feb 2012 17:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/add-google-login-support-in-aspnet-with-oauth/</guid>
+      <description>Few years back I blogged about adding OpenID login support in ASP.NET application. This time I am blogging about adding Google login support in ASP.NET application. A friend of mine is trying to integrate multiple third party authentication support for one of the application he is developing for his client. He is using DotNetOpenAuth for Google authentication. the code I am using here is from my friend and I am sharing it with his explicit permission.</description>
+    </item>
+    
+    <item>
+      <title>Introducing Visual Studio Achievements - Bringing Some Game To The Code</title>
+      <link>https://prashantkhandelwal.github.io/post/introducing-visual-studio-achievements-bringing-some-game-to-the-code/</link>
+      <pubDate>Sun, 22 Jan 2012 13:19:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/introducing-visual-studio-achievements-bringing-some-game-to-the-code/</guid>
+      <description>Another awesome stuff for developers from Microsoft! This past Wednesday Microsoftie Karsten Januszewski announced the Visual Studio Achievement Beta at Channel9. Guess what? as a developer, you are writing hundred lines of code every day without even getting noticed by the community!!? Well, you will get noticed now. Here is an extract from the official post from Channel9:
+ Bring Some Game To Your Code!
+A software engineer&amp;rsquo;s glory so often goes unnoticed.</description>
+    </item>
+    
+    <item>
+      <title>Get Song Lyrics From LYRDB With ASP.NET MVC And JQuery</title>
+      <link>https://prashantkhandelwal.github.io/post/get-song-lyrics-from-lyrdb-with-aspnet-mvc-and-jquery/</link>
+      <pubDate>Sat, 26 Nov 2011 14:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-song-lyrics-from-lyrdb-with-aspnet-mvc-and-jquery/</guid>
+      <description>Most of the times I have seen people looking for song lyrics on online MP3 or lyrics database sites. Few of them provide API to fetch lyrics which is good for developers. Last.fm has a powerful API but they don&amp;rsquo;t provide any API call to fetch lyrics. The two most popular APIs on the web that I am aware of is WikiLyrics, LyricsDB (popularly known as LyrDB), there is another API from ChartLyrics but I don&amp;rsquo;t find it as useful as the other two APIs.</description>
+    </item>
+    
+    <item>
+      <title>Integrate DISQUS For Comment Management In MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/integrate-disqus-for-comment-management-in-mvc/</link>
+      <pubDate>Sat, 03 Sep 2011 18:02:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/integrate-disqus-for-comment-management-in-mvc/</guid>
+      <description>I have been working on a MVC project which I will be using to save and manage all my code snippets. I get this plan in my head when my 160GB of HDD got crashed which holds most of my work and code. I started writing the web application in web forms and almost got it completed, but eventually changed my mind and started writing the application from scratch in MVC 3 with Razor view engine.</description>
+    </item>
+    
+    <item>
+      <title>Social Counter: JQuery Plugin To Get Twitter, Facebook And Feed Readers Count</title>
+      <link>https://prashantkhandelwal.github.io/post/social-counter-jquery-plugin-to-get-twitter-facebook-and-feed-readers-count/</link>
+      <pubDate>Fri, 02 Sep 2011 16:53:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/social-counter-jquery-plugin-to-get-twitter-facebook-and-feed-readers-count/</guid>
+      <description>Appending my previous post, I have created a plugin in JQuery to get twitter followers count, facebook likes and feed readers count. In my previous post, I have shown a way to get the counts in ASP.NET and I have created this plugin so that everyone can use and show counts on their blogs or site.
+To get started add the two javascript files, one is the jquery file and the other one is the plugin file.</description>
+    </item>
+    
+    <item>
+      <title>Get Twitter, Facebook And Feed Readers Count In ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/</link>
+      <pubDate>Fri, 02 Sep 2011 03:40:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/</guid>
+      <description>I am working on some web stuff these days and surfing around to look at some of the best web developer&amp;rsquo;s work around the web. As I was surfing I came across one of the most popular and reputed web tutorials site Nettus+. I am not going talking about any tutorial or article published on this site, but one thing that attracts my attention was the way they are displaying their followers count on twitter, facebook likes and RSS readers.</description>
+    </item>
+    
+    <item>
+      <title>Using ReCaptcha In ASP.NET WebForms And MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/using-recaptcha-in-aspnet-webforms-and-mvc/</link>
+      <pubDate>Sun, 31 Jul 2011 14:58:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-recaptcha-in-aspnet-webforms-and-mvc/</guid>
+      <description>ReCaptcha is now being used widely by many websites especially where there is a possibility of spamming the website, blog or a forum. Here I will show you on how you can use ReCaptcha in ASP.NET and MVC. Get a ReCaptcha Gobal Key and ASP.NET ReCaptcha DLL. Once you get the global key we are ready to go.
+ReCaptcha in WebForms
+Fire Visual Studio and create a new ASP.NET web forms project.</description>
+    </item>
+    
+    <item>
+      <title>Blog Analytics: Widget For BlogEngine.NET Powered By Google Analytics</title>
+      <link>https://prashantkhandelwal.github.io/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/</link>
+      <pubDate>Sat, 19 Mar 2011 17:44:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/</guid>
+      <description>Finally, I got to know the way to show Google Analytics stats on my blog space. To know more about using Google Analytics API read their official article on using the API.
+I have built a widget with the help of Analytics API to show the Google Analytics stats on my blog. The widget shows three stats at the moment (I don&amp;rsquo;t want to make the widget look complex). Below is a screenshot for the widget in action on my blog:</description>
+    </item>
+    
+    <item>
+      <title>Windows Live Theme For BlogEngine.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</link>
+      <pubDate>Thu, 17 Mar 2011 16:03:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</guid>
+      <description>If you have long URLs and other and want to create short URLs then Bit.ly API can help. I wrote a wrapper class which can let me create short URLs in jiffy. I was working on Bit.ly API to create my short URLs with a click of a button (that&amp;rsquo;s for my personal use). Therefore, I ended up with a &amp;lsquo;short&amp;rsquo; class to create short URLs using Bit.ly API. What you need is a login and an apikey, which you can have one for yourself by signing up for a free account.</description>
+    </item>
+    
+    <item>
+      <title>Working With Microsoft Web Helpers In MVC 3 Razor View</title>
+      <link>https://prashantkhandelwal.github.io/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/</link>
+      <pubDate>Sun, 06 Mar 2011 10:58:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/</guid>
+      <description>Building applications with ASP.NET MVC 3 and that too with RAZOR is easy. I believe most of the programmers out there found MVC 3 with RAZOR view engine found it easy. The best things I found in the new RAZOR view engine is the code is pretty much tidy no traditional code behinds and moreover you can work with the server-side code with the start of the @ symbol.</description>
+    </item>
+    
+    <item>
+      <title>Integrate Bing Maps With Geonames Database And ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/integrate-bing-maps-with-geonames-database-and-aspnet/</link>
+      <pubDate>Tue, 08 Feb 2011 03:11:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/integrate-bing-maps-with-geonames-database-and-aspnet/</guid>
+      <description>To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&amp;rsquo;t it be nice if you just have to query a local database?</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Working With Task Dialog Class</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/</link>
+      <pubDate>Mon, 24 Jan 2011 16:57:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/</guid>
+      <description>Last year, I blogged about few things related to Windows 7 development which includes Jump Lists and Glass Form. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The Windows 7 API Code Pack comes with some sample applications which exposes the power of the API.
+In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7.</description>
+    </item>
+    
+    <item>
+      <title>Using jQuery To Get Your Tweets</title>
+      <link>https://prashantkhandelwal.github.io/post/using-jquery-to-get-your-tweets/</link>
+      <pubDate>Mon, 27 Dec 2010 16:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-jquery-to-get-your-tweets/</guid>
+      <description>If you are a blogger and using Twitter, then you must want to show some of your latest tweets on your blog space. I do have a custom widget for my blog which can display 3 of my latest tweets and I can customize it show more of my tweets. But the widgets cannot be used in every scenario and this is why some people find it difficult to use the widget provided by Twitter to display their tweets.</description>
+    </item>
+    
+    <item>
+      <title>Adding CAPTCHA In ASP.NET Application</title>
+      <link>https://prashantkhandelwal.github.io/post/adding-captcha-in-aspnet-application/</link>
+      <pubDate>Sun, 26 Dec 2010 01:44:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/adding-captcha-in-aspnet-application/</guid>
+      <description>Using CAPTCHA was never easy for me before I got a class from an unknown user on a community forum post. I have just re-used the class to get my work done. The class is extremely easy to use and let you incorporate the CAPTCHA into your application in just few lines of code.
+You can set the height and width of the CAPTCHA image while initializing the CAPTCHA class. The CAPTCHA image generated from the class can be set to the image control directly or it can be save to the local path and then set to the image control.</description>
+    </item>
+    
+    <item>
+      <title>Extending OpenID Implementation With ASP.NET: User Information/Roles and Membership</title>
+      <link>https://prashantkhandelwal.github.io/post/extending-openid-implementation-with-aspnet-user-information-roles-and-membership/</link>
+      <pubDate>Sat, 25 Sep 2010 22:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/extending-openid-implementation-with-aspnet-user-information-roles-and-membership/</guid>
+      <description>Last month I have blogged on how you can integrate OpenID login support in your ASP.NET aplication. Some of the reader requested me that it would be better if I could show how you can implement membership and roles with OpenID authentication. It doesn&amp;rsquo;t seems easy in the first place, because you will require a bit more informaton from the user like his name and e-mail address. So, what I am trying to show you here is how you can gather information of the user who has logged in with OpenID and then you can use that information to set roles and membership for your website.</description>
+    </item>
+    
+    <item>
+      <title>Upload Multiple Files With jQuery &#39;Uploadify&#39;</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-multiple-files-with-jquery-uploadify/</link>
+      <pubDate>Sun, 12 Sep 2010 11:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-multiple-files-with-jquery-uploadify/</guid>
+      <description>I have found many web developers seeking for help to upload a file in AJAX style, I am not a web developer but among the list of people who used to search the web for some control, way or a workaround to do this. I found a .NET control to do this, but like all good controls&amp;hellip;.it wasn&amp;rsquo;t free. But the control worth it.
+But now we have an excellent open source plugin called Uploadify.</description>
+    </item>
+    
+    <item>
+      <title>Add OpenID Login Support In Your ASP.NET Application</title>
+      <link>https://prashantkhandelwal.github.io/post/add-openid-login-support-in-your-aspnet-application/</link>
+      <pubDate>Sun, 29 Aug 2010 14:50:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/add-openid-login-support-in-your-aspnet-application/</guid>
+      <description>Few days back I was looking at Scott Hanselman and friend&amp;rsquo;s Open Source Nerddinner project, learning and grabbing some new things from there. Apart from looking some internals I looked at the OpenID implementation. This was all a week ago and now it&amp;rsquo;s time for me to write and give some thoughts on DotNetOpenAuth. For folks who are new to OpenID I am going to demonstrate how you can implement one in your project with ease.</description>
+    </item>
+    
+    <item>
+      <title>Deprecated APIs In .NET 4.0</title>
+      <link>https://prashantkhandelwal.github.io/post/deprecated-apis-and-net-40/</link>
+      <pubDate>Tue, 20 Jul 2010 11:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/deprecated-apis-and-net-40/</guid>
+      <description>A number of existing APIs are deprecated in .NET Framework 4.0. A complete listing of deprecated APIs in .NET Framework 4.0 can be found here at MSDN:
+ Obsolete Types in the .NET Framework 4 Obsolete Members in the .NET Framework 4  </description>
+    </item>
+    
+    <item>
+      <title>Akismet Extension For BlogEngine.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/akismet-extension-for-blogenginenet/</link>
+      <pubDate>Fri, 14 May 2010 20:26:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/akismet-extension-for-blogenginenet/</guid>
+      <description>Since I have started using BlogEngine.NET I never thought of using any other open source blog engine. To me BlogEngine is the most extensible blogging platform availableat present. As a popular blogging, engine blog engine users faces a lot of spam comments. I was so totally annoyed and even after moderating comments I have to manually go and delete the comments. After some search I found an extesion from Joel Thoms.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Creating Jumplist In Windows 7</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-creating-jumplist-in-windows-7/</link>
+      <pubDate>Sun, 28 Mar 2010 02:08:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-creating-jumplist-in-windows-7/</guid>
+      <description>I am quite fascinated with Windows 7 before even I get it started using it. Actually I have just started on a fun project for my personal use which includes jump list. Why I am doing this? To navigate and get access to the application and internet addresses I need anytime. I am tired of typing addresses and navigating to the programs I frequently use. I have just started so I thought I must blog about my jump list experience with you all.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Aero Effects in .NET Applications</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-aero-effects-in-net-applications/</link>
+      <pubDate>Sun, 28 Feb 2010 13:22:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-aero-effects-in-net-applications/</guid>
+      <description>With the launch of Windows Vista, Microsoft introduces brand new UI, eye-catching aero effects (glass effects) for their new Operating System. I have seen a lot of programmers who are much concerned about the looks of their applications. So this time with the launch of Windows 7, Microsoft provides the Windows 7 API Code Pack. The Windows 7 API Code Pack not only just allows incorporating the aero glass effect, but many other features which will let you to work more conveniently with Windows 7.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 API Development and Training Kit</title>
+      <link>https://prashantkhandelwal.github.io/post/development-in-and-with-windows-7/</link>
+      <pubDate>Fri, 15 Jan 2010 12:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/development-in-and-with-windows-7/</guid>
+      <description>I recently installed Windows 7® Ultimate on my machine and found it more soothing and reliable in terms of preformance than Windows Vista® Ultimate. As a tech enthusiast, I do some serach on the internet and found two links from Microsoft website that will allow developers to develop applications specifically for Windows 7. The Windows API code pack allows developers to develop those features which are not available with .NET Framework.</description>
+    </item>
+    
+  </channel>
+</rss>

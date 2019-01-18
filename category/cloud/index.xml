@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/cloud/</link>
+    <description>Recent content in Cloud on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 17 May 2017 16:12:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/cloud/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hosting ASP.NET Core Web Application On Azure Linux VM</title>
+      <link>https://prashantkhandelwal.github.io/post/hosting-aspnet-core-web-application-on-azure-linux-vm/</link>
+      <pubDate>Wed, 17 May 2017 16:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/hosting-aspnet-core-web-application-on-azure-linux-vm/</guid>
+      <description>I run this blog on Azure as a Web App. I was planning to host it using a VM just for fun but I dropped the idea and choose Web Apps for my blog as a simple medium with less deployment effort and no server management at all. This blog post is mostly me documenting the steps to deploy or host the application on an Azure Linux Virtual Machine.</description>
+    </item>
+    
+    <item>
+      <title>Single Sign-On In ASP.NET Core With Azure Active Directory</title>
+      <link>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</link>
+      <pubDate>Mon, 08 May 2017 15:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</guid>
+      <description>Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application.</description>
+    </item>
+    
+    <item>
+      <title>Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</title>
+      <link>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</link>
+      <pubDate>Sun, 02 Apr 2017 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</guid>
+      <description>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</description>
+    </item>
+    
+    <item>
+      <title>Free E-Book: Understanding Azure - A Guide For Developers</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-book-understanding-azure-a-guide-for-developers/</link>
+      <pubDate>Sun, 16 Oct 2016 20:04:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-book-understanding-azure-a-guide-for-developers/</guid>
+      <description>There is no time better to be a developer. With the cloud, you can compose solutions that were never possible before. You can release new features to millions of users within minutes. You can push the boundaries of current technological limitations in days. Developers can turn ideas from the ground up to successful businesses in only months. Companies need apps that allow them to maximize customer engagement and differentiate against competitors.</description>
+    </item>
+    
+    <item>
+      <title>Free e-Books From Microsoft And Telerik That You Should Be Reading</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-books-from-microsoft-and-telerik-that-you-should-be-reading/</link>
+      <pubDate>Sun, 14 Jun 2015 08:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-books-from-microsoft-and-telerik-that-you-should-be-reading/</guid>
+      <description>I am involving myself in reading book these days rather than reading blogs. Here are 2 free e-books, one from Microsoft Press with a valuable insights on Cloud, Fundamental of Azure and the other from Telerik, The Developer&#39;s Guide To The New .NET. I encourage you to read both the books, but if you are not about cloud then you should read the book from Telerik.
+Microsoft Press - Fundamentals of Azure (Download)</description>
+    </item>
+    
+    <item>
+      <title>Building Real Time Applications With Firebase And AngularJS</title>
+      <link>https://prashantkhandelwal.github.io/post/building-real-time-applications-with-firebase-and-angularjs/</link>
+      <pubDate>Sat, 17 May 2014 23:25:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-real-time-applications-with-firebase-and-angularjs/</guid>
+      <description>Building real-time applications with SignalR is easy. But building real-time applications with JavaScript will be a problem if you are not aware of Firebase. I first heard of it when I was learning AngularJS. The official AngularJS site has the example where you can add, edit and delete the detials in real-time. This example uses Firebase as the storage and updates the UI in real time.
+The data is stored in JSON format and accessing it using jQuery makes it very easy.</description>
+    </item>
+    
+    <item>
+      <title>HTML5 Video - Capture And Upload Image To Azure Storage</title>
+      <link>https://prashantkhandelwal.github.io/post/html5-video-capture-and-upload-image-to-azure-storage/</link>
+      <pubDate>Sun, 02 Jun 2013 23:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/html5-video-capture-and-upload-image-to-azure-storage/</guid>
+      <description>I was exploring Github for some image effects/filters and I found some but still keep exploring and found an interesting plugin called face-detection. This plugin uses HTML5 getUserMedia to use your web camera only if your browser supports it. Unfortunately, IE10 still doesn’t support it. This seems cool to me, so I created a sample application to test it. This sample application will let you preview the video using your web camera and allows you to capture the image from your web camera and upload it to the Azure storage.</description>
+    </item>
+    
+    <item>
+      <title>Using Skydrive REST API</title>
+      <link>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</link>
+      <pubDate>Sun, 28 Apr 2013 21:52:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</guid>
+      <description>I have created a wrapper class to simplify my work with REST API. I assume that you will be using a web application. First step is to create an application at dev.live.com. Once the application is created you will have the ClientID, Client Secret and Redirect domain. We will be using a ClientID and Redirect domain. Remember that the Redirect domain value cannot have localhost. You must provide a correct domain name as after successful authentication you, the user will be redirected to the domain along with the access token.</description>
+    </item>
+    
+    <item>
+      <title>Using Cloud Power To Manage Your Source Code</title>
+      <link>https://prashantkhandelwal.github.io/post/using-cloud-power-to-manage-your-source-code/</link>
+      <pubDate>Fri, 26 Apr 2013 20:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-cloud-power-to-manage-your-source-code/</guid>
+      <description>Working on multiple projects but don’t have a good way of managing the projects then you are in danger. How you manage your source code? How you collaborate and work in teams? I have been working from home and have been in constant touch with my team members and therefore we need to come up with a solution where we can have our source code controlled properly. We do have many options like Git, TFS Express or VSS or may be another source control software.</description>
+    </item>
+    
+  </channel>
+</rss>

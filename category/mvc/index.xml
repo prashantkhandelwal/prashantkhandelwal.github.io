@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mvc on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/mvc/</link>
+    <description>Recent content in Mvc on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 16 Mar 2011 16:35:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/mvc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Upload Files In RAZOR With jQuery Uploadify Plugin</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-files-in-razor-with-jquery-uploadify-plugin/</link>
+      <pubDate>Wed, 16 Mar 2011 16:35:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-files-in-razor-with-jquery-uploadify-plugin/</guid>
+      <description>A Few months back I wrote a post on how to use jQuery plugin Uploadify to upload single/multiple files without postback in ASP.NET. The program works similarly to simple file upload sites in its ease of use. Now a few days back I was working on a demo project which is on MVC 3 Razor and I use the same plugin without any problems. But the files that are being uploaded are uploaded to the root folder instead of the folder I specified to upload the files.</description>
+    </item>
+    
+  </channel>
+</rss>

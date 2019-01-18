@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Integrate Bing Maps With Geonames Database And ASP.NET • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Integrate Bing Maps With Geonames Database And ASP.NET"/>
+<meta name="twitter:description" content="To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&rsquo;t it be nice if you just have to query a local database?"/>
+
+<meta property="og:title" content="Integrate Bing Maps With Geonames Database And ASP.NET" />
+<meta property="og:description" content="To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&rsquo;t it be nice if you just have to query a local database?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/integrate-bing-maps-with-geonames-database-and-aspnet/" /><meta property="article:published_time" content="2011-02-08T03:11:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-02-08T03:11:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Integrate Bing Maps With Geonames Database And ASP.NET</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Feb 8, 2011
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/api">API</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/utils">UTILS</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p><img align="right" src="/images/bing-maps-logo.jpg" alt="Bing Maps logo"/></p>
+
+<p>To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&rsquo;t it be nice if you just have to query a local database?</p>
+
+<h4 id="get-the-geonames-data-dump"><strong>Get the Geonames data dump</strong></h4>
+
+<p>Apart from providing free web services and API <a href="http://www.geonames.org/">Geonames.org</a> also provides their <a href="http://download.geonames.org/export/dump/">data dumps</a> which gets updated regularly. the best things about the data dumps are that they are distributed country-wise, city-wise etc. If you wish to download the data country wise, then you can download the file(s) which are named according to the countries IATA codes. The one I am using for this example is the <code>allCountries</code> files from the dumps. Download this dump only if you want to have ALL the Geoname data.</p>
+
+<p><img src="/images/geonames-datadump.png" alt="Geonames data dump" /></p>
+
+<h4 id="import-data-in-sql-server"><strong>Import data in SQL Server</strong></h4>
+
+<p>The dump can be imported in the database using the Data import-Export wizard present in the SQL Server or you can write a custom tool to import the whole dump. The dump is in a <code>TAB</code> delimited format. Just in case if you are not aware, the file you downloaded is in UTF-8 encoding and therefore you need it to convert it to UTF-16 encoding before you actually import it into the database. There is a command line tool which will help you to convert the database dump to UTF-16 which I got from the <a href="http://forum.geonames.org/gforum/posts/list/817.page">Geoname forums</a>.</p>
+
+<p><img src="/images/geonames-data-import.png" alt="Geonames data import" /></p>
+
+<p>This tool will convert the format of the dump file from UTF-8 to UTF-16. After the successfull conversion of the file, now comes the time to import the data in the database.</p>
+
+<p>Create a database table:</p>
+
+<pre class="brush:sql">
+CREATE TABLE GeoNames( 
+geonameid int NOT NULL, 
+name nvarchar(200) NULL, 
+asciiname nvarchar(200) NULL, 
+alternatenames nvarchar(max) NULL, 
+latitude float NULL, 
+longitude float NULL, 
+feature_class char(2) NULL, 
+feature_code nvarchar(10) NULL, 
+country_code char(3) NULL, 
+cc2 char(60) NULL, 
+admin1_code nvarchar(20) NULL, 
+admin2_code nvarchar(80) NULL, 
+admin3_code nvarchar(20) NULL, 
+admin4_code nvarchar(20) NULL, 
+population bigint NULL, 
+elevation int NULL, 
+gtopo30 int NULL, 
+timezone char(31) NULL, 
+modification_date date NULL
+)
+</pre>
+
+<p>To import millions of records you can write a custom tool or you can use the SQL Server Data Import/Export Data wizard. I have wrote a custom tool to import, but you can use the T-SQL&rsquo;s BULK INSERT (because it is simple and easy) to import the dump.</p>
+
+<pre class="brush:sql">
+BULK 
+INSERT GeoNames 
+FROM 'I:\Database\Dump.txt'
+WITH( 
+DATAFILETYPE = 'widechar', 
+FIELDTERMINATOR = '\t', 
+ROWTERMINATOR = '\n'
+)
+</pre>
+
+<p>The parameters in the above SQL statement is self-explanatory and therefore I am not going to brief them. <strong>But before you can start locating places with ASP.NET make sure you have indexed the table, if not then you will receive a SQL Server timed-out error</strong>.</p>
+
+<h4 id="working-with-bing-maps"><strong>Working with Bing Maps</strong></h4>
+
+<p>Our database is now ready and now we can start locating the places on the Bing maps. We have two pages in the project, one which we will be using to get the locations and their details on the basis of city name enter by the user and the other which will show the map with a push pin.</p>
+
+<p><img src="/images/geonames-webapp.png" alt="Geonames webapp" /></p>
+
+<p><strong>Default.aspx page:</strong></p>
+
+<pre class="brush:html">
+&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BingMap._Default" EnableViewState="true" %&gt;
+ 
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Bing Maps with ASP.NET and GeoNames Database&lt;/title&gt;
+    &lt;link href="Style/style.css" rel="stylesheet" type="text/css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form id="form1" runat="server" enableviewstate="true"&gt;
+    Enter Place Name:  &lt;asp:TextBox ID="txtPlaceName" runat="server" /&gt;
+    &lt;asp:Button ID="btnPlaceName" runat="server" Text="Get GeoData!" OnClick="btnPlaceName_Click" /&gt;
+     &lt;br /&gt;
+    &lt;br /&gt;
+        &lt;table id="GeoData" style="width: 55%;" enableviewstate="true"&gt;
+            &lt;tr&gt;
+                &lt;td class="tdheader"&gt;
+                      City Name
+                &lt;/td&gt;
+                &lt;td class="tdheader"&gt;
+                      Lat./Log.
+                &lt;/td&gt;
+                &lt;td class="tdheader"&gt;
+                     Country
+                &lt;/td&gt;
+                &lt;td&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;%for (int i = 0; i &lt; RecCount; i++)
+              {%&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                      
+                    &lt;%=CityName[i]%&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                      
+                    &lt;%=Lat[i]%&gt;
+                    /
+                    &lt;%=Log[i]%&gt;
+                &lt;/td&gt;
+                &lt;td class="country"&gt;
+                      
+                    &lt;%=Country[i]%&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;a href="BingMap.aspx?lat=&lt;%=Lat[i]%&gt;&log=&lt;%=Log[i]%&gt;&place=&lt;%=CityName[i]%&gt;" target="_blank"&gt;Show on Map&lt;/a&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;%}%&gt;
+        &lt;/table&gt;
+    &lt;br /&gt;
+   &lt;asp:Label ID="RecFound" Text="" runat="server" /&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;br&gt;
+</pre>
+
+<p><strong>Code Behind: Default.aspx.cs:</strong></p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using BingMap.DBModel;
+ 
+ 
+namespace BingMap
+{
+    public partial class _Default : System.Web.UI.Page
+    {
+        WorldEntities world = new WorldEntities();
+        public List&lt;string&gt; CityName = new List&lt;string&gt;();
+        public List&lt;string&gt; Country = new List&lt;string&gt;();
+        public List&lt;string&gt; Lat = new List&lt;string&gt;();
+        public List&lt;string&gt; Log = new List&lt;string&gt;();
+        public int RecCount = 0;
+ 
+        private void GetLocation(string CName)
+        {
+            try
+            {
+                var WorldLoc = from l in world.Geonames
+                               where l.name == CName
+                               select l;
+ 
+                foreach (var item in WorldLoc)
+                {
+                    CityName.Add(item.name);
+                    Country.Add(item.country_code);
+                    Lat.Add(Convert.ToSingle(item.latitude));
+                    Log.Add(Convert.ToSingle(item.longitude));
+                    RecCount = RecCount + 1;
+                }
+ 
+                if (RecCount == 0)
+                {
+                    RecFound.Text = "No Record(s) Found!";
+                }
+ 
+                else
+                {
+                    RecFound.Text = Convert.ToString(RecCount) + " Record(s) Found!";
+                }
+            }
+            catch (Exception x)
+            {
+                Response.Write(x.ToString());
+            }
+        }
+ 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+ 
+        }
+ 
+        protected void btnPlaceName_Click(object sender, EventArgs e)
+        {
+            if (Page.IsPostBack)
+            {
+                GetLocation(txtPlaceName.Text);
+            }
+        }
+    }
+}
+</pre>
+
+<p>here could be many places with the same name in different geographical locations. For example, if you query the database with San Francisco, you&rsquo;ll find out it is not the only place on the planet in U.S. The same is with the city in India called Hyderabad, one is in India and the other is in Pakistan. But the geographical location is different and thus we can place a push pin on the maps.</p>
+
+<p>I have used a different web page for the map. From the page <code>Default.aspx</code> page I will pass the information (latitude, longitude and place name) in query string to pin the location on the map.</p>
+
+<p><strong>BingMap.aspx:</strong></p>
+
+<pre class="brush:jscript">
+&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BingMap.aspx.cs" Inherits="BingMap.BingMap" %&gt;
+ 
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+ 
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+    &lt;title&gt;Bing Map&lt;/title&gt;
+    &lt;script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"&gt;&lt;/script&gt;
+ 
+    &lt;script type="text/javascript"&gt;
+        function LoadMap() {
+            map = new VEMap('BingMap');
+            var Latitude = '&lt;%= LocLat %&gt;';
+            var Longitude = '&lt;%= LocLog%&gt;';
+            var PlaceName = '&lt;%=Place %&gt;';
+            if (Latitude.length == 0 || Longitude.length == 0) {
+                var latlong = new VELatLong(28.63576, 77.22445);
+ 
+                map.SetDashboardSize(VEDashboardSize.Large);
+                map.LoadMap(latlong, 9, VEMapStyle.Road);
+ 
+                //Add pushpin
+                var pin = new VEShape(VEShapeType.Pushpin, latlong);
+                pin.SetCustomIcon(null);
+                pin.SetTitle("New Delhi");
+                pin.SetDescription("Capital City Of India");
+                map.AddShape(pin);
+                map.ShowDashboard();
+            }
+            else {
+                var latlong = new VELatLong(Latitude, Longitude);
+ 
+                map.SetDashboardSize(VEDashboardSize.Large);
+                map.LoadMap(latlong, 9, VEMapStyle.Road);
+ 
+                //Add pushpin
+                var pin = new VEShape(VEShapeType.Pushpin, latlong);
+                pin.SetCustomIcon(null);
+                pin.SetTitle(PlaceName);
+                pin.SetDescription("&lt;br/&gt;" + "&lt;strong&gt;Latitude:&lt;/strong&gt;" + '&lt;%=LocLat%&gt;' + "&lt;br/&gt;" + "&lt;strong&gt;Longitude:&lt;/strong&gt;" + '&lt;%=LocLog%&gt;');
+                map.AddShape(pin);
+                map.ShowDashboard();
+            }
+        }
+    &lt;/script&gt;
+ 
+&lt;/head&gt;
+&lt;body onload="LoadMap();"&gt;
+    &lt;form id="BingForm" runat="server"&gt;
+    &lt;div id='BingMap' style="position: relative; width: 800px; height: 600px;"&gt;
+     
+    &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;br&gt;
+</pre>
+
+<p>The client-side script is used to load the map. I have used the version 6.3 of the Bing Maps but you can also use the version 7.0. Though you need some additional parameters to use the latest one like the Bing Maps developer API key. The map can be set in the script tag.</p>
+
+<pre class="brush:jscript">
+<script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
+</pre>
+
+<p>A funtion named <code>LoadMap()</code> will doing the rest of the job, like setting the latitude, longitude, adding push pin to the location on the map and customizing other details on the map.</p>
+
+<pre class="brush:jscript">
+var latlong = new VELatLong(28.63576, 77.22445);
+map.SetDashboardSize(VEDashboardSize.Large);
+map.LoadMap(latlong, 9, VEMapStyle.Road);
+</pre>
+
+<p>The first line in the above script will set the latitude and longitude. The <code>LoadMap</code> method should always be called after <code>SetDashboardSize</code>. I have set the <a href="http://msdn.microsoft.com/en-us/library/bb429578.aspx">VEDashboardSize</a> enumeration to <code>Large</code> you can also use <code>Small</code> if you want the navigation controls of the map to appear small. <code>LoadMap</code> method will take 3 parameters, the first is the reference of the latitude and longitude of the location, second is the Zoom Level, which is 9 in my case, you can adjust this value according to your requirement and the third option <a href="http://msdn.microsoft.com/en-us/library/bb412515.aspx">VEMapStyle</a> enumeration will let you set the style for the map. It can be Road, Aerial, BirdEye etc (Click on the links to know more about these enumerations). And this is it, this will load the map in the browser showing the place of your choice with specified latitude and longitude.</p>
+
+<p>To be more precise an beautify the Bing Map, we can also add a push pin at the specified location and that too can also be done with the help of the client-side script.</p>
+
+<pre class="brush:jscript">
+var pin = new VEShape(VEShapeType.Pushpin, latlong);
+pin.SetCustomIcon(null);
+pin.SetTitle(PlaceName);
+pin.SetDescription("<br/>" + "<strong>Latitude:</strong>" + '<%=LocLat%>' + "<br/>" + "<strong>Longitude:</strong>" + '<%=LocLog%>');
+map.AddShape(pin);
+</pre>
+
+<p>To add a new push pin to our location we need to use <a href="http://msdn.microsoft.com/en-us/library/bb412535.aspx">VEShape</a> class. <a href="http://msdn.microsoft.com/en-us/library/bb412425.aspx">SetCustomIcon</a> method allows to set the custom icon for your push pin. <code>SetTitle</code> method will set the description for you push pin. <code>SetDescription</code> method sets the description of the push pin, here in the description I have set the other information like location&rsquo;s latitide and longitude. To add the push pin to the location the <code>AddShape</code> method of the map class will take <code>pin</code> as a parameter and set the push pin on the map.</p>
+
+<p>For showing map I have used a different web page named BingMap.aspx which also includes the code behind (just a few lines) apart from client-side code:</p>
+
+<p><strong>BingMap.aspx.cs:</strong></p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+ 
+namespace BingMap
+{
+    public partial class BingMap : System.Web.UI.Page
+    {
+        public string LocLat = "";
+        public string LocLog = "";
+        public string Place = "";
+ 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Request.QueryString.AllKeys.Length > 0)
+            {
+                LocLat = Request.QueryString["lat"].ToString();
+                LocLog = Request.QueryString["log"].ToString();
+                Place = Request.QueryString["place"].ToString();
+            }
+ 
+            if (LocLat.Equals("") || LocLog.Equals(""))
+            {
+ 
+            }
+        }
+    }
+}
+</pre>
+
+<p>In the code-behind I will check on page load if the count of the query string passed on to the page is greater than zero, if the condition is true then I will set the values in the public variables and set them on the client-side script which actually handles the loading, locating and adding push pin on the map. The URL on calling the BingMap.aspx page will look like this:</p>
+
+<pre class="brush:plain">
+http://localhost:5543/BingMap.aspx?lat=28.35&log=79.41667&place=Bareilly
+</pre>
+
+<p>I have shown my home town on the map. You can also see a push pin and other details in a baloon.</p>
+
+<p><img src="/images/geonames-bingmap.png" alt="Location via Geonames data on Bing Maps" /></p>
+
+<p>And this is it, I can now locate any place on the Bing Maps which is present with me in Geonames database with the help of ASP.NET. The more can be done with the help of Geonames database like postcode lookup. I hope this tutorial will get you started with Bing Maps integrated with Geonames database with the help of ASP.NET.</p>
+
+<p><strong>Download: <a href="/files/BingMap.zip">BingMap.zip (189.44 kb)</a></strong></p>
+
+<p><strong><a href="/files/Utf8ToUtf16.exe">Download the UTF8ToUTF16 conversion tool</a></strong></p>
+
+<p><strong>Related Links:</strong></p>
+
+<ul>
+<li><a href="http://jkebeck.wordpress.com/">Johannes blog on Bing Maps</a></li>
+<li><a href="http://download.geonames.org/export/dump/">Geonames Data Dump Page</a></li>
+<li><a href="http://www.bingmapsportal.com/">Bing Maps Account Centre</a></li>
+<li><a href="http://blogs.msdn.com/b/veplatform/">Bing Maps Team Blog</a></li>
+<li><a href="http://www.bing.com/community/site_blogs/b/maps/default.aspx">Bing Maps Community</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/reverse-those-short-urls/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Reverse Those Short URLs</span>
+    </a>
+    
+    
+    <a href="/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/" class="navigation-next">
+      <span class="navigation-tittle">How To Free Up Gigs of Space On Your Window 7 Machine</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

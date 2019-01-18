@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Microsoft Windows on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/microsoft-windows/</link>
+    <description>Recent content in Microsoft Windows on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Jan 2010 12:21:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/microsoft-windows/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Windows 7 API Development and Training Kit</title>
+      <link>https://prashantkhandelwal.github.io/post/development-in-and-with-windows-7/</link>
+      <pubDate>Fri, 15 Jan 2010 12:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/development-in-and-with-windows-7/</guid>
+      <description>I recently installed Windows 7® Ultimate on my machine and found it more soothing and reliable in terms of preformance than Windows Vista® Ultimate. As a tech enthusiast, I do some serach on the internet and found two links from Microsoft website that will allow developers to develop applications specifically for Windows 7. The Windows API code pack allows developers to develop those features which are not available with .NET Framework.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Freelancing on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/freelancing/</link>
+    <description>Recent content in Freelancing on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 26 Apr 2013 20:17:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/freelancing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using Cloud Power To Manage Your Source Code</title>
+      <link>https://prashantkhandelwal.github.io/post/using-cloud-power-to-manage-your-source-code/</link>
+      <pubDate>Fri, 26 Apr 2013 20:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-cloud-power-to-manage-your-source-code/</guid>
+      <description>Working on multiple projects but don’t have a good way of managing the projects then you are in danger. How you manage your source code? How you collaborate and work in teams? I have been working from home and have been in constant touch with my team members and therefore we need to come up with a solution where we can have our source code controlled properly. We do have many options like Git, TFS Express or VSS or may be another source control software.</description>
+    </item>
+    
+    <item>
+      <title>Free Tools Every Freelance Developer Should Have</title>
+      <link>https://prashantkhandelwal.github.io/post/free-tools-every-freelance-developer-should-have/</link>
+      <pubDate>Sat, 25 Aug 2012 11:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-tools-every-freelance-developer-should-have/</guid>
+      <description>If you are freelancing or working from home, then you must have some productivity tools which can really make your work from home a lot better. Why one has to invest in a service that can be available with no cost at all? Though some services are good enough to pay for, but I suggest one should not get them unless you really need one.
+I have been blogging and in a job for now almost 4 years and as a programmer I am a really big fan of open-source projects which have made my/our life easy without spending a single dime.</description>
+    </item>
+    
+  </channel>
+</rss>

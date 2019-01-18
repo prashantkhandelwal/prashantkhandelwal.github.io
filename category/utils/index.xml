@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Utils on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/utils/</link>
+    <description>Recent content in Utils on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Apr 2013 21:52:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/utils/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using Skydrive REST API</title>
+      <link>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</link>
+      <pubDate>Sun, 28 Apr 2013 21:52:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</guid>
+      <description>I have created a wrapper class to simplify my work with REST API. I assume that you will be using a web application. First step is to create an application at dev.live.com. Once the application is created you will have the ClientID, Client Secret and Redirect domain. We will be using a ClientID and Redirect domain. Remember that the Redirect domain value cannot have localhost. You must provide a correct domain name as after successful authentication you, the user will be redirected to the domain along with the access token.</description>
+    </item>
+    
+    <item>
+      <title>Using Cloud Power To Manage Your Source Code</title>
+      <link>https://prashantkhandelwal.github.io/post/using-cloud-power-to-manage-your-source-code/</link>
+      <pubDate>Fri, 26 Apr 2013 20:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-cloud-power-to-manage-your-source-code/</guid>
+      <description>Working on multiple projects but don’t have a good way of managing the projects then you are in danger. How you manage your source code? How you collaborate and work in teams? I have been working from home and have been in constant touch with my team members and therefore we need to come up with a solution where we can have our source code controlled properly. We do have many options like Git, TFS Express or VSS or may be another source control software.</description>
+    </item>
+    
+    <item>
+      <title>Pretty Paste - Visual Studio Extension Which Makes Pretty Paste</title>
+      <link>https://prashantkhandelwal.github.io/post/pretty-paste-visual-studio-extension-which-makes-pretty-paste/</link>
+      <pubDate>Sun, 31 Mar 2013 16:52:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/pretty-paste-visual-studio-extension-which-makes-pretty-paste/</guid>
+      <description>This is a much needed extension for every developer out there. How many times you have been yelling when you paste the code from a blog post or from an article which eventually turns out to be a nightmare for you to re-format it? I came across a VS extension that can actually get this done for me. The good thing about this extension is that it is open-source and you can extend and contribute to it to make it more awesome.</description>
+    </item>
+    
+    <item>
+      <title>Free Tools Every Freelance Developer Should Have</title>
+      <link>https://prashantkhandelwal.github.io/post/free-tools-every-freelance-developer-should-have/</link>
+      <pubDate>Sat, 25 Aug 2012 11:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-tools-every-freelance-developer-should-have/</guid>
+      <description>If you are freelancing or working from home, then you must have some productivity tools which can really make your work from home a lot better. Why one has to invest in a service that can be available with no cost at all? Though some services are good enough to pay for, but I suggest one should not get them unless you really need one.
+I have been blogging and in a job for now almost 4 years and as a programmer I am a really big fan of open-source projects which have made my/our life easy without spending a single dime.</description>
+    </item>
+    
+    <item>
+      <title>Deploying .NET Application To Appharbor Using Git</title>
+      <link>https://prashantkhandelwal.github.io/post/deploying-net-application-to-appharbor-using-git/</link>
+      <pubDate>Tue, 07 Aug 2012 13:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/deploying-net-application-to-appharbor-using-git/</guid>
+      <description>I have an account with Appharbor but never tried to deploy an application. Appharbor has an excellent integration with Github and Codeplex and if you are planning to showcase you application latest build then Appharbor is the best thing to do that. The Appharbor site has a detailed tutorial on how you can deploy your application from Github and Codeplex. But the question here is what will a programmer do if he just wants to deploy the application from his dektop or in other words if he wants to test his application which is not an open source application.</description>
+    </item>
+    
+    <item>
+      <title>MP3APP - A Web Application To Get Lyrics, Album Name, Album Art and More</title>
+      <link>https://prashantkhandelwal.github.io/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/</link>
+      <pubDate>Fri, 29 Jun 2012 20:53:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/</guid>
+      <description>I was busy in few of my freelance projects and got a very rough weekends this whole month. But still I get a bit of time to work on my so called in-house project and somehow I was able to get it completed after a bit of testing. The application I built is a simple web application which will allow you to enter artist name and the song name and let you search the lyrics, album art, artist image, album name and album release date.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft Launches SkyDrive Application For Windows</title>
+      <link>https://prashantkhandelwal.github.io/post/microsoft-launches-skydrive-application-for-windows/</link>
+      <pubDate>Tue, 24 Apr 2012 13:38:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/microsoft-launches-skydrive-application-for-windows/</guid>
+      <description>On 23rd April Microsoft announces the launch of official SkyDrive application for Windows on Windows 8 blog. This is one of the most awaited applications among the developers and users. All we wanted is a simple app through which we can manage our cloud storage with ease. Download the SkyDrive app here.
+Here is what available now according to this blog post:
+  SkyDrive for the Windows desktop (preview available now).</description>
+    </item>
+    
+    <item>
+      <title>Windows Live Theme For BlogEngine.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</link>
+      <pubDate>Thu, 17 Mar 2011 16:03:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</guid>
+      <description>If you have long URLs and other and want to create short URLs then Bit.ly API can help. I wrote a wrapper class which can let me create short URLs in jiffy. I was working on Bit.ly API to create my short URLs with a click of a button (that&amp;rsquo;s for my personal use). Therefore, I ended up with a &amp;lsquo;short&amp;rsquo; class to create short URLs using Bit.ly API. What you need is a login and an apikey, which you can have one for yourself by signing up for a free account.</description>
+    </item>
+    
+    <item>
+      <title>Integrate Bing Maps With Geonames Database And ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/integrate-bing-maps-with-geonames-database-and-aspnet/</link>
+      <pubDate>Tue, 08 Feb 2011 03:11:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/integrate-bing-maps-with-geonames-database-and-aspnet/</guid>
+      <description>To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&amp;rsquo;t it be nice if you just have to query a local database?</description>
+    </item>
+    
+    <item>
+      <title>Reverse Those Short URLs</title>
+      <link>https://prashantkhandelwal.github.io/post/reverse-those-short-urls/</link>
+      <pubDate>Wed, 02 Feb 2011 02:58:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/reverse-those-short-urls/</guid>
+      <description>Bit.ly is one of the major short URL service provider. There are other also but Bit.ly is used by most of the users because of it&amp;rsquo;s simplicity, API and statistics. But some notorious users create short URLs for the spam sites which doesn&amp;rsquo;t make any sense to us. As you know by looking at the short URLs, they won&amp;rsquo;t reveal anything. But there is a way to get the original/long URL through ASP.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Logon Screen Changer</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</link>
+      <pubDate>Sat, 29 May 2010 22:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</guid>
+      <description>Recently I was reading an article on some Windows 7 forums on how to change Windows Logon Background. There are manual steps which helps me to change the longon background, but its tedious if I have to do it manually everytime. So I decided to make a tool which can do it for me.
+I start up a new project in Visual Studio 2010 and create a new windows application. I am not writing about how I did it, I am just giving away this tool for use.</description>
+    </item>
+    
+    <item>
+      <title>How To Build UAC Compatible Application In .NET</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</link>
+      <pubDate>Sun, 23 May 2010 21:01:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</guid>
+      <description>We all know about a feature called User Account Control (UAC) which introduced with the launch of Windows Vista. By default, UAC is enabled and provides users a better and safer computing experience, but most of the users find it irritating when the UAC prompts everytime they try to run a program. Disabling UAC is not recommended at all.
+With UAC enabled programmers find it difficult to access some of the locations on the local drive.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Theme Generator</title>
+      <link>https://prashantkhandelwal.github.io/post/visual-studio-theme-generator/</link>
+      <pubDate>Wed, 24 Mar 2010 01:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/visual-studio-theme-generator/</guid>
+      <description>I just Got bored looking at the same code editor in Visual Studio. Same old white background and same syntax colour highlighting. So I give it a go and jump to Visual Studio options and start playing around with the option available to change the look and feel of the code editor. After trying for a while and working around with some customizations, I gave a second go and do a quick bing search in a hope that I will find some theme for my Visual Studio and Voila!</description>
+    </item>
+    
+    <item>
+      <title>Manage your Azure storage with ease!</title>
+      <link>https://prashantkhandelwal.github.io/post/manage-your-azure-storage-with-ease-with-azure-storage-explorer-and-cloud-storage-studio/</link>
+      <pubDate>Thu, 24 Dec 2009 14:30:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/manage-your-azure-storage-with-ease-with-azure-storage-explorer-and-cloud-storage-studio/</guid>
+      <description>If your are using Windows Azure for storing files here are the tools you should love to use to manage your Azure cloud storage.
+Azure Storage Explorer
+And
+Cloud Storage Studio
+If you don&amp;rsquo;t have an Azure account, then have one HERE</description>
+    </item>
+    
+    <item>
+      <title>Protect your .NET Applications/Libraries from &#39;Reflection&#39;</title>
+      <link>https://prashantkhandelwal.github.io/post/protect-your-net-applicationslibraries-from-reflection/</link>
+      <pubDate>Thu, 24 Dec 2009 00:18:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/protect-your-net-applicationslibraries-from-reflection/</guid>
+      <description>As a programmer, you put a lot of effort to create an application and incorporate some unique features in your application, which in turn makes your application more feature rich and different from other applications. The question here is, how do you feel when you come to know that someone has played with your code and then make a same application with his name&amp;hellip;You did all the hard work and some random guy on this blue planet stole your code and takes all the credit.</description>
+    </item>
+    
+    <item>
+      <title>Download albums/images from Picasa</title>
+      <link>https://prashantkhandelwal.github.io/post/download-albumsimages-from-picasa/</link>
+      <pubDate>Sun, 08 Nov 2009 20:31:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/download-albumsimages-from-picasa/</guid>
+      <description>Picasa is an online photo sharing portal from Google. Users from around the globe use Picasa for storing and sharing their photos online. We can view and download images from the album, but only if it is public. We cannot view private albums and also cannot download images from any of the public albums if the owner of the album has denied the access for other users to download the images.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft WMI Code Creator</title>
+      <link>https://prashantkhandelwal.github.io/post/microsoft-wmi-code-creator/</link>
+      <pubDate>Tue, 27 Oct 2009 01:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/microsoft-wmi-code-creator/</guid>
+      <description>The WMI Code Creator tool generates code that uses WMI to obtain management information or perform management tasks. You can use the tool to learn how to manage computers using WMI scripting and WMI .NET. The tool generates code that runs on the local computer, a remote computer, or a group of remote computers based on your selection from the Target Computer menu on the tool. You can also execute the generated code directly from the tool.</description>
+    </item>
+    
+    <item>
+      <title>Backup/Restore SQL database using C#</title>
+      <link>https://prashantkhandelwal.github.io/post/backuprestore-sql-database-using-c/</link>
+      <pubDate>Sun, 21 Jun 2009 15:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/backuprestore-sql-database-using-c/</guid>
+      <description>Microsoft’s .NET framework provides the flexibility to Backup and Restore SQL server database. A few lines to populate the names of all the server instances, create backups and then restore the backups. The application what you see here is a part of an application, so when you create backups and restore it will use the same path hardcoded in the code itself. You can change the way you like it.</description>
+    </item>
+    
+    <item>
+      <title>Eject and Pop-in your CD / DVD with a hotkey</title>
+      <link>https://prashantkhandelwal.github.io/post/eject-and-pop-in-your-cd-dvd-with-a-hotkey/</link>
+      <pubDate>Sat, 13 Jun 2009 16:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/eject-and-pop-in-your-cd-dvd-with-a-hotkey/</guid>
+      <description>If you are annoyed with the malfunctioning of your CD/DVD ROM. This small utility will help you to eject and and again pop-in inside the ROM. Just press CTRL + Q to toggle. Place it anywhere you like on your system, I recommend to create a folder and then place a this utility inside it as it will installs on the first time you run the application and start-up with your windows the next time you boot in.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/create-mount-and-unmount-img-files-in-ubuntu/</loc>
+    <lastmod>2017-10-22T15:28:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/extract-text-from-images-using-computer-vision-api-and-azure-function/</loc>
+    <lastmod>2017-09-03T15:40:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/enable-multi-factor-authentication-mfa-for-users-in-azure-active-directory/</loc>
+    <lastmod>2017-08-31T14:34:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/hosting-aspnet-core-web-application-on-azure-linux-vm/</loc>
+    <lastmod>2017-05-17T16:12:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</loc>
+    <lastmod>2017-05-08T15:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</loc>
+    <lastmod>2017-04-02T07:39:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</loc>
+    <lastmod>2016-10-17T21:41:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/free-e-book-understanding-azure-a-guide-for-developers/</loc>
+    <lastmod>2016-10-16T20:04:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</loc>
+    <lastmod>2016-10-03T22:12:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/</loc>
+    <lastmod>2016-09-26T21:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/building-angular-2-app-with-web-api-and-net-core/</loc>
+    <lastmod>2016-05-21T18:45:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/dev-buzz-3-bookmarks/</loc>
+    <lastmod>2016-04-29T13:51:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/markdown-parser-taghelper-in-aspnet-mvc-6/</loc>
+    <lastmod>2015-11-30T21:01:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/free-e-book-52-tips-tricks-to-boost-net-performance-from-redgate/</loc>
+    <lastmod>2015-11-26T08:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/controlling-16x2-lcd-with-raspberry-pi-2-using-adafruit-library/</loc>
+    <lastmod>2015-07-20T12:41:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</loc>
+    <lastmod>2015-07-19T13:51:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</loc>
+    <lastmod>2015-06-16T22:59:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/free-e-books-from-microsoft-and-telerik-that-you-should-be-reading/</loc>
+    <lastmod>2015-06-14T08:15:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/how-generic-the-code-can-be-resolving-type-t-at-compile-time/</loc>
+    <lastmod>2015-06-07T08:07:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</loc>
+    <lastmod>2014-06-15T07:39:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/building-real-time-applications-with-firebase-and-angularjs/</loc>
+    <lastmod>2014-05-17T23:25:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</loc>
+    <lastmod>2014-05-04T15:09:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</loc>
+    <lastmod>2014-05-03T13:51:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/new-blogging-engine/</loc>
+    <lastmod>2014-04-03T15:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/desktop-notifications-in-html5/</loc>
+    <lastmod>2013-11-17T22:41:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/dev-buzz-2-bookmarks-1-jul-2013/</loc>
+    <lastmod>2013-07-01T21:11:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/msdn-style-syntax-highlighting-in-aspnet/</loc>
+    <lastmod>2013-06-30T01:03:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/getting-started-with-glimpse-in-aspnet-mvc/</loc>
+    <lastmod>2013-06-25T22:43:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/dev-buzz-1-bookmarks-19-jun-2013/</loc>
+    <lastmod>2013-06-19T20:28:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/developer-buzz-dev-buzz-sharing-my-bookmarks/</loc>
+    <lastmod>2013-06-16T11:24:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/html5-video-capture-and-upload-image-to-azure-storage/</loc>
+    <lastmod>2013-06-02T23:46:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/building-mvc-application-with-multiple-database-support-using-ninject/</loc>
+    <lastmod>2013-05-13T14:33:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</loc>
+    <lastmod>2013-04-30T22:17:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</loc>
+    <lastmod>2013-04-28T21:52:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/using-cloud-power-to-manage-your-source-code/</loc>
+    <lastmod>2013-04-26T20:17:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/pretty-paste-visual-studio-extension-which-makes-pretty-paste/</loc>
+    <lastmod>2013-03-31T16:52:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/adobe-photoshop-v101-source-code-now-available-for-download/</loc>
+    <lastmod>2013-02-19T14:57:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/whats-inside-dzone-goodie-box/</loc>
+    <lastmod>2013-02-07T17:23:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/creating-a-live-tile-application-in-windows-8/</loc>
+    <lastmod>2013-01-01T11:20:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/happy-new-year-to-all/</loc>
+    <lastmod>2012-12-31T23:59:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/visual-studio-2012-features-comparison-chart/</loc>
+    <lastmod>2012-09-04T02:25:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/attribute-routing-in-mvc/</loc>
+    <lastmod>2012-08-26T14:33:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/free-tools-every-freelance-developer-should-have/</loc>
+    <lastmod>2012-08-25T11:55:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/free-e-book-ux-guidelines-for-metro-style-apps-for-windows-8/</loc>
+    <lastmod>2012-08-23T15:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/aspnet-postback-issue-with-colorbox-jquery-plugin/</loc>
+    <lastmod>2012-08-19T15:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/deploying-net-application-to-appharbor-using-git/</loc>
+    <lastmod>2012-08-07T13:12:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/integrate-windows-live-signin-support-in-aspnet/</loc>
+    <lastmod>2012-07-28T12:35:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/</loc>
+    <lastmod>2012-06-29T20:53:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/working-with-micro-orm-dapper-in-mvc/</loc>
+    <lastmod>2012-05-19T12:50:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/infinite-scrolling-in-aspnet-with-jquery/</loc>
+    <lastmod>2012-04-28T12:53:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/microsoft-launches-skydrive-application-for-windows/</loc>
+    <lastmod>2012-04-24T13:38:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/top-3-ultimate-timepass-for-developers/</loc>
+    <lastmod>2012-04-23T13:55:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/awesome-jquery-image-plugins-for-web-developers/</loc>
+    <lastmod>2012-04-22T03:42:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/minify-your-css-javascript-with-squishit/</loc>
+    <lastmod>2012-04-15T03:42:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</loc>
+    <lastmod>2012-03-10T16:39:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/death-of-visual-studio-installer-projects-after-visual-studio-2010-and-nsis-inno-setup-installers/</loc>
+    <lastmod>2012-03-08T03:36:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/add-google-login-support-in-aspnet-with-oauth/</loc>
+    <lastmod>2012-02-18T17:12:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/html5-file-drag-and-drop-upload-with-jquery-and-aspnet/</loc>
+    <lastmod>2012-01-28T12:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/introducing-visual-studio-achievements-bringing-some-game-to-the-code/</loc>
+    <lastmod>2012-01-22T13:19:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/top-visual-studio-extensions/</loc>
+    <lastmod>2012-01-18T04:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/html-5-show-your-support-tell-the-world/</loc>
+    <lastmod>2011-12-03T12:29:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/get-song-lyrics-from-lyrdb-with-aspnet-mvc-and-jquery/</loc>
+    <lastmod>2011-11-26T14:59:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/upload-and-show-image-without-post-back-with-jquery/</loc>
+    <lastmod>2011-09-11T14:59:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/integrate-disqus-for-comment-management-in-mvc/</loc>
+    <lastmod>2011-09-03T18:02:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/social-counter-jquery-plugin-to-get-twitter-facebook-and-feed-readers-count/</loc>
+    <lastmod>2011-09-02T16:53:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/</loc>
+    <lastmod>2011-09-02T03:40:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/html-5-cheat-sheets/</loc>
+    <lastmod>2011-08-13T03:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/using-recaptcha-in-aspnet-webforms-and-mvc/</loc>
+    <lastmod>2011-07-31T14:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/handling-text-changed-event-in-aspmvc-3-with-jquery/</loc>
+    <lastmod>2011-07-16T13:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/angry-birds-theme-for-windows-7/</loc>
+    <lastmod>2011-07-09T09:18:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/bin-deploy-aspnet-mvc-3-application-with-sql-ce-40-entity-framework/</loc>
+    <lastmod>2011-07-04T14:26:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/getting-started-with-netmf-and-netduino/</loc>
+    <lastmod>2011-06-25T08:59:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/how-to-be-a-rockstar-freelancer/</loc>
+    <lastmod>2011-06-10T02:23:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/prepare-your-site-for-ie9-with-pinify/</loc>
+    <lastmod>2011-05-14T23:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</loc>
+    <lastmod>2011-05-09T16:55:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/code-snippet-remove-duplicates-from-arraylist/</loc>
+    <lastmod>2011-04-30T02:51:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/</loc>
+    <lastmod>2011-03-19T17:44:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/windows-live-theme-for-blogenginenet/</loc>
+    <lastmod>2011-03-17T17:16:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</loc>
+    <lastmod>2011-03-17T16:03:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/upload-files-in-razor-with-jquery-uploadify-plugin/</loc>
+    <lastmod>2011-03-16T16:35:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/</loc>
+    <lastmod>2011-03-06T10:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack/</loc>
+    <lastmod>2011-02-26T14:24:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/</loc>
+    <lastmod>2011-02-19T03:34:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/integrate-bing-maps-with-geonames-database-and-aspnet/</loc>
+    <lastmod>2011-02-08T03:11:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/reverse-those-short-urls/</loc>
+    <lastmod>2011-02-02T02:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/9-promises-should-be-taken-before-choosing-it-profession/</loc>
+    <lastmod>2011-01-29T05:25:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/code-snippet-export-datagridview-to-excel-with-columns/</loc>
+    <lastmod>2011-01-25T16:12:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/</loc>
+    <lastmod>2011-01-24T16:57:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/using-jquery-to-get-your-tweets/</loc>
+    <lastmod>2010-12-27T16:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/adding-captcha-in-aspnet-application/</loc>
+    <lastmod>2010-12-26T01:44:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</loc>
+    <lastmod>2010-12-19T01:46:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/disable-x-close-button-on-your-windows-form-application/</loc>
+    <lastmod>2010-12-12T07:55:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/crystal-reports-for-visual-studio-2010/</loc>
+    <lastmod>2010-12-02T05:40:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/a-time-wrapper-class-in-c/</loc>
+    <lastmod>2010-11-30T13:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/extending-openid-implementation-with-aspnet-user-information-roles-and-membership/</loc>
+    <lastmod>2010-09-25T22:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/upload-multiple-files-with-jquery-uploadify/</loc>
+    <lastmod>2010-09-12T11:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/razor-view-engine-in-aspnet-mvc-3/</loc>
+    <lastmod>2010-09-06T16:26:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/efficient-use-of-windows-skydrive/</loc>
+    <lastmod>2010-08-30T16:05:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/add-openid-login-support-in-your-aspnet-application/</loc>
+    <lastmod>2010-08-29T14:50:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/what-your-e-mail-address-says-about-your-computer-skills/</loc>
+    <lastmod>2010-08-17T04:28:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/diagnostic-check-for-aspmvc-applications-problems/</loc>
+    <lastmod>2010-08-12T17:08:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/attach-virtual-hard-disk-automatically-at-windows-startup/</loc>
+    <lastmod>2010-08-10T18:03:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/deprecated-apis-and-net-40/</loc>
+    <lastmod>2010-07-20T11:10:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/change-page-themes-dynamically-using-jquery-theme-roller/</loc>
+    <lastmod>2010-07-04T12:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/url-routing-with-aspnet-4-web-forms/</loc>
+    <lastmod>2010-06-26T18:38:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/build-e2809cout-of-browsere2809d-applications-with-silverlight/</loc>
+    <lastmod>2010-06-20T09:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/url-rewriting-in-blog-enginenet/</loc>
+    <lastmod>2010-06-05T14:47:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</loc>
+    <lastmod>2010-05-29T22:42:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</loc>
+    <lastmod>2010-05-23T21:01:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/akismet-extension-for-blogenginenet/</loc>
+    <lastmod>2010-05-14T20:26:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/how-to-find-whether-the-machine-is-32-bit-64-bit/</loc>
+    <lastmod>2010-05-13T22:22:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/using-sql-clr-stored-procedure-track-ip-address/</loc>
+    <lastmod>2010-04-24T00:24:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/windows-7-development-creating-jumplist-in-windows-7/</loc>
+    <lastmod>2010-03-28T02:08:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/submit-your-site-blog-to-bing-search/</loc>
+    <lastmod>2010-03-26T03:47:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/visual-studio-theme-generator/</loc>
+    <lastmod>2010-03-24T01:15:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-iii-fetch-data-from-sql-server/</loc>
+    <lastmod>2010-03-11T01:29:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-ii/</loc>
+    <lastmod>2010-03-05T18:35:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/calling-aspnet-web-service-using-jquery-part-i/</loc>
+    <lastmod>2010-03-05T01:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/passing-parameters-and-loading-crystal-report-programmatically/</loc>
+    <lastmod>2010-03-01T11:55:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/windows-7-development-aero-effects-in-net-applications/</loc>
+    <lastmod>2010-02-28T13:22:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/sql-server-performance-and-nocount/</loc>
+    <lastmod>2010-02-25T20:44:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/single-instance-of-child-forms-in-mdi-applications/</loc>
+    <lastmod>2010-02-22T00:40:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/using-openxml-to-insert-data-in-sql-server/</loc>
+    <lastmod>2010-02-19T22:44:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/enable-intellisense-jquery-in-visual-studio-2008/</loc>
+    <lastmod>2010-01-15T18:16:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/development-in-and-with-windows-7/</loc>
+    <lastmod>2010-01-15T12:21:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/how-to-plug-in-a-dll-into-a-c-project/</loc>
+    <lastmod>2010-01-07T16:58:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/removing-duplicates-from-a-list-in-c/</loc>
+    <lastmod>2009-12-24T18:25:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/manage-your-azure-storage-with-ease-with-azure-storage-explorer-and-cloud-storage-studio/</loc>
+    <lastmod>2009-12-24T14:30:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/protect-your-net-applicationslibraries-from-reflection/</loc>
+    <lastmod>2009-12-24T00:18:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/retrieve-key-from-value-in-hash-table/</loc>
+    <lastmod>2009-12-16T02:19:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/use-sql-query-to-writecreate-a-file/</loc>
+    <lastmod>2009-12-11T14:33:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/t-sql-export-table-to-excel/</loc>
+    <lastmod>2009-12-02T20:31:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/using-background-worker-in-c/</loc>
+    <lastmod>2009-11-27T15:42:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/word-automation-in-c/</loc>
+    <lastmod>2009-11-11T19:44:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/download-albumsimages-from-picasa/</loc>
+    <lastmod>2009-11-08T20:31:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/microsoft-wmi-code-creator/</loc>
+    <lastmod>2009-10-27T01:15:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/readwrite-settings-to-ini-file-using-c/</loc>
+    <lastmod>2009-10-21T18:12:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/passing-parameters-to-crystal-reports/</loc>
+    <lastmod>2009-10-20T16:26:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/requesting-deliveryread-receipt-from-c-using-mailmessage-class/</loc>
+    <lastmod>2009-10-16T15:38:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/t-sql-recently-executed-query/</loc>
+    <lastmod>2009-10-14T05:16:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/microsoft-event-windows-mobile-65-net-framework-40/</loc>
+    <lastmod>2009-09-26T22:24:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/using-hashtables/</loc>
+    <lastmod>2009-09-20T21:40:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/laws-of-computer-programming/</loc>
+    <lastmod>2009-09-13T02:42:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/import-excel-to-sql-table/</loc>
+    <lastmod>2009-07-23T15:57:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/c-method-encrypting-a-string-using-md5-algorithm/</loc>
+    <lastmod>2009-07-20T00:40:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/insert-binary-files-to-sql-server-using-bulk-operation/</loc>
+    <lastmod>2009-07-11T18:15:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/guids-in-c-sql/</loc>
+    <lastmod>2009-06-26T15:37:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/backuprestore-sql-database-using-c/</loc>
+    <lastmod>2009-06-21T15:59:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/set-the-default-printer-for-printing-programatically/</loc>
+    <lastmod>2009-06-16T15:17:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/eject-and-pop-in-your-cd-dvd-with-a-hotkey/</loc>
+    <lastmod>2009-06-13T16:41:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/shoutdownlogoffhibernatestand-by-use-code-to-do-em-all/</loc>
+    <lastmod>2009-06-12T17:32:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/convert-ascii-values-from-hex-to-characters/</loc>
+    <lastmod>2009-05-30T15:46:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/printing-word-documents-without-showing-print-dialog/</loc>
+    <lastmod>2009-05-29T15:09:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/populating-restore-and-backup-sql-database-using-c/</loc>
+    <lastmod>2009-05-27T15:01:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/import-csv-file-into-sql-server-using-bulk-insert/</loc>
+    <lastmod>2009-05-25T15:51:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/convert-numbers-to-words-in-c/</loc>
+    <lastmod>2009-05-24T13:18:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/.net-core/</loc>
+    <lastmod>2017-05-08T15:21:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/.net-framework/</loc>
+    <lastmod>2015-06-16T22:59:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/.net-micro-framework/</loc>
+    <lastmod>2011-06-25T08:59:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/api/</loc>
+    <lastmod>2015-07-19T13:51:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/archive/</loc>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/asp.net/</loc>
+    <lastmod>2017-05-08T15:21:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/asp.net-mvc/</loc>
+    <lastmod>2017-08-31T14:34:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/azure/</loc>
+    <lastmod>2017-09-03T15:40:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/blogengine.net/</loc>
+    <lastmod>2011-03-19T17:44:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/c/</loc>
+    <lastmod>2017-05-08T15:21:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/</loc>
+    <lastmod>2017-05-08T15:21:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/cloud/</loc>
+    <lastmod>2017-05-17T16:12:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/code-snippets/</loc>
+    <lastmod>2011-09-02T03:40:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/cognitive-services/</loc>
+    <lastmod>2017-09-03T15:40:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/contact/</loc>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/devbuzz/</loc>
+    <lastmod>2016-04-29T13:51:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/freelancing/</loc>
+    <lastmod>2013-04-26T20:17:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/fundoo/</loc>
+    <lastmod>2012-04-23T13:55:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/html5/</loc>
+    <lastmod>2013-11-17T22:41:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/iot/</loc>
+    <lastmod>2017-04-02T07:39:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/jquery/</loc>
+    <lastmod>2016-10-17T21:41:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/microsoft/</loc>
+    <lastmod>2016-10-16T20:04:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/microsoft-windows/</loc>
+    <lastmod>2010-01-15T12:21:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/</loc>
+    <lastmod>2017-10-22T15:28:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/musings/</loc>
+    <lastmod>2015-07-19T13:51:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/mvc/</loc>
+    <lastmod>2011-03-16T16:35:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/net-framework/</loc>
+    <lastmod>2011-07-04T14:26:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/</loc>
+    <lastmod>2017-10-22T15:28:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/projects/</loc>
+    <lastmod>2017-04-02T07:39:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/raspberry-pi/</loc>
+    <lastmod>2017-04-02T07:39:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/silverlight/</loc>
+    <lastmod>2010-06-20T09:30:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/sql/</loc>
+    <lastmod>2014-06-15T07:39:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/sql-server/</loc>
+    <lastmod>2010-04-24T00:24:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/t-sql/</loc>
+    <lastmod>2012-04-28T12:53:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/top-posts/</loc>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/ubuntu/</loc>
+    <lastmod>2017-10-22T15:28:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/utils/</loc>
+    <lastmod>2013-04-28T21:52:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/utis/</loc>
+    <lastmod>2012-01-18T04:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/visual-studio/</loc>
+    <lastmod>2015-06-16T22:59:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/web/</loc>
+    <lastmod>2017-04-02T07:39:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/windows/</loc>
+    <lastmod>2017-04-02T07:39:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/wpf/</loc>
+    <lastmod>2011-05-09T16:55:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

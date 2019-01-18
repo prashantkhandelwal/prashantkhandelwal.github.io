@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Add OpenID Login Support In Your ASP.NET Application • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Add OpenID Login Support In Your ASP.NET Application"/>
+<meta name="twitter:description" content="Few days back I was looking at Scott Hanselman and friend&rsquo;s Open Source Nerddinner project, learning and grabbing some new things from there. Apart from looking some internals I looked at the OpenID implementation. This was all a week ago and now it&rsquo;s time for me to write and give some thoughts on DotNetOpenAuth. For folks who are new to OpenID I am going to demonstrate how you can implement one in your project with ease."/>
+
+<meta property="og:title" content="Add OpenID Login Support In Your ASP.NET Application" />
+<meta property="og:description" content="Few days back I was looking at Scott Hanselman and friend&rsquo;s Open Source Nerddinner project, learning and grabbing some new things from there. Apart from looking some internals I looked at the OpenID implementation. This was all a week ago and now it&rsquo;s time for me to write and give some thoughts on DotNetOpenAuth. For folks who are new to OpenID I am going to demonstrate how you can implement one in your project with ease." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/add-openid-login-support-in-your-aspnet-application/" /><meta property="article:published_time" content="2010-08-29T14:50:00&#43;00:00"/>
+<meta property="article:modified_time" content="2010-08-29T14:50:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Add OpenID Login Support In Your ASP.NET Application</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Aug 29, 2010
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/api">API</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p><img align="right" src="/images/oauth-logo.png" alt="OAuth logo"/></p>
+
+<p>Few days back I was looking at Scott Hanselman and friend&rsquo;s Open Source Nerddinner project, learning and grabbing some new things from there. Apart from looking some internals I looked at the OpenID implementation. This was all a week ago and now it&rsquo;s time for me to write and give some thoughts on DotNetOpenAuth. For folks who are new to OpenID I am going to demonstrate how you can implement one in your project with ease.</p>
+
+<p>To get started download the <a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a> API and extract the contents from the zip file. The download also includes some samples for you to get you started. Kickstart by creating a new ASP.NET webforms project. I am just using a default template for my application, you can use the one you like or start by creating a new page. Why I am using the default template for ASP.NET webform project? well you get to know later. So now when we are done creating a new ASP.NET webform project, time to add OpenID stuff in the project. Right click <code>References</code> and select <code>Add Reference</code>. Browse to the <code>bin</code> folder where you have extracted the contents of the downloaded zip file. Select <code>DotNetOpenAuth.dll</code> and click OK.</p>
+
+<p><strong>Changing the web.config:</strong></p>
+
+<p>A minor change in the web.config is required. Find the below lines in your web.config file:</p>
+
+<pre class="brush:xml">
+&lt;authentication mode="Forms"&gt;&lt;forms loginUrl="~/Account/Login.aspx"
+timeout="2880" /&gt;&lt;/authentication&gt;
+</pre>
+
+<p>and replace it with:</p>
+
+<pre class="brush:xml">
+&lt;authentication mode="Forms"&gt;&lt;forms defaultUrl="/default.aspx"
+loginUrl="~/Account/login.aspx"/&gt;&lt;/authentication&gt;
+</pre>
+
+<p>In the above configuration, <code>loginUrl</code> will always point towards to the login page and the <code>defaultUrl</code> will always point towards the page/URL which will be displayed when the authentication is successfull.</p>
+
+<p><strong>Implemeting OpenID support:</strong></p>
+
+<p>To implement OpenID support, open <code>login.aspx</code> page in the design view and then drag the OpenIdLogin from the toolbox on the page just after the default login implementation ends or where you want to have OpenID login. If you are not able to view the control, then you can browse the same <code>dll</code> you have add a reference in the above step.</p>
+
+<p><img src="/images/oauth-vs-toolbox.png" alt="OAuth control in VS control box" /></p>
+
+<p>If you want to implement this manually then register the control at the top of the page and then use it on the page.</p>
+
+<p><strong>Register the control:</strong></p>
+
+<pre class="brush:xml">
+&lt;%@ Register Assembly="DotNetOpenAuth" Namespace="DotNetOpenAuth.OpenId.RelyingParty"
+TagPrefix="rp" %&gt;
+</pre>
+
+<p><strong>To use the control on the page you can then simply write:</strong></p>
+
+<pre class="brush:xml">
+&lt;rp:OpenIdLogin ID="OpenIdLogin1" runat="server"&gt;&lt;/rp:OpenIdLogin&gt;
+</pre>
+
+<p>All done now and it&rsquo;s time to test our application. Hit <code>F5</code> and login with your openID. The page rendered in front of you is</p>
+
+<p><img src="/images/oauth-webapp-login.png" alt="OAuth control rendered in web app" /></p>
+
+<p>Enter your openID and click login. You will be redirected to the official OpenID login page.</p>
+
+<p><img src="/images/oauth-page.png" alt="OAuth page for authentication" /></p>
+
+<p>Enter your password for openID account and after the authentication is successfull you will be re-directed to the default page. Remember the web.config configuration we did!!? If everything goes well you can see your openID name login name on the top of the page.</p>
+
+<p><img src="/images/oauth-success.png" alt="OAuth success page" /></p>
+
+<p>This is the simplest way to implement openID. You can also implement openID on your ASP.NET MVC project to add some flexibility for you site users. Apart from this you can also download the <a href="https://www.ohloh.net/p/dotnetopenauth/download?package=DotNetOpenAuth+project+templates&amp;release=3.4.5">Visual Studio 2010 template</a>.</p>
+
+<p><strong>Download: <a href="/files/DOTNETOAUTH.zip">DOTNETOAUTH.zip (542.85 kb)</a></strong></p>
+
+<p><strong>Related Links:</strong></p>
+
+<ul>
+<li><a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a></li>
+<li><a href="http://blog.nerdbank.net">http://blog.nerdbank.net</a></li>
+<li><a href="https://www.idselector.com/">https://www.idselector.com/</a></li>
+<li><a href="http://www.hanselman.com/blog/TheWeeklySourceCode25OpenIDEdition.aspx">Scott Hanselman - Weekly Source Code 25</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/what-your-e-mail-address-says-about-your-computer-skills/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">What Your e-mail Address Says About Your Computer Skills</span>
+    </a>
+    
+    
+    <a href="/post/efficient-use-of-windows-skydrive/" class="navigation-next">
+      <span class="navigation-tittle">Efficient Use Of Windows SkyDrive</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

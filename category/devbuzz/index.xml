@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devbuzz on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/devbuzz/</link>
+    <description>Recent content in Devbuzz on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Apr 2016 13:51:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/devbuzz/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dev Buzz #3 - Bookmarks</title>
+      <link>https://prashantkhandelwal.github.io/post/dev-buzz-3-bookmarks/</link>
+      <pubDate>Fri, 29 Apr 2016 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/dev-buzz-3-bookmarks/</guid>
+      <description>.NET Core  GitHub Authentication with ASP.NET Core Social TagHelpers for ASP.NET Core Dependency Injection in ASP.NET Core ASP.NET Core: Custom Service Based on Request  Visual Studio/Visual Studio Code  Setting up ASP.NET Core debugging in VS Code What’s new for the .NET Native Compiler and Runtime in Visual Studio 2015 Update 2 What’s New for C# and VB in Visual Studio Tips for Speeding Up Visual Studio  Open Source  Corebird - Native GTK+ Twitter Client OpenLiveWriter - WLW  Miscellaneous  16 Things To Do After Installing Ubuntu 16.</description>
+    </item>
+    
+    <item>
+      <title>Dev Buzz #2 - Bookmarks - 1 JUL 2013</title>
+      <link>https://prashantkhandelwal.github.io/post/dev-buzz-2-bookmarks-1-jul-2013/</link>
+      <pubDate>Mon, 01 Jul 2013 21:11:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/dev-buzz-2-bookmarks-1-jul-2013/</guid>
+      <description>Awesome Stuff  Windows 8.1 sample apps Postman – Chrome based REST client Modern.IE – Testing for IE Visual Studio 2013 for Web developers – Build Webcast – Mads Kristensen Lotaris – A new way to monetize your Windows 8 apps Entensionmethods.net – A site dedicate to Extension Methods cURL for Windows  Web Development  TypeScript EISK - Employee Info Starter Kit AngularJS and TypeScript Adding Ninject to Web API 20 JavaScript Frameworks: MVVM Templating, Licenses etc One to one chat using ASP.</description>
+    </item>
+    
+    <item>
+      <title>Dev Buzz #1 - Bookmarks - 19 JUN 2013</title>
+      <link>https://prashantkhandelwal.github.io/post/dev-buzz-1-bookmarks-19-jun-2013/</link>
+      <pubDate>Wed, 19 Jun 2013 20:28:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/dev-buzz-1-bookmarks-19-jun-2013/</guid>
+      <description>ASP.NET/MVC/Web  4 new single page application templates Deploying an Azure website from Source Control Collaborative route planner with SignalR, Knockout.JS and Google Maps Using Require.JS in an ASP.NET MVC application Getting started with Glimpse in ASP.NET MVC Five essential front-end tools that should be used with modern MVC projects  JQuery  JWERTY – Awesome handling of keyboard events JustGage - JustGage is a handy JavaScript plugin for generating and animating nice &amp;amp; clean gauges Spritely.</description>
+    </item>
+    
+    <item>
+      <title>Developer Buzz (Dev Buzz) - Sharing My Bookmarks</title>
+      <link>https://prashantkhandelwal.github.io/post/developer-buzz-dev-buzz-sharing-my-bookmarks/</link>
+      <pubDate>Sun, 16 Jun 2013 11:24:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/developer-buzz-dev-buzz-sharing-my-bookmarks/</guid>
+      <description>Dev Buzz is an abbreviated form of Developer Buzz which will be a carrier of my bookmarks. There is no point of saving me a bookmark if I can’t share out with other developers (this is my thought on bookmarks). Therefore, from today onward I’ll be doing a blog post week or may be monthly to share by bookmark with the rest of you guys and moreover I have a huge collection of funny programmer pics which also accompany my bookmarks.</description>
+    </item>
+    
+  </channel>
+</rss>

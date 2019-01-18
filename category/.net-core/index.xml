@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>.Net Core on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/.net-core/</link>
+    <description>Recent content in .Net Core on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 May 2017 15:21:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/.net-core/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Single Sign-On In ASP.NET Core With Azure Active Directory</title>
+      <link>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</link>
+      <pubDate>Mon, 08 May 2017 15:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</guid>
+      <description>Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application.</description>
+    </item>
+    
+    <item>
+      <title>Upload Files In .NET Core By Drag And Drop Using Dropzone.JS</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</link>
+      <pubDate>Mon, 17 Oct 2016 21:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</guid>
+      <description>Mostly all web applications out there has some way or the other amazing ways to upload a single or multiple files. While surfing on Github I found this amazing library to upload the files to the server in a unique way with lot of configurations. It support parallel uploads along with cancellation of the files which are in the upload queue along with a good looking progress bar to show the progress of upload.</description>
+    </item>
+    
+    <item>
+      <title>Get The Correct File Paths In .NET Core</title>
+      <link>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</link>
+      <pubDate>Mon, 03 Oct 2016 22:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</guid>
+      <description>I run a custom blog engine I wrote myself on MVC 4 and as you would have thought it is on Windows hosting. I am re-writing my blog engine in .NET Core so that I can get it running on a Linux hosting as well. I am using Windows machine and Visual Studio Community Edition to write it and using a Ubuntu VM box to test it. My current blog uses SQL Server as a back-end but Linux does not support SQL Server and therefore I have to move to MySQL or any other No-SQL database available for Linux distros.</description>
+    </item>
+    
+    <item>
+      <title>Building Angular 2 App With Web API And .NET Core</title>
+      <link>https://prashantkhandelwal.github.io/post/building-angular-2-app-with-web-api-and-net-core/</link>
+      <pubDate>Sat, 21 May 2016 18:45:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-angular-2-app-with-web-api-and-net-core/</guid>
+      <description>Setting up the new Angular 2 app with Web API and .NET core is easy but can be a bit tricky. The older beta releases of Angular 2 works fine as there are not many files to refer and to work with. When I started using Angular 2 it was in RC1 and the way the files are being referenced in the app is bit different than the older versions of Angular 2.</description>
+    </item>
+    
+    <item>
+      <title>Parsing Markdown Using Custom TagHelper In ASP.NET MVC 6</title>
+      <link>https://prashantkhandelwal.github.io/post/markdown-parser-taghelper-in-aspnet-mvc-6/</link>
+      <pubDate>Mon, 30 Nov 2015 21:01:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/markdown-parser-taghelper-in-aspnet-mvc-6/</guid>
+      <description>Previous versions of MVC allows us to write HtmlHelpers which does a pretty good job then and they are doing it now as well. But in MVC 6, the ASP.NET team has introduced TagHelpers.
+Parsing Markdown in .NET is way too simple than one can imagine. Thanks to Stackoverflow&amp;rsquo;s MarkdownSharp and Karlis Gangis&amp;rsquo;s CommonMark.NET. I use CommonMark.NET as it provides a much faster parsing than other libraries. The blogging platform I use is a custom blogging engine I wrote in MVC4.</description>
+    </item>
+    
+    <item>
+      <title>Free E-Book: 52 Tips &amp; Tricks to Boost .NET Performance from Redgate</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-book-52-tips-tricks-to-boost-net-performance-from-redgate/</link>
+      <pubDate>Thu, 26 Nov 2015 08:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-book-52-tips-tricks-to-boost-net-performance-from-redgate/</guid>
+      <description> A super awesome free e-book from our friends at RedGate.
+ 52 tips from the .NET community for boosting performance in your applications. Learn the secrets of your fellow developers and read advice from MVPs and other experts. Covers .NET and ASP.NET, database access, memory usage, and more&amp;hellip;  Download Now </description>
+    </item>
+    
+  </channel>
+</rss>

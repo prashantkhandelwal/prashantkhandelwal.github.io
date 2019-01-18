@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Windows 7 Development: Working With Task Dialog Class • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Windows 7 Development: Working With Task Dialog Class"/>
+<meta name="twitter:description" content="Last year, I blogged about few things related to Windows 7 development which includes Jump Lists and Glass Form. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The Windows 7 API Code Pack comes with some sample applications which exposes the power of the API.
+In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7."/>
+
+<meta property="og:title" content="Windows 7 Development: Working With Task Dialog Class" />
+<meta property="og:description" content="Last year, I blogged about few things related to Windows 7 development which includes Jump Lists and Glass Form. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The Windows 7 API Code Pack comes with some sample applications which exposes the power of the API.
+In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/" /><meta property="article:published_time" content="2011-01-24T16:57:00&#43;00:00"/>
+<meta property="article:modified_time" content="2011-01-24T16:57:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Windows 7 Development: Working With Task Dialog Class</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Jan 24, 2011
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/api">API</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/c">C#</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>Last year, I blogged about few things related to <a href="http://midnightprogrammer.net/category/Windows">Windows 7 development</a> which includes <a href="http://midnightprogrammer.net/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack">Jump Lists</a> and <a href="http://midnightprogrammer.net/post/windows-7-development-aero-effects-in-net-applications">Glass Form</a>. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows 7 API Code Pack</a> comes with some sample applications which exposes the power of the API.</p>
+
+<p>In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7. If you see the sample code and and the executable, they are working fine but when you write the same code in the code in your application, this will not turn out to be as you would have expected. You will see a runtime error as the one below.</p>
+
+<p><img src="/images/win7dev-exception.png" alt="Windows 7 API exception" /></p>
+
+<p>This problem can be resolved by adding a <code>app.manifest</code> file to your project and modifying some part of it. Move to the end of the file and un-comment the <code>&amp;lt;dependency&amp;gt;</code> section of the file.</p>
+
+<pre class="brush:xml">
+&lt;dependency&gt;
+    &lt;dependentAssembly&gt;
+      &lt;assemblyIdentity
+          type="win32"
+          name="Microsoft.Windows.Common-Controls"
+          version="6.0.0.0"
+          processorArchitecture="*"
+          publicKeyToken="6595b64144ccf1df"
+          language="*"
+        /&gt;
+    &lt;/dependentAssembly&gt;
+&lt;/dependency&gt;
+</pre>
+
+<p>Hit <code>F5</code> again and this will do the trick for you, this time you will be able to view the message box as you wanted to. The API sample contains code for all the possible / available task dialog for you to use. But the usage is bit difficult as this cannot be acaieved in a single line like we do with the MessageBox class. Therefore I suggest you to build a helper class / function to get this easy for you. As I used this in one of my projects I have two functions one for showing the information and error messages respectively. You can also have a overload method for this, but as I have used different method names instead as I will be using only two dialogs throughout my project.</p>
+
+<p><strong>For Error Messages:</strong></p>
+
+<pre class="brush:csharp">
+public static void ShowErrorMessage(string ErrorTitle, string Instruction, string ErrorMessage, string ErrorTrace)
+{
+            TaskDialog tdError;
+            tdError = new TaskDialog();
+            tdError.DetailsExpanded = false;
+            tdError.Cancelable = true;
+            tdError.Icon = TaskDialogStandardIcon.Error;
+ 
+            tdError.Caption = ErrorTitle;
+            tdError.InstructionText = Instruction;
+            tdError.Text = ErrorMessage;
+            tdError.DetailsExpandedLabel = "Hide details";
+            tdError.DetailsCollapsedLabel = "Show details";
+            tdError.DetailsExpandedText = ErrorTrace;
+ 
+            tdError.Show();
+}
+</pre>
+
+<p>All the properties in the above function is self-explainatory. The code at line:12 will have a expander in the dialog box which will contain more details of the exception.</p>
+
+<p>Function for showing information is also the same but with few things &ldquo;missing&rdquo;:</p>
+
+<pre class="brush:csharp">
+public static void ShowInfoMessage(string InfoTitle, string Information, string Message)
+{
+            TaskDialog tdInfo;
+            tdInfo = new TaskDialog();
+            tdInfo.DetailsExpanded = false;
+            tdInfo.Cancelable = true;
+            tdInfo.Icon = TaskDialogStandardIcon.Information;
+ 
+            tdInfo.Caption = InfoTitle;
+            tdInfo.InstructionText = Information;
+            tdInfo.Text = Message;
+            tdInfo.Show();
+}
+</pre>
+
+<p><strong>Sample Usage:</strong></p>
+
+<pre class="brush:csharp">
+//For Error Dialog
+ShowErrorMessage("Application Error", "There was an error in creating XML file", ex.Message, ex.StackTrace);
+ 
+//For Information Dialog
+ShowInfoMessage("Application Name", "Image more than 32x32 pixels will be rejected", "Please check the image pixel before you use choose a package icon");
+</pre>
+
+<p><strong>Error Dialog Box</strong></p>
+
+<p><img src="/images/win7-errordialog.png" alt="Windows 7 API error message dialog box" /></p>
+
+<p>Click the <code>Show Details</code> expander icon to view the complete error stack trace.</p>
+
+<p><strong>Information Dialog Box</strong></p>
+
+<p><img src="/images/win7-infodialog.png" alt="Windows 7 API information dialog box" /></p>
+
+<p>This is just the two types of dialogs I have used for my project, but there are more supported in the API. So to get started see the sample project accompanying the API Code Pack including the one you see while running programs as Administrator while UAC is turned on, a dialog box with a progress bar and lots of more to check. The samples above would get you started.</p>
+
+<p>If you are a Visual Studio 2010 user with NuGet installed, then you can add the API reference to your project with the below command.</p>
+
+<pre class="brush:shell">
+Install-Package Windows7APICodePack
+</pre>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/using-jquery-to-get-your-tweets/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Using jQuery To Get Your Tweets</span>
+    </a>
+    
+    
+    <a href="/post/code-snippet-export-datagridview-to-excel-with-columns/" class="navigation-next">
+      <span class="navigation-tittle">Code Snippet: Export DataGridView To Excel With Columns</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

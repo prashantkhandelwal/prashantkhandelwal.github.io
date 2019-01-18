@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/web/</link>
+    <description>Recent content in Web on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Apr 2017 07:39:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/web/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</title>
+      <link>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</link>
+      <pubDate>Sun, 02 Apr 2017 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</guid>
+      <description>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</description>
+    </item>
+    
+    <item>
+      <title>Upload Files In .NET Core By Drag And Drop Using Dropzone.JS</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</link>
+      <pubDate>Mon, 17 Oct 2016 21:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</guid>
+      <description>Mostly all web applications out there has some way or the other amazing ways to upload a single or multiple files. While surfing on Github I found this amazing library to upload the files to the server in a unique way with lot of configurations. It support parallel uploads along with cancellation of the files which are in the upload queue along with a good looking progress bar to show the progress of upload.</description>
+    </item>
+    
+    <item>
+      <title>Get The Correct File Paths In .NET Core</title>
+      <link>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</link>
+      <pubDate>Mon, 03 Oct 2016 22:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</guid>
+      <description>I run a custom blog engine I wrote myself on MVC 4 and as you would have thought it is on Windows hosting. I am re-writing my blog engine in .NET Core so that I can get it running on a Linux hosting as well. I am using Windows machine and Visual Studio Community Edition to write it and using a Ubuntu VM box to test it. My current blog uses SQL Server as a back-end but Linux does not support SQL Server and therefore I have to move to MySQL or any other No-SQL database available for Linux distros.</description>
+    </item>
+    
+    <item>
+      <title>.NET Projects You Should Be Following On Github</title>
+      <link>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</link>
+      <pubDate>Sun, 19 Jul 2015 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</guid>
+      <description>Open-source has entirely change the programming and developers world. Today you can create any application, game, mobile app without spending a single penny. Thanks to open-source software and awesome community of developers and people behind them. As a .NET developer I have been developing enterprise applications for quite a long time and now I have shifted my focus towards developing products and understanding what it takes to make a successful product launch.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started With ASP.NET 5 On Ubuntu</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</link>
+      <pubDate>Tue, 16 Jun 2015 22:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</guid>
+      <description>Ever since the .NET stack went open source last year, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites.</description>
+    </item>
+    
+    <item>
+      <title>Recurring Tasks Inside ASP.NET Applications Using HangFire</title>
+      <link>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</link>
+      <pubDate>Sun, 15 Jun 2014 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</guid>
+      <description>This is open-source at its best. Running background task to work in context with ASP.NET was and is still a big deal for few developers. I user QueueUserWorkItem to schedule emails when a new comment is added on my blog. This makes sure that the UI is responsive and the user can close or navigate to other post. I have been working on enterprise applications for many years now and most of the long running tasks are running in the background i.</description>
+    </item>
+    
+    <item>
+      <title>Building Real Time Applications With Firebase And AngularJS</title>
+      <link>https://prashantkhandelwal.github.io/post/building-real-time-applications-with-firebase-and-angularjs/</link>
+      <pubDate>Sat, 17 May 2014 23:25:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-real-time-applications-with-firebase-and-angularjs/</guid>
+      <description>Building real-time applications with SignalR is easy. But building real-time applications with JavaScript will be a problem if you are not aware of Firebase. I first heard of it when I was learning AngularJS. The official AngularJS site has the example where you can add, edit and delete the detials in real-time. This example uses Firebase as the storage and updates the UI in real time.
+The data is stored in JSON format and accessing it using jQuery makes it very easy.</description>
+    </item>
+    
+    <item>
+      <title>Turn Your Google Drive Folder In An Online Album Viewer</title>
+      <link>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</link>
+      <pubDate>Sun, 04 May 2014 15:09:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</guid>
+      <description>Working with Google Drive API is fun. The documentation is good and will let you get started with the API pretty quickly. I have my whole complete family album on OneDrive, but the API is still a bit hard to use as compared to Google Drive API or maybe it is just for me. But while playing around with Drive API I ended up creating a small razor based web page application which will allow you to show your folder as an online web album.</description>
+    </item>
+    
+    <item>
+      <title>JSON Based Document Storage Using Biggy In ASP.NET MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</link>
+      <pubDate>Sat, 03 May 2014 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</guid>
+      <description>While working with a small web based project many developers will take advantage of web.config and XML files to read settings for the application. Using web.config is a good way but you cannot change the settings from within the application and when done manually it causes the website to restart. XML is good but many of us has a problem when it comes to update the details in XML. Biggy is an awesome library developed by Rob Conery to work with document storage.</description>
+    </item>
+    
+    <item>
+      <title>Desktop Notifications In HTML5</title>
+      <link>https://prashantkhandelwal.github.io/post/desktop-notifications-in-html5/</link>
+      <pubDate>Sun, 17 Nov 2013 22:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/desktop-notifications-in-html5/</guid>
+      <description>If you are using Google chat on your browser you can see a notification pop-up when a new chat message arrives. I don’t use Google chat or GTalk a lot for communication so I am not very well versed about its over all functionality and coolness. But one thing that always got my attention in the past was the notification that I get on my desktop from Google. This is a very cool feature and my colleagues find it a very important feature of chat as it get their attention immediately.</description>
+    </item>
+    
+    <item>
+      <title>HTML5 Video - Capture And Upload Image To Azure Storage</title>
+      <link>https://prashantkhandelwal.github.io/post/html5-video-capture-and-upload-image-to-azure-storage/</link>
+      <pubDate>Sun, 02 Jun 2013 23:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/html5-video-capture-and-upload-image-to-azure-storage/</guid>
+      <description>I was exploring Github for some image effects/filters and I found some but still keep exploring and found an interesting plugin called face-detection. This plugin uses HTML5 getUserMedia to use your web camera only if your browser supports it. Unfortunately, IE10 still doesn’t support it. This seems cool to me, so I created a sample application to test it. This sample application will let you preview the video using your web camera and allows you to capture the image from your web camera and upload it to the Azure storage.</description>
+    </item>
+    
+    <item>
+      <title>Attribute Routing In MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/attribute-routing-in-mvc/</link>
+      <pubDate>Sun, 26 Aug 2012 14:33:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/attribute-routing-in-mvc/</guid>
+      <description>I took a look at Stack Overflow Stack-Exchange Data Explorer that is built in MVC and is open-source application to query the Stack Exchange data dump that is being provided by Stack Exchange team in every month or few. I do have a dump, but I was more curious to know about the application that they built to query the database. And I must admit that I learned tons of things.</description>
+    </item>
+    
+    <item>
+      <title>MP3APP - A Web Application To Get Lyrics, Album Name, Album Art and More</title>
+      <link>https://prashantkhandelwal.github.io/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/</link>
+      <pubDate>Fri, 29 Jun 2012 20:53:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/</guid>
+      <description>I was busy in few of my freelance projects and got a very rough weekends this whole month. But still I get a bit of time to work on my so called in-house project and somehow I was able to get it completed after a bit of testing. The application I built is a simple web application which will allow you to enter artist name and the song name and let you search the lyrics, album art, artist image, album name and album release date.</description>
+    </item>
+    
+    <item>
+      <title>Top 3 Ultimate Timepass For Developers</title>
+      <link>https://prashantkhandelwal.github.io/post/top-3-ultimate-timepass-for-developers/</link>
+      <pubDate>Mon, 23 Apr 2012 13:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/top-3-ultimate-timepass-for-developers/</guid>
+      <description>We have been programming a lot so we need some time to refresh our minds and get ourselves in a state where our mind processors can start working again more beautifully. When I am pushing myself hard I play 3 games that is on my favorite list. Though I do have many games but these are the 3 games that I play.
+The World&amp;rsquo;s Largest Pac-Mac
+The legendry dot-eating games Pac-Man.</description>
+    </item>
+    
+    <item>
+      <title>Awesome jQuery Image Plugins For Web Developers</title>
+      <link>https://prashantkhandelwal.github.io/post/awesome-jquery-image-plugins-for-web-developers/</link>
+      <pubDate>Sun, 22 Apr 2012 03:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/awesome-jquery-image-plugins-for-web-developers/</guid>
+      <description>I am not a web developer but still I love working with jQuery, CSS3, HTML5 and other web development frameworks. But as a programmer I love collect code snippets for my ease and store them on the cloud so I can get the access when I am in need and want to save my time while I am writing code. Out of the box I have a list of few image manipulation plugins which seems pretty impressive to me.</description>
+    </item>
+    
+    <item>
+      <title>Minify Your CSS &amp; Javascript With SquishIt</title>
+      <link>https://prashantkhandelwal.github.io/post/minify-your-css-javascript-with-squishit/</link>
+      <pubDate>Sun, 15 Apr 2012 03:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/minify-your-css-javascript-with-squishit/</guid>
+      <description>No one likes if their favourite site is loading up slow. Using CSS sprites instead of using individual images and minify javascript and css files is a way to minimize the request send to the server and also saves you few KBs or may be even MBs. If your site is high on using javacript and CSS then you should minimize them.
+I recently used SquishIt to combine/minimize my CSS and javascript files.</description>
+    </item>
+    
+    <item>
+      <title>HTML5 File Drag and Drop Upload With jQuery and ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/html5-file-drag-and-drop-upload-with-jquery-and-aspnet/</link>
+      <pubDate>Sat, 28 Jan 2012 12:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/html5-file-drag-and-drop-upload-with-jquery-and-aspnet/</guid>
+      <description>I came across an article on Tutorialzine which demonstrate file drag and drop upload with jQuery and PHP. As a curious reader, I downloaded the sample files and took a look and also get it running on my LINUX VM. It worked like a charm. But I am a Windows user and .NET programmer, the question is how can I do the same in ASP.NET?
+So, to get myself started I used the same downloaded files that I used to check the PHP version of the file drag and drop.</description>
+    </item>
+    
+    <item>
+      <title>HTML 5: Show Your Support / Tell The World</title>
+      <link>https://prashantkhandelwal.github.io/post/html-5-show-your-support-tell-the-world/</link>
+      <pubDate>Sat, 03 Dec 2011 12:29:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/html-5-show-your-support-tell-the-world/</guid>
+      <description>If you really love working with HTML5 the this is then time to show some support for HTML5. Use the HTML5 badge builder to create a badge and use it on your blog/website to show your support. The badge builder allows you to customize the badge with tech you use with HTML5. You can see the badge I customized with the tech under badge section on the right.
+The w3.org site for HTML5 has to offer more than just a badge.</description>
+    </item>
+    
+    <item>
+      <title>Upload and Show Image Without Post Back With Jquery</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-and-show-image-without-post-back-with-jquery/</link>
+      <pubDate>Sun, 11 Sep 2011 14:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-and-show-image-without-post-back-with-jquery/</guid>
+      <description>Previously in a lot of hurry I wrote a post on how to upload files in MVC3 with the help of Uploadify, a famous jQuery plugin to upload files. If you have not heard about it yet, then it is time for you to check and find out what this plugin can do for you. Appending my last post about this plugin (which was not very well written) I tried one more thing with it today.</description>
+    </item>
+    
+    <item>
+      <title>Social Counter: JQuery Plugin To Get Twitter, Facebook And Feed Readers Count</title>
+      <link>https://prashantkhandelwal.github.io/post/social-counter-jquery-plugin-to-get-twitter-facebook-and-feed-readers-count/</link>
+      <pubDate>Fri, 02 Sep 2011 16:53:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/social-counter-jquery-plugin-to-get-twitter-facebook-and-feed-readers-count/</guid>
+      <description>Appending my previous post, I have created a plugin in JQuery to get twitter followers count, facebook likes and feed readers count. In my previous post, I have shown a way to get the counts in ASP.NET and I have created this plugin so that everyone can use and show counts on their blogs or site.
+To get started add the two javascript files, one is the jquery file and the other one is the plugin file.</description>
+    </item>
+    
+    <item>
+      <title>Get Twitter, Facebook And Feed Readers Count In ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/</link>
+      <pubDate>Fri, 02 Sep 2011 03:40:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/</guid>
+      <description>I am working on some web stuff these days and surfing around to look at some of the best web developer&amp;rsquo;s work around the web. As I was surfing I came across one of the most popular and reputed web tutorials site Nettus+. I am not going talking about any tutorial or article published on this site, but one thing that attracts my attention was the way they are displaying their followers count on twitter, facebook likes and RSS readers.</description>
+    </item>
+    
+    <item>
+      <title>HTML 5 Cheat Sheets</title>
+      <link>https://prashantkhandelwal.github.io/post/html-5-cheat-sheets/</link>
+      <pubDate>Sat, 13 Aug 2011 03:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/html-5-cheat-sheets/</guid>
+      <description>If you are working with HTML5, then there are some cheat sheets which you should refer for HTML5 syntax. Here are three different cheat sheets for HTML5.
+HTML 5 Visual Cheat Sheet
+HTML 5 Quick reference Cheat Sheet
+HTML 5 Canvas Cheat Sheet
+Download: HTML 5 - Cheat Sheets.zip (380.58 kb)</description>
+    </item>
+    
+  </channel>
+</rss>

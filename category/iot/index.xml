@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Iot on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/iot/</link>
+    <description>Recent content in Iot on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Apr 2017 07:39:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/iot/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</title>
+      <link>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</link>
+      <pubDate>Sun, 02 Apr 2017 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</guid>
+      <description>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</description>
+    </item>
+    
+  </channel>
+</rss>

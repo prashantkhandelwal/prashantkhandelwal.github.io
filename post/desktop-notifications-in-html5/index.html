@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Desktop Notifications In HTML5 • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Desktop Notifications In HTML5"/>
+<meta name="twitter:description" content="If you are using Google chat on your browser you can see a notification pop-up when a new chat message arrives. I don’t use Google chat or GTalk a lot for communication so I am not very well versed about its over all functionality and coolness. But one thing that always got my attention in the past was the notification that I get on my desktop from Google. This is a very cool feature and my colleagues find it a very important feature of chat as it get their attention immediately."/>
+
+<meta property="og:title" content="Desktop Notifications In HTML5" />
+<meta property="og:description" content="If you are using Google chat on your browser you can see a notification pop-up when a new chat message arrives. I don’t use Google chat or GTalk a lot for communication so I am not very well versed about its over all functionality and coolness. But one thing that always got my attention in the past was the notification that I get on my desktop from Google. This is a very cool feature and my colleagues find it a very important feature of chat as it get their attention immediately." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/desktop-notifications-in-html5/" /><meta property="article:published_time" content="2013-11-17T22:41:00&#43;00:00"/>
+<meta property="article:modified_time" content="2013-11-17T22:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Desktop Notifications In HTML5</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Nov 17, 2013
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/html5">HTML5</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/web">WEB</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>If you are using Google chat on your browser you can see a notification pop-up when a new chat message arrives. I don’t use Google chat or GTalk a lot for communication so I am not very well versed about its over all functionality and coolness. But one thing that always got my attention in the past was the notification that I get on my desktop from Google. This is a very cool feature and my colleagues find it a very important feature of chat as it get their attention immediately.</p>
+
+<p>HTML5 now gives us the ability to the developers to show Google like desktop notifications with a very little effort. Here is how you can accomplish this for one of your web applications. I am going to use <a href="http://notifications.spec.whatwg.org/">Notifications API</a> to show desktop notifications.</p>
+
+<pre class="brush: html">
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;HTML5 Notifications&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;input type="text" id="txt" /&gt;
+    &lt;input type="button"  value="Show as Notification"/&gt;
+    &lt;input type="button" value="Show Random Notification"/&gt;
+    &lt;input type="button" value="Show Random Notification (with icons)"/&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>This is the plain HTML with controls in place. I have a text box and three buttons which will call a JavaScript function to show the notification on the desktop. The first button will show the text entered by the user as a notification. The second button will show a random message as a notification and a third button will show the same random message but this time with an icon. To see it in action lets add the JavaScript code.</p>
+
+<pre class="brush: js">
+&lt;script&gt;
+function ShowTextAsNotification() {
+    ShowNotification("Custom Notification", document.getElementById("txt").value);
+}
+  
+function GetRandomText(ico) {
+    var Quotes = ["Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+                  "Copy and paste is a design error.",
+                  "I had a life once. Now I have a computer.",
+                  "Before software can be reusable it first has to be usable.",
+                  "Software sucks because users demand it to."];
+  
+    if (ico == false) {
+        ShowNotification("Famous Quotes", Quotes[Math.floor(Math.random() * (1 - 5 + 1) + 5)]);
+    }
+    else {
+        ShowNotificationsWithIcons("Famous Quotes", Quotes[Math.floor(Math.random() * (1 - 5 + 1) + 5)]);
+    }
+}
+function ShowNotification(title, body) {
+    Notification.requestPermission(function (perm) {
+        if (perm == "granted") {
+            var notification = new Notification(title, { body: body });
+            //Un-comment the below line if you want to close the notification after a certain period
+            //It not working on Chrome...I don't know why!!
+            //notification.onshow = function () {
+            //    setTimeout(notification.close, 5000)
+            //}
+        }
+    });
+}
+function ShowNotificationsWithIcons(title, body) {
+    Notification.requestPermission(function (perm) {
+        if (perm == "granted") {
+            var notification = new Notification(title, { icon: "Bomber.ico", body: body });
+        }
+    });
+}
+&lt;/script&gt;
+</pre>
+
+<p>The is pretty self-explanatory. The Notification API uses the <code>Notification.requestPermission</code> function to get the user consent before showing the notification on the desktop. The API documentation states that there are <a href="http://notifications.spec.whatwg.org/#permission">3 permissions</a>:</p>
+
+<ul>
+<li>default: This is equivalent to denied, but the user has made no explicit choice thus far.</li>
+<li>denied: This means user does not want notifications.</li>
+<li>granted: This means notifications can be displayed.</li>
+</ul>
+
+<p>On line 22 in the above code, you can see that the API checks for the request permission from the user. When it does that the user is prompted to either allow or deny the access of the API. You will be only asked once for this permission.</p>
+
+<p><img src="/images/html5-desktop-notification.png" alt="HTML5 desktop notification security approval" /></p>
+
+<p>The <em>perm</em> object is then checked for the permission, if “granted” then show the desktop notification to the user else there will be no notifications for the user. After the permission is granted from the user, initializes an instance of a Notification with <code>title</code> and <code>body</code>. You can say that title is the heading of the desktop notification and body is the text of the notification. You can also have an icon for the notification by setting the icon property.</p>
+
+<p>Run the sample and enter a text in the text box and click on the button labeled “Show as Notification”. As soon as you click the button, if you are running it for the very first time then you will be prompted by the browser to allow or deny the access or it will show the notification at the bottom right corner of your desktop.</p>
+
+<p><img src="/images/html5-custom-notification.png" alt="HTML5 desktop custom notification" /></p>
+
+<p>In the above notification, <code>Custom Notification</code> is the <em>title</em> and “<code>This is a desktop notification</code>“ is the body.</p>
+
+<p>Click the second button labeled “Show Random Notification”. Clicking this button will generate the same desktop notification but every time you click it it will generate a random message from an array and show it as a notification.</p>
+
+<p><img src="/images/html5-custom-notification2.png" alt="HTML5 desktop custom notification" /></p>
+
+<p>If you click the second button multiple times you will 3 notification at a time. The new notifications will be shown at the top of the current notification like this.</p>
+
+<p><img src="/images/html5-multiple-desktop-notifications.png" alt="HTML5 multiple desktop notification" /></p>
+
+<p>In case you click the button more than 3 times, you still be able to see these notifications until you close the one which are already visible. Once you close any of the notification the one in the queue will become visible.</p>
+
+<p>The icon can be displayed in the left portion of these notifications. Click the third button to see it in action. It will display the same random quotes but this time with an icon.</p>
+
+<p><img src="/images/html5-single-desktop-notification.png" alt="HTML5 desktop notification" /></p>
+
+<p>The only problem I am facing implementing the Notifications API is that I cannot close these notifications automatically after the set time. You can try using it on your browser by un-commenting the lines in the <code>ShowNotification()</code> function.</p>
+
+<h4 id="related-links">Related Links:</h4>
+
+<ul>
+<li><a href="http://notifications.spec.whatwg.org/">Notifications API – Documentation</a></li>
+<li><a href="https://github.com/whatwg/notifications">Notifications API – Github</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/dev-buzz-2-bookmarks-1-jul-2013/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Dev Buzz #2 - Bookmarks - 1 JUL 2013</span>
+    </a>
+    
+    
+    <a href="/post/new-blogging-engine/" class="navigation-next">
+      <span class="navigation-tittle">New Blogging Engine!</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

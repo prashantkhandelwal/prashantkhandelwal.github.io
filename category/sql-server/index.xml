@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sql Server on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/sql-server/</link>
+    <description>Recent content in Sql Server on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 24 Apr 2010 00:24:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/sql-server/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using SQL CLR Stored Procedure To Track IP Address</title>
+      <link>https://prashantkhandelwal.github.io/post/using-sql-clr-stored-procedure-track-ip-address/</link>
+      <pubDate>Sat, 24 Apr 2010 00:24:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-sql-clr-stored-procedure-track-ip-address/</guid>
+      <description>Recently I was asked by one of my friend how to call a web service directly from a stored procedure. He needs to track IP addresses using a stored procedures so, I suggested him two ways to call a web service using the SQL Procedure.
+ Using SP_OACREATE with MSXML Create an assembly using SQL CLR using C#.  I personally tried using the first way to call a web service but was not successful.</description>
+    </item>
+    
+    <item>
+      <title>Passing Parameters and Loading Crystal Report Programmatically</title>
+      <link>https://prashantkhandelwal.github.io/post/passing-parameters-and-loading-crystal-report-programmatically/</link>
+      <pubDate>Mon, 01 Mar 2010 11:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/passing-parameters-and-loading-crystal-report-programmatically/</guid>
+      <description>Reporting is an important part for every application. Crystal reports are widely used and also available in Visual Studio for reporting purposes. I personally never like designing application interfaces and working on web designs, it needs good designing skills which I lack and so I never put my hands on designing anything, but sometimes we have to. In crystal reports when you create a report using wizard or just adding a blank report to the project and then fetching data using code (after designing), the report works fine on the machine where you have designed and develop it and the problem occurs when you have to deploy or distribute your application with reports on multiple machines or clients.</description>
+    </item>
+    
+    <item>
+      <title>SQL Server performance and NOCOUNT</title>
+      <link>https://prashantkhandelwal.github.io/post/sql-server-performance-and-nocount/</link>
+      <pubDate>Thu, 25 Feb 2010 20:44:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/sql-server-performance-and-nocount/</guid>
+      <description>Performance of SQL server matters while working with large enterprise applications and where performance really bothers the business workflow. When NOCOUNT is ON, the count of rows by the execution of the query (T-SQL statements) is not returned. You must have noticed that when you perform operations by executing INSERT, UPDATE, DELETE or SELECT statements, the server returns the number of rows. The count of rows is necessary while debugging your queries, when you are done with debugging you can turn NOCOUNT ON.</description>
+    </item>
+    
+    <item>
+      <title>using-openxml-to-insert-data-in-sql-server</title>
+      <link>https://prashantkhandelwal.github.io/post/using-openxml-to-insert-data-in-sql-server/</link>
+      <pubDate>Fri, 19 Feb 2010 22:44:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-openxml-to-insert-data-in-sql-server/</guid>
+      <description>Microsoft SQL Server provides the mechanism to save XML data to the SQL table using OpenXML. We can use a stored procedure and pass a XML text as a string. It is useful when we have a large data in XML format and we want to save the whole data in different tables.
+So first start declaring the variables. The first declare the document variable and a XML document variable as Varchar(8000) or Varchar(MAX) - It&amp;rsquo;s a same thing</description>
+    </item>
+    
+    <item>
+      <title>Use Sql query to write/create a file</title>
+      <link>https://prashantkhandelwal.github.io/post/use-sql-query-to-writecreate-a-file/</link>
+      <pubDate>Fri, 11 Dec 2009 14:33:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/use-sql-query-to-writecreate-a-file/</guid>
+      <description>This SQL stored procedure will allow you to write to the file on your file system. Note the file system will be the the same on which the SQL server is running. If you are using this with your local SQL server then it will write and create files on your local file system and if you are on the remote machine, the file system will be the remote file system.</description>
+    </item>
+    
+    <item>
+      <title>T-SQL: Export Table to Excel</title>
+      <link>https://prashantkhandelwal.github.io/post/t-sql-export-table-to-excel/</link>
+      <pubDate>Wed, 02 Dec 2009 20:31:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/t-sql-export-table-to-excel/</guid>
+      <description>What you do to export data from SQL to excel. You use data import/export wizard or just simply execute the select query and copy the whole lot of data in an excel file with headers. Copy and paste the data in the excel sheet is the quickest possible solution I can see&amp;hellip;but what if you have to data through your code? Still there are many possible ways to accomplish this but how many lines of code you have to write to achieve this?</description>
+    </item>
+    
+    <item>
+      <title>T-SQL: Recently Executed Query</title>
+      <link>https://prashantkhandelwal.github.io/post/t-sql-recently-executed-query/</link>
+      <pubDate>Wed, 14 Oct 2009 05:16:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/t-sql-recently-executed-query/</guid>
+      <description>I am a regular reader of Pinal Dave&amp;rsquo;s blog SqlAuthority. I always found something new in his blog to work with SQL Server. Here is something I would like to share: Get the recent executed SQL Queries from SQL Server.
+SELECT deqs.last_execution_time AS [Time], dest.TEXT AS [Query] FROM sys.dm_exec_query_stats AS deqs CROSS APPLY sys.dm_exec_sql_text(deqs.sql_handle) AS destORDER BY deqs.last_execution_time DESC  </description>
+    </item>
+    
+    <item>
+      <title>GUIDs in C# / SQL</title>
+      <link>https://prashantkhandelwal.github.io/post/guids-in-c-sql/</link>
+      <pubDate>Fri, 26 Jun 2009 15:37:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/guids-in-c-sql/</guid>
+      <description>GUID pronounced as goo&amp;rsquo;id - Globally unique identifier is a 128-bit integer that can be used to uniquely identify something. If you want to identify the large collection of data GUID is the best approach in my view. Also you can use the autoincremental integer to identify records, this is the basic approach programmer&amp;rsquo;s use.
+GUID method can be found under the System namespace and it also provides some overloads. Here is how we can use the GUID overloads:</description>
+    </item>
+    
+    <item>
+      <title>Backup/Restore SQL database using C#</title>
+      <link>https://prashantkhandelwal.github.io/post/backuprestore-sql-database-using-c/</link>
+      <pubDate>Sun, 21 Jun 2009 15:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/backuprestore-sql-database-using-c/</guid>
+      <description>Microsoft’s .NET framework provides the flexibility to Backup and Restore SQL server database. A few lines to populate the names of all the server instances, create backups and then restore the backups. The application what you see here is a part of an application, so when you create backups and restore it will use the same path hardcoded in the code itself. You can change the way you like it.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Deploying .NET Application To Appharbor Using Git • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deploying .NET Application To Appharbor Using Git"/>
+<meta name="twitter:description" content="I have an account with Appharbor but never tried to deploy an application. Appharbor has an excellent integration with Github and Codeplex and if you are planning to showcase you application latest build then Appharbor is the best thing to do that. The Appharbor site has a detailed tutorial on how you can deploy your application from Github and Codeplex. But the question here is what will a programmer do if he just wants to deploy the application from his dektop or in other words if he wants to test his application which is not an open source application."/>
+
+<meta property="og:title" content="Deploying .NET Application To Appharbor Using Git" />
+<meta property="og:description" content="I have an account with Appharbor but never tried to deploy an application. Appharbor has an excellent integration with Github and Codeplex and if you are planning to showcase you application latest build then Appharbor is the best thing to do that. The Appharbor site has a detailed tutorial on how you can deploy your application from Github and Codeplex. But the question here is what will a programmer do if he just wants to deploy the application from his dektop or in other words if he wants to test his application which is not an open source application." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/deploying-net-application-to-appharbor-using-git/" /><meta property="article:published_time" content="2012-08-07T13:12:00&#43;00:00"/>
+<meta property="article:modified_time" content="2012-08-07T13:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Deploying .NET Application To Appharbor Using Git</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Aug 7, 2012
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/utils">UTILS</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p><img align="right" src="/images/apphb-logo.png" alt="Devbuzz Image">
+I have an account with Appharbor but never tried to deploy an application. <a href="https://appharbor.com/">Appharbor</a> has an excellent integration with Github and Codeplex and if you are planning to showcase you application latest build then Appharbor is the best thing to do that. The Appharbor site has a detailed tutorial on how you can deploy your application from <a href="http://support.appharbor.com/kb/3rd-party-integrations/integrating-with-github">Github</a> and <a href="http://support.appharbor.com/kb/3rd-party-integrations/integrating-with-codeplex">Codeplex</a>. But the question here is what will a programmer do if he just wants to deploy the application from his dektop or in other words if he wants to test his application which is not an open source application. Fortunately, it is possible and is pretty easy to use by using <a href="http://code.google.com/p/msysgit/downloads/list">Git Bash</a>. All a programmer need to to is to execute a bunch of commands to deploy the application. I have already deployed one of my application called <a href="http://midnightprogrammer.net/page/mp3app.apphb.com">MP3app</a> to Appharbor (just for few days) which was previously hosted on <a href="http://midnightprogrammer.net/page/mp3app.midnightprogrammer.net">sub-domain</a>.</p>
+
+<p>If you have an application and you want to showcase it then you can deploy the application to Appharbor. The application I have with me right now is an ASP.NET MVC application which demonstrates the use of <a href="http://code.google.com/p/dapper-dot-net/">Micro-ORM Dapper</a>. This application is with me and is not hosted on Github or Codeplex and therefore I cannot take the advantage of deploying it from the code hosting service.</p>
+
+<p>Before you proceed I assume that you have an account with Appharbor and have Git bash installed on your machine. If you don&rsquo;t have Git bash installed on your machine, download it from <a href="http://code.google.com/p/msysgit/downloads/list">here</a>. After successfull login you can create a new application with the name of your choice. You can also select the datacenter location for your application, either United States or Europe.</p>
+
+<p><img src="/images/apphb-new-app.png" alt="AppHarbor New Application" /></p>
+
+<p>Click <code>Create New</code> button to create your application, after which you will be shown with the application settings screen. On the right-hand side you can also see the links which will help you to get started with Appharbor using Bitbucket, Github and Codeplex. Moreover, you can also select add-on services like SQL Server with 20MB of space. You can see the complete list of add-ons and their charges <a href="https://appharbor.com/applications/dappertest/addons">here</a>.</p>
+
+<p><img src="/images/apphb-application.png" alt="AppHarbor Application Page" /></p>
+
+<p>I am calling my application DapperTest which demonstrates the use of Micro-ORM with SQL ServerCE 4.0 in ASP.NET MVC3. On the left side under the application name and other configurations you can see two buttons, REPOSITORY URL and BUILD URL. Click on the REPOSITORY URL button and you will have the URL copied to your clipboard. Open any text editor and paste the copied URL over there as you will be need it afterwards.</p>
+
+<p>Open Git bash and then navigate to the project/solution directory. This will be the original project/solution with source code and not the published version. Also you need to be sure that the project/solution has Visual Studio solutiuon (.sln) file. If the file is not present then you will not be able to deploy your application to Appharbor.</p>
+
+<p>To navigate to the project directory fire the below command in the Git bash console:</p>
+
+<pre class="brush: plain">
+cd D:\DapperApp
+</pre>
+
+<p>To initialize empty Git repository, execute the below command:</p>
+
+<pre class="brush: plain">
+git init
+</pre>
+
+<p>If you navigate to your project folder, then you can see a folder named <code>.git</code>. By default, this folder is hidden. Now the repositiry is created, I can now add all the files to the repo using the below command:</p>
+
+<pre class="brush: plain">
+git add .
+</pre>
+
+<p>It might be possible that you don&rsquo;t want to add certain files to the repository then you can add a .gitignore file. You can see an example <a href="https://gist.github.com/825373">here</a>. After this, I can then commit it using the below command:</p>
+
+<pre class="brush: plain">
+git commit -m "initial commit"
+</pre>
+
+<p>After the commit is successful, copy the repository URL that you saved initially in your text editor. Add the remote repository (in our case it is Appharbor) using the below command:</p>
+
+<pre class="brush: plain">
+git remote add appharbor https://prashantkhandelwal@appharbor.com/dappertest.git
+</pre>
+
+<p>Make sure to replace the URL with the correct one. Once this command executed successfully, you can then deploy/push to Appharbor by using below command:</p>
+
+<pre class="brush: plain">
+git push appharbor master
+</pre>
+
+<p>Before the application is being deployed, it will ask you for your Appharbor password. Make sure that you type it slowly because you will not be able to see the password being typed on the Git bash console.</p>
+
+<p><img src="/images/apphb-hostedapp.png" alt="Application running from AppHarbor" /></p>
+
+<p>This is it, enjoy the power of cloud.</p>
+
+<p>Here is the list of few applications hosted on Appharbor:</p>
+
+<ul>
+<li><a href="http://json2csharp.com/">JSON2CSHARP</a></li>
+<li><a href="http://hangman.apphb.com/">Hangman</a></li>
+<li><a href="http://chirpyhq.apphb.com/">ChirpyHQ</a></li>
+<li><a href="http://jkchat.apphb.com/Chat">jkChat</a></li>
+<li><a href="http://kendotodo.apphb.com/">Kendo UI Todo List</a></li>
+<li><a href="http://funwithsignalr.apphb.com/">Fun with SignalR</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/integrate-windows-live-signin-support-in-aspnet/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Integrate Windows Live SignIn Support In ASP.NET</span>
+    </a>
+    
+    
+    <a href="/post/aspnet-postback-issue-with-colorbox-jquery-plugin/" class="navigation-next">
+      <span class="navigation-tittle">ASP.NET Postback Issue with Colorbox jQuery Plugin</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

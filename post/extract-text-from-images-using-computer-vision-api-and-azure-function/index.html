@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Extract Text From Images Using Computer Vision API And Azure Function • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Extract Text From Images Using Computer Vision API And Azure Function"/>
+<meta name="twitter:description" content="I started to work on a project which is a combination of lot of intelligent APIs and Machine Learning stuff. One of the things I have to accomplish is to extract the text from the images that are being uploaded to the storage. To accomplish this part of the project I planned to use Microsoft Cognitive Service Computer Vision API. Here is the extract of it from my architecture diagram."/>
+
+<meta property="og:title" content="Extract Text From Images Using Computer Vision API And Azure Function" />
+<meta property="og:description" content="I started to work on a project which is a combination of lot of intelligent APIs and Machine Learning stuff. One of the things I have to accomplish is to extract the text from the images that are being uploaded to the storage. To accomplish this part of the project I planned to use Microsoft Cognitive Service Computer Vision API. Here is the extract of it from my architecture diagram." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/extract-text-from-images-using-computer-vision-api-and-azure-function/" /><meta property="article:published_time" content="2017-09-03T15:40:00&#43;00:00"/>
+<meta property="article:modified_time" content="2017-09-03T15:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Extract Text From Images Using Computer Vision API And Azure Function</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Sep 3, 2017
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/azure">AZURE</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/cognitive-services">COGNITIVE SERVICES</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>I started to work on a project which is a combination of lot of intelligent APIs and Machine Learning stuff. One of the things I have to accomplish is to extract the text from the images that are being uploaded to the storage. To accomplish this part of the project I planned to use Microsoft Cognitive Service Computer Vision API. Here is the extract of it from my architecture diagram.</p>
+
+<p><img src="/images/arch-diagram.png" alt="Architcure Diagram" /></p>
+
+<p>Let&rsquo;s get started by provisioning a new Azure Function.</p>
+
+<p><img src="/images/create-func-app.png" alt="Creating Function App" /></p>
+
+<p>I named my Function App as <code>quoteextractor</code> and selected the Hosting Plan as <code>Consumption Plan</code> instead of <code>App Service Plan</code>. If you choose <code>Consumption Plan</code> you will be billed only what you use or whenever your function executes. On the other hand, if you choose App Service Plan you will be billed monthly based on the Service Plan you choose even if your function executes only few times a month or not even executed at all. I have selected the <code>Location</code> as <code>West US</code> because the Cognitive Service subscription I have has the endpoint for the API from <code>West US</code>. I then also created a new <code>Storage Account</code>. Click on <code>Create</code> button to create the Function App.</p>
+
+<p><img src="/images/func-app.png" alt="Created Function App" /></p>
+
+<p>After the Function App is created successfully, create a new function in the Function App <code>quoteextractor</code>. Click on the <code>Functions</code> on the left hand side and then click <code>New Function</code> on the right side window to create a new function as shown in the below screenshot.</p>
+
+<p><img src="/images/create-new-func-app.png" alt="Creating New Function" /></p>
+
+<p>The idea is to trigger the function whenever a new image is added/uploaded to the blob storage. To filter down the list of templates, select C# as the Language and then select <code>BlobTrigger - C#</code> from the template list. I have also change the name of the function to <code>QuoteExtractor</code>. I have also changed the <code>Path</code> parameter of Azure Blob Storage trigger to have <code>quoteimages</code>. The <code>quoteimages</code> is the name of the container where the function will bind itself and whenever a new image or item is added to the storage it will get triggered.</p>
+
+<p><img src="/images/quickstart-template.png" alt="Quickstart Function Templates" /></p>
+
+<p><img src="/images/naming-function.png" alt="Naming Function" /></p>
+
+<p>Now change the <code>Storage account connection</code> which is basically a connection string for your storage account. To create a new connection click on the <code>new</code> link and select the storage account you want your function to get associated with. The storage account I am selecting is the same one which got crated at the time of creating the Function App.</p>
+
+<p><img src="/images/function-storage.png" alt="Function Storage" /></p>
+
+<p>Once you select the storage account, you will be able to see the connection key in the <code>Storage account connection</code> dropdown. If you want to view the full connection string then click the <code>show value</code> link.</p>
+
+<p><img src="/images/storage-connection.png" alt="Function Storage Connection String" /></p>
+
+<p>Click the <code>Create</code> button to create the function. You will now be able to see your function name under the <code>Functions</code> section. Expand your function and you will see three other segments named <code>Integrate</code>, <code>Manage</code> and <code>Monitor</code>.</p>
+
+<p><img src="/images/function-final.png" alt="Function Running" /></p>
+
+<p>Click on <code>Integrate</code> and under <code>Triggers</code> update the <code>Blob parameter name</code> from <code>myBlob</code> to <code>quoteImage</code> or whatever the name you feel like having. This name is important as this is the same parameter I will be using in my function. Click <code>Save</code> to save the settings.</p>
+
+<p><img src="/images/function-triggers.png" alt="Function Running" /></p>
+
+<p>The storage account which is created at the time of creating the Function App, still does not have a container. Add a container with the name which is used in the <code>path</code> of the <code>Azure Blob Storage trigger</code> which is <code>quotesimages</code>.</p>
+
+<p><img src="/images/function-blob-trigger.png" alt="Function Running" /></p>
+
+<p>Make sure you select the <code>Public access level</code> to <code>Blob</code>. Click <code>OK</code> to create a container in your storage account.</p>
+
+<p><img src="/images/function-storage-access-level.png" alt="Change the public access level" /></p>
+
+<p>With this step, you should be done with all the configuration which are required for Azure Function to work properly. Now let&rsquo;s get the <code>Computer Vision API</code> subscription. Go to <a href="https://azure.microsoft.com/en-in/try/cognitive-services/">https://azure.microsoft.com/en-in/try/cognitive-services/</a> and under <code>Vision</code> section click <code>Get API Key</code> which is next to <code>Computer Vision API</code>. Agree with all the terms and conditions and continue. Login with any of the preferred account to get the subscription ready. Once everything went well, you will see your subscription key and endpoint details.</p>
+
+<p><img src="/images/cognitive-api.png" alt="Cognitive Service API Keys" /></p>
+
+<p>The result which I am going to get as a response from the API is in JSON format. Either I can parse the JSON request in the function itself or I can save it directly in the CosmosDB or any other persistent storage. I am going to put all the response in CosmosDB in raw format. This is an optional step for you as the idea is to see how easy it is to use Cognitive Services Computer Vision API with Azure Functions. If you are skipping this step, the you have to tweak the code a bit so that you can see the response in the log window of your function.</p>
+
+<p>Provision a new <code>CosmosDB</code> and add a collection to it. By default there is a database named <code>ToDoList</code> and with a collection called <code>Items</code> that you can create soon after provisioning of the CosmosDB from the getting started page. If you want you can also create a new database and add a new collection which make more sense.</p>
+
+<p><img src="/images/cosmosdb-create.png" alt="Creating CosmosDB" /></p>
+
+<p>To create a new database and collection go to <code>Data Explorer</code> and click on <code>New Collection</code>. Enter the details and click <code>OK</code> to create a database and a collection.</p>
+
+<p><img src="/images/cosmosdb-add-collection.png" alt="Add Collection in CosmosDB" /></p>
+
+<p>Now we have everything ready. let&rsquo;s get started with the CODE!!.</p>
+
+<p>Let&rsquo;s start by creating a new function called <code>SaveResponse</code> which takes the API response as one of the parameters and is of type string. In this method I am going to use the <a href="https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/">Azure DocumentDB</a> library to communicate with CosmosDB. This means I have to add this library as a reference to my function. To add this library as a reference, navigate to the KUDU portal by adding scm in the URL of your function app like so: <a href="https://quoteextractor.scm.azurewebsites.net/">https://quoteextractor.scm.azurewebsites.net/</a>. This will open up the <code>KUDU</code> portal.</p>
+
+<p><img src="/images/kudu-portal.png" alt="KUDU Portal" /></p>
+
+<p>Go to <code>Debug console</code> and click <code>CMD</code>. Navigate to <code>site/wwwroot/&lt;Function Name&gt;</code>. In the command window use the command <code>mkdir</code> to create a folder name <code>bin</code>.</p>
+
+<pre class="brush:plain">
+mkdir bin
+</pre>
+
+<p><img src="/images/kudu-file-listing.png" alt="KUDU File Listing" /></p>
+
+<p>You can now see the <code>bin</code> folder in the function app directory. Click the <code>bin</code> folder and upload the lib(s).</p>
+
+<p><img src="/images/function-view-files.png" alt="View Function Files" /></p>
+
+<p>In the very first line of the function use <code>#r</code> directive to add the reference of external libraries or assemblies. Now you can use this library in the function with the help of <code>using</code> directive.</p>
+
+<pre class="brush: csharp">
+#r "D:\home\site\wwwroot\QuoteExtractor\bin\Microsoft.Azure.Documents.Client.dll"
+</pre>
+
+<p>Right after adding the reference of the DocumentDB assembly, add namespaces with the help of using directive. In the later stage of the function, you will also need to make HTTP POST calls to the API endpoint and therefore make use of the <code>System.Net.Http</code> namespace as well.</p>
+
+<pre class="brush:csharp">
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using System.Net.Http;
+using System.Net.Http.Headers;
+</pre>
+
+<p>The code for the <code>SaveResponse</code> function is very simple and just make use of the DocumentClient class to create a new document for the response we receive from the Vision API. Here is the complete code.</p>
+
+<pre class="brush:csharp">
+private static async Task&lt;bool&gt; SaveResponse(string APIResponse)
+{
+    bool isSaved = false;
+    const string EndpointUrl = "https://imgdocdb.documents.azure.com:443/";
+    const string PrimaryKey = "QCIHMgrcoGIuW1w3zqoBrs2C9EIhRnxQCrYhZOVNQweGi5CEn94sIQJOHK3NleFYDoFclB7DwhYATRJwEiUPag==";
+ 
+    try
+    {
+        DocumentClient client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
+        await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("VisionAPIDB", "ImgRespCollcetion"), new {APIResponse});
+        isSaved = true;
+    }
+    catch(Exception)
+    {
+        //Do something useful here.
+    }   
+    return isSaved;
+}
+</pre>
+
+<p><img src="/images/cosmosdb-endpoint-keys.png" alt="View Function Files" /></p>
+
+<p>Notice the database and collection name in the function <code>CreateDocumentAsync</code> where the <code>CreateDocumentCollectionUri</code> will return the endpoint uri based of the database and collection name. The last parameter <code>new {ApiResponse}</code> is the response that is received from the Vision API.</p>
+
+<p>Create a new function and call it <code>ExtractText</code>. This function will take <code>Stream</code> object of the image that we can easily get from the <code>Run</code> function. This method is responsible to get the stream object and convert it into byte array with the help of another method <code>ConvertStreamToByteArray</code> and then send the byte array to Vision API endpoint to get the response. Once the response is successful from the API, I will save the response in CosmosDB. Here is the complete code for the function <code>ExtractText</code>.</p>
+
+<pre class="brush:csharp">
+private static async Task&lt;string&gt; ExtractText(Stream quoteImage, TraceWriter log)
+{
+    string APIResponse = string.Empty;
+    string APIKEY = "b33f562505bd7cc4b37b5e44cb2d2a2b";
+    string Endpoint = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
+ 
+    HttpClient client = new HttpClient();
+ 
+    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKEY);
+ 
+    Endpoint = Endpoint + "?language=unk&detectOrientation=true";
+ 
+    byte[] imgArray = ConvertStreamToByteArray(quoteImage);
+ 
+    HttpResponseMessage response;
+ 
+    try
+    {   
+        using(ByteArrayContent content = new ByteArrayContent(imgArray))
+        {
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+ 
+            response = await client.PostAsync(Endpoint, content);
+ 
+            APIResponse = await response.Content.ReadAsStringAsync();
+            log.Info(APIResponse);
+            //TODO: Perform check on the response and act accordingly.
+        }
+    }
+    catch(Exception)
+    {
+        log.Error("Error occured");
+    }
+ 
+    return APIResponse;
+}
+</pre>
+
+<p>There are few things in the above function which need out attention. You will get the subscription key and the endpoint when you register for the the Cognitive Services Computer Vision API. Notice the endpoint I am using also had <code>ocr</code> in the end which is important as I want to read the text from the images I am uploading to the storage. The other parameters I am passing is the <code>language</code> and <code>detectOrientation</code>. <code>Language</code> has the value as <code>unk</code> which stands for <code>unknown</code> which in turn tells the API to auto-detect the language and <code>detectOrientation</code> checks text orientation in the image. The API respond in JSON format which this method returns back in the <code>Run</code> function and this output becomes the input for <code>SaveResponse</code> method. Here is the code for <code>ConvertStreamtoByteArray</code> metod.</p>
+
+<pre class="brush:csharp">
+private static byte[] ConvertStreamToByteArray(Stream input)
+{
+    byte[] buffer = new byte[16*1024];
+    using (MemoryStream ms = new MemoryStream())
+    {
+        int read;
+        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+        {
+            ms.Write(buffer, 0, read);
+        }
+        return ms.ToArray();
+    }
+}
+</pre>
+Now comes the method where all the things will go into, the Run method. Here is how the `Run` method looks like.
+
+<pre class="brush:csharp">
+public static async Task&lt;bool&gt; Run(Stream quoteImage, string name, TraceWriter log)
+{
+    string response = await ExtractText(quoteImage, log);
+    bool isSaved = await SaveResponse(response);
+    return isSaved;
+}
+</pre>
+
+<p>I don&rsquo;t think this method needs any kind of explanation. Let&rsquo;s execute the function by adding a new image to the storage and see if we are able to see the log in the Logs window and a new document in the CosmosDB. Here is the screenshot of the <code>Logs</code> window after the function gets triggered when I uploaded a new image to the storage.</p>
+
+<p><img src="/images/function-logs.png" alt="Function Logs" /></p>
+
+<p>In CosmosDB, I can see a new document added to the collection. To view the complete document navigate to <code>Document Explorer</code> and check the results. This is how my view looks like:</p>
+
+<p><img src="/images/cosmosdb-result-output.png" alt="CosmosDB Result View" /></p>
+
+<p>To save you all a little time, here is the complete code.</p>
+
+<pre class="brush:csharp">
+#r "D:\home\site\wwwroot\QuoteExtractor\bin\Microsoft.Azure.Documents.Client.dll"
+ 
+using System.Net.Http.Headers;
+using System.Net.Http;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+ 
+ 
+public static async Task&lt;bool&gt; Run(Stream quoteImage, string name, TraceWriter log)
+{
+    string response = await ExtractText(quoteImage, log);
+    bool isSaved = await SaveResponse(response);
+    return isSaved;
+}
+ 
+private static async Task&lt;string&gt; ExtractText(Stream quoteImage, TraceWriter log)
+{
+    string APIResponse = string.Empty;
+    string APIKEY = "b33f562505bd7cc4b37b5e44cb2d2a2b";
+    string Endpoint = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
+ 
+    HttpClient client = new HttpClient();
+ 
+    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKEY);
+ 
+    Endpoint = Endpoint + "?language=unk&detectOrientation=true";
+ 
+    byte[] imgArray = ConvertStreamToByteArray(quoteImage);
+ 
+    HttpResponseMessage response;
+ 
+    try
+    {   
+        using(ByteArrayContent content = new ByteArrayContent(imgArray))
+        {
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+ 
+            response = await client.PostAsync(Endpoint, content);
+ 
+            APIResponse = await response.Content.ReadAsStringAsync();
+            //TODO: Perform check on the response and act accordingly.
+        }
+    }
+    catch(Exception)
+    {
+        log.Error("Error occured");
+    }
+ 
+    return APIResponse;
+}
+ 
+private static async Task&lt;bool&gt; SaveResponse(string APIResponse)
+{
+    bool isSaved = false;
+    const string EndpointUrl = "https://imgdocdb.documents.azure.com:443/";
+    const string PrimaryKey = "QCIHMgrcoGIuW1w3zqoBrs2C9EIhRnzZCrYhZOVNQweIi5CEn94sIQJOHK2NkeFYDoFcpB7DwhYATRJwEiUPbg==";
+ 
+    try
+    {
+        DocumentClient client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
+        await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("VisionAPIDB", "ImgRespCollcetion"), new {APIResponse});
+        isSaved = true;
+    }
+    catch(Exception)
+    {
+        //Do something useful here.
+    }   
+    return isSaved;
+}
+ 
+private static byte[] ConvertStreamToByteArray(Stream input)
+{
+    byte[] buffer = new byte[16*1024];
+    using (MemoryStream ms = new MemoryStream())
+    {
+        int read;
+        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+        {
+            ms.Write(buffer, 0, read);
+        }
+        return ms.ToArray();
+    }
+}
+</pre>
+
+<ul>
+<li><strong>References:</strong>
+
+<ul>
+<li><a href="https://azure.microsoft.com/en-in/try/cognitive-services/">Cognitive Services API</a></li>
+<li><a href="https://westus.dev.cognitive.microsoft.com/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fc">API Reference</a></li>
+<li><a href="https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/">Azure DocumentDB Assembly</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home">Computer Vision API - Documentation</a></li>
+<li><a href="https://docs.microsoft.com/en-in/azure/cognitive-services/computer-vision/quickstarts/csharp#optical-character-recognition-ocr-with-computer-vision-api-using-ca-nameocr-a">OCR with Computer Vision API - Documentation</a></li>
+</ul></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/enable-multi-factor-authentication-mfa-for-users-in-azure-active-directory/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Enable Multi Factor Authentication (MFA) For Users In Azure Active Directory</span>
+    </a>
+    
+    
+    <a href="/post/create-mount-and-unmount-img-files-in-ubuntu/" class="navigation-next">
+      <span class="navigation-tittle">Create, Mount And Unmount .img Files In Ubuntu</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

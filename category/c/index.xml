@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C# on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/c/</link>
+    <description>Recent content in C# on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 08 May 2017 15:21:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Single Sign-On In ASP.NET Core With Azure Active Directory</title>
+      <link>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</link>
+      <pubDate>Mon, 08 May 2017 15:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</guid>
+      <description>Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing ADXL345 Accelerometer Output In Windows Forms From Raspberry PI 2</title>
+      <link>https://prashantkhandelwal.github.io/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/</link>
+      <pubDate>Mon, 26 Sep 2016 21:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/</guid>
+      <description>I have been playing a lot with Raspberry PI and Python these days and have also started a side project to create robot car controller with a Xbox 360 wireless controller. I am planning to controller a robot car using a custom interface from my Windows machine. Initially I tried with PyQt but I dropped the idea for now as Python is not my primary expertise and it will take some time for me to learn the basics and get into some serious coding.</description>
+    </item>
+    
+    <item>
+      <title>.NET Projects You Should Be Following On Github</title>
+      <link>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</link>
+      <pubDate>Sun, 19 Jul 2015 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</guid>
+      <description>Open-source has entirely change the programming and developers world. Today you can create any application, game, mobile app without spending a single penny. Thanks to open-source software and awesome community of developers and people behind them. As a .NET developer I have been developing enterprise applications for quite a long time and now I have shifted my focus towards developing products and understanding what it takes to make a successful product launch.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started With ASP.NET 5 On Ubuntu</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</link>
+      <pubDate>Tue, 16 Jun 2015 22:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</guid>
+      <description>Ever since the .NET stack went open source last year, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites.</description>
+    </item>
+    
+    <item>
+      <title>How Generic The Code Can Be - Resolving Type T at Compile Time</title>
+      <link>https://prashantkhandelwal.github.io/post/how-generic-the-code-can-be-resolving-type-t-at-compile-time/</link>
+      <pubDate>Sun, 07 Jun 2015 08:07:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-generic-the-code-can-be-resolving-type-t-at-compile-time/</guid>
+      <description>It is fun working with Generics, but sometimes it just won&amp;rsquo;t work as I intended it to work. While working on a personal project, I was trying to write the code as generic as possible so I can re-use the functions or extension methods in my other projects as well. But it is not always the case, things will not always work as you want it to be. Here is the case of what I was trying to do.</description>
+    </item>
+    
+    <item>
+      <title>Recurring Tasks Inside ASP.NET Applications Using HangFire</title>
+      <link>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</link>
+      <pubDate>Sun, 15 Jun 2014 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</guid>
+      <description>This is open-source at its best. Running background task to work in context with ASP.NET was and is still a big deal for few developers. I user QueueUserWorkItem to schedule emails when a new comment is added on my blog. This makes sure that the UI is responsive and the user can close or navigate to other post. I have been working on enterprise applications for many years now and most of the long running tasks are running in the background i.</description>
+    </item>
+    
+    <item>
+      <title>Turn Your Google Drive Folder In An Online Album Viewer</title>
+      <link>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</link>
+      <pubDate>Sun, 04 May 2014 15:09:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</guid>
+      <description>Working with Google Drive API is fun. The documentation is good and will let you get started with the API pretty quickly. I have my whole complete family album on OneDrive, but the API is still a bit hard to use as compared to Google Drive API or maybe it is just for me. But while playing around with Drive API I ended up creating a small razor based web page application which will allow you to show your folder as an online web album.</description>
+    </item>
+    
+    <item>
+      <title>JSON Based Document Storage Using Biggy In ASP.NET MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</link>
+      <pubDate>Sat, 03 May 2014 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</guid>
+      <description>While working with a small web based project many developers will take advantage of web.config and XML files to read settings for the application. Using web.config is a good way but you cannot change the settings from within the application and when done manually it causes the website to restart. XML is good but many of us has a problem when it comes to update the details in XML. Biggy is an awesome library developed by Rob Conery to work with document storage.</description>
+    </item>
+    
+    <item>
+      <title>Building MVC Application With Multiple Database Support Using Ninject</title>
+      <link>https://prashantkhandelwal.github.io/post/building-mvc-application-with-multiple-database-support-using-ninject/</link>
+      <pubDate>Mon, 13 May 2013 14:33:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-mvc-application-with-multiple-database-support-using-ninject/</guid>
+      <description>I used to have BlogEngine.NET as my blogging platform before switching to WordPress, and that is because of my poor hosting provider who can’t afford few MBs on the shared hosting plans. I like BlogEngine.NET a lot because it is in .NET and on the other hand WordPress is on PHP which I don’t know. BlogEngine.NET is still evolving and is getting better with every release. BlogEngine.NET supports multiple databases like SQL Server, SQL Server CE, MySQL, XML file, VistaDB and may be few more.</description>
+    </item>
+    
+    <item>
+      <title>ASYNC Controller In MVC 4</title>
+      <link>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</link>
+      <pubDate>Tue, 30 Apr 2013 22:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</guid>
+      <description>I have build many small applications so far in MVC to help myself in understanding the framework more deeply. Now I am planning to write a blog engine on MVC. It will not be an easy task but I will be going to learn a lot of things. As I was planning things ahead I came across a problem where I have to load my blog stats like FeedBurner readers, Facebook page likes, Google +1 count, twitter followers inside a div on the page.</description>
+    </item>
+    
+    <item>
+      <title>Creating A Live Tile Application In Windows 8</title>
+      <link>https://prashantkhandelwal.github.io/post/creating-a-live-tile-application-in-windows-8/</link>
+      <pubDate>Tue, 01 Jan 2013 11:20:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/creating-a-live-tile-application-in-windows-8/</guid>
+      <description>Developing application for Windows 8 is fun. I love the UI and the idea of having a live tile for my application. So I try building a live tile application, but unfortunately I can’t find a simple written article or a blog post. I even found MSDN to be a bit difficult for the newbies to get the grasp in first go. There are lot of things to understand and to worked on for creating a live tile in Windows 8.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started With NETMF And Netduino</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-netmf-and-netduino/</link>
+      <pubDate>Sat, 25 Jun 2011 08:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-netmf-and-netduino/</guid>
+      <description>My Netduino card arrived this Sunday but I was not able to play with my new development board due to some serious &amp;ldquo;crap work&amp;rdquo; I was doing. Today I was able to run a small piece of code which blinks the user LED on the Netduino board. The code is simple enough and just like &amp;ldquo;hello world&amp;rdquo; example like we have for all other programming languages.
+Here is my Netduino kit:</description>
+    </item>
+    
+    <item>
+      <title>Syntax Highlighter In WPF</title>
+      <link>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</link>
+      <pubDate>Mon, 09 May 2011 16:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/syntax-highlighter-in-wpf/</guid>
+      <description>If you are writing code for a while now then by now you must have a lot of code snippets which you will be using in your application development, and you use them because they save a lot of development time. At this moment I have now a huge collection of code snippets which includes functions, classes, extension methods and functions that I have extracted from different open source applications.</description>
+    </item>
+    
+    <item>
+      <title>Code Snippet: Remove Duplicates From ArrayList</title>
+      <link>https://prashantkhandelwal.github.io/post/code-snippet-remove-duplicates-from-arraylist/</link>
+      <pubDate>Sat, 30 Apr 2011 02:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/code-snippet-remove-duplicates-from-arraylist/</guid>
+      <description>Two methods to remove Duplicates from ArrayList.
+Method 1:
+private static ArrayList RemoveDuplicates(ArrayList arrList) { ArrayList list = new ArrayList(); foreach (string item in arrList) { if (!list.Contains(item)) { list.Add(item); } } return list; }  Method 2:
+private static string[] RemoveDuplicates(ArrayList arrList) { HashSet&amp;lt;string Hset = new HashSet&amp;lt;string((string[])arrList.ToArray(typeof(string))); string[] Result = new string[Hset.Count]; Hset.CopyTo(Result); return Result; }   Note: I found this method on the net and therefore I am sharing it as it is.</description>
+    </item>
+    
+    <item>
+      <title>Windows Live Theme For BlogEngine.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</link>
+      <pubDate>Thu, 17 Mar 2011 16:03:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/</guid>
+      <description>If you have long URLs and other and want to create short URLs then Bit.ly API can help. I wrote a wrapper class which can let me create short URLs in jiffy. I was working on Bit.ly API to create my short URLs with a click of a button (that&amp;rsquo;s for my personal use). Therefore, I ended up with a &amp;lsquo;short&amp;rsquo; class to create short URLs using Bit.ly API. What you need is a login and an apikey, which you can have one for yourself by signing up for a free account.</description>
+    </item>
+    
+    <item>
+      <title>Code Snippet: Export DataGridView To Excel With Columns</title>
+      <link>https://prashantkhandelwal.github.io/post/code-snippet-export-datagridview-to-excel-with-columns/</link>
+      <pubDate>Tue, 25 Jan 2011 16:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/code-snippet-export-datagridview-to-excel-with-columns/</guid>
+      <description>This is among one of the best code snippet I have and using since long to export the datagridview to excel. The best part of this code snippet is that it just don&amp;rsquo;t uses the excel interop, so you need not to worry about the Office version or PIAs installed at user&amp;rsquo;s machine. What actualy is needed is just a Reflection namespace - System.Reflection and it will bind the data to the instance of the excel application.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Working With Task Dialog Class</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/</link>
+      <pubDate>Mon, 24 Jan 2011 16:57:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/</guid>
+      <description>Last year, I blogged about few things related to Windows 7 development which includes Jump Lists and Glass Form. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The Windows 7 API Code Pack comes with some sample applications which exposes the power of the API.
+In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7.</description>
+    </item>
+    
+    <item>
+      <title>Autocomplete With jQuery and ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</link>
+      <pubDate>Sun, 19 Dec 2010 01:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</guid>
+      <description>Building auto-complete feature with jQuery is easy and you can build this in no time. It&amp;rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&amp;rsquo;s begin up getting files under one hood.
+Use the below live links for jQuery auto-complete and CSS.
+&amp;lt;link rel=&#34;stylesheet&#34; href=&#34;http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css&#34; type=&#34;text/css&#34; /&amp;gt; &amp;lt;script type=&#34;</description>
+    </item>
+    
+    <item>
+      <title>Disable &#39;X&#39; Close Button On Your Windows Form Application</title>
+      <link>https://prashantkhandelwal.github.io/post/disable-x-close-button-on-your-windows-form-application/</link>
+      <pubDate>Sun, 12 Dec 2010 07:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/disable-x-close-button-on-your-windows-form-application/</guid>
+      <description>Recently, someone on MSDN forums asked this question on how to disable the &amp;ldquo;X&amp;rdquo; a.k.a. close button in his windows form application so the user is forced to close the application from the cancel button on the form and not from the close button. He wanted this for his application which requires registration first before a user can start using his application.
+I don&amp;rsquo;t know the answer so I bing arond a bit and find a solution posted by someone though I don&amp;rsquo;t have the name but it worked like a charm&amp;hellip;.</description>
+    </item>
+    
+    <item>
+      <title>A Time Wrapper Class in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/a-time-wrapper-class-in-c/</link>
+      <pubDate>Tue, 30 Nov 2010 13:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/a-time-wrapper-class-in-c/</guid>
+      <description>I was just surfing the net in search for some fundoo tutorial on WPF and by chance (I don&amp;rsquo;t meant to visit that site), I get this class which I feel is pretty helpful. A simple wrapper class to conver time. the class allows you to convert:
+ To Days To Hours To Minutes To Seconds To MilliSeconds  This can be pretty usefull. The class is as follows:
+using System; public static class TimeSpanUtil { #region To days public static double ConvertMillisecondsToDays(double milliseconds) { return TimeSpan.</description>
+    </item>
+    
+    <item>
+      <title>URL Routing With ASP.NET 4 - Web Forms</title>
+      <link>https://prashantkhandelwal.github.io/post/url-routing-with-aspnet-4-web-forms/</link>
+      <pubDate>Sat, 26 Jun 2010 18:38:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/url-routing-with-aspnet-4-web-forms/</guid>
+      <description>URL Routing was first introduced in .NET framework 3.5 SP1 but MVC has built-in and works pretty decently to create SEO friendly URL and prevents URL hacking. ASP.NET 4.0 is now introduced with a new feature called URL routing with web forms. URL routing help developers to create short and friendly URLs which enhance search engine page ranking. There are few other ways to create short friendly URLs like URLrewriter.net extension or if you have a physical access to IIS you can have installed URL Rewriter extension for IIS 7 to create short friendly URLs.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Logon Screen Changer</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</link>
+      <pubDate>Sat, 29 May 2010 22:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</guid>
+      <description>Recently I was reading an article on some Windows 7 forums on how to change Windows Logon Background. There are manual steps which helps me to change the longon background, but its tedious if I have to do it manually everytime. So I decided to make a tool which can do it for me.
+I start up a new project in Visual Studio 2010 and create a new windows application. I am not writing about how I did it, I am just giving away this tool for use.</description>
+    </item>
+    
+    <item>
+      <title>How To Build UAC Compatible Application In .NET</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</link>
+      <pubDate>Sun, 23 May 2010 21:01:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</guid>
+      <description>We all know about a feature called User Account Control (UAC) which introduced with the launch of Windows Vista. By default, UAC is enabled and provides users a better and safer computing experience, but most of the users find it irritating when the UAC prompts everytime they try to run a program. Disabling UAC is not recommended at all.
+With UAC enabled programmers find it difficult to access some of the locations on the local drive.</description>
+    </item>
+    
+    <item>
+      <title>How To Find Whether The Machine Is of 32-Bit/64-Bit Architecture</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-find-whether-the-machine-is-32-bit-64-bit/</link>
+      <pubDate>Thu, 13 May 2010 22:22:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-find-whether-the-machine-is-32-bit-64-bit/</guid>
+      <description>The easiest way to find out the processor architecture is to use the Environment class GetEnvironmentVariable method.
+Console.WriteLine(Environment.GetEnvironmentVariable(&#34;PROCESSOR_ARCHITECTURE&#34;));  This will print the processor architecture on the console window i.e. x86 and x64 for 32-bit and 64-bit respectively.</description>
+    </item>
+    
+    <item>
+      <title>Using SQL CLR Stored Procedure To Track IP Address</title>
+      <link>https://prashantkhandelwal.github.io/post/using-sql-clr-stored-procedure-track-ip-address/</link>
+      <pubDate>Sat, 24 Apr 2010 00:24:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-sql-clr-stored-procedure-track-ip-address/</guid>
+      <description>Recently I was asked by one of my friend how to call a web service directly from a stored procedure. He needs to track IP addresses using a stored procedures so, I suggested him two ways to call a web service using the SQL Procedure.
+ Using SP_OACREATE with MSXML Create an assembly using SQL CLR using C#.  I personally tried using the first way to call a web service but was not successful.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Creating Jumplist In Windows 7</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-creating-jumplist-in-windows-7/</link>
+      <pubDate>Sun, 28 Mar 2010 02:08:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-creating-jumplist-in-windows-7/</guid>
+      <description>I am quite fascinated with Windows 7 before even I get it started using it. Actually I have just started on a fun project for my personal use which includes jump list. Why I am doing this? To navigate and get access to the application and internet addresses I need anytime. I am tired of typing addresses and navigating to the programs I frequently use. I have just started so I thought I must blog about my jump list experience with you all.</description>
+    </item>
+    
+    <item>
+      <title>Passing Parameters and Loading Crystal Report Programmatically</title>
+      <link>https://prashantkhandelwal.github.io/post/passing-parameters-and-loading-crystal-report-programmatically/</link>
+      <pubDate>Mon, 01 Mar 2010 11:55:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/passing-parameters-and-loading-crystal-report-programmatically/</guid>
+      <description>Reporting is an important part for every application. Crystal reports are widely used and also available in Visual Studio for reporting purposes. I personally never like designing application interfaces and working on web designs, it needs good designing skills which I lack and so I never put my hands on designing anything, but sometimes we have to. In crystal reports when you create a report using wizard or just adding a blank report to the project and then fetching data using code (after designing), the report works fine on the machine where you have designed and develop it and the problem occurs when you have to deploy or distribute your application with reports on multiple machines or clients.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Aero Effects in .NET Applications</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-aero-effects-in-net-applications/</link>
+      <pubDate>Sun, 28 Feb 2010 13:22:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-aero-effects-in-net-applications/</guid>
+      <description>With the launch of Windows Vista, Microsoft introduces brand new UI, eye-catching aero effects (glass effects) for their new Operating System. I have seen a lot of programmers who are much concerned about the looks of their applications. So this time with the launch of Windows 7, Microsoft provides the Windows 7 API Code Pack. The Windows 7 API Code Pack not only just allows incorporating the aero glass effect, but many other features which will let you to work more conveniently with Windows 7.</description>
+    </item>
+    
+    <item>
+      <title>Single Instance of Child Forms in MDI Applications</title>
+      <link>https://prashantkhandelwal.github.io/post/single-instance-of-child-forms-in-mdi-applications/</link>
+      <pubDate>Mon, 22 Feb 2010 00:40:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/single-instance-of-child-forms-in-mdi-applications/</guid>
+      <description>In MDI application we can have multiple forms and can work with multiple forms i.e. MDI childs at a time but while developing applications we don&amp;rsquo;t pay attention to the minute details of memory management. Take this as an example, when we develop application say preferably an MDI application, we have multiple child forms inside one parent form. On MDI parent form we would like to have menu strip and tab strip which in turn calls other forms which build the other parts of the application.</description>
+    </item>
+    
+    <item>
+      <title>How to plug-in a DLL into a C# project</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-plug-in-a-dll-into-a-c-project/</link>
+      <pubDate>Thu, 07 Jan 2010 16:58:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-plug-in-a-dll-into-a-c-project/</guid>
+      <description>John Grove share a code at MSDN on how can we call DLLs methods dynamically using C# code.
+The below code can further be modified and a developer can easily extend the functionality of his application to create a application which accepts DLLs as plug-ins. This concept is useful when different users have different requirements in a generalized application like in the case of famous photo editing program Photoshop from Adobe.</description>
+    </item>
+    
+    <item>
+      <title>Removing Duplicates from a List in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/removing-duplicates-from-a-list-in-c/</link>
+      <pubDate>Thu, 24 Dec 2009 18:25:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/removing-duplicates-from-a-list-in-c/</guid>
+      <description>For more details and detailed explaination of the code visit this link.
+static List removeDuplicates(List inputList) { Dictionary uniqueStore = new Dictionary(); List finalList = new List(); foreach (string currValue in inputList) { if (!uniqueStore.ContainsKey(currValue)) { uniqueStore.Add(currValue, 0); finalList.Add(currValue); } } return finalList; }  </description>
+    </item>
+    
+    <item>
+      <title>Retrieve Key from Value in Hash Table</title>
+      <link>https://prashantkhandelwal.github.io/post/retrieve-key-from-value-in-hash-table/</link>
+      <pubDate>Wed, 16 Dec 2009 02:19:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/retrieve-key-from-value-in-hash-table/</guid>
+      <description>Working with hash tables is pretty simple but few days back I was having a problem in retrieving a key from a value in hash table. I was bit lazy to find a way myself, so I searched the net and here is what I got&amp;hellip;.a simple piece of code which lead to me to complete my task and so I thought I should share it with everyone here.
+public string FindKey(string Value, Hashtable HT) { string Key = &amp;ldquo;&amp;rdquo;; IDictionaryEnumerator e = HT.</description>
+    </item>
+    
+    <item>
+      <title>Using Background Worker in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/using-background-worker-in-c/</link>
+      <pubDate>Fri, 27 Nov 2009 15:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-background-worker-in-c/</guid>
+      <description>Performance of an application matters a lot for a developer. None of the developer wants his application freezes or crashes. But what are measures a developer should takes to keep it all good going. When I used to develop application I saw whenever I try to perform some heavy or bulky task like uploading files, copying files from place to other and other DB related but heavy task which includes CPU as well as hard drive.</description>
+    </item>
+    
+    <item>
+      <title>Word Automation in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/word-automation-in-c/</link>
+      <pubDate>Wed, 11 Nov 2009 19:44:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/word-automation-in-c/</guid>
+      <description>Here in this tutorial I have used a word document template and mail merge option of the Word to automate the word document creation.
+I have use mail merge option to set the fields and make the document fill through my application. We can also set the location of the text that we want to display in the word document programmatically.
+So to get started we have to first make a template which is a word document template file (.</description>
+    </item>
+    
+    <item>
+      <title>Download albums/images from Picasa</title>
+      <link>https://prashantkhandelwal.github.io/post/download-albumsimages-from-picasa/</link>
+      <pubDate>Sun, 08 Nov 2009 20:31:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/download-albumsimages-from-picasa/</guid>
+      <description>Picasa is an online photo sharing portal from Google. Users from around the globe use Picasa for storing and sharing their photos online. We can view and download images from the album, but only if it is public. We cannot view private albums and also cannot download images from any of the public albums if the owner of the album has denied the access for other users to download the images.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft WMI Code Creator</title>
+      <link>https://prashantkhandelwal.github.io/post/microsoft-wmi-code-creator/</link>
+      <pubDate>Tue, 27 Oct 2009 01:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/microsoft-wmi-code-creator/</guid>
+      <description>The WMI Code Creator tool generates code that uses WMI to obtain management information or perform management tasks. You can use the tool to learn how to manage computers using WMI scripting and WMI .NET. The tool generates code that runs on the local computer, a remote computer, or a group of remote computers based on your selection from the Target Computer menu on the tool. You can also execute the generated code directly from the tool.</description>
+    </item>
+    
+    <item>
+      <title>Read/Write settings to INI File using C#</title>
+      <link>https://prashantkhandelwal.github.io/post/readwrite-settings-to-ini-file-using-c/</link>
+      <pubDate>Wed, 21 Oct 2009 18:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/readwrite-settings-to-ini-file-using-c/</guid>
+      <description>When we design application we always face problems to save settings for the application and to achieve that we use different options available to us. A very common method to use in accordance of complexity XML files, Registry, Application.config or other/normal files. Best option is to use application configuration file but it seems that most of the people are not fully aware with the usage of the application configuration file. I will discuss late on the application configuration file a.</description>
+    </item>
+    
+    <item>
+      <title>Passing Parameters to Crystal Reports</title>
+      <link>https://prashantkhandelwal.github.io/post/passing-parameters-to-crystal-reports/</link>
+      <pubDate>Tue, 20 Oct 2009 16:26:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/passing-parameters-to-crystal-reports/</guid>
+      <description>I found many tutorials on the internet that shows how to pass the parameters (Discreet Parameters) to crystal reports, I tried all of them, but unfortunately I didn&amp;rsquo;t get anyone of it to work. Therefore I though to give a trial on my code and eventually I got it running. I assume that you have a report ready with a parameter.
+Firstly to get it running we have to use the below namespaces:</description>
+    </item>
+    
+    <item>
+      <title>Requesting delivery/read receipt from C# using MailMessage class</title>
+      <link>https://prashantkhandelwal.github.io/post/requesting-deliveryread-receipt-from-c-using-mailmessage-class/</link>
+      <pubDate>Fri, 16 Oct 2009 15:38:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/requesting-deliveryread-receipt-from-c-using-mailmessage-class/</guid>
+      <description>Sending e-mail through code is easy, but how do we get to know that an e-mail that we send is delivered and read by the intended recipient. When we send e-mail through code we can request a delivery notification and read receipt from the receiver, similar to the way we do in outlook. But the problem is not every mail server supports this kind of request from the code. We set a mail header while sending mail from code which is then processed by the mail server and the sender of the mail gets the intended response.</description>
+    </item>
+    
+    <item>
+      <title>Using Hashtables</title>
+      <link>https://prashantkhandelwal.github.io/post/using-hashtables/</link>
+      <pubDate>Sun, 20 Sep 2009 21:40:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-hashtables/</guid>
+      <description>Here I illustrate how to create and use hash table. Each element of hash table is a combination of Key/Value pair stored in a DictionaryEntry object. A value in a hash table can be null or contains no value but a key cannot be of null reference. Key in hash table work as an identifier for the value where you can search a hash table for a value with a specified key.</description>
+    </item>
+    
+    <item>
+      <title>C# Method: Encrypting a string using MD5 algorithm</title>
+      <link>https://prashantkhandelwal.github.io/post/c-method-encrypting-a-string-using-md5-algorithm/</link>
+      <pubDate>Mon, 20 Jul 2009 00:40:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/c-method-encrypting-a-string-using-md5-algorithm/</guid>
+      <description>Encrypting a string using the MD5 algorithm
+This C# method will encrypt any string using MD5 algorithm. It generates the same hash as the PHP MD5() function.
+using System;using System.Collections.Generic; using System.Linq;using System.Text; using System.Text.RegularExpressions; using System.Security.Cryptography; namespace EncryptString { class Program { public static string EncodePassword(string originalPassword) { Byte[] originalBytes; Byte[] encodedBytes; MD5 md5; md5 = new MD5CryptoServiceProvider(); originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword); encodedBytes = md5.ComputeHash(originalBytes); return Regex.Replace(BitConverter.ToString(encodedBytes), &#34;-&#34;, &#34;&#34;).ToLower(); } static void Main(string[] args) { Console.</description>
+    </item>
+    
+    <item>
+      <title>GUIDs in C# / SQL</title>
+      <link>https://prashantkhandelwal.github.io/post/guids-in-c-sql/</link>
+      <pubDate>Fri, 26 Jun 2009 15:37:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/guids-in-c-sql/</guid>
+      <description>GUID pronounced as goo&amp;rsquo;id - Globally unique identifier is a 128-bit integer that can be used to uniquely identify something. If you want to identify the large collection of data GUID is the best approach in my view. Also you can use the autoincremental integer to identify records, this is the basic approach programmer&amp;rsquo;s use.
+GUID method can be found under the System namespace and it also provides some overloads. Here is how we can use the GUID overloads:</description>
+    </item>
+    
+    <item>
+      <title>Backup/Restore SQL database using C#</title>
+      <link>https://prashantkhandelwal.github.io/post/backuprestore-sql-database-using-c/</link>
+      <pubDate>Sun, 21 Jun 2009 15:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/backuprestore-sql-database-using-c/</guid>
+      <description>Microsoft’s .NET framework provides the flexibility to Backup and Restore SQL server database. A few lines to populate the names of all the server instances, create backups and then restore the backups. The application what you see here is a part of an application, so when you create backups and restore it will use the same path hardcoded in the code itself. You can change the way you like it.</description>
+    </item>
+    
+    <item>
+      <title>Set the default printer for printing programatically</title>
+      <link>https://prashantkhandelwal.github.io/post/set-the-default-printer-for-printing-programatically/</link>
+      <pubDate>Tue, 16 Jun 2009 15:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/set-the-default-printer-for-printing-programatically/</guid>
+      <description>You need to print the document but you don&amp;rsquo;t want to go to control panel or printer and faxes options and just want to get it changed automatically. You can even set the shared local network printer with this code.
+Just with the code you can override the system settings and change the default printer for your system.
+You need to use the namespace so in order to use the DLLImport attribute.</description>
+    </item>
+    
+    <item>
+      <title>Shoutdown/Logoff/Hibernate/Stand By - Use CODE to do &#39;em all</title>
+      <link>https://prashantkhandelwal.github.io/post/shoutdownlogoffhibernatestand-by-use-code-to-do-em-all/</link>
+      <pubDate>Fri, 12 Jun 2009 17:32:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/shoutdownlogoffhibernatestand-by-use-code-to-do-em-all/</guid>
+      <description>Step 1: Add the following line to use the namespace. This is necessary as we need to use the User32.dll with DLLImport attribute.
+using System.Runtime.InteropServices;  Step 2: Now add the below line to your code to use the methods from the User32.dll.
+[DllImport(&#34;user32.dll&#34;)] public static extern void LockWorkStation(); [DllImport(&#34;user32.dll&#34;)] public static extern int ExitWindowsEx(int uFlags, int dwReason);  Step 3: Once you complete the above two steps, you can now call the methods on button click or after some or with some particular event or the way you like.</description>
+    </item>
+    
+    <item>
+      <title>Convert ASCII values from hex to characters</title>
+      <link>https://prashantkhandelwal.github.io/post/convert-ascii-values-from-hex-to-characters/</link>
+      <pubDate>Sat, 30 May 2009 15:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/convert-ascii-values-from-hex-to-characters/</guid>
+      <description>This C# code takes in a list of ASCII values (hexadecimal) and shows the actual characters behind, thus converting hex values to strings.
+// An object storing the hex value string HexValue = &#34;4765656B7065646961&#34;; // An object storing the string value string StrValue = &#34;&#34;; // While there&#39;s still something to convert in the hex string while (HexValue.Length  0) { // Use ToChar() to convert each ASCII value (two hex digits) to the actual character StrValue += Convert.</description>
+    </item>
+    
+    <item>
+      <title>Printing word documents without showing Print Dialog</title>
+      <link>https://prashantkhandelwal.github.io/post/printing-word-documents-without-showing-print-dialog/</link>
+      <pubDate>Fri, 29 May 2009 15:09:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/printing-word-documents-without-showing-print-dialog/</guid>
+      <description>Just one Click! and documents queued to the printer. The code will provide you the full flexiblity to set the default printer and also to set other word document settings. I used the code to convert the word document to PDF using Adobe PDF printer driver, as I was unable to get the code to convert the word files to PDF using DLLs.Cool
+Download the code and don&amp;rsquo;t forget to look at the comments.</description>
+    </item>
+    
+    <item>
+      <title>Populating, Restore and Backup SQL Database using C#</title>
+      <link>https://prashantkhandelwal.github.io/post/populating-restore-and-backup-sql-database-using-c/</link>
+      <pubDate>Wed, 27 May 2009 15:01:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/populating-restore-and-backup-sql-database-using-c/</guid>
+      <description>You want to add a functionality in your C# application to allow user to select the database to restore and taking backups of the database. C# provides the classes to allow a programmer to achieve this in the application.
+Before you go and implement this feature in your application, make sure you have added the references of the following namespaces:
+ Microsoft.SqlServer.Smo Microsoft.SqlServer.ConnectionInfo  Click the below link to download the full application.</description>
+    </item>
+    
+    <item>
+      <title>Convert Numbers to Words in C#</title>
+      <link>https://prashantkhandelwal.github.io/post/convert-numbers-to-words-in-c/</link>
+      <pubDate>Sun, 24 May 2009 13:18:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/convert-numbers-to-words-in-c/</guid>
+      <description>Use the below code to convert numbers to words and currency to word programatically (Check the code below). Instead you can create a DLL and use it or whatever the way you like.
+Usage:
+Download: Num2Wrd.cs (8.30 kb)</description>
+    </item>
+    
+  </channel>
+</rss>

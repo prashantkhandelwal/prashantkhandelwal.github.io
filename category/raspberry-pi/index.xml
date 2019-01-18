@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Raspberry Pi on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/raspberry-pi/</link>
+    <description>Recent content in Raspberry Pi on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Apr 2017 07:39:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/raspberry-pi/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</title>
+      <link>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</link>
+      <pubDate>Sun, 02 Apr 2017 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</guid>
+      <description>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing ADXL345 Accelerometer Output In Windows Forms From Raspberry PI 2</title>
+      <link>https://prashantkhandelwal.github.io/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/</link>
+      <pubDate>Mon, 26 Sep 2016 21:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/</guid>
+      <description>I have been playing a lot with Raspberry PI and Python these days and have also started a side project to create robot car controller with a Xbox 360 wireless controller. I am planning to controller a robot car using a custom interface from my Windows machine. Initially I tried with PyQt but I dropped the idea for now as Python is not my primary expertise and it will take some time for me to learn the basics and get into some serious coding.</description>
+    </item>
+    
+    <item>
+      <title>Controlling 16x2 LCD With Raspberry PI 2 Using Adafruit Library</title>
+      <link>https://prashantkhandelwal.github.io/post/controlling-16x2-lcd-with-raspberry-pi-2-using-adafruit-library/</link>
+      <pubDate>Mon, 20 Jul 2015 12:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/controlling-16x2-lcd-with-raspberry-pi-2-using-adafruit-library/</guid>
+      <description>As an enthusiast, I started working with embedded with Netduino. It was fun but at the same time Netduino was not offering that much things that I can do now. For a person like me who has no knowledge of electronics and C/C++, this was a gift. Now here I am using Raspberry PI&amp;rsquo;s latest version and I have everything I ever wanted on a single piece of hardware.
+To get started with Python and Raspberry PI, I looked into the &amp;ldquo;Hello World&amp;rdquo; sort of LED blinking example.</description>
+    </item>
+    
+  </channel>
+</rss>

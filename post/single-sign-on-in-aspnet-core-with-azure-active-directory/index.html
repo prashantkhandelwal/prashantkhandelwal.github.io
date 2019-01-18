@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Single Sign-On In ASP.NET Core With Azure Active Directory • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Single Sign-On In ASP.NET Core With Azure Active Directory"/>
+<meta name="twitter:description" content="Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application."/>
+
+<meta property="og:title" content="Single Sign-On In ASP.NET Core With Azure Active Directory" />
+<meta property="og:description" content="Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/" /><meta property="article:published_time" content="2017-05-08T15:21:00&#43;00:00"/>
+<meta property="article:modified_time" content="2017-05-08T15:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Single Sign-On In ASP.NET Core With Azure Active Directory</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> May 8, 2017
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/azure">AZURE</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/c">C#</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application. I already have an application and I want to integrate Azure AD authentication, hence I will not be able to change the authentication just like that. I have to manually make the changes to do so. So here it is what I have done to integrate Azure Active Directory in my ASP.NET Core web application.</p>
+
+<h5 id="step-1-create-azure-active-directory">Step 1: Create Azure Active Directory</h5>
+
+<p>When provisioning a new Azure Active Directory you have to go to the old <a href="manage.windowsazure.com">portal manage.windowsazure.com</a>. At the time of writing this blog post, the product team is still in a process of migrating the complete AD feature sets from the old portal to the new portal. Therefore, to create a new AD in Azure, click the <code>Active Directory</code> in the left pane and you will be able to see all the active directories. In the below screen shot you can see that I am a part of Microsoft Active Directory as a <code>User</code>.</p>
+
+<p><img src="/images/active-directory.png" alt="Active Directory" /></p>
+
+<p>If you are planning to use any of the current Active Directory out of the one listed, you can click on it and register your application and users. Note that you have to be a <code>Global Administrator</code> to do that. If you want to create a new Active Directory, then click the <code>NEW</code> button at the bottom left corner to create a new Active Directory.</p>
+
+<p><img src="/images/create-new-ad.png" alt="Create new AD" /></p>
+
+<p>Click on <code>CUSTOM CREATE</code> and a new dialog box will appear in front of you to enter the name of your Active Directory.</p>
+
+<p><img src="/images/add-ad.png" alt="Add AD" /></p>
+
+<p>The green check box in the <code>DOMAIN NAME</code> denotes that the name you have chosen for your active directory is available. When done click the tick button or icon at the bottom right corner of the dialog box to create a new active directory.</p>
+
+<p><img src="/images/new-ad.png" alt="New AD" /></p>
+
+<h5 id="step-2-add-a-user">Step 2: Add a user</h5>
+
+<p>After the creation of active directory is successfully completed, you can see the new created active directory in the list. Notice the <code>ROLE</code> as <code>Global Administrator</code>. Click on the active directory name to view the details. First, I am going to add a new user to the directory. When inside the active directory, click the <code>USERS</code> which in the top of the page.</p>
+
+<p><img src="/images/add-user-ad.png" alt="Add new user in AD" /></p>
+
+<p>I can see a default user added to my new created active directory here which is my official Microsoft user. I cannot delete this user neither I can change much of the roles and other information of this user because it something which is being managed by Microsoft. So to add a new user, click the <code>ADD USER</code> button at the bottom of the page. This will open up a dialog box which allows you to add or create a new user to the active directory. In my case I am going to add a normal user not an administrator, I will keep the the default prompts. The whole process of adding a new user will take 3 steps to complete.</p>
+
+<p><img src="/images/about-user-info.png" alt="User Type in AD" /></p>
+
+<p>In the next screen enter the details about the user. I want to add this user as a normal user hence I am selecting <code>User</code> as a <code>ROLE</code>.</p>
+
+<p><img src="/images/user-profile.png" alt="User Profile in AD" /></p>
+
+<p>In the last step, click the <code>create</code> button to add a new user and generate a temporary password for the new user.</p>
+
+<p><img src="/images/get-temp-password.png" alt="Get temporary password for user" /></p>
+
+<p>Make a note of this password somewhere as you will need it to log in to the account. After the first login, user is prompt to change the password.</p>
+
+<h5 id="step-3-add-an-application-to-the-active-directory">Step 3: Add an application to the Active Directory</h5>
+
+<p>To add a new application, click on the <code>APPLICATION</code> link. Click the <code>ADD</code> button at the bottom of the page to add a new application and then click <code>Add an application my organization is developing</code>.</p>
+
+<p><img src="/images/add-app-ad.png" alt="Add application in AD" /></p>
+
+<p>In the next step enter the name of the application and select the type of application you are building. In my case, it is a web application.</p>
+
+<p><img src="/images/about-app-ad.png" alt="About application" /></p>
+
+<p>In the next step, you add a sign-in URL and app ID URI. The app ID URI I have added is in this format: <code>http://&lt;directoryname&gt;.onmicrosoft.com/adauth</code>. Replace the <code>directoryname</code> with your <code>directory</code> name. The <code>adauth</code> is the name of my application.</p>
+
+<p><img src="/images/add-app-properties.png" alt="Add application properties" /></p>
+
+<p>Once the adding of application is successful, click the <code>USERS</code> link. I can see the new user I have created in the user lists but it is not being assigned to the application yet. To do that, click the <code>ASSIGN</code> button at the bottom of the page and click <code>YES</code>. The <code>ASSIGNED</code> status will be changed from <code>No</code> to <code>Yes</code>.</p>
+
+<p><img src="/images/ad-user-assignment.png" alt="User assignment" /></p>
+
+<h5 id="step-4-setting-up-the-web-application">Step 4: Setting up the web application</h5>
+
+<p>The easy way to set the application up for AD authentication is to create a new &ldquo;demo&rdquo; application and select <code>Change Authentication</code> from the new project dialog box. Select <code>Work or School Accounts</code> and enter the domain name. This will create a new application with all the things set up for your domain. The reason I said &ldquo;demo&rdquo; application because I want to just get the changes that Visual Studio does it for me when I select the AD authentication. This application will now act like a sample application from where I can take the implementation and add it to my existing application.</p>
+
+<p><img src="/images/vs-app-auth-dialog.png" alt="Change auth in Visual Studio" /></p>
+
+<p>Here are the changes I have made to my existing application. As of now my existing application does not have user authentication and now as I want to implement, I will add the account controller and two views which will handle the authentication. In my case this is the account controller, you can name the controller as per your choice. Add two new views in the <code>Views</code> directory for your controller. Call them <code>AccessDenied.cshtml</code> and <code>SignedOut.cshtml</code> respectively.</p>
+
+<blockquote>
+<p>Note that all the changes I am making to my existing application are exactly the same as the sample application.</p>
+</blockquote>
+
+<p>Code for <code>AccessDenied.cshtml</code> view.</p>
+
+<pre class="brush: csharp">
+@{
+   ViewData["Title"] = "Access Denied";
+}
+
+&lt;header&gt;
+    &lt;h1 class="text-danger"&gt;Access Denied.&lt;/h1&gt;
+    &lt;p class="text-danger"&gt;You do not have access to this resource.&lt;/p&gt;
+&lt;/header&gt;
+</pre>
+
+<p>Code for <code>SignedOut.cshtml</code> view.</p>
+
+<pre class="brush: csharp">
+@{
+   ViewData["Title"] = "Sign Out";
+}
+&lt;h2&gt;@ViewData["Title"].&lt;/h2&gt;
+&lt;p class="text-success"&gt;You have successfully signed out.&lt;/p&gt;
+</pre>
+
+<p>Add below NuGet packages for AD authentication support in the application.</p>
+
+<pre class="brush: plain">
+Install-Package Microsoft.AspNetCore.Authentication
+Install-Package Microsoft.AspNetCore.Authentication.Cookies
+Install-Package Microsoft.AspNetCore.Authentication.OpenIdConnect
+</pre>
+
+<p>In the .NET Core project, you will also see a new file called <code>appsettings.json</code>. Add the below configuration to it. Your configuration will than mine.</p>
+
+<pre class="brush: plain">
+"Authentication": {
+  "AzureAd": {
+    "ClientId": "0d9h56ba-ccfd-42f2-9a75-64d8e96756e6",
+    "AadInstance": "https://login.microsoftonline.com/",
+    "CallbackPath": "/signin-oidc",
+    "Domain": "dominicdomain.onmicrosoft.com",
+    "TenantId": "d58e5363-f09c-4d65-9808-cd88396529f0"
+  }
+}
+</pre>
+
+<p>In the <code>Startup.cs</code> file, configure the request pipeline by adding the below code in the <code>Configure</code> method. I have added this code just after the <code>UseStaticFiles()</code> functions. This enables the application to use the cookie authentication and OpenId authentication.</p>
+
+<pre class="brush: csharp">
+app.UseCookieAuthentication();
+ 
+app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+{
+    ClientId = Configuration["Authentication:AzureAd:ClientId"],
+    Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
+    CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"]
+});
+</pre>
+
+<p>In the <code>ConfigureServices</code> method, add the below code.</p>
+
+<pre class="brush: csharp">
+services.AddAuthentication(options =&gt; options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+</pre>
+
+<p>In the <code>AccountController.cs</code>, add the below code.</p>
+
+<pre class="brush: csharp">
+[HttpGet]
+public IActionResult SignIn()
+{
+    return Challenge(
+        new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
+}
+
+[HttpGet]
+public IActionResult SignOut()
+{
+    var callbackUrl = Url.Action(nameof(SignedOut), "Account", values: null, protocol: Request.Scheme);
+    return SignOut(new AuthenticationProperties { RedirectUri = callbackUrl },
+        CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
+}
+
+[HttpGet]
+public IActionResult SignedOut()
+{
+    if (HttpContext.User.Identity.IsAuthenticated)
+    {
+        return RedirectToAction(nameof(HomeController.Index), "Home");
+    }
+
+    return View();
+}
+
+[HttpGet]
+public IActionResult AccessDenied()
+{
+    return View();
+}
+</pre>
+
+<p>Add a new partial view in the <code>Shared</code> folder and name it <code>_LoginPartial.cshtml</code> just like we have in new default scaffold project.</p>
+
+<pre class="brush: csharp">
+@using System.Security.Principal
+@using System.Security.Claims
+
+@if (User.Identity.IsAuthenticated)
+{
+    var claims = ((ClaimsIdentity)User.Identity).Claims;
+    var username = claims.FirstOrDefault(c =&gt; c.Type == "name")?.Value;
+
+    //Uncomment the below code to see the complete email address of the user.
+    @*&lt;li class="navbar-text"&gt;Hello @User.Identity.Name!&lt;/li&gt;*@
+    &lt;ul class="nav navbar-nav navbar-right"&gt;
+        &lt;li class="navbar-text"&gt;Hello @username!&lt;/li&gt;
+        &lt;li&gt;&lt;a asp-area="" asp-controller="Account" asp-action="SignOut"&gt;Sign Out&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+}
+else
+{
+    &lt;ul class="nav navbar-nav navbar-right"&gt;
+        &lt;li&gt;&lt;a asp-area="" asp-controller="Account" asp-action="Signin"&gt;Sign in&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+}
+</pre>
+
+<p>Open <code>_Layout.cshtml</code> page, add the below line of code to render this partial view so users can sign in and sign out.</p>
+
+<pre class="brush: csharp">
+@await Html.PartialAsync("_LoginPartial")
+</pre>
+
+<p>And we are done! This is a minimalistic implementation that you can get start with. Azure Active Directory also provides groups and roles which you need to work with if you are working with the enterprise scale application where security is a major concern. You also have to tweak the code for that. Let&rsquo;s try executing the application and see what happens when I try to authenticate the user for the first time.</p>
+
+<p>When you land on the home page you can see the <code>Sign in</code> link at the top right of the web page.</p>
+
+<p><img src="/images/app-bar.png" alt="App bar" /></p>
+
+<p>When you click on the sign in link, you will be redirected to the <code>login.microsoftonline.com</code> where you will be prompted for the user name and password. After the first successful login, you will be prompted to change the current password.</p>
+
+<p><img src="/images/ad-login-page.png" alt="App AD auth page" /></p>
+
+<p><img src="/images/app-password-change.png" alt="App AD password update page" /></p>
+
+<p>After the successful change of the password, you will be re-directed to the application with your user name as displayed at the top right corner.</p>
+
+<p><img src="/images/app-ad-login-success.png" alt="App AD auth page" /></p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</span>
+    </a>
+    
+    
+    <a href="/post/hosting-aspnet-core-web-application-on-azure-linux-vm/" class="navigation-next">
+      <span class="navigation-tittle">Hosting ASP.NET Core Web Application On Azure Linux VM</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

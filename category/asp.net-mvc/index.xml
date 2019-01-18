@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Asp.net Mvc on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/asp.net-mvc/</link>
+    <description>Recent content in Asp.net Mvc on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 31 Aug 2017 14:34:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/asp.net-mvc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Enable Multi Factor Authentication (MFA) For Users In Azure Active Directory</title>
+      <link>https://prashantkhandelwal.github.io/post/enable-multi-factor-authentication-mfa-for-users-in-azure-active-directory/</link>
+      <pubDate>Thu, 31 Aug 2017 14:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/enable-multi-factor-authentication-mfa-for-users-in-azure-active-directory/</guid>
+      <description>A video tutorial on how you can enable Multi Factor Authentication or MFA as it is called, for the users in the Azure Active Directory.</description>
+    </item>
+    
+    <item>
+      <title>Single Sign-On In ASP.NET Core With Azure Active Directory</title>
+      <link>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</link>
+      <pubDate>Mon, 08 May 2017 15:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/single-sign-on-in-aspnet-core-with-azure-active-directory/</guid>
+      <description>Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application.</description>
+    </item>
+    
+    <item>
+      <title>Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</title>
+      <link>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</link>
+      <pubDate>Sun, 02 Apr 2017 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</guid>
+      <description>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</description>
+    </item>
+    
+    <item>
+      <title>Upload Files In .NET Core By Drag And Drop Using Dropzone.JS</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</link>
+      <pubDate>Mon, 17 Oct 2016 21:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/</guid>
+      <description>Mostly all web applications out there has some way or the other amazing ways to upload a single or multiple files. While surfing on Github I found this amazing library to upload the files to the server in a unique way with lot of configurations. It support parallel uploads along with cancellation of the files which are in the upload queue along with a good looking progress bar to show the progress of upload.</description>
+    </item>
+    
+    <item>
+      <title>Get The Correct File Paths In .NET Core</title>
+      <link>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</link>
+      <pubDate>Mon, 03 Oct 2016 22:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</guid>
+      <description>I run a custom blog engine I wrote myself on MVC 4 and as you would have thought it is on Windows hosting. I am re-writing my blog engine in .NET Core so that I can get it running on a Linux hosting as well. I am using Windows machine and Visual Studio Community Edition to write it and using a Ubuntu VM box to test it. My current blog uses SQL Server as a back-end but Linux does not support SQL Server and therefore I have to move to MySQL or any other No-SQL database available for Linux distros.</description>
+    </item>
+    
+    <item>
+      <title>Building Angular 2 App With Web API And .NET Core</title>
+      <link>https://prashantkhandelwal.github.io/post/building-angular-2-app-with-web-api-and-net-core/</link>
+      <pubDate>Sat, 21 May 2016 18:45:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-angular-2-app-with-web-api-and-net-core/</guid>
+      <description>Setting up the new Angular 2 app with Web API and .NET core is easy but can be a bit tricky. The older beta releases of Angular 2 works fine as there are not many files to refer and to work with. When I started using Angular 2 it was in RC1 and the way the files are being referenced in the app is bit different than the older versions of Angular 2.</description>
+    </item>
+    
+    <item>
+      <title>Parsing Markdown Using Custom TagHelper In ASP.NET MVC 6</title>
+      <link>https://prashantkhandelwal.github.io/post/markdown-parser-taghelper-in-aspnet-mvc-6/</link>
+      <pubDate>Mon, 30 Nov 2015 21:01:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/markdown-parser-taghelper-in-aspnet-mvc-6/</guid>
+      <description>Previous versions of MVC allows us to write HtmlHelpers which does a pretty good job then and they are doing it now as well. But in MVC 6, the ASP.NET team has introduced TagHelpers.
+Parsing Markdown in .NET is way too simple than one can imagine. Thanks to Stackoverflow&amp;rsquo;s MarkdownSharp and Karlis Gangis&amp;rsquo;s CommonMark.NET. I use CommonMark.NET as it provides a much faster parsing than other libraries. The blogging platform I use is a custom blogging engine I wrote in MVC4.</description>
+    </item>
+    
+    <item>
+      <title>Free E-Book: 52 Tips &amp; Tricks to Boost .NET Performance from Redgate</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-book-52-tips-tricks-to-boost-net-performance-from-redgate/</link>
+      <pubDate>Thu, 26 Nov 2015 08:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-book-52-tips-tricks-to-boost-net-performance-from-redgate/</guid>
+      <description> A super awesome free e-book from our friends at RedGate.
+ 52 tips from the .NET community for boosting performance in your applications. Learn the secrets of your fellow developers and read advice from MVPs and other experts. Covers .NET and ASP.NET, database access, memory usage, and more&amp;hellip;  Download Now </description>
+    </item>
+    
+    <item>
+      <title>.NET Projects You Should Be Following On Github</title>
+      <link>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</link>
+      <pubDate>Sun, 19 Jul 2015 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/net-projects-you-should-be-follwing-on-github/</guid>
+      <description>Open-source has entirely change the programming and developers world. Today you can create any application, game, mobile app without spending a single penny. Thanks to open-source software and awesome community of developers and people behind them. As a .NET developer I have been developing enterprise applications for quite a long time and now I have shifted my focus towards developing products and understanding what it takes to make a successful product launch.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started With ASP.NET 5 On Ubuntu</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</link>
+      <pubDate>Tue, 16 Jun 2015 22:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</guid>
+      <description>Ever since the .NET stack went open source last year, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites.</description>
+    </item>
+    
+    <item>
+      <title>Recurring Tasks Inside ASP.NET Applications Using HangFire</title>
+      <link>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</link>
+      <pubDate>Sun, 15 Jun 2014 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</guid>
+      <description>This is open-source at its best. Running background task to work in context with ASP.NET was and is still a big deal for few developers. I user QueueUserWorkItem to schedule emails when a new comment is added on my blog. This makes sure that the UI is responsive and the user can close or navigate to other post. I have been working on enterprise applications for many years now and most of the long running tasks are running in the background i.</description>
+    </item>
+    
+    <item>
+      <title>Turn Your Google Drive Folder In An Online Album Viewer</title>
+      <link>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</link>
+      <pubDate>Sun, 04 May 2014 15:09:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/turn-your-google-drive-folder-in-an-online-album-viewer/</guid>
+      <description>Working with Google Drive API is fun. The documentation is good and will let you get started with the API pretty quickly. I have my whole complete family album on OneDrive, but the API is still a bit hard to use as compared to Google Drive API or maybe it is just for me. But while playing around with Drive API I ended up creating a small razor based web page application which will allow you to show your folder as an online web album.</description>
+    </item>
+    
+    <item>
+      <title>JSON Based Document Storage Using Biggy In ASP.NET MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</link>
+      <pubDate>Sat, 03 May 2014 13:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/json-based-document-storage-using-biggy-in-aspnet-mvc/</guid>
+      <description>While working with a small web based project many developers will take advantage of web.config and XML files to read settings for the application. Using web.config is a good way but you cannot change the settings from within the application and when done manually it causes the website to restart. XML is good but many of us has a problem when it comes to update the details in XML. Biggy is an awesome library developed by Rob Conery to work with document storage.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started With Glimpse In ASP.NET MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-glimpse-in-aspnet-mvc/</link>
+      <pubDate>Tue, 25 Jun 2013 22:43:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-glimpse-in-aspnet-mvc/</guid>
+      <description>When I heard about Glimpse, I thought it like to be another MiniProfiler like stuff or a combination of MiniProfiler and this. But it seems to be more robust diagnostic tool for developers. Here is my experience with this awesome diagnostic tool.
+What is Glimpse? Glimpse is a diagnostic tool for ASP.NET applications which let you see detailed diagnostic information of your web application. Glimpse knows everything your server is doing and displays it straight away to you in your browser.</description>
+    </item>
+    
+    <item>
+      <title>Building MVC Application With Multiple Database Support Using Ninject</title>
+      <link>https://prashantkhandelwal.github.io/post/building-mvc-application-with-multiple-database-support-using-ninject/</link>
+      <pubDate>Mon, 13 May 2013 14:33:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-mvc-application-with-multiple-database-support-using-ninject/</guid>
+      <description>I used to have BlogEngine.NET as my blogging platform before switching to WordPress, and that is because of my poor hosting provider who can’t afford few MBs on the shared hosting plans. I like BlogEngine.NET a lot because it is in .NET and on the other hand WordPress is on PHP which I don’t know. BlogEngine.NET is still evolving and is getting better with every release. BlogEngine.NET supports multiple databases like SQL Server, SQL Server CE, MySQL, XML file, VistaDB and may be few more.</description>
+    </item>
+    
+    <item>
+      <title>ASYNC Controller In MVC 4</title>
+      <link>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</link>
+      <pubDate>Tue, 30 Apr 2013 22:17:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/async-controller-in-mvc-4/</guid>
+      <description>I have build many small applications so far in MVC to help myself in understanding the framework more deeply. Now I am planning to write a blog engine on MVC. It will not be an easy task but I will be going to learn a lot of things. As I was planning things ahead I came across a problem where I have to load my blog stats like FeedBurner readers, Facebook page likes, Google +1 count, twitter followers inside a div on the page.</description>
+    </item>
+    
+    <item>
+      <title>Attribute Routing In MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/attribute-routing-in-mvc/</link>
+      <pubDate>Sun, 26 Aug 2012 14:33:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/attribute-routing-in-mvc/</guid>
+      <description>I took a look at Stack Overflow Stack-Exchange Data Explorer that is built in MVC and is open-source application to query the Stack Exchange data dump that is being provided by Stack Exchange team in every month or few. I do have a dump, but I was more curious to know about the application that they built to query the database. And I must admit that I learned tons of things.</description>
+    </item>
+    
+    <item>
+      <title>Deploying .NET Application To Appharbor Using Git</title>
+      <link>https://prashantkhandelwal.github.io/post/deploying-net-application-to-appharbor-using-git/</link>
+      <pubDate>Tue, 07 Aug 2012 13:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/deploying-net-application-to-appharbor-using-git/</guid>
+      <description>I have an account with Appharbor but never tried to deploy an application. Appharbor has an excellent integration with Github and Codeplex and if you are planning to showcase you application latest build then Appharbor is the best thing to do that. The Appharbor site has a detailed tutorial on how you can deploy your application from Github and Codeplex. But the question here is what will a programmer do if he just wants to deploy the application from his dektop or in other words if he wants to test his application which is not an open source application.</description>
+    </item>
+    
+    <item>
+      <title>MP3APP - A Web Application To Get Lyrics, Album Name, Album Art and More</title>
+      <link>https://prashantkhandelwal.github.io/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/</link>
+      <pubDate>Fri, 29 Jun 2012 20:53:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/</guid>
+      <description>I was busy in few of my freelance projects and got a very rough weekends this whole month. But still I get a bit of time to work on my so called in-house project and somehow I was able to get it completed after a bit of testing. The application I built is a simple web application which will allow you to enter artist name and the song name and let you search the lyrics, album art, artist image, album name and album release date.</description>
+    </item>
+    
+    <item>
+      <title>Working With Micro-ORM Dapper In MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/working-with-micro-orm-dapper-in-mvc/</link>
+      <pubDate>Sat, 19 May 2012 12:50:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/working-with-micro-orm-dapper-in-mvc/</guid>
+      <description>I love working with MVC but I do have a hard time working with complex data with EntityFramework (EF). I heard of using inline SQL queries in MVC but don&amp;rsquo;t know how to use it and will it have any performance issues? Few month&amp;rsquo;s back I downloaded the StackOverflow (SO) Data Explorer which is an open-source project built on MVC to explore data dump provided by SO. The thing that took my attention in that code was that they have been SQL queries to get the data from the database.</description>
+    </item>
+    
+    <item>
+      <title>Get Song Lyrics From LYRDB With ASP.NET MVC And JQuery</title>
+      <link>https://prashantkhandelwal.github.io/post/get-song-lyrics-from-lyrdb-with-aspnet-mvc-and-jquery/</link>
+      <pubDate>Sat, 26 Nov 2011 14:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-song-lyrics-from-lyrdb-with-aspnet-mvc-and-jquery/</guid>
+      <description>Most of the times I have seen people looking for song lyrics on online MP3 or lyrics database sites. Few of them provide API to fetch lyrics which is good for developers. Last.fm has a powerful API but they don&amp;rsquo;t provide any API call to fetch lyrics. The two most popular APIs on the web that I am aware of is WikiLyrics, LyricsDB (popularly known as LyrDB), there is another API from ChartLyrics but I don&amp;rsquo;t find it as useful as the other two APIs.</description>
+    </item>
+    
+    <item>
+      <title>Upload and Show Image Without Post Back With Jquery</title>
+      <link>https://prashantkhandelwal.github.io/post/upload-and-show-image-without-post-back-with-jquery/</link>
+      <pubDate>Sun, 11 Sep 2011 14:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/upload-and-show-image-without-post-back-with-jquery/</guid>
+      <description>Previously in a lot of hurry I wrote a post on how to upload files in MVC3 with the help of Uploadify, a famous jQuery plugin to upload files. If you have not heard about it yet, then it is time for you to check and find out what this plugin can do for you. Appending my last post about this plugin (which was not very well written) I tried one more thing with it today.</description>
+    </item>
+    
+    <item>
+      <title>Integrate DISQUS For Comment Management In MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/integrate-disqus-for-comment-management-in-mvc/</link>
+      <pubDate>Sat, 03 Sep 2011 18:02:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/integrate-disqus-for-comment-management-in-mvc/</guid>
+      <description>I have been working on a MVC project which I will be using to save and manage all my code snippets. I get this plan in my head when my 160GB of HDD got crashed which holds most of my work and code. I started writing the web application in web forms and almost got it completed, but eventually changed my mind and started writing the application from scratch in MVC 3 with Razor view engine.</description>
+    </item>
+    
+    <item>
+      <title>Using ReCaptcha In ASP.NET WebForms And MVC</title>
+      <link>https://prashantkhandelwal.github.io/post/using-recaptcha-in-aspnet-webforms-and-mvc/</link>
+      <pubDate>Sun, 31 Jul 2011 14:58:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-recaptcha-in-aspnet-webforms-and-mvc/</guid>
+      <description>ReCaptcha is now being used widely by many websites especially where there is a possibility of spamming the website, blog or a forum. Here I will show you on how you can use ReCaptcha in ASP.NET and MVC. Get a ReCaptcha Gobal Key and ASP.NET ReCaptcha DLL. Once you get the global key we are ready to go.
+ReCaptcha in WebForms
+Fire Visual Studio and create a new ASP.NET web forms project.</description>
+    </item>
+    
+    <item>
+      <title>Handling Text Changed Event In ASP.NET MVC 3 With JQuery</title>
+      <link>https://prashantkhandelwal.github.io/post/handling-text-changed-event-in-aspmvc-3-with-jquery/</link>
+      <pubDate>Sat, 16 Jul 2011 13:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/handling-text-changed-event-in-aspmvc-3-with-jquery/</guid>
+      <description>In my quest of learning MVC I came across many problems and here is one of them. I was trying to fire an event whenever a text changed event occurred. I am using JQuery to handle the text changed event but eventually the text changed event doesn&amp;rsquo;t seems to be working in MVC as it is working for a text box changed event in web forms. The solution I found seems to be working fine for me as I don&amp;rsquo;t want to fire an event on every key press.</description>
+    </item>
+    
+    <item>
+      <title>Bin Deploy ASP.NET MVC 3 Application With SQL CE 4.0 &amp; Entity Framework</title>
+      <link>https://prashantkhandelwal.github.io/post/bin-deploy-aspnet-mvc-3-application-with-sql-ce-40-entity-framework/</link>
+      <pubDate>Mon, 04 Jul 2011 14:26:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bin-deploy-aspnet-mvc-3-application-with-sql-ce-40-entity-framework/</guid>
+      <description>A few days back Phil Haack wrote a blog post on how to bin deploy ASP.NET MVC 3 application on the web server where ASP.NET MVC 3 is not installed. Like many users I am also on shared hosting and therefore I do not have full control over IIS or the remote machine so I can install or update ASP.NET MVC 3, SQL Server CE 4.0 and other development related stuff.</description>
+    </item>
+    
+    <item>
+      <title>Working With Microsoft Web Helpers In MVC 3 Razor View</title>
+      <link>https://prashantkhandelwal.github.io/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/</link>
+      <pubDate>Sun, 06 Mar 2011 10:58:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/</guid>
+      <description>Building applications with ASP.NET MVC 3 and that too with RAZOR is easy. I believe most of the programmers out there found MVC 3 with RAZOR view engine found it easy. The best things I found in the new RAZOR view engine is the code is pretty much tidy no traditional code behinds and moreover you can work with the server-side code with the start of the @ symbol.</description>
+    </item>
+    
+    <item>
+      <title>RAZOR: View Engine In ASP.NET MVC 3</title>
+      <link>https://prashantkhandelwal.github.io/post/razor-view-engine-in-aspnet-mvc-3/</link>
+      <pubDate>Mon, 06 Sep 2010 16:26:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/razor-view-engine-in-aspnet-mvc-3/</guid>
+      <description>A new view engine is introduced in ASP.NET MVC 3 called RAZOR. You can download Preview 1 from Microsoft&amp;rsquo;s download center and get it running on your machine to check the new features in MVC 3. Just in case if you are thinking that installing MVC 3 will mess your current MVC 2 installation&amp;hellip;.No, it won&amp;rsquo;t. I came across a Webcamp video where Phil Haack with James Senior demonstrate this view engine.</description>
+    </item>
+    
+    <item>
+      <title>Diagnostic Check For ASP.NET MVC Application&#39;s Problems</title>
+      <link>https://prashantkhandelwal.github.io/post/diagnostic-check-for-aspmvc-applications-problems/</link>
+      <pubDate>Thu, 12 Aug 2010 17:08:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/diagnostic-check-for-aspmvc-applications-problems/</guid>
+      <description>Diagnosing problems in your ASP.NET MVC application is now more easy by using a single file which is included in the MVCFutures package. Download this package from CodePlex and just drag and drop a file called MVCDiagnostics.aspx in the root of your MVC application and thats it.
+Press F5 and set the URL pointing to the file diagnostics file and you will be able to see a detailed information about your currently running MVC application.</description>
+    </item>
+    
+  </channel>
+</rss>

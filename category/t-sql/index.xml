@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>T Sql on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/t-sql/</link>
+    <description>Recent content in T Sql on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 Apr 2012 12:53:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/t-sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Infinite Scrolling In ASP.NET With jQuery</title>
+      <link>https://prashantkhandelwal.github.io/post/infinite-scrolling-in-aspnet-with-jquery/</link>
+      <pubDate>Sat, 28 Apr 2012 12:53:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/infinite-scrolling-in-aspnet-with-jquery/</guid>
+      <description>I didn&amp;rsquo;t create the whole solution by myself. The initial idea is from the All-In-One Code Framework sample. I was just customizing my BlogEngine and for one of the module I thought it would be nice not to use paging and I should go for infinite scrolling stuff. This idea seems cool to me and without wasting any time I just do a quick web search and I came across a solution which is a part of a All-In-One Code Framework.</description>
+    </item>
+    
+    <item>
+      <title>Using SQL CLR Stored Procedure To Track IP Address</title>
+      <link>https://prashantkhandelwal.github.io/post/using-sql-clr-stored-procedure-track-ip-address/</link>
+      <pubDate>Sat, 24 Apr 2010 00:24:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-sql-clr-stored-procedure-track-ip-address/</guid>
+      <description>Recently I was asked by one of my friend how to call a web service directly from a stored procedure. He needs to track IP addresses using a stored procedures so, I suggested him two ways to call a web service using the SQL Procedure.
+ Using SP_OACREATE with MSXML Create an assembly using SQL CLR using C#.  I personally tried using the first way to call a web service but was not successful.</description>
+    </item>
+    
+    <item>
+      <title>SQL Server performance and NOCOUNT</title>
+      <link>https://prashantkhandelwal.github.io/post/sql-server-performance-and-nocount/</link>
+      <pubDate>Thu, 25 Feb 2010 20:44:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/sql-server-performance-and-nocount/</guid>
+      <description>Performance of SQL server matters while working with large enterprise applications and where performance really bothers the business workflow. When NOCOUNT is ON, the count of rows by the execution of the query (T-SQL statements) is not returned. You must have noticed that when you perform operations by executing INSERT, UPDATE, DELETE or SELECT statements, the server returns the number of rows. The count of rows is necessary while debugging your queries, when you are done with debugging you can turn NOCOUNT ON.</description>
+    </item>
+    
+    <item>
+      <title>using-openxml-to-insert-data-in-sql-server</title>
+      <link>https://prashantkhandelwal.github.io/post/using-openxml-to-insert-data-in-sql-server/</link>
+      <pubDate>Fri, 19 Feb 2010 22:44:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-openxml-to-insert-data-in-sql-server/</guid>
+      <description>Microsoft SQL Server provides the mechanism to save XML data to the SQL table using OpenXML. We can use a stored procedure and pass a XML text as a string. It is useful when we have a large data in XML format and we want to save the whole data in different tables.
+So first start declaring the variables. The first declare the document variable and a XML document variable as Varchar(8000) or Varchar(MAX) - It&amp;rsquo;s a same thing</description>
+    </item>
+    
+    <item>
+      <title>Use Sql query to write/create a file</title>
+      <link>https://prashantkhandelwal.github.io/post/use-sql-query-to-writecreate-a-file/</link>
+      <pubDate>Fri, 11 Dec 2009 14:33:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/use-sql-query-to-writecreate-a-file/</guid>
+      <description>This SQL stored procedure will allow you to write to the file on your file system. Note the file system will be the the same on which the SQL server is running. If you are using this with your local SQL server then it will write and create files on your local file system and if you are on the remote machine, the file system will be the remote file system.</description>
+    </item>
+    
+    <item>
+      <title>T-SQL: Export Table to Excel</title>
+      <link>https://prashantkhandelwal.github.io/post/t-sql-export-table-to-excel/</link>
+      <pubDate>Wed, 02 Dec 2009 20:31:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/t-sql-export-table-to-excel/</guid>
+      <description>What you do to export data from SQL to excel. You use data import/export wizard or just simply execute the select query and copy the whole lot of data in an excel file with headers. Copy and paste the data in the excel sheet is the quickest possible solution I can see&amp;hellip;but what if you have to data through your code? Still there are many possible ways to accomplish this but how many lines of code you have to write to achieve this?</description>
+    </item>
+    
+    <item>
+      <title>T-SQL: Recently Executed Query</title>
+      <link>https://prashantkhandelwal.github.io/post/t-sql-recently-executed-query/</link>
+      <pubDate>Wed, 14 Oct 2009 05:16:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/t-sql-recently-executed-query/</guid>
+      <description>I am a regular reader of Pinal Dave&amp;rsquo;s blog SqlAuthority. I always found something new in his blog to work with SQL Server. Here is something I would like to share: Get the recent executed SQL Queries from SQL Server.
+SELECT deqs.last_execution_time AS [Time], dest.TEXT AS [Query] FROM sys.dm_exec_query_stats AS deqs CROSS APPLY sys.dm_exec_sql_text(deqs.sql_handle) AS destORDER BY deqs.last_execution_time DESC  </description>
+    </item>
+    
+    <item>
+      <title>Import Excel to SQL Table</title>
+      <link>https://prashantkhandelwal.github.io/post/import-excel-to-sql-table/</link>
+      <pubDate>Thu, 23 Jul 2009 15:57:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/import-excel-to-sql-table/</guid>
+      <description>Using bulk operations using code with sql can be complex, time consuming and tedious for most of the programmers. I just used a stored procedure in one of my projects instead of traversing from cell to cell and save the value in the database, so I search the net and found this SQL Stored Procedure achieve this. I have just copied and paste the code as it is.
+set ANSI_NULLS ON set QUOTED_IDENTIFIER ON go --drop procedure sp_excel_Convert_Excel_To_Table --go Create procedure [dbo].</description>
+    </item>
+    
+    <item>
+      <title>Insert binary files to SQL server using BULK operation</title>
+      <link>https://prashantkhandelwal.github.io/post/insert-binary-files-to-sql-server-using-bulk-operation/</link>
+      <pubDate>Sat, 11 Jul 2009 18:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/insert-binary-files-to-sql-server-using-bulk-operation/</guid>
+      <description>Performing BULK operations with SQL can be useful when you are trying to insert any type of file. Don&amp;rsquo;t mess up with the complex code, just use a simple SQL query to insert any file type in SQL table.
+To perform this operation first you need to have a column with datatype as varbinary(max). See below example:
+Create a table with an ID and Data as columns with INT and VARBINARY(MAX) as their Datatypes respectively.</description>
+    </item>
+    
+    <item>
+      <title>Import CSV File Into SQL Server Using Bulk Insert</title>
+      <link>https://prashantkhandelwal.github.io/post/import-csv-file-into-sql-server-using-bulk-insert/</link>
+      <pubDate>Mon, 25 May 2009 15:51:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/import-csv-file-into-sql-server-using-bulk-insert/</guid>
+      <description>You have large data to import to SQL Server, and you have all the data in a CSV File (Comma Seperated Value file). Are you going to map the field one by one?
+OR just use a small function od SQL to import everything in the table. But before you proceed with this you need to map each column of CSV with the one with your table column. Look at the below quick example on how to use the BULK INSERT to import CSV file data into SQL Server.</description>
+    </item>
+    
+  </channel>
+</rss>

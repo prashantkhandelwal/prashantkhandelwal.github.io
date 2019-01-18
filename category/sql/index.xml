@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sql on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/sql/</link>
+    <description>Recent content in Sql on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Jun 2014 07:39:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Recurring Tasks Inside ASP.NET Applications Using HangFire</title>
+      <link>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</link>
+      <pubDate>Sun, 15 Jun 2014 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/recurring-tasks-inside-aspnet-applications-using-hangfire/</guid>
+      <description>This is open-source at its best. Running background task to work in context with ASP.NET was and is still a big deal for few developers. I user QueueUserWorkItem to schedule emails when a new comment is added on my blog. This makes sure that the UI is responsive and the user can close or navigate to other post. I have been working on enterprise applications for many years now and most of the long running tasks are running in the background i.</description>
+    </item>
+    
+  </channel>
+</rss>

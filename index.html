@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+<head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+
+<title>Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Midnight Programmer"/>
+<meta name="twitter:description" content="Programming For Fun"/>
+
+<meta property="og:title" content="Midnight Programmer" />
+<meta property="og:description" content="Programming For Fun" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/" />
+<meta property="og:updated_time" content="2017-10-22T15:28:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+<link href="https://prashantkhandelwal.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Midnight Programmer" />
+<link href="https://prashantkhandelwal.github.io/index.xml" rel="feed" type="application/rss+xml" title="Midnight Programmer" />
+
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+<div class="post-list">
+  
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/create-mount-and-unmount-img-files-in-ubuntu/">Create, Mount And Unmount .img Files In Ubuntu</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 22, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
+      
+      
+      
+      
+    </span>
+    <p>Recently I moved from Windows to Ubuntu on one of my laptops and since then I was trying to look for the way to create a VHDs or some sort of image files that I can use as a container. So I looked up for the solution and found a working solution scattered though places. So here I am putting it in a blog post to have all it in one place.</p>
+
+<p>First we need to create an image file (.img) by using the <code>dd</code> command. The dd command is used to copy and convert the file. The reason it is not called <code>cc</code> is because it is already being used by C compiler. Here goes the command.</p>
+
+<pre class="brush: bash">
+$ dd if=/dev/zero of=cdata.img bs=1G count=5
+</pre>
+
+<blockquote>
+<p>Note: The command execution time depends on the size of the image you have opted out for.</p>
+</blockquote>
+
+<p><img src="/images/dd-command.png" alt="dd command" /></p>
+
+<p>The <code>if</code> param stands for <code>input file</code> to refer the input file. As <code>if</code>, <code>of</code> stands for <code>output file</code> and this will create the <code>.img</code> file with the name you specify. The third param <code>bs</code> stands for <code>block size</code>. This will let you set the size of the image file. The <code>G</code> in the above command stands for <code>GigaByte</code> (GB). You can set the image size by specifying the block size. In this case <code>G</code> stands for GigaBytes (GB), <code>K</code> for KiloBytes (KB), <code>T</code> for TeraBytes (TB), <code>P</code> for Petabytes (PB) and so on. Here I am creating a 5 blocks of 1 GB each for the image file name <code>cdata</code>.</p>
+
+<p>This command will create the .img file but you cannot mount this file as of yet. To do that you have to format the image so that it can have a file system. To do this make use of <code>mkfs</code> command.</p>
+
+<pre class="brush: bash">
+$ mkfs ext3 -F cdata.img
+</pre>
+
+<p>I am creating an <code>ext3</code> filesystem on my image file. <code>-F</code> is to force the operation. Here is the output of the command.</p>
+
+<p><img src="/images/mkfs-command.png" alt="mkfs command" /></p>
+
+<p>Now we can mount the image file by using the <code>mount</code> command:</p>
+
+<pre class="brush: bash">
+$ sudo mount -o loop cdata.img ~/Desktop/HDD/
+</pre>
+
+<p>With the success of the above command, you can see the image mounted on your desktop. You can unmount the image by clicking the eject or unmount button as shown in the below screenshot or you can execute the <code>umount</code> command to do that.</p>
+
+<p><img src="/images/ui-diskmount.png" alt="disk mounted" /></p>
+
+<p>Unmounting the image by using command line.</p>
+
+<pre class="brush: bash">
+$ sudo umount ~/Desktop/HDD
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/extract-text-from-images-using-computer-vision-api-and-azure-function/">Extract Text From Images Using Computer Vision API And Azure Function</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 3, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cognitive-services">COGNITIVE SERVICES</a>
+      
+      
+      
+      
+    </span>
+    <p>I started to work on a project which is a combination of lot of intelligent APIs and Machine Learning stuff. One of the things I have to accomplish is to extract the text from the images that are being uploaded to the storage. To accomplish this part of the project I planned to use Microsoft Cognitive Service Computer Vision API. Here is the extract of it from my architecture diagram.</p>
+
+<p><img src="/images/arch-diagram.png" alt="Architcure Diagram" /></p>
+
+<p>Let&rsquo;s get started by provisioning a new Azure Function.</p>
+
+<p><img src="/images/create-func-app.png" alt="Creating Function App" /></p>
+
+<p>I named my Function App as <code>quoteextractor</code> and selected the Hosting Plan as <code>Consumption Plan</code> instead of <code>App Service Plan</code>. If you choose <code>Consumption Plan</code> you will be billed only what you use or whenever your function executes. On the other hand, if you choose App Service Plan you will be billed monthly based on the Service Plan you choose even if your function executes only few times a month or not even executed at all. I have selected the <code>Location</code> as <code>West US</code> because the Cognitive Service subscription I have has the endpoint for the API from <code>West US</code>. I then also created a new <code>Storage Account</code>. Click on <code>Create</code> button to create the Function App.</p>
+
+<p><img src="/images/func-app.png" alt="Created Function App" /></p>
+
+<p>After the Function App is created successfully, create a new function in the Function App <code>quoteextractor</code>. Click on the <code>Functions</code> on the left hand side and then click <code>New Function</code> on the right side window to create a new function as shown in the below screenshot.</p>
+
+<p><img src="/images/create-new-func-app.png" alt="Creating New Function" /></p>
+
+<p>The idea is to trigger the function whenever a new image is added/uploaded to the blob storage. To filter down the list of templates, select C# as the Language and then select <code>BlobTrigger - C#</code> from the template list. I have also change the name of the function to <code>QuoteExtractor</code>. I have also changed the <code>Path</code> parameter of Azure Blob Storage trigger to have <code>quoteimages</code>. The <code>quoteimages</code> is the name of the container where the function will bind itself and whenever a new image or item is added to the storage it will get triggered.</p>
+
+<p><img src="/images/quickstart-template.png" alt="Quickstart Function Templates" /></p>
+
+<p><img src="/images/naming-function.png" alt="Naming Function" /></p>
+
+<p>Now change the <code>Storage account connection</code> which is basically a connection string for your storage account. To create a new connection click on the <code>new</code> link and select the storage account you want your function to get associated with. The storage account I am selecting is the same one which got crated at the time of creating the Function App.</p>
+
+<p><img src="/images/function-storage.png" alt="Function Storage" /></p>
+
+<p>Once you select the storage account, you will be able to see the connection key in the <code>Storage account connection</code> dropdown. If you want to view the full connection string then click the <code>show value</code> link.</p>
+
+<p><img src="/images/storage-connection.png" alt="Function Storage Connection String" /></p>
+
+<p>Click the <code>Create</code> button to create the function. You will now be able to see your function name under the <code>Functions</code> section. Expand your function and you will see three other segments named <code>Integrate</code>, <code>Manage</code> and <code>Monitor</code>.</p>
+
+<p><img src="/images/function-final.png" alt="Function Running" /></p>
+
+<p>Click on <code>Integrate</code> and under <code>Triggers</code> update the <code>Blob parameter name</code> from <code>myBlob</code> to <code>quoteImage</code> or whatever the name you feel like having. This name is important as this is the same parameter I will be using in my function. Click <code>Save</code> to save the settings.</p>
+
+<p><img src="/images/function-triggers.png" alt="Function Running" /></p>
+
+<p>The storage account which is created at the time of creating the Function App, still does not have a container. Add a container with the name which is used in the <code>path</code> of the <code>Azure Blob Storage trigger</code> which is <code>quotesimages</code>.</p>
+
+<p><img src="/images/function-blob-trigger.png" alt="Function Running" /></p>
+
+<p>Make sure you select the <code>Public access level</code> to <code>Blob</code>. Click <code>OK</code> to create a container in your storage account.</p>
+
+<p><img src="/images/function-storage-access-level.png" alt="Change the public access level" /></p>
+
+<p>With this step, you should be done with all the configuration which are required for Azure Function to work properly. Now let&rsquo;s get the <code>Computer Vision API</code> subscription. Go to <a href="https://azure.microsoft.com/en-in/try/cognitive-services/">https://azure.microsoft.com/en-in/try/cognitive-services/</a> and under <code>Vision</code> section click <code>Get API Key</code> which is next to <code>Computer Vision API</code>. Agree with all the terms and conditions and continue. Login with any of the preferred account to get the subscription ready. Once everything went well, you will see your subscription key and endpoint details.</p>
+
+<p><img src="/images/cognitive-api.png" alt="Cognitive Service API Keys" /></p>
+
+<p>The result which I am going to get as a response from the API is in JSON format. Either I can parse the JSON request in the function itself or I can save it directly in the CosmosDB or any other persistent storage. I am going to put all the response in CosmosDB in raw format. This is an optional step for you as the idea is to see how easy it is to use Cognitive Services Computer Vision API with Azure Functions. If you are skipping this step, the you have to tweak the code a bit so that you can see the response in the log window of your function.</p>
+
+<p>Provision a new <code>CosmosDB</code> and add a collection to it. By default there is a database named <code>ToDoList</code> and with a collection called <code>Items</code> that you can create soon after provisioning of the CosmosDB from the getting started page. If you want you can also create a new database and add a new collection which make more sense.</p>
+
+<p><img src="/images/cosmosdb-create.png" alt="Creating CosmosDB" /></p>
+
+<p>To create a new database and collection go to <code>Data Explorer</code> and click on <code>New Collection</code>. Enter the details and click <code>OK</code> to create a database and a collection.</p>
+
+<p><img src="/images/cosmosdb-add-collection.png" alt="Add Collection in CosmosDB" /></p>
+
+<p>Now we have everything ready. let&rsquo;s get started with the CODE!!.</p>
+
+<p>Let&rsquo;s start by creating a new function called <code>SaveResponse</code> which takes the API response as one of the parameters and is of type string. In this method I am going to use the <a href="https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/">Azure DocumentDB</a> library to communicate with CosmosDB. This means I have to add this library as a reference to my function. To add this library as a reference, navigate to the KUDU portal by adding scm in the URL of your function app like so: <a href="https://quoteextractor.scm.azurewebsites.net/">https://quoteextractor.scm.azurewebsites.net/</a>. This will open up the <code>KUDU</code> portal.</p>
+
+<p><img src="/images/kudu-portal.png" alt="KUDU Portal" /></p>
+
+<p>Go to <code>Debug console</code> and click <code>CMD</code>. Navigate to <code>site/wwwroot/&lt;Function Name&gt;</code>. In the command window use the command <code>mkdir</code> to create a folder name <code>bin</code>.</p>
+
+<pre class="brush:plain">
+mkdir bin
+</pre>
+
+<p><img src="/images/kudu-file-listing.png" alt="KUDU File Listing" /></p>
+
+<p>You can now see the <code>bin</code> folder in the function app directory. Click the <code>bin</code> folder and upload the lib(s).</p>
+
+<p><img src="/images/function-view-files.png" alt="View Function Files" /></p>
+
+<p>In the very first line of the function use <code>#r</code> directive to add the reference of external libraries or assemblies. Now you can use this library in the function with the help of <code>using</code> directive.</p>
+
+<pre class="brush: csharp">
+#r "D:\home\site\wwwroot\QuoteExtractor\bin\Microsoft.Azure.Documents.Client.dll"
+</pre>
+
+<p>Right after adding the reference of the DocumentDB assembly, add namespaces with the help of using directive. In the later stage of the function, you will also need to make HTTP POST calls to the API endpoint and therefore make use of the <code>System.Net.Http</code> namespace as well.</p>
+
+<pre class="brush:csharp">
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using System.Net.Http;
+using System.Net.Http.Headers;
+</pre>
+
+<p>The code for the <code>SaveResponse</code> function is very simple and just make use of the DocumentClient class to create a new document for the response we receive from the Vision API. Here is the complete code.</p>
+
+<pre class="brush:csharp">
+private static async Task&lt;bool&gt; SaveResponse(string APIResponse)
+{
+    bool isSaved = false;
+    const string EndpointUrl = "https://imgdocdb.documents.azure.com:443/";
+    const string PrimaryKey = "QCIHMgrcoGIuW1w3zqoBrs2C9EIhRnxQCrYhZOVNQweGi5CEn94sIQJOHK3NleFYDoFclB7DwhYATRJwEiUPag==";
+ 
+    try
+    {
+        DocumentClient client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
+        await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("VisionAPIDB", "ImgRespCollcetion"), new {APIResponse});
+        isSaved = true;
+    }
+    catch(Exception)
+    {
+        //Do something useful here.
+    }   
+    return isSaved;
+}
+</pre>
+
+<p><img src="/images/cosmosdb-endpoint-keys.png" alt="View Function Files" /></p>
+
+<p>Notice the database and collection name in the function <code>CreateDocumentAsync</code> where the <code>CreateDocumentCollectionUri</code> will return the endpoint uri based of the database and collection name. The last parameter <code>new {ApiResponse}</code> is the response that is received from the Vision API.</p>
+
+<p>Create a new function and call it <code>ExtractText</code>. This function will take <code>Stream</code> object of the image that we can easily get from the <code>Run</code> function. This method is responsible to get the stream object and convert it into byte array with the help of another method <code>ConvertStreamToByteArray</code> and then send the byte array to Vision API endpoint to get the response. Once the response is successful from the API, I will save the response in CosmosDB. Here is the complete code for the function <code>ExtractText</code>.</p>
+
+<pre class="brush:csharp">
+private static async Task&lt;string&gt; ExtractText(Stream quoteImage, TraceWriter log)
+{
+    string APIResponse = string.Empty;
+    string APIKEY = "b33f562505bd7cc4b37b5e44cb2d2a2b";
+    string Endpoint = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
+ 
+    HttpClient client = new HttpClient();
+ 
+    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKEY);
+ 
+    Endpoint = Endpoint + "?language=unk&detectOrientation=true";
+ 
+    byte[] imgArray = ConvertStreamToByteArray(quoteImage);
+ 
+    HttpResponseMessage response;
+ 
+    try
+    {   
+        using(ByteArrayContent content = new ByteArrayContent(imgArray))
+        {
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+ 
+            response = await client.PostAsync(Endpoint, content);
+ 
+            APIResponse = await response.Content.ReadAsStringAsync();
+            log.Info(APIResponse);
+            //TODO: Perform check on the response and act accordingly.
+        }
+    }
+    catch(Exception)
+    {
+        log.Error("Error occured");
+    }
+ 
+    return APIResponse;
+}
+</pre>
+
+<p>There are few things in the above function which need out attention. You will get the subscription key and the endpoint when you register for the the Cognitive Services Computer Vision API. Notice the endpoint I am using also had <code>ocr</code> in the end which is important as I want to read the text from the images I am uploading to the storage. The other parameters I am passing is the <code>language</code> and <code>detectOrientation</code>. <code>Language</code> has the value as <code>unk</code> which stands for <code>unknown</code> which in turn tells the API to auto-detect the language and <code>detectOrientation</code> checks text orientation in the image. The API respond in JSON format which this method returns back in the <code>Run</code> function and this output becomes the input for <code>SaveResponse</code> method. Here is the code for <code>ConvertStreamtoByteArray</code> metod.</p>
+
+<pre class="brush:csharp">
+private static byte[] ConvertStreamToByteArray(Stream input)
+{
+    byte[] buffer = new byte[16*1024];
+    using (MemoryStream ms = new MemoryStream())
+    {
+        int read;
+        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+        {
+            ms.Write(buffer, 0, read);
+        }
+        return ms.ToArray();
+    }
+}
+</pre>
+Now comes the method where all the things will go into, the Run method. Here is how the `Run` method looks like.
+
+<pre class="brush:csharp">
+public static async Task&lt;bool&gt; Run(Stream quoteImage, string name, TraceWriter log)
+{
+    string response = await ExtractText(quoteImage, log);
+    bool isSaved = await SaveResponse(response);
+    return isSaved;
+}
+</pre>
+
+<p>I don&rsquo;t think this method needs any kind of explanation. Let&rsquo;s execute the function by adding a new image to the storage and see if we are able to see the log in the Logs window and a new document in the CosmosDB. Here is the screenshot of the <code>Logs</code> window after the function gets triggered when I uploaded a new image to the storage.</p>
+
+<p><img src="/images/function-logs.png" alt="Function Logs" /></p>
+
+<p>In CosmosDB, I can see a new document added to the collection. To view the complete document navigate to <code>Document Explorer</code> and check the results. This is how my view looks like:</p>
+
+<p><img src="/images/cosmosdb-result-output.png" alt="CosmosDB Result View" /></p>
+
+<p>To save you all a little time, here is the complete code.</p>
+
+<pre class="brush:csharp">
+#r "D:\home\site\wwwroot\QuoteExtractor\bin\Microsoft.Azure.Documents.Client.dll"
+ 
+using System.Net.Http.Headers;
+using System.Net.Http;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+ 
+ 
+public static async Task&lt;bool&gt; Run(Stream quoteImage, string name, TraceWriter log)
+{
+    string response = await ExtractText(quoteImage, log);
+    bool isSaved = await SaveResponse(response);
+    return isSaved;
+}
+ 
+private static async Task&lt;string&gt; ExtractText(Stream quoteImage, TraceWriter log)
+{
+    string APIResponse = string.Empty;
+    string APIKEY = "b33f562505bd7cc4b37b5e44cb2d2a2b";
+    string Endpoint = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
+ 
+    HttpClient client = new HttpClient();
+ 
+    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKEY);
+ 
+    Endpoint = Endpoint + "?language=unk&detectOrientation=true";
+ 
+    byte[] imgArray = ConvertStreamToByteArray(quoteImage);
+ 
+    HttpResponseMessage response;
+ 
+    try
+    {   
+        using(ByteArrayContent content = new ByteArrayContent(imgArray))
+        {
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+ 
+            response = await client.PostAsync(Endpoint, content);
+ 
+            APIResponse = await response.Content.ReadAsStringAsync();
+            //TODO: Perform check on the response and act accordingly.
+        }
+    }
+    catch(Exception)
+    {
+        log.Error("Error occured");
+    }
+ 
+    return APIResponse;
+}
+ 
+private static async Task&lt;bool&gt; SaveResponse(string APIResponse)
+{
+    bool isSaved = false;
+    const string EndpointUrl = "https://imgdocdb.documents.azure.com:443/";
+    const string PrimaryKey = "QCIHMgrcoGIuW1w3zqoBrs2C9EIhRnzZCrYhZOVNQweIi5CEn94sIQJOHK2NkeFYDoFcpB7DwhYATRJwEiUPbg==";
+ 
+    try
+    {
+        DocumentClient client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
+        await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("VisionAPIDB", "ImgRespCollcetion"), new {APIResponse});
+        isSaved = true;
+    }
+    catch(Exception)
+    {
+        //Do something useful here.
+    }   
+    return isSaved;
+}
+ 
+private static byte[] ConvertStreamToByteArray(Stream input)
+{
+    byte[] buffer = new byte[16*1024];
+    using (MemoryStream ms = new MemoryStream())
+    {
+        int read;
+        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+        {
+            ms.Write(buffer, 0, read);
+        }
+        return ms.ToArray();
+    }
+}
+</pre>
+
+<ul>
+<li><strong>References:</strong>
+
+<ul>
+<li><a href="https://azure.microsoft.com/en-in/try/cognitive-services/">Cognitive Services API</a></li>
+<li><a href="https://westus.dev.cognitive.microsoft.com/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fc">API Reference</a></li>
+<li><a href="https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/">Azure DocumentDB Assembly</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home">Computer Vision API - Documentation</a></li>
+<li><a href="https://docs.microsoft.com/en-in/azure/cognitive-services/computer-vision/quickstarts/csharp#optical-character-recognition-ocr-with-computer-vision-api-using-ca-nameocr-a">OCR with Computer Vision API - Documentation</a></li>
+</ul></li>
+</ul>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/enable-multi-factor-authentication-mfa-for-users-in-azure-active-directory/">Enable Multi Factor Authentication (MFA) For Users In Azure Active Directory</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 31, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      
+      
+      
+      
+    </span>
+    <p>A video tutorial on how you can enable Multi Factor Authentication or MFA as it is called, for the users in the Azure Active Directory.</p>
+
+<p><a href="https://www.youtube.com/watch?v=cUFhOsKZ0uc&amp;t=1s" title="Enable Multi Factor Authentication for users in Azure Active Directory"><img src="http://img.youtube.com/vi/cUFhOsKZ0uc/0.jpg" alt="Enable Multi Factor Authentication for users in Azure Active Directory" /></a></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/hosting-aspnet-core-web-application-on-azure-linux-vm/">Hosting ASP.NET Core Web Application On Azure Linux VM</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 17, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I run this blog on Azure as a Web App. I was planning to host it using a VM just for fun but I dropped the idea and choose Web Apps for my blog as a simple medium with less deployment effort and no server management at all. This blog post is mostly me documenting the steps to deploy or host the application on an Azure Linux Virtual Machine.</p>
+
+<h3 id="choosing-creating-setting-up-the-linux-vm-on-azure">Choosing/creating/setting up the Linux VM on Azure</h3>
+
+<p>As this is just a demo, I will provisioned a small VM. You can use Azure-CLI to do that or you can just do it from the Azure Portal. I am using Azure Portal to do that. My choice of selection is an Ubuntu 16.04 LTS machine where LTS stands for <code>L</code>ong <code>T</code>erm <code>S</code>upport which means that I am going to get the support for this version for a long time. To Create a new VM in Azure, click the <code>Virtual Machines</code> icon on the left hand side navigation pane and then click <code>Create Virtual machines</code> link in the center of the page. It will open up another pane where you can select the type of OS or type of select a VM from predefined VM templates. In my case I am selecting <code>Ubuntu Server</code> and then the version as <code>16.04 LTS</code>. To create a VM click <code>Create</code> button as shown in the screen shot below.</p>
+
+<p><img src="/images/create-azure-vm.png" alt="Creating Azure VM" /></p>
+
+<p>In the next pane, provide some basic details to create a VM. You can choose whatever you want as per your business needs. This is what my basic details looks like.</p>
+
+<p><img src="/images/create-vm-blade1.png" alt="Creating Azure VM Blade 1" /></p>
+
+<blockquote>
+<p>Please note that by default Super User or SU is disabled in Azure linux VM. If I want to execute any command as a root, all I have to do is to add <code>sudo</code> and use the same password for my user name on that VM.</p>
+</blockquote>
+
+<p>Click <code>OK</code> and proceed to select the VM size. By default, it will present you with some recommendations from the Azure itself. Click on <code>View All</code> to view all VM size offerings available. I am selecting <code>A1</code> for this example. When in production, you should choose very wisely based on your requirements.</p>
+
+<p><img src="/images/create-vm-size.png" alt="Creating Azure VM Size Blade" /></p>
+
+<p>I will leave the <code>Settings</code> as it is.</p>
+
+<p><img src="/images/create-vm-settings-blade.png" alt="Creating Azure VM Settings Blade" /></p>
+
+<p>Hit <code>OK</code> to run the final validation. In the final pane, click <code>OK</code> again to submit the deployment request to Azure to provision a new VM. It will take a while to create a VM and once it is done it will open up a VM home page where you can see the stats for the VM and do other administrative tasks on your newly created VM. It is a server distribution of Ubuntu and hence there will be no GUI for us to work with. SSH will be our only way in to the VM here. In the VM home page click the <code>Connect</code> button and it will prompt you with the SSH command which you will be using to connect to this VM. Here is what I get after executing the VM command for the first time.</p>
+
+<p><img src="/images/vm-connect-shell.png" alt="Connecting via shell" /></p>
+
+<p>And this is it, we have an Ubuntu Server 16.04 LTS running the cloud. The next step is to install .NET Core on this VM.</p>
+
+<h3 id="installing-net-core">Installing .NET Core</h3>
+
+<p>Install .NET Core on Ubuntu or on any other Linux distribution is dead easy. The documentation itself is enough to get you started. Head over to this <a href="https://www.microsoft.com/net/core#linuxubuntu">link</a> where you can find the latest release of .NET Core for all Linux distributions. Select the right version of Ubuntu from the documentation before running the command. i have installed Ubuntu Server 16.04 and so the commands I will be executing are:</p>
+
+<pre class="brush: bash">
+$ sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
+$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
+$ sudo apt-get update
+</pre>
+
+<p><img src="/images/dotnet-install.png" alt="Installing dotnet" /></p>
+
+<p>After the update is completed, you are good to install the latest version of .NET with this simple command.</p>
+
+<pre class="brush: bash">
+$ sudo apt-get install dotnet-dev-1.0.1
+</pre>
+
+<p><img src="/images/dotnet-install-continue.png" alt="Continue dotnet core" /></p>
+
+<p>Once the installation is completed, create a new directory with any name of your choice. I give it a name <code>testApp</code> and cd into the new directory like so.</p>
+
+<pre class="brush: bash">
+$ mkdir testApp && cd testApp
+</pre>
+
+<p>Because I am going to execute the dotnet command for the first time, dotnet CLI utility will populate the local package cache to improve restore speed of the packages and to enable offline access. Inside the testApp directory create a new web app by executing the below command.</p>
+
+<pre class="brush: bash">
+$ dotnet new mvc --auth None --framework netcoreapp1.1
+</pre>
+
+<p>Here I am telling the dotnet command utility to create a <code>new</code> application by using the <code>mvc</code> as a template with no authentication of any kind and targeted framework version is <code>1.1</code>. Now if I do <code>ls</code> in the directory I will see the following contents.</p>
+
+<p><img src="/images/dotnet-new-app.png" alt="Creating a new app using dotnet CLI" /></p>
+
+<p>Next thing to do is to restore the packages with restore command.</p>
+
+<pre class="brush: bash">
+$ dotnet restore
+</pre>
+
+<p>After the restore is complete, let&rsquo;s run the application and check if it runs properly or not. To check this we can run the command</p>
+
+<pre class="brush: bash">
+$ dotnet run
+</pre>
+
+<p><img src="/images/dotnet-run-command.png" alt="dotnet run command" /></p>
+
+<p>Our web application is now running on the VM. Now let&rsquo;s try to access it from the local browser with the web address like this.</p>
+
+<pre class="brush: plain">
+http://&lt;ip-address-of-the-vm&gt;:5000
+</pre>
+
+<p>You will notice that you cannot reach the site you have it running on the VM. This is because of many reasons when working with VM. First the port 5000 is not accessible from outside. I have to create a firewall exception to make it accessible from outside. Even if I want to do that, it still not a good idea to have your site visitors to use 5000 as a port address along with the domain name. To overcome this issue and to have a more control over the web server, I now need to install a web server which acts as a reverse proxy for my .NET core application running on VM. One more thing I would like to highlight here is that when I execute the above command you can notice that the terminal window is now hanged up with the dotnet server running. If I terminate the command, it will also terminate my application. I will show you how to overcome this issue in the section where I am going to configure the Nginx server to serve as a reverse proxy for my application.</p>
+
+<h3 id="install-nginx-web-server">Install Nginx Web Server</h3>
+
+<p>Internally .NET Core used <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/#kestrel">Kestrel Server</a> and is installed by default with the project. I cannot use it as a production ready server to host my application and therefore I am going to install Nginx web server and then configure it as a reverse proxy. To install Nginx I am just going to use a simple <code>apt-get</code> command to install it and then start the service.</p>
+
+<pre class="brush: bash">
+$ sudo apt-get install nginx
+$ sudo service nginx start
+</pre>
+
+<p><img src="/images/Install-running-nginx.png" alt="dotnet run command" /></p>
+
+<p>After the installation is done, I should be able to access the default web page delivered by Nginx server by typing the IP address of the VM. If you try this now, it will not work because of the VM <code>Network Security Group</code> in Azure will not let you access it. By default only SSH connections are allowed to the VM. I want to have the HTTP as web applications work on HTTP. Under <code>Network Interfaces</code> of the VM, click on <code>Network Security Groups</code>. Here you can see the <code>Inbound</code> and <code>Outbound</code> security rules. Under <code>Inbound Security Rules</code>, you can see that there is only one rule which is allowing you to have a SSH connection with the VM.</p>
+
+<p><img src="/images/nsg-rules.png" alt="Firewall" /></p>
+
+<p>Under <code>Settings</code>, click <code>Inbound security rules</code> and then click <code>Add</code> to add a new inbound rule.</p>
+
+<p><img src="/images/nsg-inbound-rules.png" alt="Firewall inbound rules" /></p>
+
+<p>I have selected the <code>HTTP</code> from the <code>Service</code> dropdown. This will automatically set the <code>Protocol</code>, <code>Port range</code> and <code>Action</code>. Click <code>OK</code> to set the rule.</p>
+
+<p><img src="/images/firewall-rules-list.png" alt="Firewall rules list" /></p>
+
+<p>Let&rsquo;s try accessing the web page again and this time I should be able to see the default Nginx web page.</p>
+
+<p><img src="/images/nginx-running.png" alt="NGINX Running" /></p>
+
+<p>Time to configure the web server as a reverse proxy for my web application. Open the config file from the below location.</p>
+
+<pre class="brush: bash">
+$ sudo nano /etc/nginx/sites-available/default
+</pre>
+
+<p>Add the below lines in the config file. The configurations I added are pretty self-explanatory. I recommend reading the complete configuration of Nginx <a href="http://rehansaeed.com/nginx-asp-net-core-depth/">here</a>.</p>
+
+<p><img src="/images/nginx-config.png" alt="NGINX Configuration" /></p>
+
+<p>If you made the changes when the server was running then either restart the server to reload the settings or execute the below command to reload the settings without restarting the server.</p>
+
+<pre class="brush: bash">
+$ sudo nginx -s reload
+</pre>
+
+<p>To publish the website, you also have to publish it with release configuration. With .NET Core, there are 2 ways of doing it. The <a href="https://docs.microsoft.com/en-us/dotnet/articles/core/deploying/">.NET Core Guide</a> states 2 methods of deploying the web application.</p>
+
+<ol>
+<li>Framework-Dependent Deployment (FDD)</li>
+<li>Self-Contained Deployment (SCD)</li>
+</ol>
+
+<p>As per the documentation FDD and SCD are described as follows:</p>
+
+<blockquote>
+<p>For an FDD, you deploy only your app and any third-party dependencies. You don&rsquo;t have to deploy .NET Core, since your app will use the version of .NET Core that&rsquo;s present on the target system. This is the default deployment model for .NET Core apps.</p>
+</blockquote>
+
+<p>For a self-contained deployment, you deploy your app and any required third-party dependencies along with the version of .NET Core that you used to build the app. Creating an SCD doesn&rsquo;t include the <a href="https://github.com/dotnet/core/blob/master/Documentation/prereqs.md">native dependencies of .NET Core</a> on various platforms (for example, OpenSSL on macOS), so these must be present before the app runs.</p>
+
+<p>Based on the documentation and as I have already installed .NET Core on the VM, I am going with FDD approach. As said, this is the default deployment model and therefore, I am going to zip the publish content and FTP to the VM.</p>
+
+<p>In my <a href="http://midnightprogrammer.net/post/single-sign-on-in-aspnet-core-with-azure-active-directory">last post</a>, I have build the application where I have integrated the Azure AD authentication in .NET Core web application. I will use the same application and publish it with <code>Release</code> configuration on my Windows machine and zip it. Here are the content of the release publish folder.</p>
+
+<p><img src="/images/publish-files.png" alt="Publish Files" /></p>
+
+<p>Now I can upload this to the VM. I have FTP already with me and therefore I am not configuring it on the VM. If you want to have a FTP server look no further than <a href="https://filezilla-project.org/download.php?type=server">FileZilla Server</a>. Execute the <code>wget</code> command to download the zip file.</p>
+
+<pre class="brush: bash">
+$ wget <ftp address>/ADApp.zip
+</pre>
+
+<p><img src="/images/wget-command.png" alt="Wget command" /></p>
+
+<p>By default, unzip command is not installed on the VM, install it by using the below command.</p>
+
+<pre class="brush: bash">
+$ sudo apt-get install unzip
+</pre>
+
+<p>Extract the zip file in a directory name ADApp by executing the below command.</p>
+
+<pre class="brush: bash">
+$ mkdir ADApp && unzip ~/websites/ADApp.zip -d ADApp
+</pre>
+
+<p><img src="/images/zip-unzip-command.png" alt="Zip &amp; Unzip command" /></p>
+
+<p>Change the working directory and try to run the application so ensure that the publish was successful.</p>
+
+<pre class="brush: bash">
+$ cd ADApp && dotnet AddADAuth.dll
+</pre>
+
+<blockquote>
+<p>Note that the directory structure is bit different in the screen shot and the below screen shot. This is because I have copied all the files and folders from the PublishOuput folder into the ADApp folder root.</p>
+</blockquote>
+
+<p>When you run the application for the first time, you will notice the application will not start just like that. .NET Core CLI utility will first configure the environment and then the application is being executed.</p>
+
+<p><img src="/images/execute-dotnet-command.png" alt="Execute dotnet command" /></p>
+
+<p>To execute the web application, run the below command. The dll file is the one which is being executed by the .NET Core runtime environment.</p>
+
+<pre class="brush:bash">
+$ dotnet AddADAuth.dll
+</pre>
+
+<p>The application started successfully on local server on port 5000.</p>
+
+<p><img src="/images/dotnet-execute-command.png" alt="Starting dotnet web app" /></p>
+
+<p>But there are problems when I run the application like this. One problem is that the command line is now occupied and I cannot do anything. If I terminate the process than the web application will also stop and I will not be able to browse the site. The second problem is that i have configured Nginx web server to power my web application. The internal .NET web server is not something I can use in the production environment. In short, I need this application to be running by .NET Core web server on port 5000 like so but it should not hang up or limit me to use the command line. To overcome these two problems, I can either use <a href="http://manpages.ubuntu.com/manpages/xenial/man1/nohup.1.html">nohup</a> command or I can use something more powerful like <a href="http://supervisord.org/">supervisor</a>. For now I am sticking with <code>nohup</code> as this is just a sample application. When I want to have more control I will switch to <code>supervisor</code>. Here is the <code>nohup</code> command in action. Giving me the terminal control back after I execute the <code>dotnet</code> command.</p>
+
+<p><img src="/images/nohup-dotnet-command.png" alt="Starting dotnet web app with nohup" /></p>
+
+<p>You can notice that first I execute the <code>ps</code> command to list down the processes running in the background. Then I execute the <code>dotnet</code> command with <code>nohup</code> and after that I execute the <code>ps</code> command one more time to check the running processes. You can see that I have the <code>dotnet</code> process running with process ID as 65164.</p>
+
+<p>Just like at the time of configuring Nginx, I have checked whether I was able to access the default page of Nginx from my browser or not, I will now enter the IP address of my VM and this time I should be able to see my AD authentication application running.</p>
+
+<p><img src="/images/final-result-vm-nginx.png" alt="Website running from VM" /></p>
+
+<p>The CSS is bit off in the web application and that is because of the inner URLs need to be configured with the different host name.</p>
+
+<h3 id="add-a-custom-domain-name">Add a custom domain name</h3>
+
+<p>Now I have hosted a ASP.NET Core web application in a Linux VM in Azure. The web server I am using is <code>Nginx</code>. Currently I am accessing the web application by IP address of the VM but now I want to access it with a recognizable name. I have a parked domain with <code>GoDaddy</code> called theevilprogrammer.com. I want to associate this domain name to my web application and to do that I just need access to my VM and GoDaddy account.</p>
+
+<p>Go to your domain registrar from where you can access the DNS settings of your parked domain. In my case it is GoDaddy. Select your domain and click on <code>Manage DNS</code>.</p>
+
+<p><img src="/images/godaddy-dns.png" alt="GoDaddy DNS" /></p>
+
+<p>I have an <code>A record</code> in the DNS management of my domain. All I have to do here is to change the <code>Value</code> to point to the IP address of the VM. Once this is done, click the <code>Save</code> button.</p>
+
+<p>Restart the Nginx server by running the below command. This will reload the configuration and apply those configurations which we have changed. Now I can check whether I am able to access my site with the domain name I have configured or not.</p>
+
+<pre class="brush: bash">
+$ sudo service nginx restart
+</pre>
+
+<p>Open browser and type in the domain name which in my case is theevilprogrammer.com.</p>
+
+<p>So this is how you can also run your .NET Core applications from the VM. Do keep this in mind that there are lot of Nginx configuration and Azure VM configurations you have to set before you go to production. This post is something which can get you started with your own application hosted on a Linux VM in the cloud but there are still lot of little and important things that you have to perform before going to production.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/single-sign-on-in-aspnet-core-with-azure-active-directory/">Single Sign-On In ASP.NET Core With Azure Active Directory</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 8, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application. I already have an application and I want to integrate Azure AD authentication, hence I will not be able to change the authentication just like that. I have to manually make the changes to do so. So here it is what I have done to integrate Azure Active Directory in my ASP.NET Core web application.</p>
+
+<h5 id="step-1-create-azure-active-directory">Step 1: Create Azure Active Directory</h5>
+
+<p>When provisioning a new Azure Active Directory you have to go to the old <a href="manage.windowsazure.com">portal manage.windowsazure.com</a>. At the time of writing this blog post, the product team is still in a process of migrating the complete AD feature sets from the old portal to the new portal. Therefore, to create a new AD in Azure, click the <code>Active Directory</code> in the left pane and you will be able to see all the active directories. In the below screen shot you can see that I am a part of Microsoft Active Directory as a <code>User</code>.</p>
+
+<p><img src="/images/active-directory.png" alt="Active Directory" /></p>
+
+<p>If you are planning to use any of the current Active Directory out of the one listed, you can click on it and register your application and users. Note that you have to be a <code>Global Administrator</code> to do that. If you want to create a new Active Directory, then click the <code>NEW</code> button at the bottom left corner to create a new Active Directory.</p>
+
+<p><img src="/images/create-new-ad.png" alt="Create new AD" /></p>
+
+<p>Click on <code>CUSTOM CREATE</code> and a new dialog box will appear in front of you to enter the name of your Active Directory.</p>
+
+<p><img src="/images/add-ad.png" alt="Add AD" /></p>
+
+<p>The green check box in the <code>DOMAIN NAME</code> denotes that the name you have chosen for your active directory is available. When done click the tick button or icon at the bottom right corner of the dialog box to create a new active directory.</p>
+
+<p><img src="/images/new-ad.png" alt="New AD" /></p>
+
+<h5 id="step-2-add-a-user">Step 2: Add a user</h5>
+
+<p>After the creation of active directory is successfully completed, you can see the new created active directory in the list. Notice the <code>ROLE</code> as <code>Global Administrator</code>. Click on the active directory name to view the details. First, I am going to add a new user to the directory. When inside the active directory, click the <code>USERS</code> which in the top of the page.</p>
+
+<p><img src="/images/add-user-ad.png" alt="Add new user in AD" /></p>
+
+<p>I can see a default user added to my new created active directory here which is my official Microsoft user. I cannot delete this user neither I can change much of the roles and other information of this user because it something which is being managed by Microsoft. So to add a new user, click the <code>ADD USER</code> button at the bottom of the page. This will open up a dialog box which allows you to add or create a new user to the active directory. In my case I am going to add a normal user not an administrator, I will keep the the default prompts. The whole process of adding a new user will take 3 steps to complete.</p>
+
+<p><img src="/images/about-user-info.png" alt="User Type in AD" /></p>
+
+<p>In the next screen enter the details about the user. I want to add this user as a normal user hence I am selecting <code>User</code> as a <code>ROLE</code>.</p>
+
+<p><img src="/images/user-profile.png" alt="User Profile in AD" /></p>
+
+<p>In the last step, click the <code>create</code> button to add a new user and generate a temporary password for the new user.</p>
+
+<p><img src="/images/get-temp-password.png" alt="Get temporary password for user" /></p>
+
+<p>Make a note of this password somewhere as you will need it to log in to the account. After the first login, user is prompt to change the password.</p>
+
+<h5 id="step-3-add-an-application-to-the-active-directory">Step 3: Add an application to the Active Directory</h5>
+
+<p>To add a new application, click on the <code>APPLICATION</code> link. Click the <code>ADD</code> button at the bottom of the page to add a new application and then click <code>Add an application my organization is developing</code>.</p>
+
+<p><img src="/images/add-app-ad.png" alt="Add application in AD" /></p>
+
+<p>In the next step enter the name of the application and select the type of application you are building. In my case, it is a web application.</p>
+
+<p><img src="/images/about-app-ad.png" alt="About application" /></p>
+
+<p>In the next step, you add a sign-in URL and app ID URI. The app ID URI I have added is in this format: <code>http://&lt;directoryname&gt;.onmicrosoft.com/adauth</code>. Replace the <code>directoryname</code> with your <code>directory</code> name. The <code>adauth</code> is the name of my application.</p>
+
+<p><img src="/images/add-app-properties.png" alt="Add application properties" /></p>
+
+<p>Once the adding of application is successful, click the <code>USERS</code> link. I can see the new user I have created in the user lists but it is not being assigned to the application yet. To do that, click the <code>ASSIGN</code> button at the bottom of the page and click <code>YES</code>. The <code>ASSIGNED</code> status will be changed from <code>No</code> to <code>Yes</code>.</p>
+
+<p><img src="/images/ad-user-assignment.png" alt="User assignment" /></p>
+
+<h5 id="step-4-setting-up-the-web-application">Step 4: Setting up the web application</h5>
+
+<p>The easy way to set the application up for AD authentication is to create a new &ldquo;demo&rdquo; application and select <code>Change Authentication</code> from the new project dialog box. Select <code>Work or School Accounts</code> and enter the domain name. This will create a new application with all the things set up for your domain. The reason I said &ldquo;demo&rdquo; application because I want to just get the changes that Visual Studio does it for me when I select the AD authentication. This application will now act like a sample application from where I can take the implementation and add it to my existing application.</p>
+
+<p><img src="/images/vs-app-auth-dialog.png" alt="Change auth in Visual Studio" /></p>
+
+<p>Here are the changes I have made to my existing application. As of now my existing application does not have user authentication and now as I want to implement, I will add the account controller and two views which will handle the authentication. In my case this is the account controller, you can name the controller as per your choice. Add two new views in the <code>Views</code> directory for your controller. Call them <code>AccessDenied.cshtml</code> and <code>SignedOut.cshtml</code> respectively.</p>
+
+<blockquote>
+<p>Note that all the changes I am making to my existing application are exactly the same as the sample application.</p>
+</blockquote>
+
+<p>Code for <code>AccessDenied.cshtml</code> view.</p>
+
+<pre class="brush: csharp">
+@{
+   ViewData["Title"] = "Access Denied";
+}
+
+&lt;header&gt;
+    &lt;h1 class="text-danger"&gt;Access Denied.&lt;/h1&gt;
+    &lt;p class="text-danger"&gt;You do not have access to this resource.&lt;/p&gt;
+&lt;/header&gt;
+</pre>
+
+<p>Code for <code>SignedOut.cshtml</code> view.</p>
+
+<pre class="brush: csharp">
+@{
+   ViewData["Title"] = "Sign Out";
+}
+&lt;h2&gt;@ViewData["Title"].&lt;/h2&gt;
+&lt;p class="text-success"&gt;You have successfully signed out.&lt;/p&gt;
+</pre>
+
+<p>Add below NuGet packages for AD authentication support in the application.</p>
+
+<pre class="brush: plain">
+Install-Package Microsoft.AspNetCore.Authentication
+Install-Package Microsoft.AspNetCore.Authentication.Cookies
+Install-Package Microsoft.AspNetCore.Authentication.OpenIdConnect
+</pre>
+
+<p>In the .NET Core project, you will also see a new file called <code>appsettings.json</code>. Add the below configuration to it. Your configuration will than mine.</p>
+
+<pre class="brush: plain">
+"Authentication": {
+  "AzureAd": {
+    "ClientId": "0d9h56ba-ccfd-42f2-9a75-64d8e96756e6",
+    "AadInstance": "https://login.microsoftonline.com/",
+    "CallbackPath": "/signin-oidc",
+    "Domain": "dominicdomain.onmicrosoft.com",
+    "TenantId": "d58e5363-f09c-4d65-9808-cd88396529f0"
+  }
+}
+</pre>
+
+<p>In the <code>Startup.cs</code> file, configure the request pipeline by adding the below code in the <code>Configure</code> method. I have added this code just after the <code>UseStaticFiles()</code> functions. This enables the application to use the cookie authentication and OpenId authentication.</p>
+
+<pre class="brush: csharp">
+app.UseCookieAuthentication();
+ 
+app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+{
+    ClientId = Configuration["Authentication:AzureAd:ClientId"],
+    Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
+    CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"]
+});
+</pre>
+
+<p>In the <code>ConfigureServices</code> method, add the below code.</p>
+
+<pre class="brush: csharp">
+services.AddAuthentication(options =&gt; options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+</pre>
+
+<p>In the <code>AccountController.cs</code>, add the below code.</p>
+
+<pre class="brush: csharp">
+[HttpGet]
+public IActionResult SignIn()
+{
+    return Challenge(
+        new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
+}
+
+[HttpGet]
+public IActionResult SignOut()
+{
+    var callbackUrl = Url.Action(nameof(SignedOut), "Account", values: null, protocol: Request.Scheme);
+    return SignOut(new AuthenticationProperties { RedirectUri = callbackUrl },
+        CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
+}
+
+[HttpGet]
+public IActionResult SignedOut()
+{
+    if (HttpContext.User.Identity.IsAuthenticated)
+    {
+        return RedirectToAction(nameof(HomeController.Index), "Home");
+    }
+
+    return View();
+}
+
+[HttpGet]
+public IActionResult AccessDenied()
+{
+    return View();
+}
+</pre>
+
+<p>Add a new partial view in the <code>Shared</code> folder and name it <code>_LoginPartial.cshtml</code> just like we have in new default scaffold project.</p>
+
+<pre class="brush: csharp">
+@using System.Security.Principal
+@using System.Security.Claims
+
+@if (User.Identity.IsAuthenticated)
+{
+    var claims = ((ClaimsIdentity)User.Identity).Claims;
+    var username = claims.FirstOrDefault(c =&gt; c.Type == "name")?.Value;
+
+    //Uncomment the below code to see the complete email address of the user.
+    @*&lt;li class="navbar-text"&gt;Hello @User.Identity.Name!&lt;/li&gt;*@
+    &lt;ul class="nav navbar-nav navbar-right"&gt;
+        &lt;li class="navbar-text"&gt;Hello @username!&lt;/li&gt;
+        &lt;li&gt;&lt;a asp-area="" asp-controller="Account" asp-action="SignOut"&gt;Sign Out&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+}
+else
+{
+    &lt;ul class="nav navbar-nav navbar-right"&gt;
+        &lt;li&gt;&lt;a asp-area="" asp-controller="Account" asp-action="Signin"&gt;Sign in&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+}
+</pre>
+
+<p>Open <code>_Layout.cshtml</code> page, add the below line of code to render this partial view so users can sign in and sign out.</p>
+
+<pre class="brush: csharp">
+@await Html.PartialAsync("_LoginPartial")
+</pre>
+
+<p>And we are done! This is a minimalistic implementation that you can get start with. Azure Active Directory also provides groups and roles which you need to work with if you are working with the enterprise scale application where security is a major concern. You also have to tweak the code for that. Let&rsquo;s try executing the application and see what happens when I try to authenticate the user for the first time.</p>
+
+<p>When you land on the home page you can see the <code>Sign in</code> link at the top right of the web page.</p>
+
+<p><img src="/images/app-bar.png" alt="App bar" /></p>
+
+<p>When you click on the sign in link, you will be redirected to the <code>login.microsoftonline.com</code> where you will be prompted for the user name and password. After the first successful login, you will be prompted to change the current password.</p>
+
+<p><img src="/images/ad-login-page.png" alt="App AD auth page" /></p>
+
+<p><img src="/images/app-password-change.png" alt="App AD password update page" /></p>
+
+<p>After the successful change of the password, you will be re-directed to the application with your user name as displayed at the top right corner.</p>
+
+<p><img src="/images/app-ad-login-success.png" alt="App AD auth page" /></p>
+
+  </div>
+  
+</div>
+
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item disabled">
+    <a href="" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+
+        </div>
+        
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+    </body>
+</html>

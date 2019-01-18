@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/windows/</link>
+    <description>Recent content in Windows on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Apr 2017 07:39:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/windows/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</title>
+      <link>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</link>
+      <pubDate>Sun, 02 Apr 2017 07:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/</guid>
+      <description>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing ADXL345 Accelerometer Output In Windows Forms From Raspberry PI 2</title>
+      <link>https://prashantkhandelwal.github.io/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/</link>
+      <pubDate>Mon, 26 Sep 2016 21:21:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/</guid>
+      <description>I have been playing a lot with Raspberry PI and Python these days and have also started a side project to create robot car controller with a Xbox 360 wireless controller. I am planning to controller a robot car using a custom interface from my Windows machine. Initially I tried with PyQt but I dropped the idea for now as Python is not my primary expertise and it will take some time for me to learn the basics and get into some serious coding.</description>
+    </item>
+    
+    <item>
+      <title>Creating A Live Tile Application In Windows 8</title>
+      <link>https://prashantkhandelwal.github.io/post/creating-a-live-tile-application-in-windows-8/</link>
+      <pubDate>Tue, 01 Jan 2013 11:20:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/creating-a-live-tile-application-in-windows-8/</guid>
+      <description>Developing application for Windows 8 is fun. I love the UI and the idea of having a live tile for my application. So I try building a live tile application, but unfortunately I can’t find a simple written article or a blog post. I even found MSDN to be a bit difficult for the newbies to get the grasp in first go. There are lot of things to understand and to worked on for creating a live tile in Windows 8.</description>
+    </item>
+    
+    <item>
+      <title>Free e-Book: UX Guidelines For Metro Style Apps For Windows 8</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-book-ux-guidelines-for-metro-style-apps-for-windows-8/</link>
+      <pubDate>Thu, 23 Aug 2012 15:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-book-ux-guidelines-for-metro-style-apps-for-windows-8/</guid>
+      <description>Microsoft made it available a free e-book for developers to understand UX Guidelines for Metro styled apps for Windows 8 and that too for both PC and tablets. This is an awesome resource which will let you know the basics and fundamentals while designing applications for PC annd tablets. As we all know that Windows 8 is the new OS with new UI design (metro) and it is necessary for every developer to know the basics before he starts developing the application for PC or for tablets.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft Launches SkyDrive Application For Windows</title>
+      <link>https://prashantkhandelwal.github.io/post/microsoft-launches-skydrive-application-for-windows/</link>
+      <pubDate>Tue, 24 Apr 2012 13:38:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/microsoft-launches-skydrive-application-for-windows/</guid>
+      <description>On 23rd April Microsoft announces the launch of official SkyDrive application for Windows on Windows 8 blog. This is one of the most awaited applications among the developers and users. All we wanted is a simple app through which we can manage our cloud storage with ease. Download the SkyDrive app here.
+Here is what available now according to this blog post:
+  SkyDrive for the Windows desktop (preview available now).</description>
+    </item>
+    
+    <item>
+      <title>Angry Birds Theme For Windows 7</title>
+      <link>https://prashantkhandelwal.github.io/post/angry-birds-theme-for-windows-7/</link>
+      <pubDate>Sat, 09 Jul 2011 09:18:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/angry-birds-theme-for-windows-7/</guid>
+      <description>If you love playing Angry Birds on your PC or on your phone, then you will also love Angry Birds theme for Windows 7. The sound effects are cool, just like the one you hear while you play the game and the wallpapers are cool too. I like the red angry bird to sit on my desktop as it is the best wallpaper I can choose among the 6 wallpapers that comes with the theme.</description>
+    </item>
+    
+    <item>
+      <title>Prepare Your Site For IE9 With Pinify</title>
+      <link>https://prashantkhandelwal.github.io/post/prepare-your-site-for-ie9-with-pinify/</link>
+      <pubDate>Sat, 14 May 2011 23:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/prepare-your-site-for-ie9-with-pinify/</guid>
+      <description>This is great stuff. If you own a website or a blog you should use this excellent feature of pinning fav links of your site on user&amp;rsquo;s Windows 7 taskbar. Though this feature of IE9 was on hype since it&amp;rsquo;s beta realease. Now it&amp;rsquo;s time to use this feature for my blog. But before you start grab the latest stable version of the Pinify (formerly know as IE9ify) from Codeplex.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7: Create Jumplists In WPF Application Without Using Windows 7 API Code Pack</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack/</link>
+      <pubDate>Sat, 26 Feb 2011 14:24:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack/</guid>
+      <description>I wrote a blog post on how you can add a custom Jumplist on your Windows form application for Windows 7 platform using the Windows 7 API Code Pack, but that is for Windows Form applications running on Windows 7.
+WPF makes Jumplists more simpler. You need not to add any API reference or any other reference in your project. You can just make the use of Jumplists for better navigation for your users.</description>
+    </item>
+    
+    <item>
+      <title>How To Free Up Gigs of Space On Your Window 7 Machine</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/</link>
+      <pubDate>Sat, 19 Feb 2011 03:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/</guid>
+      <description>I am now using Windows 7 since its beta release and so far my experience is awesome. But as a developer the hard drive space is always been a problem for me, no matter how many external drives or other stoarge devices you have connected to your machine but the disk space on the host machine is always a primary problem. Windows 7 is more stable OS in Windows family so far (I found it more stable than Win XP) and the reason it is being more stable because everytime you install a program on your Win 7 machine, it automatically creates a snapshot of the host drive.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Working With Task Dialog Class</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/</link>
+      <pubDate>Mon, 24 Jan 2011 16:57:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/</guid>
+      <description>Last year, I blogged about few things related to Windows 7 development which includes Jump Lists and Glass Form. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The Windows 7 API Code Pack comes with some sample applications which exposes the power of the API.
+In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7.</description>
+    </item>
+    
+    <item>
+      <title>Attach Virtual Hard Disk Automatically At Windows Startup</title>
+      <link>https://prashantkhandelwal.github.io/post/attach-virtual-hard-disk-automatically-at-windows-startup/</link>
+      <pubDate>Tue, 10 Aug 2010 18:03:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/attach-virtual-hard-disk-automatically-at-windows-startup/</guid>
+      <description>Windows 7 gives you the power to create Virtual Hard Disk (VHD). If you don&amp;rsquo;t know how to create a VHD in Windows 7 then you seriously need to learn how to unleash Windows 7 power. You can see the links in the end which will let you create a new VHD on your Windows 7 machine and there are some other recommended links.
+I assume that you know or you have created a new VHD and attached or mount on your Windows 7 machine.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Logon Screen Changer</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</link>
+      <pubDate>Sat, 29 May 2010 22:42:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-logon-screen-changer/</guid>
+      <description>Recently I was reading an article on some Windows 7 forums on how to change Windows Logon Background. There are manual steps which helps me to change the longon background, but its tedious if I have to do it manually everytime. So I decided to make a tool which can do it for me.
+I start up a new project in Visual Studio 2010 and create a new windows application. I am not writing about how I did it, I am just giving away this tool for use.</description>
+    </item>
+    
+    <item>
+      <title>How To Build UAC Compatible Application In .NET</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</link>
+      <pubDate>Sun, 23 May 2010 21:01:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-build-uac-compatible-application-in-net/</guid>
+      <description>We all know about a feature called User Account Control (UAC) which introduced with the launch of Windows Vista. By default, UAC is enabled and provides users a better and safer computing experience, but most of the users find it irritating when the UAC prompts everytime they try to run a program. Disabling UAC is not recommended at all.
+With UAC enabled programmers find it difficult to access some of the locations on the local drive.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Creating Jumplist In Windows 7</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-creating-jumplist-in-windows-7/</link>
+      <pubDate>Sun, 28 Mar 2010 02:08:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-creating-jumplist-in-windows-7/</guid>
+      <description>I am quite fascinated with Windows 7 before even I get it started using it. Actually I have just started on a fun project for my personal use which includes jump list. Why I am doing this? To navigate and get access to the application and internet addresses I need anytime. I am tired of typing addresses and navigating to the programs I frequently use. I have just started so I thought I must blog about my jump list experience with you all.</description>
+    </item>
+    
+    <item>
+      <title>Windows 7 Development: Aero Effects in .NET Applications</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-7-development-aero-effects-in-net-applications/</link>
+      <pubDate>Sun, 28 Feb 2010 13:22:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-7-development-aero-effects-in-net-applications/</guid>
+      <description>With the launch of Windows Vista, Microsoft introduces brand new UI, eye-catching aero effects (glass effects) for their new Operating System. I have seen a lot of programmers who are much concerned about the looks of their applications. So this time with the launch of Windows 7, Microsoft provides the Windows 7 API Code Pack. The Windows 7 API Code Pack not only just allows incorporating the aero glass effect, but many other features which will let you to work more conveniently with Windows 7.</description>
+    </item>
+    
+  </channel>
+</rss>

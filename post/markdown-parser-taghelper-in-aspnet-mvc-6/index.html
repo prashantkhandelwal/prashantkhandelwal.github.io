@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Parsing Markdown Using Custom TagHelper In ASP.NET MVC 6 • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Parsing Markdown Using Custom TagHelper In ASP.NET MVC 6"/>
+<meta name="twitter:description" content="Previous versions of MVC allows us to write HtmlHelpers which does a pretty good job then and they are doing it now as well. But in MVC 6, the ASP.NET team has introduced TagHelpers.
+Parsing Markdown in .NET is way too simple than one can imagine. Thanks to Stackoverflow&rsquo;s MarkdownSharp and Karlis Gangis&rsquo;s CommonMark.NET. I use CommonMark.NET as it provides a much faster parsing than other libraries. The blogging platform I use is a custom blogging engine I wrote in MVC4."/>
+
+<meta property="og:title" content="Parsing Markdown Using Custom TagHelper In ASP.NET MVC 6" />
+<meta property="og:description" content="Previous versions of MVC allows us to write HtmlHelpers which does a pretty good job then and they are doing it now as well. But in MVC 6, the ASP.NET team has introduced TagHelpers.
+Parsing Markdown in .NET is way too simple than one can imagine. Thanks to Stackoverflow&rsquo;s MarkdownSharp and Karlis Gangis&rsquo;s CommonMark.NET. I use CommonMark.NET as it provides a much faster parsing than other libraries. The blogging platform I use is a custom blogging engine I wrote in MVC4." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/markdown-parser-taghelper-in-aspnet-mvc-6/" /><meta property="article:published_time" content="2015-11-30T21:01:00&#43;00:00"/>
+<meta property="article:modified_time" content="2015-11-30T21:01:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Parsing Markdown Using Custom TagHelper In ASP.NET MVC 6</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Nov 30, 2015
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>Previous versions of MVC allows us to write <a href="https://msdn.microsoft.com/en-us/library/system.web.mvc.htmlhelper%28v=vs.118%29.aspx">HtmlHelpers</a> which does a pretty good job then and they are doing it now as well. But in MVC 6, the ASP.NET team has introduced TagHelpers.</p>
+
+<p>Parsing <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> in .NET is way too simple than one can imagine. Thanks to Stackoverflow&rsquo;s <a href="https://code.google.com/p/markdownsharp/">MarkdownSharp</a> and Karlis Gangis&rsquo;s CommonMark.NET. I use CommonMark.NET as it provides a much faster parsing than other libraries. The blogging platform I use is a custom blogging engine I wrote in MVC4. The post content is saved in HTML which makes my raw HTML way to messy when compared to simple markdown syntax. I have no plans to change the way it is right now, but for the other simple application which is quite similar to notes taking or blogging apps, I would like to save the content in markdown.</p>
+
+<p>I will start with a simple implementation of this custom TagHelper and then then we can look into the other ways to enhance it. Here is how easy it is to create your custom TagHelper.</p>
+
+<p>Create a new class file <code>MarkdownTagHelper.cs</code>. Inside the file, rename the class name to match the file name or you can change the name way you like. In my case I am keeping the class name as same as the file name.</p>
+
+<blockquote>
+<p>Pay attention to the name of the custom TagHelper. By design, compiler will remove the word TagHelper from the class name and the rest of the name will become your custom TagHelper name.</p>
+</blockquote>
+
+<p>The next step is to inherit our class with <code>TagHelpers</code> class. Every custom TagHelper will inherit this class. Just like the UserControl class when creating a custom user control. The TagHelper provide us two virtual methods, <code>Process</code> and a <code>ProcessAsync</code> method which we will be going to override to implement our custom logic for our custom markdown TagHelper. The first parameter is the <code>TagHelperContext</code> which holds the information about the current tag and the second parameter is <code>TagHelperOutput</code> object represents the output being generated by the TagHelper. As we need to parse the markdown in our razor view pages, we need to add reference of CommonMark.Net library. Use the below Nuget command to add it to your current project.</p>
+
+<pre class="brush: plain">
+Install-Package CommonMark.Net
+</pre>
+
+<p>Till here this is how the code will look like.</p>
+
+<p><img src="/images/code-md-scrshot.png" alt="Markdown screenshot in Visual Studio" /></p>
+
+<p>So now we have our custom TagHelper that will let us parse the markdown. But to use it in our views we need to opt-in for this TagHelper in the <code>_ViewImports.cshtml</code> file. To enable your custom TagHelper just type in like this:</p>
+
+<pre class="brush: csharp">
+@addTagHelper "*, WebApplication1"
+</pre>
+
+<p>Your custom tag helper would have been turned purple in color on the view page. It is similar to the line above it where <code>@addTagHelper</code> is importing all the TagHelpers from the given namespace. If you are not interested in opting-in for all the TagHelpers in the given namespace then make use of the <code>@removeTagHelper</code> to disable the TagHelpers you don’t need. For this I want all the tag helpers I have created to be a part of the application and hence the * symbol.</p>
+
+<p>In your view, where you want to use this just type in <code>&lt;markdown&gt;</code> and inside this tag you should have your markdown. To test it, you can view the any raw file in Github and copy the text. I am using <a href="https://raw.githubusercontent.com/Knagis/CommonMark.NET/master/README.md">README.md</a> from CommonMark.NET and it rendered perfectly.</p>
+
+<blockquote>
+<p>Caution: When copy-pasting the markdown code from anywhere to your view make sure that you do not have a whitespace in the front of the line. This is only applicable when you are working with the in-line markdown. Here is the screenshot with comparison. <img src="/images/markdown-comparison.png" alt="Markdown code comparison Visual Studio" /></p>
+</blockquote>
+
+<p>Hit F5 and see the markdown tag helper in action. Below is the output I get.</p>
+
+<p><img src="/images/output-markdown.png" alt="Markdown output" /></p>
+
+<p>This is the simplest of all. Now let’s add some prefix to our custom TagHelper. To add a custom tag prefix to the TagHelper, we just need to pay a visit to <code>_ViewImports.cshtml</code> file again and add a new line like so:</p>
+
+<pre class="brush: csharp">
+@tagHelperPrefix "blog-"
+</pre>
+
+<p>After adding the above line in the file, go to the view page where you have used your custom TagHelper and you can notice that the <code>&lt;markdown&gt;</code> tag isn’t purple anymore. This is because we now have to add a custom tag-prefix that we just defined in the <code>_ViewImports.cshtml</code> file. Change it from <code>&lt;markdown&gt;</code> to <code>&lt;blog-markdown&gt;</code> and it is purple again.</p>
+
+<p>By design, the TagHelper will take <code>&lt;markdown&gt;</code> as a tag to be processed. But it can be easily ignored by using the <code>HtmlTargetElement</code> attribute at the top of the class and allow the use of another name rather than <code>&lt;markdown&gt;</code>. This does not mean that you cannot use <code>&lt;markdown&gt;</code> but instead you can also use the custom TagHelper with the name specify in this attribute.</p>
+
+<p>Now let’s add some attributes to my markdown TagHelper. Let’s try to add a url attribute which will help user to render the markdown on the view from a remote site like Github. To add an attribute, simply add a new public property of type string and call it url. When you create a public property in the <code>TagHelper</code> class it is automatically assumed it is an attribute. To make use of this property, my view now simply say this:</p>
+
+<pre class="brush: csharp">
+&lt;blog-markdown url="https://raw.githubusercontent.com/Knagis/CommonMark.NET/master/README.md">
+&lt;/blog-markdown&gt;
+</pre>
+
+<p>The url attribute value is being read by the TagHelper which in turn read the whole string of markdown from Github and render the HTML on the page. Let’s focus again on TargetElement attribute for a while. Consider a scenario where you don’t want your custom TagHelper to render or work if the attributes are not passed or missing. This is where <code>HtmlTargetElement</code> attribute comes into picture. If I don’t want my TagHelper to work if the <code>url</code> parameter is missing then you can simple write your <code>HtmlTargetElement</code> attribute like so:</p>
+
+<pre class="brush: csharp">
+[HtmlTargetElement("markdown", Attributes = "url")]
+</pre>
+
+<p>Notice the <code>Attributes</code> parameter. The <code>Attributes</code> parameter allows you to set the name of all the attributes which should be processed by your TagHelper or else the TagHelper will not work. For instance, if I just use the <code>&lt;markdown&gt;</code> TagHelper but did not pass the url attribute, the TagHelper will not execute and you will see the raw markdown code. My requirement is to have this TagHelper working with or without the use of <code>url</code> attribute. I can comment out or remove the <code>HtmlTargetElement</code> attribute or just remove the <code>Attributes</code> parameter to get going.</p>
+
+<p>Here is the complete MarkdownTagHelper.cs:</p>
+
+<pre class="brush: csharp">
+using Microsoft.AspNet.Razor.Runtime.TagHelpers;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+ 
+namespace WebApplication1.TagHelpers
+{
+    //[HtmlTargetElement("markdown", Attributes = "url")]
+    public class MarkdownTagHelper : TagHelper
+    {
+        //Attribute for our custom markdown
+        public string Url { get; set; }
+ 
+        private string parse_content = string.Empty;
+ 
+        //Stolen from: http://stackoverflow.com/questions/7578857/how-to-check-whether-a-string-is-a-valid-http-url
+        private bool isValidURL(string URL)
+        {
+            Uri uriResult;
+            return Uri.TryCreate(URL, UriKind.Absolute, out uriResult)
+                && (uriResult.Scheme.ToLowerInvariant() == "http" || uriResult.Scheme.ToLowerInvariant() == "https");
+        }
+ 
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        {
+            if (context.AllAttributes["url"] != null)
+            {
+                string url = context.AllAttributes["url"].Value.ToString();
+                string webContent = string.Empty;
+                if (url.Trim().Length &gt; 0)
+                {
+                    if (isValidURL(url))
+                    {
+                        using (HttpClient client = new HttpClient())
+                        {
+                            webContent = await client.GetStringAsync(new Uri(url));
+                            parse_content = CommonMark.CommonMarkConverter.Convert(webContent);
+                            output.Content.SetHtmlContent(parse_content);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                //Gets the content inside the markdown element
+                var content = await output.GetChildContentAsync();
+ 
+                //Read the content as a string and parse it.
+                parse_content = CommonMark.CommonMarkConverter.Convert(content.GetContent());
+ 
+                //Render the parsed markdown inside the tags.
+                output.Content.SetHtmlContent(parse_content);
+            }
+        }
+    }
+}
+</pre>
+
+<p>I found the full TagHelper feature in MVC 6 a lot more convenient and powerful. I hope you like it as well.</p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/free-e-book-52-tips-tricks-to-boost-net-performance-from-redgate/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Free E-Book: 52 Tips &amp; Tricks to Boost .NET Performance from Redgate</span>
+    </a>
+    
+    
+    <a href="/post/dev-buzz-3-bookmarks/" class="navigation-next">
+      <span class="navigation-tittle">Dev Buzz #3 - Bookmarks</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

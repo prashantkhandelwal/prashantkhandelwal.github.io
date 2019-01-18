@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/ubuntu/</link>
+    <description>Recent content in Ubuntu on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 22 Oct 2017 15:28:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Create, Mount And Unmount .img Files In Ubuntu</title>
+      <link>https://prashantkhandelwal.github.io/post/create-mount-and-unmount-img-files-in-ubuntu/</link>
+      <pubDate>Sun, 22 Oct 2017 15:28:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/create-mount-and-unmount-img-files-in-ubuntu/</guid>
+      <description>Recently I moved from Windows to Ubuntu on one of my laptops and since then I was trying to look for the way to create a VHDs or some sort of image files that I can use as a container. So I looked up for the solution and found a working solution scattered though places. So here I am putting it in a blog post to have all it in one place.</description>
+    </item>
+    
+    <item>
+      <title>Hosting ASP.NET Core Web Application On Azure Linux VM</title>
+      <link>https://prashantkhandelwal.github.io/post/hosting-aspnet-core-web-application-on-azure-linux-vm/</link>
+      <pubDate>Wed, 17 May 2017 16:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/hosting-aspnet-core-web-application-on-azure-linux-vm/</guid>
+      <description>I run this blog on Azure as a Web App. I was planning to host it using a VM just for fun but I dropped the idea and choose Web Apps for my blog as a simple medium with less deployment effort and no server management at all. This blog post is mostly me documenting the steps to deploy or host the application on an Azure Linux Virtual Machine.</description>
+    </item>
+    
+    <item>
+      <title>Get The Correct File Paths In .NET Core</title>
+      <link>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</link>
+      <pubDate>Mon, 03 Oct 2016 22:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/get-the-correct-file-paths-in-net-core/</guid>
+      <description>I run a custom blog engine I wrote myself on MVC 4 and as you would have thought it is on Windows hosting. I am re-writing my blog engine in .NET Core so that I can get it running on a Linux hosting as well. I am using Windows machine and Visual Studio Community Edition to write it and using a Ubuntu VM box to test it. My current blog uses SQL Server as a back-end but Linux does not support SQL Server and therefore I have to move to MySQL or any other No-SQL database available for Linux distros.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started With ASP.NET 5 On Ubuntu</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</link>
+      <pubDate>Tue, 16 Jun 2015 22:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</guid>
+      <description>Ever since the .NET stack went open source last year, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites.</description>
+    </item>
+    
+  </channel>
+</rss>

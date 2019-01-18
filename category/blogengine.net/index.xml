@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogengine.net on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/blogengine.net/</link>
+    <description>Recent content in Blogengine.net on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Mar 2011 17:44:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/blogengine.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Blog Analytics: Widget For BlogEngine.NET Powered By Google Analytics</title>
+      <link>https://prashantkhandelwal.github.io/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/</link>
+      <pubDate>Sat, 19 Mar 2011 17:44:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/</guid>
+      <description>Finally, I got to know the way to show Google Analytics stats on my blog space. To know more about using Google Analytics API read their official article on using the API.
+I have built a widget with the help of Analytics API to show the Google Analytics stats on my blog. The widget shows three stats at the moment (I don&amp;rsquo;t want to make the widget look complex). Below is a screenshot for the widget in action on my blog:</description>
+    </item>
+    
+    <item>
+      <title>Windows Live Theme For BlogEngine.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/windows-live-theme-for-blogenginenet/</link>
+      <pubDate>Thu, 17 Mar 2011 17:16:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/windows-live-theme-for-blogenginenet/</guid>
+      <description>I have now been using BlogEngine for 2 years now and I was kinda fed up with the standard theme I have been since starting which I have modified a bit to look more prettier. I am not saying it&amp;rsquo;s bad but it&amp;rsquo;s too much now, I should do a makeover of my blog. Now the BlogEngine community is not as big and vast as that of the most popular blogging engine Wordpress and therefore it is hard to get beautiful themes for BlogEngine.</description>
+    </item>
+    
+    <item>
+      <title>URL rewriting in Blog Engine.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/url-rewriting-in-blog-enginenet/</link>
+      <pubDate>Sat, 05 Jun 2010 14:47:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/url-rewriting-in-blog-enginenet/</guid>
+      <description>was just looking for a way to get short URL’s for my blog, I used some extensions, some URLrewriter.NET but still not able to get this work. So I drop an e-mail to Scott Hanselman and was waiting for his response. If you look at Scott’s blog you will see that he has very simple URL for his blog posts which eventually get his posts higher ranks on search engine indexing.</description>
+    </item>
+    
+    <item>
+      <title>Akismet Extension For BlogEngine.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/akismet-extension-for-blogenginenet/</link>
+      <pubDate>Fri, 14 May 2010 20:26:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/akismet-extension-for-blogenginenet/</guid>
+      <description>Since I have started using BlogEngine.NET I never thought of using any other open source blog engine. To me BlogEngine is the most extensible blogging platform availableat present. As a popular blogging, engine blog engine users faces a lot of spam comments. I was so totally annoyed and even after moderating comments I have to manually go and delete the comments. After some search I found an extesion from Joel Thoms.</description>
+    </item>
+    
+  </channel>
+</rss>

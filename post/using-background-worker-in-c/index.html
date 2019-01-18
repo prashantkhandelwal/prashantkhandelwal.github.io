@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Using Background Worker in C# • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using Background Worker in C#"/>
+<meta name="twitter:description" content="Performance of an application matters a lot for a developer. None of the developer wants his application freezes or crashes. But what are measures a developer should takes to keep it all good going. When I used to develop application I saw whenever I try to perform some heavy or bulky task like uploading files, copying files from place to other and other DB related but heavy task which includes CPU as well as hard drive."/>
+
+<meta property="og:title" content="Using Background Worker in C#" />
+<meta property="og:description" content="Performance of an application matters a lot for a developer. None of the developer wants his application freezes or crashes. But what are measures a developer should takes to keep it all good going. When I used to develop application I saw whenever I try to perform some heavy or bulky task like uploading files, copying files from place to other and other DB related but heavy task which includes CPU as well as hard drive." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/using-background-worker-in-c/" /><meta property="article:published_time" content="2009-11-27T15:42:00&#43;00:00"/>
+<meta property="article:modified_time" content="2009-11-27T15:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Using Background Worker in C#</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Nov 27, 2009
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/c">C#</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <p>Performance of an application matters a lot for a developer. None of the developer wants his application freezes or crashes. But what are measures a developer should takes to keep it all good going. When I used to develop application I saw whenever I try to perform some heavy or bulky task like uploading files, copying files from place to other and other DB related but heavy task which includes CPU as well as hard drive.</p>
+
+<p>Most of our application that we develop today require simultaneous functions to perform but with performance. We guarantee our client…yes the application can handle all the functions but on the stake of performance. The major fallback of any application is limiting a user to perform one task at a time. So how do we deal with application freezing and crashing?</p>
+
+<p>Working with Microsoft .NET framework we have worked with threads through which we can handle all the tasks simultaneously under one main application thread. You can perform smaller operations with the help of Threading class, instead I prefer using Background Worker class to implement to perform all my heavy duty operations.
+Background worker class is introduced in .NET framework 2.0 and using this class makes it easy to execute long running operations on a separate thread, support cancellation, progress reporting and marshalling results back to the UI thread.</p>
+
+<p>Below image which provides an overview of background worker class which found <a href="http://www.danielmoth.com/">here</a>.</p>
+
+<p><img src="/images/background-worker-class.png" alt="BackgroundWorker class diagram" /></p>
+
+<p>Now we will see how to use background worker class to perform heavy operations.</p>
+
+<p>First create a new windows application as shown below.</p>
+
+<p><img src="/images/bgw-win-app.jpg" alt="BackgroundWorker windows form app" /></p>
+
+<p>Get to the design mode and drag &amp; drop the background worker component.</p>
+
+<p><img src="/images/bgw-control.jpg" alt="BackgroundWorker control" /></p>
+
+<p>Set the properties of the background worker:</p>
+
+<p>Set <code>GenerateMember</code> and <code>Modifiers</code> as it is. In the sample application we have a progress bar which reports the percentage of the task completed so we need to set the <code>WorkerReportsProgress</code> to <code>true</code> and similarly if we want the user to cancel the running operation then set the <code>WorkerSupportsCancellation</code> to <code>true</code>.</p>
+
+<p><img src="/images/bgw-properties.jpg" alt="BackgroundWorker properties" /></p>
+
+<p>Now the next step is to create 3 methods:</p>
+
+<ol>
+<li>DoWork: This is the main method which is responsible to handle the large operation. The code here is not different than the usual code.</li>
+<li>ProgressChanged: This method reports the change in the progress of the operation performed by the background worker DoWork method.</li>
+<li>RunWorkerCompleted: This method checks the RunWorkerCompletedEventArgs and perform action accordingly.</li>
+</ol>
+
+<p><img src="/images/bgw-events.jpg" alt="BackgroundWorker events" /></p>
+
+<p>So how do we code these methods? It’s easy and not a complex task as it sounds, so let’s have a look at these methods….</p>
+
+<p>To carry on with this example, I am using an AventureWorks database I have query the table Person.Contact as it has a large number of records, around 19K. Now here, to set the progress bar you first need to set the maximum property of the progress bar so we can show the progress completed.</p>
+
+<p>Starting with the Start button:</p>
+
+<pre class="brush:csharp">
+private void btn_start_Click(object sender, EventArgs e)
+{
+//Starts the backgroundworker process asynchronously
+bgw.RunWorkerAsync(); 
+btn_start.Enabled = false;
+}
+</pre>
+
+<p>The DoWork method:</p>
+
+<pre class="brush:csharp">
+//Background worker DoWork method. Here we will perform our heavy duty tasks.
+//I have used a simple datareader object to traverse all the rows in the table. 
+//The table has around 19K rows.
+private void bgw_DoWork(object sender, DoWorkEventArgs e)
+{
+  try
+  {
+    int i = 0;
+    cmd = new SqlCommand("SELECT * FROM Person.Contact", con);
+    con.Open();
+    dr = cmd.ExecuteReader();
+    while(dr.Read())
+    {
+        i = i + 1;
+        //report to the backgroungworker progreechanged event of the background worker class
+        bgw.ReportProgress(i);
+        Thread.Sleep(1);
+        //Called and check if the cancellation of the operation is pending. If returned true
+        //DoWorkEventArgs object cancels the operation.
+        if (bgw.CancellationPending)
+        {
+            e.Cancel = true;
+            return;
+        }
+    }
+   }
+   catch (Exception x)
+   {
+    MessageBox.Show("An error occured while performing operation" + x);
+   }
+   finally
+   {
+    con.Close();
+   }
+}
+</pre>
+
+<p>The RunWorkerCompleted Method:</p>
+
+<pre class="brush:csharp">
+private void bgw_RunWorkerCompleted(object sender,RunWorkerCompletedEventArgs e)
+{
+    if (e.Cancelled)
+    {
+        MessageBox.Show("Operation Cancelled");
+        btn_start.Enabled = true;
+    }
+    else
+    {
+        MessageBox.Show("Operation Completed");
+        btn_start.Enabled = true;
+    }
+}
+</pre>
+
+<p>The ProgressChanged Method:</p>
+
+<pre class="brush:csharp">
+private void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+{
+    //Report porogress bar change
+    progress.Value = e.ProgressPercentage;
+}
+</pre>
+
+<p>Ending up with the cancel button:</p>
+
+<pre class="brush:csharp">
+//To cancel async operation
+private void btn_cancel_Click(object sender, EventArgs e)
+{
+     //To cancel the asynchronous operation
+     bgw.CancelAsync();
+     progress.Value = 0;
+     btn_start.Enabled = true;
+}
+</pre>
+
+<p>So when your application is traversing the records and suddenly you think that you should quit the job and work on other part of the application, just hit the cancel button and the large operation will get cancelled withoud any freezing and hanging of your application.</p>
+
+<p><strong>Download: <a href="/files/BackgroundWorkerDemo.zip">BackgroundWorkerDemo.zip (43.69 kb)</a></strong></p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/word-automation-in-c/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Word Automation in C#</span>
+    </a>
+    
+    
+    <a href="/post/t-sql-export-table-to-excel/" class="navigation-next">
+      <span class="navigation-tittle">T-SQL: Export Table to Excel</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

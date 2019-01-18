@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Microsoft on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/microsoft/</link>
+    <description>Recent content in Microsoft on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 16 Oct 2016 20:04:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/microsoft/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Free E-Book: Understanding Azure - A Guide For Developers</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-book-understanding-azure-a-guide-for-developers/</link>
+      <pubDate>Sun, 16 Oct 2016 20:04:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-book-understanding-azure-a-guide-for-developers/</guid>
+      <description>There is no time better to be a developer. With the cloud, you can compose solutions that were never possible before. You can release new features to millions of users within minutes. You can push the boundaries of current technological limitations in days. Developers can turn ideas from the ground up to successful businesses in only months. Companies need apps that allow them to maximize customer engagement and differentiate against competitors.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started With ASP.NET 5 On Ubuntu</title>
+      <link>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</link>
+      <pubDate>Tue, 16 Jun 2015 22:59:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/getting-started-with-aspnet-5-on-ubuntu/</guid>
+      <description>Ever since the .NET stack went open source last year, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites.</description>
+    </item>
+    
+    <item>
+      <title>Free e-Books From Microsoft And Telerik That You Should Be Reading</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-books-from-microsoft-and-telerik-that-you-should-be-reading/</link>
+      <pubDate>Sun, 14 Jun 2015 08:15:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-books-from-microsoft-and-telerik-that-you-should-be-reading/</guid>
+      <description>I am involving myself in reading book these days rather than reading blogs. Here are 2 free e-books, one from Microsoft Press with a valuable insights on Cloud, Fundamental of Azure and the other from Telerik, The Developer&#39;s Guide To The New .NET. I encourage you to read both the books, but if you are not about cloud then you should read the book from Telerik.
+Microsoft Press - Fundamentals of Azure (Download)</description>
+    </item>
+    
+    <item>
+      <title>Using Skydrive REST API</title>
+      <link>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</link>
+      <pubDate>Sun, 28 Apr 2013 21:52:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/using-skydrive-rest-api/</guid>
+      <description>I have created a wrapper class to simplify my work with REST API. I assume that you will be using a web application. First step is to create an application at dev.live.com. Once the application is created you will have the ClientID, Client Secret and Redirect domain. We will be using a ClientID and Redirect domain. Remember that the Redirect domain value cannot have localhost. You must provide a correct domain name as after successful authentication you, the user will be redirected to the domain along with the access token.</description>
+    </item>
+    
+    <item>
+      <title>Free e-Book: UX Guidelines For Metro Style Apps For Windows 8</title>
+      <link>https://prashantkhandelwal.github.io/post/free-e-book-ux-guidelines-for-metro-style-apps-for-windows-8/</link>
+      <pubDate>Thu, 23 Aug 2012 15:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/free-e-book-ux-guidelines-for-metro-style-apps-for-windows-8/</guid>
+      <description>Microsoft made it available a free e-book for developers to understand UX Guidelines for Metro styled apps for Windows 8 and that too for both PC and tablets. This is an awesome resource which will let you know the basics and fundamentals while designing applications for PC annd tablets. As we all know that Windows 8 is the new OS with new UI design (metro) and it is necessary for every developer to know the basics before he starts developing the application for PC or for tablets.</description>
+    </item>
+    
+    <item>
+      <title>Microsoft Launches SkyDrive Application For Windows</title>
+      <link>https://prashantkhandelwal.github.io/post/microsoft-launches-skydrive-application-for-windows/</link>
+      <pubDate>Tue, 24 Apr 2012 13:38:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/microsoft-launches-skydrive-application-for-windows/</guid>
+      <description>On 23rd April Microsoft announces the launch of official SkyDrive application for Windows on Windows 8 blog. This is one of the most awaited applications among the developers and users. All we wanted is a simple app through which we can manage our cloud storage with ease. Download the SkyDrive app here.
+Here is what available now according to this blog post:
+  SkyDrive for the Windows desktop (preview available now).</description>
+    </item>
+    
+    <item>
+      <title>BingMap.JS - Jquery Plugin For Bing Maps</title>
+      <link>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</link>
+      <pubDate>Sat, 10 Mar 2012 16:39:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/bingmapjs-jquery-plugin-for-bing-maps/</guid>
+      <description>Bing maps are out there for a long time now and is getting mature pretty fast. I have used Bing maps myself in few of my projects and I remember as a first time user I have a hard time configuring it according to my project requirement. To get myself out of the overhead I searched the web for a jquery plugin, but I can&amp;rsquo;t find a single jquery plugin for Bing Maps instead I found few for Google Maps.</description>
+    </item>
+    
+    <item>
+      <title>Death Of Visual Studio Installer Projects After Visual Studio 2010 And NSIS &amp; Inno Setup Installers</title>
+      <link>https://prashantkhandelwal.github.io/post/death-of-visual-studio-installer-projects-after-visual-studio-2010-and-nsis-inno-setup-installers/</link>
+      <pubDate>Thu, 08 Mar 2012 03:36:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/death-of-visual-studio-installer-projects-after-visual-studio-2010-and-nsis-inno-setup-installers/</guid>
+      <description>I came across an announcement made by Candy Chiang at MSDN Forums at ClickOnce and Setup &amp;amp; Deployment Projects forums.
+ In Visual Studio 2010, we have partnered with Flexera, makers of InstallShield, to create InstallShield Limited Edition 2010 just for Visual Studio 2010 customers. The InstallShield Limited Edition 2010 offers comparable functionality to the Visual Studio Installer projects. In addition, you can build your deployment projects using Team Foundation Server and MSBuild.</description>
+    </item>
+    
+    <item>
+      <title>Introducing Visual Studio Achievements - Bringing Some Game To The Code</title>
+      <link>https://prashantkhandelwal.github.io/post/introducing-visual-studio-achievements-bringing-some-game-to-the-code/</link>
+      <pubDate>Sun, 22 Jan 2012 13:19:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/introducing-visual-studio-achievements-bringing-some-game-to-the-code/</guid>
+      <description>Another awesome stuff for developers from Microsoft! This past Wednesday Microsoftie Karsten Januszewski announced the Visual Studio Achievement Beta at Channel9. Guess what? as a developer, you are writing hundred lines of code every day without even getting noticed by the community!!? Well, you will get noticed now. Here is an extract from the official post from Channel9:
+ Bring Some Game To Your Code!
+A software engineer&amp;rsquo;s glory so often goes unnoticed.</description>
+    </item>
+    
+    <item>
+      <title>Top Visual Studio Extensions</title>
+      <link>https://prashantkhandelwal.github.io/post/top-visual-studio-extensions/</link>
+      <pubDate>Wed, 18 Jan 2012 04:00:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/top-visual-studio-extensions/</guid>
+      <description>Visual Studio comes up with loads of stuff making everyday life of a developer easy. But there are few extensions which Microsoft and other developers have created and are available for free to the community members. I have compiled a list of free and powerful extensions which will take your programming experience few more steps ahead with Visual Studio.
+NuGet Package Manager
+You should have a very good reason if you are not using this or if you are not aware what NuGet is.</description>
+    </item>
+    
+    <item>
+      <title>Prepare Your Site For IE9 With Pinify</title>
+      <link>https://prashantkhandelwal.github.io/post/prepare-your-site-for-ie9-with-pinify/</link>
+      <pubDate>Sat, 14 May 2011 23:10:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/prepare-your-site-for-ie9-with-pinify/</guid>
+      <description>This is great stuff. If you own a website or a blog you should use this excellent feature of pinning fav links of your site on user&amp;rsquo;s Windows 7 taskbar. Though this feature of IE9 was on hype since it&amp;rsquo;s beta realease. Now it&amp;rsquo;s time to use this feature for my blog. But before you start grab the latest stable version of the Pinify (formerly know as IE9ify) from Codeplex.</description>
+    </item>
+    
+    <item>
+      <title>Working With Microsoft Web Helpers In MVC 3 Razor View</title>
+      <link>https://prashantkhandelwal.github.io/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/</link>
+      <pubDate>Sun, 06 Mar 2011 10:58:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/</guid>
+      <description>Building applications with ASP.NET MVC 3 and that too with RAZOR is easy. I believe most of the programmers out there found MVC 3 with RAZOR view engine found it easy. The best things I found in the new RAZOR view engine is the code is pretty much tidy no traditional code behinds and moreover you can work with the server-side code with the start of the @ symbol.</description>
+    </item>
+    
+    <item>
+      <title>How To Free Up Gigs of Space On Your Window 7 Machine</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/</link>
+      <pubDate>Sat, 19 Feb 2011 03:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/</guid>
+      <description>I am now using Windows 7 since its beta release and so far my experience is awesome. But as a developer the hard drive space is always been a problem for me, no matter how many external drives or other stoarge devices you have connected to your machine but the disk space on the host machine is always a primary problem. Windows 7 is more stable OS in Windows family so far (I found it more stable than Win XP) and the reason it is being more stable because everytime you install a program on your Win 7 machine, it automatically creates a snapshot of the host drive.</description>
+    </item>
+    
+    <item>
+      <title>Integrate Bing Maps With Geonames Database And ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/integrate-bing-maps-with-geonames-database-and-aspnet/</link>
+      <pubDate>Tue, 08 Feb 2011 03:11:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/integrate-bing-maps-with-geonames-database-and-aspnet/</guid>
+      <description>To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&amp;rsquo;t it be nice if you just have to query a local database?</description>
+    </item>
+    
+    <item>
+      <title>Efficient Use Of Windows SkyDrive</title>
+      <link>https://prashantkhandelwal.github.io/post/efficient-use-of-windows-skydrive/</link>
+      <pubDate>Mon, 30 Aug 2010 16:05:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/efficient-use-of-windows-skydrive/</guid>
+      <description>If you are not using this free service offered by Microsoft, then stop reading and go to SkyDrive and sign in with your Live ID and get started. A whooping 25 GB of free space to put all your stuff at one place, access anytime, and anywhere you want and just in case if you are aware, which I hope you already are, why I am mentioning about skydrive here? So, here is the case&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Submit Your Site To Bing Search</title>
+      <link>https://prashantkhandelwal.github.io/post/submit-your-site-blog-to-bing-search/</link>
+      <pubDate>Fri, 26 Mar 2010 03:47:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/submit-your-site-blog-to-bing-search/</guid>
+      <description>If you want your website or blog content to be noticed or searched by Microsoft Bing search engine, then you can do this to get your work noticed. But beofre you can do this you need a Live ID a.k.a. Hotmail ID.
+Go to http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx
+Fill up your web address and sitemap address. Though the sitemap address is optional, but I recommened to give a sitemap as it help the crawlers to crawl all the pages on your website.</description>
+    </item>
+    
+    <item>
+      <title>Manage your Azure storage with ease!</title>
+      <link>https://prashantkhandelwal.github.io/post/manage-your-azure-storage-with-ease-with-azure-storage-explorer-and-cloud-storage-studio/</link>
+      <pubDate>Thu, 24 Dec 2009 14:30:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/manage-your-azure-storage-with-ease-with-azure-storage-explorer-and-cloud-storage-studio/</guid>
+      <description>If your are using Windows Azure for storing files here are the tools you should love to use to manage your Azure cloud storage.
+Azure Storage Explorer
+And
+Cloud Storage Studio
+If you don&amp;rsquo;t have an Azure account, then have one HERE</description>
+    </item>
+    
+    <item>
+      <title>Microsoft Event - Windows Mobile 6.5 &amp; .NET Framework 4.0</title>
+      <link>https://prashantkhandelwal.github.io/post/microsoft-event-windows-mobile-65-net-framework-40/</link>
+      <pubDate>Sat, 26 Sep 2009 22:24:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/microsoft-event-windows-mobile-65-net-framework-40/</guid>
+      <description>I attended the Microsoft developers event at NCUI auditorium in New Delhi on Windows Mobile® 6.5 and .NET Framework 4.0. Abhishek Baxi was a key speaker on Windows Mobile® 6.5. You can read his blog here. He demonstrates all the new features that Win Mob provides to the end users. How do we sync our data using cloud (Windows Live Mesh), configuring Outlook (Exchange ID) and even configure your live and other IDs, access internet using IE and develops gadgets and other application using VS2008 and 2010 on your phone.</description>
+    </item>
+    
+  </channel>
+</rss>

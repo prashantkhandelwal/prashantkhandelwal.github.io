@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Building MVC Application With Multiple Database Support Using Ninject • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Building MVC Application With Multiple Database Support Using Ninject"/>
+<meta name="twitter:description" content="I used to have BlogEngine.NET as my blogging platform before switching to WordPress, and that is because of my poor hosting provider who can’t afford few MBs on the shared hosting plans. I like BlogEngine.NET a lot because it is in .NET and on the other hand WordPress is on PHP which I don’t know. BlogEngine.NET is still evolving and is getting better with every release. BlogEngine.NET supports multiple databases like SQL Server, SQL Server CE, MySQL, XML file, VistaDB and may be few more."/>
+
+<meta property="og:title" content="Building MVC Application With Multiple Database Support Using Ninject" />
+<meta property="og:description" content="I used to have BlogEngine.NET as my blogging platform before switching to WordPress, and that is because of my poor hosting provider who can’t afford few MBs on the shared hosting plans. I like BlogEngine.NET a lot because it is in .NET and on the other hand WordPress is on PHP which I don’t know. BlogEngine.NET is still evolving and is getting better with every release. BlogEngine.NET supports multiple databases like SQL Server, SQL Server CE, MySQL, XML file, VistaDB and may be few more." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/building-mvc-application-with-multiple-database-support-using-ninject/" /><meta property="article:published_time" content="2013-05-13T14:33:00&#43;00:00"/>
+<meta property="article:modified_time" content="2013-05-13T14:33:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2019 Pashant Khandelwal
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="http://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Building MVC Application With Multiple Database Support Using Ninject</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> May 13, 2013
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/api">API</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/c">C#</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>I used to have <a href="http://blogengine.codeplex.com/">BlogEngine.NET</a> as my blogging platform before switching to <a href="http://wordpress.org/">WordPress</a>, and that is because of my poor hosting provider who can’t afford few MBs on the shared hosting plans. I like BlogEngine.NET a lot because it is in .NET and on the other hand WordPress is on PHP which I don’t know. BlogEngine.NET is still evolving and is getting better with every release. BlogEngine.NET supports multiple databases like SQL Server, SQL Server CE, MySQL, XML file, VistaDB and may be few more. As it is open-source, I jumped into the code and found it to be a bit hard to get through its implementation. To be frank, I didn’t look into that deep!! but it is not implementing what I was expecting it was. What I was expecting was the use of dependency injection (DI).</p>
+
+<p>I am constantly working on new projects open-source and freelanced and few of them are for fun. The application I am working on right now requires a multiple DB support. The main problem I am going to face is not writing different functions for different DB operations, but having them integrated at the time when the user selects the database. BlogEngine.NET implements it pretty impressively, but I was expecting something else. For my project I will be using <a href="http://www.ninject.org/">Ninject</a>. If you want to do for your application, then this is how you can do it.</p>
+
+<p>Create a new MVC internet application. First thing that we need to do is to add Ninject reference to the project by firing the below Nuget command. Remember that for MVC application you need to use Ninject.MVC3 and for other applications you need to use Ninject only: <code>Install-Package Ninject</code></p>
+
+<pre class="brush: plain">
+Install-Package Ninject.MVC3
+</pre>
+
+<p>When the library is installed successfully, you will notice a file under <code>App_Start</code> folder named <code>NinjectWebCommon.cs</code>. This is a very important file and we will look into it this later when we are done with other things.</p>
+
+<p><img src="/images/ninject-installation.png" alt="ninject installtion in web app" /></p>
+
+<p>What I am trying to achieve here is that my application would be able to support multiple databases and I also want to keep my code clean. I don’t want to handle it using some if..else conditions. Ninject does the work for me pretty well here. I will create an interface that will have all the functions which my wrapper classes will implement. For the sake of simplicity for this example I am going to perform basis CRUD operations, I will be writing code to implement two database support and will be using a custom written ORM called <a href="https://code.google.com/p/dapper-dot-net/">Dapper</a> to communicate to the DB (you can use EF if you wish). I will name my interface <code>IDBProvider</code>.</p>
+
+<pre class="brush: csharp">
+public interface IDBProvider
+{
+    bool Add(Friends friend);
+    bool Update(int Id, Friends friend);
+    bool Delete(int Id);
+    IEnumerable ListFriends();
+    Friends ListFriend(int Id);
+}
+</pre>
+
+<p>As you can see from the above code that I am using <code>Friends</code> model to save details of my friend. So here is my model.</p>
+
+<pre class="brush: csharp">
+public class Friends
+{
+    [Key]
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string Skype { get; set; }
+}
+</pre>
+
+<p>After this I am going to have support for two databases, SQL Server and SQL Server CE (4.0). For this I will create 2 classes which will implement the <code>IDBProvider</code> interface naming <code>SQLHelper.cs</code> and <code>SQLCEHelper.cs</code> respectively.</p>
+
+<h4 id="sqlhelper-cs">SQLHelper.cs</h4>
+
+<pre class="brush: csharp">
+public class SQLHelper : IDBProvider
+{
+    string ConStr = ConfigurationManager.ConnectionStrings["Con"].ConnectionString;
+  
+    public bool Add(Friends friend)
+    {
+        bool Added = false;
+  
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string insertSQL = "INSERT INTO Friends(Name, Email, Skype) VALUES (@Name, @Email, @Skype)";
+                con.Open();
+                con.Execute(insertSQL, new
+                {
+                    friend.Name,
+                    friend.Email,
+                    friend.Skype
+                });
+  
+                Added = true;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Added;
+    }
+  
+    public IEnumerable ListFriends()
+    {
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string strQuery = "Select Id, Name, Email, Skype FROM Friends";
+                con.Open();
+                var AllFriends = con.Query(strQuery);
+  
+                return AllFriends;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+  
+    public Friends ListFriend(int Id)
+    {
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string strQuery = "SELECT Id, Name, Email, Skype FROM Friends WHERE Id=" + Id;
+                con.Open();
+                var friend = con.Query(strQuery).Single();
+                return friend;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+  
+    public bool Update(int Id, Friends friend)
+    {
+        bool Update = false;
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string strUpdate = "UPDATE Friends SET Name = @Name, Email = @Email, Skype = @Skype WHERE Id = " + Id;
+                con.Open();
+                con.Execute(strUpdate, new
+                {
+                    friend.Name,
+                    friend.Email,
+                    friend.Skype
+                });
+  
+                Update = true;
+            }
+  
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Update;
+    }
+  
+    public bool Delete(int Id)
+    {
+        bool Deleted = false;
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string strDelete = "DELETE FROM Friends WHERE Id = " + Id;
+                con.Open();
+                int i = con.Execute(strDelete);
+                if (i > 0)
+                    Deleted = true;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Deleted;
+    }
+}
+</pre>
+
+<h4 id="sqlcehelper-cs">SQLCEHelper.cs</h4>
+
+<pre class="brush:csharp">
+public class SQLCEHelper : IDBProvider
+{
+    string ConStr = ConfigurationManager.ConnectionStrings["Con"].ConnectionString;
+  
+    public bool Add(Friends friend)
+    {
+        bool Added = false;
+  
+        try
+        {
+            using (SqlCeConnection con = new SqlCeConnection(ConStr))
+            {
+                string insertSQL = "INSERT INTO Friends(Name, Email, Skype) VALUES (@Name, @Email, @Skype)";
+                con.Open();
+                con.Execute(insertSQL, new
+                {
+                    friend.Name,
+                    friend.Email,
+                    friend.Skype
+                });
+  
+                Added = true;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Added;
+  
+    }
+  
+    public bool Update(int Id, Friends friend)
+    {
+        bool Update = false;
+        try
+        {
+            using (SqlCeConnection con = new SqlCeConnection(ConStr))
+            {
+                string strUpdate = "UPDATE Friends SET Name = @Name, Email = @Email, Skype = @Skype WHERE Id = "+Id;
+                con.Open();
+                con.Execute(strUpdate, new
+                {
+                    friend.Name,
+                    friend.Email,
+                    friend.Skype
+                });
+  
+                Update = true;
+            }
+  
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Update;
+    }
+  
+    public bool Delete(int Id)
+    {
+         bool Deleted = false;
+         try
+         {
+             using (SqlCeConnection con = new SqlCeConnection(ConStr))
+             {
+                 string strDelete = "DELETE FROM Friends WHERE Id = " + Id;
+                 con.Open();
+                 int i = con.Execute(strDelete);
+                 if (i > 0)
+                     Deleted = true;
+             }
+         }
+         catch (Exception x)
+         {
+             throw x;
+         }
+  
+         return Deleted;
+    }
+  
+    public IEnumerable ListFriends()
+    {
+        try
+        {
+            using (SqlCeConnection con = new SqlCeConnection(ConStr))
+            {
+                string strQuery = "Select Id, Name, Email, Skype FROM Friends";
+                con.Open();
+                var AllFriends = con.Query(strQuery);
+  
+                return AllFriends;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+  
+    public Friends ListFriend(int Id)
+    {
+        try
+        {
+            using (SqlCeConnection con = new SqlCeConnection(ConStr))
+            {
+                string strQuery = "SELECT Id, Name, Email, Skype FROM Friends WHERE Id=" + Id;
+                con.Open();
+                var friend = con.Query(strQuery).Single();
+                return friend;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+}
+</pre>
+
+<p>The question now here is that how would the application will know which DB to use as a data store? For this I made few settings in my web.config file. In the <code>appSettings</code> section I added a setting that will hold the value which we use as an identifier and connect to the DB. You can have different approach to achieve this, it is not at all necessary to use what I have used here. My app setting in web.config looks something like this:</p>
+
+<pre class="brush: xml">
+<add key="DBProvider" value="SQL"/>
+</pre>
+
+<p>When reading this settings I will be dynamically calling or injecting the code on the basis of the value of DBProvider in my app settings. In this case I will bind SQLHelper when the value is SQL and SQLCEHelper when the value is SQLCE. In the start of the tutorial I mentioned about the <code>NinjectWebCommon.cs</code> file in the <code>App_Start</code> folder. Here we will be looking into <code>CreateKernel</code> method as this is the place where I implement my helper classes.</p>
+
+<pre class="brush: csharp; highlight: [7, 8, 9, 10, 11, 12, 13, 14]">
+private static IKernel CreateKernel()
+{
+    var kernel = new StandardKernel();
+    kernel.Bind&lt;Func&lt;IKernel&gt;&gt;().ToMethod(ctx =&gt; () =&gt; new Bootstrapper().Kernel);
+    kernel.Bind&lt;IHttpModule&gt;().To&lt;HttpApplicationInitializationHttpModule&gt;();
+  
+    if (ConfigurationManager.AppSettings["DBProvider"].ToString().ToLower() == "sql")
+    {
+        kernel.Bind&lt;IDBProvider&gt;().To&lt;SQLHelper&gt;();
+    }
+    else
+    {
+        kernel.Bind&lt;IDBProvider&gt;().To&lt;SQLCEHelper&gt;();
+    }
+  
+    RegisterServices(kernel);
+    return kernel;
+}
+</pre>
+
+<p>Notice the highlighted code. I am conditionally binding the implementation on the basis of the settings in my web.config file. What exactly is happening here is that the code is being injected depending on the conditions and this is why we call it dependency injection.</p>
+
+<p>To get the benefit of this, we need to make few changes to our controller.</p>
+
+<pre class="brush: csharp">
+private readonly IDBProvider _dbProvider;
+  
+public HomeController(IDBProvider dbProvider)
+{
+    this._dbProvider = dbProvider;
+}
+</pre>
+
+<p>I have a default constructor which takes the IDBProvider as a parameter. The IDBProvider object is all we need which provides us all its implementation. To add a friend to DB you just have to call the Add method like <code>_dbProvider.Add(friend)</code>. Same for edit, update, delete and list all the friends. You noticed that no where in the code I have made use of the SQLHelper.cs or SQLCEHelper.cs classes. This is the awesomeness of DI.</p>
+
+<p>This is all it and now your application is flexible enough to use multiple databases. I strongly recommend you to read the documentation on Ninject at <a href="http://ninject.org/">Ninject.org</a> as it is vast and can be a life saver in many scenarios.</p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/async-controller-in-mvc-4/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">ASYNC Controller In MVC 4</span>
+    </a>
+    
+    
+    <a href="/post/html5-video-capture-and-upload-image-to-azure-storage/" class="navigation-next">
+      <span class="navigation-tittle">HTML5 Video - Capture And Upload Image To Azure Storage</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+
+<script>
+    SyntaxHighlighter.defaults['gutter'] = true;
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['auto-links'] = true;
+    SyntaxHighlighter.defaults['collapse'] = false;
+    SyntaxHighlighter.defaults['light'] = false;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['wrap-lines'] = true;
+    SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>
