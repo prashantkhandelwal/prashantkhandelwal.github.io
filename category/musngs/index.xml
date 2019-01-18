@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Musngs on Midnight Programmer</title>
+    <link>http://localhost:1313/category/musngs/</link>
+    <description>Recent content in Musngs on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 19 Feb 2013 14:57:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/category/musngs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Adobe Photoshop v1.0.1 Source Code Now Available For Download</title>
+      <link>http://localhost:1313/post/adobe-photoshop-v101-source-code-now-available-for-download/</link>
+      <pubDate>Tue, 19 Feb 2013 14:57:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/adobe-photoshop-v101-source-code-now-available-for-download/</guid>
+      <description>Download the source code for the very 1st version and one of its kind, the legendary photo editing software Adobe Photoshop. I remember, I read somewhere that they distributed the code on floppy disks. But here it is, after more than a decade the source code is now available to public.
+The source code is just 588KB!! and is hosted at computerhistory.org. You can download the complete source code here.</description>
+    </item>
+    
+  </channel>
+</rss>

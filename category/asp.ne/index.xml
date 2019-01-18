@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Asp.ne on Midnight Programmer</title>
+    <link>http://localhost:1313/category/asp.ne/</link>
+    <description>Recent content in Asp.ne on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Jun 2015 22:59:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/category/asp.ne/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting Started With ASP.NET 5 On Ubuntu</title>
+      <link>http://localhost:1313/post/getting-started-with-aspnet-5-on-ubuntu/</link>
+      <pubDate>Tue, 16 Jun 2015 22:59:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/getting-started-with-aspnet-5-on-ubuntu/</guid>
+      <description>Ever since the .NET stack went open source last year, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites.</description>
+    </item>
+    
+  </channel>
+</rss>
