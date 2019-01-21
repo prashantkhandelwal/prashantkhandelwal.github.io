@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2015-07-19T13:51:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2015-07-20T12:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,114 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/controlling-16x2-lcd-with-raspberry-pi-2-using-adafruit-library/">Controlling 16x2 LCD With Raspberry PI 2 Using Adafruit Library</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 20, 2015
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/raspberry-pi">RASPBERRY PI</a>
+      
+      
+      
+      
+    </span>
+    <p>As an enthusiast, I started working with embedded with <a href="http://www.netduino.com/">Netduino</a>. It was fun but at the same time Netduino was not offering that much things that I can do now. For a person like me who has no knowledge of electronics and C/C++, this was a gift. Now here I am using Raspberry PI&rsquo;s latest version and I have everything I ever wanted on a single piece of hardware.</p>
+
+<p>To get started with Python and Raspberry PI, I looked into the &ldquo;Hello World&rdquo; sort of LED blinking example. Using the LCD is the second thing I would like to test and so here it is. Before you start, here are the things you will need.</p>
+
+<ol>
+<li><p>1 x Raspberry PI 2</p></li>
+
+<li><p>LCD with 16x2 display - HD44780</p></li>
+
+<li><p>8 x Male-Female jumper wires</p></li>
+
+<li><p>5 x Male-Male jumper wires</p></li>
+</ol>
+
+<p>Here is the simple wiring to connect LCD with your Raspberry PI 2</p>
+
+<p><img src="/images/fritz-sketch-lcd.png" alt="Fritzing sketch for connecting LCD with Raspberry PI" /></p>
+
+<p>As you can see from the wiring diagram, the LCD will take up around 6 GPIO pins on your Raspberry PI. If you have some modules plugged in or you are planning to then there are chances that you will fall short of the GPIO pins. To save GPIO pins on your board, you can use MCP23008 or MCP23017 . To keep it simple, I am not using any port expanders for now.</p>
+
+<p>Now comes the code, I have a very little knowledge of Python at the moment. So I am going to stick with what I have read and tested. For controlling the LCD, I am going to use Adafruit&rsquo;s LCD library which you can get it from Github <a href="https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code">here</a>. I am going to use <code>Adafruit_CharLCD.py</code> to control my LCD. The thing to keep in mind is that you cannot use this library out of the box. You have to make a change to set the correct GPIO pins in the <code>__init__</code> function. Open the file using the below command.</p>
+
+<pre class="brush: bash">
+$ sudo nano Adafruit_CharLCD.py
+</pre>
+
+<p>If you are using the same wiring as I am, then change the <code>__init__</code> function like this</p>
+
+<pre class="brush: python">
+def __init__init(self, pin_rs=26, pin_e=19, pins_db=[13, 6, 5, 11], GPIO=None):
+</pre>
+
+<p>Save the changes and we are good to go. To check if the wiring and the code changes are done properly, execute the below command in the same directory.</p>
+
+<pre class="brush: bash">
+$ sudo ./Adafruit_CharLCD_IPclock_example.py
+</pre>
+
+<p><img src="/images/lcd-running.jpg" alt="LCD in action" /></p>
+
+<p>Let&rsquo;s try displaying some custom messages to the display with this simple program.</p>
+
+<pre class="brush: python">
+from Adafruit_CharLCD import Adafruit_CharLCD
+ 
+lcd = Adafruit_CharLCD()
+lcd.message("Raspberry PI 2\nLCD Demo")
+</pre>
+
+<p><img src="/images/lcd-text-display.jpg" alt="LCD display text" /></p>
+
+<p>Here is one more. The program will ask you to enter the string to display.</p>
+
+<pre class="brush: python">
+from Adafruit_CharLCD import Adafruit_CharLCD
+ 
+lcd = Adafruit_CharLCD()
+ 
+#Getting input from user
+msg = raw_input("Enter message to display\n")
+ 
+#Display it on the LCD
+lcd.message(str(msg))
+</pre>
+
+<p>The reason I am using Adafruit library to control the display is because it has other useful functions to control LCD. Here is the list of functions that you can try.</p>
+
+<p><code>clear()</code> - Clears the LCD and remove text from the memory.</p>
+
+<p><code>display()/noDisplay()</code> - Toggle the text visibility on the LCD. Text remains in the memory.</p>
+
+<p><code>cursor()/noCursor</code> - Toggle cursor visibility.</p>
+
+<p><code>blink()/noBlink()</code> - Toggle cursor blink.</p>
+
+<p><code>home()</code> - Take the cursor to the 0,0 position i.e. first column of first row.</p>
+
+<p><code>setCursor(col, row)</code> - Set the cursor to the specific position. Use <code>lcd.begin(col, rows)</code> to set the number of columns and rows your display has.</p>
+
+<p>I hope this will be useful to the people who are just getting started with Raspberry Pi. You can also download the complete source code from Github <a href="https://github.com/prashantkhandelwal/Pi-LCD">here</a>.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -632,202 +740,6 @@ public bool Save&lt;T&gt;(T Entity, string Path) where T : class
 <p>This code will compile and saves the JSON string to the specified path on execution. Notice the <code>Convert.ChangeType</code> function. It’s simple function which you can use to convert one type to your desired type. The only drawback here will be that you have to come here and update the function whenever you have a type of class added in the project which you want to serialize to JSON. The code is still pretty sleek according to me for the type of task I am trying to accomplish.</p>
 
 <p>The type T is very useful, but sometimes it may not solve all your problem.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/recurring-tasks-inside-aspnet-applications-using-hangfire/">Recurring Tasks Inside ASP.NET Applications Using HangFire</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 15, 2014
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/sql">SQL</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>This is open-source at its best. Running background task to work in context with ASP.NET was and is still a big deal for few developers. I user QueueUserWorkItem to schedule emails when a new comment is added on my blog. This makes sure that the UI is responsive and the user can close or navigate to other post. I have been working on enterprise applications for many years now and most of the long running tasks are running in the background i.e. windows services.</p>
-
-<blockquote>
-<p>HangFire is not limited to ASP.NET applications, you can even use it in your console applications.</p>
-</blockquote>
-
-<p>HangFire is an open-source project which allows us to run recurring tasks within the ASP.NET application. No need of scheduling tasks and windows services. Everything will be within the ASP.NET application. When a new comment is added on my blog, an email is sent to my inbox as a notification to moderate it. In a normal scenario it will take a bit more than a normal time to add a comment because an email is also being sent to my inbox. To overcome this problem, I queued the mail process in the background like so:</p>
-
-<pre class="brush: csharp">
-bool commentSave = _db.AddComment(comment);
-if (commentSave)
-{
-    System.Threading.ThreadPool.QueueUserWorkItem(s=&gt; BlogEmail.SendEmail(comment));
-    return Json(new { message = "Thanks for your comment. The comment is now awaiting moderation" });
-}
-else
-    return Json(new { message = "There is an error while saving comment. Please try again later" });
-</pre>
-
-<p>As soon as a comment is added, user will be prompted that comment is added in the DB but the process of sending the email is scheduled in the background. But this approach has a drawback. What if the email sending is failed? As the admin of my blog, will I be able to see the status of the process? HangFire resolves all these questions and it comes with an awesome HangFire monitor which displays the status of all the background tasks in real-time. I will discuss about the HangFire monitor later in this post, but first let&rsquo;s get started with HangFire.</p>
-
-<h4 id="installing-hangfire">Installing HangFire</h4>
-
-<p>HangFire is available on <a href="https://www.nuget.org/packages/HangFire/0.9.1">NuGet</a>. Firing the below command will automatically add the references in your project and takes care of all the configuration.</p>
-
-<pre class="brush: plain">
-Install-Package HangFire
-Attempting to resolve dependency 'HangFire.SqlServer (= 0.9.1)'.
-Attempting to resolve dependency 'HangFire.Core (= 0.9.1)'.
-Attempting to resolve dependency 'Common.Logging (= 2.1.2)'.
-Attempting to resolve dependency 'Newtonsoft.Json (= 5.0.0)'.
-Attempting to resolve dependency 'ncrontab (= 1.0.0)'.
-Attempting to resolve dependency 'Dapper (= 1.13)'.
-Attempting to resolve dependency 'HangFire.Web (= 0.9.1)'.
-Attempting to resolve dependency 'CronExpressionDescriptor (= 1.10.1)'.
-Attempting to resolve dependency 'WebActivatorEx (= 2.0.1)'.
-Attempting to resolve dependency 'Microsoft.Web.Infrastructure (= 1.0.0.0)'.
-Installing 'Common.Logging 2.1.2'.
-Successfully installed 'Common.Logging 2.1.2'.
-Installing 'ncrontab 1.0.0'.
-Successfully installed 'ncrontab 1.0.0'.
-Installing 'HangFire.Core 0.9.1'.
-Successfully installed 'HangFire.Core 0.9.1'.
-Installing 'Dapper 1.13'.
-Successfully installed 'Dapper 1.13'.
-Installing 'HangFire.SqlServer 0.9.1'.
-Successfully installed 'HangFire.SqlServer 0.9.1'.
-Installing 'CronExpressionDescriptor 1.10.1'.
-Successfully installed 'CronExpressionDescriptor 1.10.1'.
-Installing 'WebActivatorEx 2.0.1'.
-Successfully installed 'WebActivatorEx 2.0.1'.
-Installing 'HangFire.Web 0.9.1'.
-Successfully installed 'HangFire.Web 0.9.1'.
-Installing 'HangFire 0.9.1'.
-Successfully installed 'HangFire 0.9.1'.
-Adding 'Common.Logging 2.1.2' to HangfireDemo.
-Successfully added 'Common.Logging 2.1.2' to HangfireDemo.
-Adding 'ncrontab 1.0.0' to HangfireDemo.
-Successfully added 'ncrontab 1.0.0' to HangfireDemo.
-Adding 'HangFire.Core 0.9.1' to HangfireDemo.
-Successfully added 'HangFire.Core 0.9.1' to HangfireDemo.
-Adding 'Dapper 1.13' to HangfireDemo.
-Successfully added 'Dapper 1.13' to HangfireDemo.
-Adding 'HangFire.SqlServer 0.9.1' to HangfireDemo.
-Successfully added 'HangFire.SqlServer 0.9.1' to HangfireDemo.
-Adding 'CronExpressionDescriptor 1.10.1' to HangfireDemo.
-Successfully added 'CronExpressionDescriptor 1.10.1' to HangfireDemo.
-Adding 'WebActivatorEx 2.0.1' to HangfireDemo.
-Successfully added 'WebActivatorEx 2.0.1' to HangfireDemo.
-Adding 'HangFire.Web 0.9.1' to HangfireDemo.
-Successfully added 'HangFire.Web 0.9.1' to HangfireDemo.
-Adding 'HangFire 0.9.1' to HangfireDemo.
-Successfully added 'HangFire 0.9.1' to HangfireDemo.
-</pre>
-
-<p>I am using HangFire with ASP.NET MVC application. Here are the few things that you need to configure before you dive in. When installing HangFire via NuGet, it adds <code>HangFireConfig.cs</code> under <code>App_Start</code> folder. HangFire supports Redis, SQL Server, SQL Azure or MSMQ. I am using SQL Server in this demo. The reason we require this storage because it is being used by the HangFire monitor to display the real-time data of the jobs. To configure HangFire to use SQL Server, open HangFireConfig.cs file and change the connection string as per your SQL Server installation.</p>
-
-<pre class="brush: csharp">
-JobStorage.Current = new SqlServerStorage(
-    @"Server=GHOST\SERVER; Database=Jobs;user id=sa; password=pass#w0rd1;");
-</pre>
-
-<p>When the application first starts, all required database objects are created.</p>
-
-<p><img src="/images/sql-object-browser.png" alt="SQL Server DB for HangFire" /></p>
-
-<p>You can find the scripts inside the downloaded package <code>HangFire.SqlServer.0.9.1\Tools\install.sql</code>. The jobs and monitor will be using this database to show me the real-time status of the jobs running in the background. To view the HangFire monitor, simply navigate to <code>http://&lt;sitename&gt;/hangfire.axd</code>. As it is a handler, you can see it in your web.config file. Let&rsquo;s see it in action:</p>
-
-<p><img src="/images/hangfire-dashboard.png" alt="HangFire Dashboard" /></p>
-
-<p>The navigation pane on the right, lets you see the jobs and their status. It let&rsquo;s you even see the queues which are currently running.</p>
-
-<h4 id="scheduling-the-jobs">Scheduling the Jobs</h4>
-
-<p>Scheduling jobs using HangFire is easier then I thought it would be. Talking about the same example from my blog which sends email in my inbox when a new comment is added. If I want to schedule the mail send process as a background job I can do it easily using the <code>BackgroundJob</code> class.</p>
-
-<pre class="brush: csharp">
-bool commentSave = _db.AddComment(comment);
-if (commentSave)
-{
-    BackgroundJob.Enqueue(() => BlogEmail.SendEmail(comment));
-    return Json(new { message = "Thanks for your comment. The comment is now awaiting moderation" });
-}
-else
-    return Json(new { message = "There is an error while saving comment. Please try again later" });
-</pre>
-
-<p>As I require it to run only once I just have queue it using the <code>BackgroundJob.Enqueue()</code> method. I can also delay the execution of the job using the <code>Schedule</code> method of the <code>BackgroundJob</code> class.</p>
-
-<pre class="brush: csharp">
-bool commentSave = _db.AddComment(comment);
-if (commentSave)
-{
-    BackgroundJob.Schedule(() => BlogEmail.SendEmail(comment), TimeSpan.FromMinutes(60));
-    return Json(new { message = "Thanks for your comment. The comment is now awaiting moderation" });
-}
-else
-    return Json(new { message = "There is an error while saving comment. Please try again later" });
-</pre>
-
-<p>What if the email sending is failed? The <code>SendMail</code> method throws an exception that the mail sending is failed. HangFire will handle this by default and it will retry automatically 3 more times after a consecutive delay after each retry. But if I want to retry it more than 3 times then I can make use of the <code>AutomaticRetry</code> attribute and pass the number of retries I want, something like this:</p>
-
-<pre class="brush: csharp">
-[AutomaticRetry(Attempts = 5)]
-public bool SendEmail(Comment comment)
-{
-    //Email code
-}
-</pre>
-
-<p>Let&rsquo;s say if I do have another method that I want to run every minute (it&rsquo;s an overkill for my blog) then I will make use of <code>RecurringJob</code> class.</p>
-
-<pre class="brush: csharp">
-RecurringJob.AddOrUpdate(() => Storage.PunchIt(), Cron.Minutely);
-</pre>
-
-<p><code>Cron</code> enum allows me to schedule a job daily, weekly, monthly, yearly, hourly and minutely. Now as my job is schedule in the background, time to take a look at HangFire monitor.</p>
-
-<p><img src="/images/recurring-jobs.png" alt="Recurring Jobs in HangFire" /></p>
-
-<p><img src="/images/succeeded-jobs.png" alt="Succeeded Jobs in HangFire" /></p>
-
-<p>I have no idea why my Recurring Jobs screen is showing Next and Last execution time as 44 years ago. But you can see the Succeeded Jobs with a minute interval (#5 and #4). HangFire uses persistent storage and therefore you can trigger the job at your will or remove it when you feel like it. That means you configure the job in the code and manage it from the HangFire monitor.</p>
-
-<h4 id="what-else-you-can-do-with-hangfire">What else you can do with HangFire</h4>
-
-<p>I just showed you how easy it can be scheduling jobs using HangFire. But there are more advanced topics which you should be looking into for more complex implementation. HangFire supports logging, dependency injection using Ninject, multiple queue processing and more.</p>
-
-<h4 id="references">References</h4>
-
-<ul>
-<li><a href="https://github.com/odinserj/HangFire">HangFire - Github</a></li>
-<li><a href="http://hangfire.io/">HangFire.io - Offical site</a></li>
-<li><a href="http://docs.hangfire.io/en/latest/advfeatures.html">HangFire - Advance Features</a></li>
-<li><a href="http://docs.hangfire.io/en/latest/quickstart.html">HangFire - Quick Start</a></li>
-<li><a href="https://www.nuget.org/packages?q=hangfire">NuGet - HangFire libraries</a></li>
-</ul>
 
   </div>
   

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-09-26T22:24:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-10-14T05:16:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,41 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/t-sql-recently-executed-query/">T-SQL: Recently Executed Query</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 14, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>I am a regular reader of Pinal Dave&rsquo;s blog <a href="http://www.sqlauthority.com/">SqlAuthority</a>. I always found something new in his blog to work with SQL Server. Here is something I would like to share: Get the recent executed SQL Queries from SQL Server.</p>
+
+<pre class="brush:sql">
+SELECT deqs.last_execution_time AS [Time], dest.TEXT AS [Query]
+FROM sys.dm_exec_query_stats AS deqs CROSS APPLY sys.dm_exec_sql_text(deqs.sql_handle)
+AS destORDER BY deqs.last_execution_time DESC
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -528,67 +563,6 @@ select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
 set @error_code=8
 set @good=0
 end
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/c-method-encrypting-a-string-using-md5-algorithm/">C# Method: Encrypting a string using MD5 algorithm</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 20, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>Encrypting a string using the MD5 algorithm</p>
-
-<p>This C# method will encrypt any string using MD5 algorithm. It generates the same hash as the PHP MD5() function.</p>
-
-<pre class="brush:csharp">
-using System;using System.Collections.Generic;
-using System.Linq;using System.Text;
-using System.Text.RegularExpressions;
-using System.Security.Cryptography;
-namespace EncryptString
-{
-    class Program
-    {
-        public static string EncodePassword(string originalPassword)
-        {
-            Byte[] originalBytes;
-            Byte[] encodedBytes;
-            MD5 md5;
-            md5 = new MD5CryptoServiceProvider();
-            originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword);
-            encodedBytes = md5.ComputeHash(originalBytes);
-            return Regex.Replace(BitConverter.ToString(encodedBytes), "-", "").ToLower();
-         }
-         static void Main(string[] args)
-         {
-            Console.WriteLine("Enter a string to Encrypt");
-            string strEnc = Console.ReadLine();
-            Console.WriteLine(EncodePassword(strEnc));
-            Console.ReadLine();
-         }
-    }
-}
 </pre>
 
   </div>

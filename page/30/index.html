@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-07-11T18:15:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-07-20T00:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,67 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/c-method-encrypting-a-string-using-md5-algorithm/">C# Method: Encrypting a string using MD5 algorithm</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 20, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>Encrypting a string using the MD5 algorithm</p>
+
+<p>This C# method will encrypt any string using MD5 algorithm. It generates the same hash as the PHP MD5() function.</p>
+
+<pre class="brush:csharp">
+using System;using System.Collections.Generic;
+using System.Linq;using System.Text;
+using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+namespace EncryptString
+{
+    class Program
+    {
+        public static string EncodePassword(string originalPassword)
+        {
+            Byte[] originalBytes;
+            Byte[] encodedBytes;
+            MD5 md5;
+            md5 = new MD5CryptoServiceProvider();
+            originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword);
+            encodedBytes = md5.ComputeHash(originalBytes);
+            return Regex.Replace(BitConverter.ToString(encodedBytes), "-", "").ToLower();
+         }
+         static void Main(string[] args)
+         {
+            Console.WriteLine("Enter a string to Encrypt");
+            string strEnc = Console.ReadLine();
+            Console.WriteLine(EncodePassword(strEnc));
+            Console.ReadLine();
+         }
+    }
+}
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -341,34 +402,6 @@ private static extern bool SetDefaultPrinter(string printerName);
 //Set the default printer. I have set it as my Adobe PDF printer
 SetDefaultPrinter("Adobe PDF");
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/eject-and-pop-in-your-cd-dvd-with-a-hotkey/">Eject and Pop-in your CD / DVD with a hotkey</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 13, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p>If you are annoyed with the malfunctioning of your CD/DVD ROM. This small utility will help you to eject and and again pop-in inside the ROM. Just press CTRL + Q to toggle. Place it anywhere you like on your system, I recommend to create a folder and then place a this utility inside it as it will installs on the first time you run the application and start-up with your windows the next time you boot in.</p>
-
-<p><strong>Download Link: <a href="/files/CDAX.zip">CDAX.zip (113.18 kb)</a></strong></p>
 
   </div>
   

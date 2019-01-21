@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-05-24T13:18:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-05-25T15:51:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,54 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/import-csv-file-into-sql-server-using-bulk-insert/">Import CSV File Into SQL Server Using Bulk Insert</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 25, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>You have large data to import to SQL Server, and you have all the data in a CSV File (Comma Seperated Value file). Are you going to map the field one by one?</p>
+
+<p>OR just use a small function od SQL to import everything in the table. But before you proceed with this you need to map each column of CSV with the one with your table column. Look at the below quick example on how to use the BULK INSERT to import CSV file data into SQL Server.</p>
+
+<p><strong>Step 1:</strong> Create a CSV file.</p>
+
+<p><img src="/images/sql-bulkinsert-csv.jpg" alt="CSV file to bulk insert" /></p>
+
+<p><strong>Step 2:</strong> Create a table and map the fields accordingly: (Check below screenshot)</p>
+
+<p>Here is the CODE:</p>
+
+<pre class="brush:sql">
+BULK INSERT TestTable
+FROM 'c:\TestData.csv'  -- Full path of the CSV file
+WITH
+(
+FIELDTERMINATOR = ',', --CSV field delimiter
+ROWTERMINATOR = '\n'   --Use to shift the control to next row
+)
+</pre>
+
+<p><img src="/images/sql-bulkinsert-output.jpg" alt="SQL bulk insert ouput" /></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">

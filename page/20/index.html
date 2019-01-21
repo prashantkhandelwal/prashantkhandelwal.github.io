@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-09-12T11:00:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-09-25T22:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,128 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/extending-openid-implementation-with-aspnet-user-information-roles-and-membership/">Extending OpenID Implementation With ASP.NET: User Information/Roles and Membership</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 25, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      
+      
+      
+      
+    </span>
+    <p>Last month I have blogged on how you can integrate OpenID login support in your ASP.NET aplication. Some of the reader requested me that it would be better if I could show how you can implement membership and roles with OpenID authentication. It doesn&rsquo;t seems easy in the first place, because you will require a bit more informaton from the user like his name and e-mail address. So, what I am trying to show you here is how you can gather information of the user who has logged in with OpenID and then you can use that information to set roles and membership for your website. I am just extending the old sample project from my previous post to show you how you can get some of the basic information of the user including their e-mail address.</p>
+
+<p>I assume you have downloaded the complete solution from my previous post with OpenID login support, <a href="http://midnightprogrammer.net/file.axd?file=2010%2f8%2fDOTNETOAUTH.zip">download here</a> if you haven&rsquo;t yet. There is nothing new to be added in the application, instead we just need to change some properties of the OpenID control we have used. Click the control and press <code>F4</code> to get the properties up. Set the properties to <code>Request</code> to make sure that whenever a user sign-in with OpenID the API also makes a request to the service provider to get the information of the user signing in. I have request some of the basic information of the user by making them <code>Request</code>. It all depends on the author of the code what information he wants to see/require when the user gets logged in.</p>
+
+<p><img src="/images/openid-properties.png" alt="OpenID properties" /></p>
+
+<p>Now as you have set the properties, it&rsquo;s time to make a request to the provider and get the infromation. You need to do something special to get the details, sign-in as normally you would have done, but notice while re-directing the page URL will be something like this (only for a while):</p>
+
+<pre class="brush:plain">
+.............&openid.sreg.required=&openid.sreg.optional=nickname%2Cfullname%2Cdob%2Cgender%2Ccountry
+</pre>
+
+<p>Notice the last few options in the query string is requesting the parameters we have &ldquo;Requested&rdquo;. But you should also know that the values will be <code>null</code> if the user has not filled up his <code>Persona (Personal Details)</code>. If you try to fetch the details of the user, you will get a <code>null</code> value. So, it&rsquo;s pretty necessary that the user who has logged in using the OpenID should have his personal details filled up at the provider&rsquo;s end. This is how my personal details look like at OpenID (website) login.</p>
+
+<p><img src="/images/openid-persona.png" alt="OpenID persona" /></p>
+
+<p>Personas are actually the information of the user which will be delivered to the site or application where the user has logged in using OpenID. You can add/modify/delete a personas. Once you have the persona of the logged in user you can:</p>
+
+<ul>
+<li>Set the OpenID control to request the details of the users instead of providing the user to fill out a long registration form.</li>
+<li>Save the values to the database for future use.</li>
+<li>Use the information for setting Roles and Membership for your application.</li>
+</ul>
+
+<p>I&rsquo;ve already demonstrate in the above steps on how to set the OpenID user control to request the user details or personas.</p>
+
+<p><strong>What else I need to do</strong></p>
+
+<p>In Visual Studio, select the OpenID control and press <code>F4</code> to get the properties. Under method section double-click the <code>LoggedIn</code> method (The method name describes itself).</p>
+
+<p><img src="/images/openid-properties.png" alt="OpenID properties" /></p>
+
+<p>In this method, read the response and set it to the session variable. Give a name to the sesison variable.</p>
+
+<pre class="brush:csharp">
+protected void OpenIdLogin1_LoggedIn(object sender, DotNetOpenAuth.OpenId.RelyingParty.OpenIdEventArgs e)
+{
+        Session["OpenID"] = e.Response;
+}
+</pre>
+
+<p>When the user is successfully authenticated by the provider, user is re-directed to the default home page. Therefore, we need to handle the response on the home page. Add these two namespaces on the page code-behind.</p>
+
+<pre class="brush:csharp">
+using DotNetOpenAuth.OpenId.RelyingParty;
+using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
+</pre>
+
+<p>I am using the page load method so as to get the details and display it front of the user, you can also set the same details to fill up a registration form. To read the response from the session variable use the <code>IAuthenticationResponse</code> to read store the session value and then read it with <code>GetResponse&lt;ClaimResponse&gt;</code> method. Below is the complete code for your default.aspx page or the page you want the user to be re-directed. I have store the values in the public variables as I want to show the user details on the default page.</p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using DotNetOpenAuth.OpenId.RelyingParty;
+using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
+namespace DOTNETOAUTH
+{
+    public partial class _Default : System.Web.UI.Page    
+    {
+        IAuthenticationResponse OResponse;
+        public string UserName = string.Empty;
+        public string Gender = "No Gender Specified";
+        public string Country = string.Empty;
+        public string Nick = string.Empty;
+        public string Bday = string.Empty;
+ 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                OResponse = (IAuthenticationResponse)Session["OpenID"];
+                var details = OResponse.GetExtension&lt;ClaimsResponse&gt;();
+                UserName = details.FullName;
+                //email = details.Email;
+                Gender = details.Gender.ToString();
+                Country = details.Country;
+                Nick = details.Nickname;
+                Bday = details.BirthDate.ToString();
+            }
+            catch { }
+        }
+    }
+}
+</pre>
+
+<p>If any of the above values are not present in the user persona , it will result in an error, so make sure you have handle the exceptions properly. This is it, once you have the details you can use to store the details in the database, set roles and membership to the user logins. I have skip the part to set user roles and membership, once we have the user information we can use that information to set roles or just save the information in the database.</p>
+
+<p><img src="/images/openid-webapp.png" alt="OpenID web app result" /></p>
+
+<p><strong>Download: <a href="/files/DOTNETOAUTH - UserData.zip">DOTNETOAUTH - UserData.zip (552.20 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -529,34 +651,6 @@ TagPrefix="rp" %&gt;
 <li><a href="https://www.idselector.com/">https://www.idselector.com/</a></li>
 <li><a href="http://www.hanselman.com/blog/TheWeeklySourceCode25OpenIDEdition.aspx">Scott Hanselman - Weekly Source Code 25</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/what-your-e-mail-address-says-about-your-computer-skills/">What Your e-mail Address Says About Your Computer Skills</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 17, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/fundoo">FUNDOO</a>
-      
-      
-      
-      
-    </span>
-    <p>Just stumble upon this pic. Check, what it has to say about your computer skills!</p>
-
-<p><img src="/images/email-skills.png" alt="Email skills" /></p>
 
   </div>
   

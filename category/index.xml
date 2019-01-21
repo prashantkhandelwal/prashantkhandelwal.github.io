@@ -68,7 +68,7 @@
     <item>
       <title>Azure</title>
       <link>https://prashantkhandelwal.github.io/category/azure/</link>
-      <pubDate>Sun, 03 Sep 2017 15:40:00 +0000</pubDate>
+      <pubDate>Sun, 20 Jan 2019 16:54:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/azure/</guid>
       <description></description>
@@ -95,7 +95,7 @@
     <item>
       <title>Cloud</title>
       <link>https://prashantkhandelwal.github.io/category/cloud/</link>
-      <pubDate>Wed, 17 May 2017 16:12:00 +0000</pubDate>
+      <pubDate>Sun, 20 Jan 2019 16:54:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/cloud/</guid>
       <description></description>
@@ -120,11 +120,29 @@
     </item>
     
     <item>
+      <title>Container</title>
+      <link>https://prashantkhandelwal.github.io/category/container/</link>
+      <pubDate>Sun, 20 Jan 2019 16:54:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/container/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Devbuzz</title>
       <link>https://prashantkhandelwal.github.io/category/devbuzz/</link>
       <pubDate>Fri, 29 Apr 2016 13:51:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/devbuzz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://prashantkhandelwal.github.io/category/docker/</link>
+      <pubDate>Sun, 20 Jan 2019 16:54:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/docker/</guid>
       <description></description>
     </item>
     
