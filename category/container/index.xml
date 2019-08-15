@@ -6,7 +6,7 @@
     <description>Recent content in Container on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Jan 2019 16:54:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 20 Jan 2019 05:25:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/category/container/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Hosting Draw.IO In Azure Web App Containers</title>
       <link>https://prashantkhandelwal.github.io/post/hosting-drawio-in-azure-webapp-containers/</link>
-      <pubDate>Sun, 20 Jan 2019 16:54:00 +0000</pubDate>
+      <pubDate>Sun, 20 Jan 2019 05:25:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/post/hosting-drawio-in-azure-webapp-containers/</guid>
       <description>Draw.IO is a great alternative for Microsoft Visio. It allows me to quickly draw flowcharts and diagrams. I have been using this for a long time and the best part is that Draw.IO is open source on Github with web and offline (desktop) version. I personally use desktop version but what if I would like to host it in my own org or would like to work with the web instance instead of the desktop version.</description>
