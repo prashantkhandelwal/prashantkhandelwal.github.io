@@ -95,7 +95,7 @@
     <item>
       <title>Cloud</title>
       <link>https://prashantkhandelwal.github.io/category/cloud/</link>
-      <pubDate>Sun, 20 Jan 2019 05:25:00 +0000</pubDate>
+      <pubDate>Mon, 04 Jan 2021 20:27:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/cloud/</guid>
       <description></description>
@@ -192,6 +192,24 @@
     </item>
     
     <item>
+      <title>K3s</title>
+      <link>https://prashantkhandelwal.github.io/category/k3s/</link>
+      <pubDate>Mon, 04 Jan 2021 20:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/k3s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://prashantkhandelwal.github.io/category/linux/</link>
+      <pubDate>Mon, 04 Jan 2021 20:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Microsoft</title>
       <link>https://prashantkhandelwal.github.io/category/microsoft/</link>
       <pubDate>Sun, 16 Oct 2016 20:04:00 +0000</pubDate>
@@ -233,6 +251,15 @@
       <pubDate>Mon, 04 Jul 2011 14:26:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/net-framework/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Open Source</title>
+      <link>https://prashantkhandelwal.github.io/category/open-source/</link>
+      <pubDate>Mon, 04 Jan 2021 20:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/open-source/</guid>
       <description></description>
     </item>
     
@@ -293,7 +320,7 @@
     <item>
       <title>Ubuntu</title>
       <link>https://prashantkhandelwal.github.io/category/ubuntu/</link>
-      <pubDate>Sun, 22 Oct 2017 15:28:00 +0000</pubDate>
+      <pubDate>Mon, 04 Jan 2021 20:27:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/ubuntu/</guid>
       <description></description>
