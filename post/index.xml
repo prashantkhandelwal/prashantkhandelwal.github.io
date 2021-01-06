@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Jan 2019 05:25:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Jan 2021 20:27:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Installing OpenFaaS On k3s (Single Node)</title>
+      <link>https://prashantkhandelwal.github.io/post/installing-openfaas-on-k3s-single-node/</link>
+      <pubDate>Mon, 04 Jan 2021 20:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/installing-openfaas-on-k3s-single-node/</guid>
+      <description>If you have ever got your hands on Azure Function or on AWS Lambda, then you might be familiar with the concept of serverless computing. So in order to test the concept of a function (serverless function), we have to have an Azure or an AWS account. The SDK from both the platforms allow you to build, develop and test the functions on your local development machine, but when it comes to production environment, you again have to turn yourself to Azure or AWS for hosting it.</description>
+    </item>
     
     <item>
       <title>Hosting Draw.IO In Azure Web App Containers</title>
