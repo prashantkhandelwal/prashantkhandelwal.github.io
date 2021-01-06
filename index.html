@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2019-01-20T05:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2021-01-04T20:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2021 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,227 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/installing-openfaas-on-k3s-single-node/">Installing OpenFaaS On k3s (Single Node)</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 4, 2021
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/linux">LINUX</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/open-source">OPEN SOURCE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/k3s">K3S</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>If you have ever got your hands on Azure Function or on AWS Lambda, then you might be familiar with the concept of serverless computing. So in order to test the concept of a function (serverless function), we have to have an Azure or an AWS account. The SDK from both the platforms allow you to build, develop and test the functions on your local development machine, but when it comes to production environment, you again have to turn yourself to Azure or AWS for hosting it. <a href="https://www.openfaas.com/">OpenFaaS</a> is an open-source product developed by <a href="https://github.com/alexellis">Alex Ellis</a> which help developers to deploy event-driven functions, time triggered and microservices to Kubernetes without repetitive, boiler-plate coding. Let&rsquo;s see how we can deploy OpenFaas on Ubuntu 20.04 LTS using <a href="https://k3s.io">k3s</a>. You can also make use of another Kubernetes flavour which suites your needs.</p>
+
+<h3 id="installing-k3s"><strong>Installing k3s</strong></h3>
+
+<p>I am making use of Lightweight Kubernetes also known as k3s. This is a certified Kubernetes distribution built for IoT and Edge computing.</p>
+
+<pre class="brush:shell">
+$ curl -sfL https://get.k3s.io | sh -
+</pre>
+
+<p><img src="/images/installing-k3s.png" alt="Installing k3s" /></p>
+
+<p>After the installation is completed, you can check if the k3s service is running by executing the below command.</p>
+
+<pre class="brush:shell">
+$ sudo systemctl status k3s
+</pre>
+
+<p><img src="/images/k3s-service-status.png" alt="Check k3s service status" /></p>
+
+<h3 id="install-faas-cli"><strong>Install faas-cli</strong></h3>
+
+<p><code>faas-cli</code> is a command line utility which let you work with OpenFaaS.</p>
+
+<pre class="brush:shell">
+$ curl -sL https://cli.openfaas.com | sudo sh
+</pre>
+
+<p><img src="/images/installing-openfaas-cli.png" alt="Installing OpenFaaS CLI" /></p>
+
+<h3 id="installing-arkade"><strong>Installing arkade</strong></h3>
+
+<p><a href="https://github.com/alexellis/arkade">Arkade</a> is a Kubernetes app installer. It allows you to install apps and charts to your cluster in one command. The official documentation of OpenFaaS states that using <code>arkade</code> is the fastest option. If you wish you can also make use of <code>Helm</code> to install but as I am installing it on a single node machine, I will stick with <code>arkade</code> option.</p>
+
+<p>Run the below command to download and install it.
+<pre class="brush:shell">
+$ curl -SLsf <a href="https://dl.get-arkade.dev/">https://dl.get-arkade.dev/</a> | sudo sh
+</pre></p>
+
+<p><img src="/images/installing-arkade.png" alt="Installing Arkade" /></p>
+
+<h3 id="installing-openfaas"><strong>Installing OpenFaaS</strong></h3>
+
+<p>Installing OpenFaaS with <code>arkade</code> is extremely simple and you can get the installation done by executing this command:</p>
+
+<pre class="brush:shell">
+$ arkade install openfaas
+</pre>
+
+<p>This should install OpenFaaS but unfortunately on my machine this results into an error. Below are the two screenshots that I took when I got this error. The first screenshot says there is a permission error in <code>/etc/rancher/k3s/k3.yaml</code>. For the resolution of this error, I changed the permission on the file to <code>744</code> and the error goes away.</p>
+
+<p><img src="/images/installing-openfaas-using-arkade-error1.png" alt="Installing Arkade - Error 1" /></p>
+
+<p>If you scroll down to the end of the command you will notice that there is another error which states that <code>Kubernetes cluster unreachable</code>.</p>
+
+<p><img src="/images/installing-openfaas-using-arkade-error2.png" alt="Installing Arkade - Error 2" /></p>
+
+<p>Even knowing that <code>k3s</code> service is up and running I was not able to figure out what could be a problem. So I searched the web and found <a href="https://github.com/k3s-io/k3s/issues/1126">this issue thread on Github</a> in which one of the <a href="https://github.com/k3s-io/k3s/issues/1126#issuecomment-560504204">commenters</a> were able to fix this error by running the below command.</p>
+
+<pre class="brush:shell">
+$ kubectl config view --raw > ~/.kube/config
+</pre>
+
+<blockquote>
+<p>I tried this installation on Raspberry PI 4 running Raspbian buster x64 and there as well I saw these error messages.</p>
+</blockquote>
+
+<p>After this, you can run the installation of OpenFaaS using <code>arkade</code> again and this time it should be successfull. Here is the output on my system after the installation was successfull.</p>
+
+<pre class="brush:plain">
+prashant@ubuntu:~$ arkade install openfaas
+Using Kubeconfig: /etc/rancher/k3s/k3s.yaml
+Using kubeconfig: 
+Node architecture: "amd64"
+Client: "x86_64", "Linux"
+2021/01/04 08:34:42 User dir established as: /home/prashant/.arkade/
+Using Kubeconfig: 
+[Warning] unable to create secret basic-auth, may already exist: Error from server (AlreadyExists): secrets "basic-auth" already exists
+"openfaas" has been added to your repositories
+
+VALUES values.yaml
+Command: /home/prashant/.arkade/bin/helm [upgrade --install openfaas openfaas/openfaas --namespace openfaas --values /tmp/charts/openfaas/values.yaml --set clusterRole=false --set operator.create=false --set gateway.replicas=1 --set queueWorker.replicas=1 --set basic_auth=true --set serviceType=NodePort --set gateway.directFunctions=true --set openfaasImagePullPolicy=IfNotPresent --set faasnetes.imagePullPolicy=Always --set basicAuthPlugin.replicas=1 --set ingressOperator.create=false --set queueWorker.maxInflight=1]
+Release "openfaas" does not exist. Installing it now.
+NAME: openfaas
+LAST DEPLOYED: Mon Jan  4 08:34:45 2021
+NAMESPACE: openfaas
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+To verify that openfaas has started, run:
+
+  kubectl -n openfaas get deployments -l "release=openfaas, app=openfaas"
+=======================================================================
+= OpenFaaS has been installed.                                        =
+=======================================================================
+
+# Get the faas-cli
+curl -SLsf https://cli.openfaas.com | sudo sh
+
+# Forward the gateway to your machine
+kubectl rollout status -n openfaas deploy/gateway
+kubectl port-forward -n openfaas svc/gateway 8080:8080 &
+
+# If basic auth is enabled, you can now log into your gateway:
+PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
+echo -n $PASSWORD | faas-cli login --username admin --password-stdin
+
+faas-cli store deploy figlet
+faas-cli list
+
+# For Raspberry Pi
+faas-cli store list \
+ --platform armhf
+
+faas-cli store deploy figlet \
+ --platform armhf
+
+# Find out more at:
+# https://github.com/openfaas/faas
+
+Thanks for using arkade!
+</pre>
+
+<p>The output contains important information which we need to get started with <code>faas-cli</code> and <code>OpenFaaS</code>. As we have already install <code>faas-cli</code>, we will now need to forward the gateway to the machine.</p>
+
+<p>First we will check the rollout status of the <code>gateway</code> by issuing the below command:</p>
+
+<pre class="brush:shell">
+$ kubectl rollout status -n openfaas deploy/gateway
+</pre>
+
+<p><img src="/images/checking-rollout-status-of-gateway-deployment.png" alt="Checking roolout status of gateway deployment" /></p>
+
+<p>The above command should state that it is successfull. After this we can forward the gateway to the machine.</p>
+
+<pre class="brush:shell">
+$ kubectl port-forward -n openfaas svc/gateway 8080:8080 &
+</pre>
+
+<p><img src="/images/port-forwarding.png" alt="Port Forwarding" /></p>
+
+<p>The <code>&amp;</code> sign in the end of the command will execute it in the background. You can type in <code>jobs</code> to check the status of the job.</p>
+
+<p>We also need to check if the deployment is in ready state or not. To check the deployment state execute the command:</p>
+
+<pre class="brush:shell">
+$ kubectl get deployments -n openfaas -l "release=openfaas, app=openfaas"
+</pre>
+
+<p><img src="/images/post-installation-openfaas-check-deployments.png" alt="Post installation openfaas - check deployment" /></p>
+
+<p>If any of the app deployed is not ready, you should be able to see it now. Check the <strong><code>READY</code></strong> column in the command output and you should see something <strong><code>0/1</code></strong>. This would mean that the deployment is not ready and you should check back in sometime. Once you have the output like the one in the screenshot above, you are good to go.</p>
+
+<p>Now the last step is to acquire the password for OpenFaaS UI which we will use to manage OpenFaaS. To do that execute the below command:</p>
+
+<pre class="brush:shell">
+$ PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
+echo -n $PASSWORD | faas-cli login --username admin --password-stdin
+</pre>
+
+<p><img src="/images/get-password-for-openfaas-ui.png" alt="Get password for OpenFaaS UI" /></p>
+
+<p>You can then view the password by printing the value of the <code>PASSWORD</code> variable using the <code>echo</code> command.</p>
+
+<pre class="brush:shell">
+$ echo PASSWORD
+</pre>
+
+<p>Copy and save the password securely.</p>
+
+<p>Now let&rsquo;s try accessing the OpenFaaS UI (OpenFaaS Portal) by navigating to the <code>http://localhost:31112/ui</code> or by using the IP address of machine instead of localhost if you are accessign it from another machine on your network.</p>
+
+<p><img src="/images/openfaas-portal-login.png" alt="Login prompt for OpenFaaS Portal" /></p>
+
+<p><code>Username</code> is set to <code>admin</code> by default and the password is the one which you saved in the above step.</p>
+
+<p>Click on the <code>Deploy New Function</code> link located at the center of the home page or at the left side bar. You will be able to see the list of the different functions which you can deploy by just selecting the function from the list and then clicking the <code>Deploy</code> button at the bottom of the dialog.</p>
+
+<blockquote>
+<p>Note that the list of functions that you see in the <code>Deploy new Function</code> dialog will be different on Raspberry PI as OpenFaaS will only list the functions which are available for the platform on which it is running.</p>
+</blockquote>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -631,268 +852,6 @@ private static byte[] ConvertStreamToByteArray(Stream input)
     <p>A video tutorial on how you can enable Multi Factor Authentication or MFA as it is called, for the users in the Azure Active Directory.</p>
 
 <p><a href="https://www.youtube.com/watch?v=cUFhOsKZ0uc&amp;t=1s" title="Enable Multi Factor Authentication for users in Azure Active Directory"><img src="http://img.youtube.com/vi/cUFhOsKZ0uc/0.jpg" alt="Enable Multi Factor Authentication for users in Azure Active Directory" /></a></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/hosting-aspnet-core-web-application-on-azure-linux-vm/">Hosting ASP.NET Core Web Application On Azure Linux VM</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 17, 2017
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>I run this blog on Azure as a Web App. I was planning to host it using a VM just for fun but I dropped the idea and choose Web Apps for my blog as a simple medium with less deployment effort and no server management at all. This blog post is mostly me documenting the steps to deploy or host the application on an Azure Linux Virtual Machine.</p>
-
-<h3 id="choosing-creating-setting-up-the-linux-vm-on-azure">Choosing/creating/setting up the Linux VM on Azure</h3>
-
-<p>As this is just a demo, I will provisioned a small VM. You can use Azure-CLI to do that or you can just do it from the Azure Portal. I am using Azure Portal to do that. My choice of selection is an Ubuntu 16.04 LTS machine where LTS stands for <code>L</code>ong <code>T</code>erm <code>S</code>upport which means that I am going to get the support for this version for a long time. To Create a new VM in Azure, click the <code>Virtual Machines</code> icon on the left hand side navigation pane and then click <code>Create Virtual machines</code> link in the center of the page. It will open up another pane where you can select the type of OS or type of select a VM from predefined VM templates. In my case I am selecting <code>Ubuntu Server</code> and then the version as <code>16.04 LTS</code>. To create a VM click <code>Create</code> button as shown in the screen shot below.</p>
-
-<p><img src="/images/create-azure-vm.png" alt="Creating Azure VM" /></p>
-
-<p>In the next pane, provide some basic details to create a VM. You can choose whatever you want as per your business needs. This is what my basic details looks like.</p>
-
-<p><img src="/images/create-vm-blade1.png" alt="Creating Azure VM Blade 1" /></p>
-
-<blockquote>
-<p>Please note that by default Super User or SU is disabled in Azure linux VM. If I want to execute any command as a root, all I have to do is to add <code>sudo</code> and use the same password for my user name on that VM.</p>
-</blockquote>
-
-<p>Click <code>OK</code> and proceed to select the VM size. By default, it will present you with some recommendations from the Azure itself. Click on <code>View All</code> to view all VM size offerings available. I am selecting <code>A1</code> for this example. When in production, you should choose very wisely based on your requirements.</p>
-
-<p><img src="/images/create-vm-size.png" alt="Creating Azure VM Size Blade" /></p>
-
-<p>I will leave the <code>Settings</code> as it is.</p>
-
-<p><img src="/images/create-vm-settings-blade.png" alt="Creating Azure VM Settings Blade" /></p>
-
-<p>Hit <code>OK</code> to run the final validation. In the final pane, click <code>OK</code> again to submit the deployment request to Azure to provision a new VM. It will take a while to create a VM and once it is done it will open up a VM home page where you can see the stats for the VM and do other administrative tasks on your newly created VM. It is a server distribution of Ubuntu and hence there will be no GUI for us to work with. SSH will be our only way in to the VM here. In the VM home page click the <code>Connect</code> button and it will prompt you with the SSH command which you will be using to connect to this VM. Here is what I get after executing the VM command for the first time.</p>
-
-<p><img src="/images/vm-connect-shell.png" alt="Connecting via shell" /></p>
-
-<p>And this is it, we have an Ubuntu Server 16.04 LTS running the cloud. The next step is to install .NET Core on this VM.</p>
-
-<h3 id="installing-net-core">Installing .NET Core</h3>
-
-<p>Install .NET Core on Ubuntu or on any other Linux distribution is dead easy. The documentation itself is enough to get you started. Head over to this <a href="https://www.microsoft.com/net/core#linuxubuntu">link</a> where you can find the latest release of .NET Core for all Linux distributions. Select the right version of Ubuntu from the documentation before running the command. i have installed Ubuntu Server 16.04 and so the commands I will be executing are:</p>
-
-<pre class="brush: bash">
-$ sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
-$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
-$ sudo apt-get update
-</pre>
-
-<p><img src="/images/dotnet-install.png" alt="Installing dotnet" /></p>
-
-<p>After the update is completed, you are good to install the latest version of .NET with this simple command.</p>
-
-<pre class="brush: bash">
-$ sudo apt-get install dotnet-dev-1.0.1
-</pre>
-
-<p><img src="/images/dotnet-install-continue.png" alt="Continue dotnet core" /></p>
-
-<p>Once the installation is completed, create a new directory with any name of your choice. I give it a name <code>testApp</code> and cd into the new directory like so.</p>
-
-<pre class="brush: bash">
-$ mkdir testApp && cd testApp
-</pre>
-
-<p>Because I am going to execute the dotnet command for the first time, dotnet CLI utility will populate the local package cache to improve restore speed of the packages and to enable offline access. Inside the testApp directory create a new web app by executing the below command.</p>
-
-<pre class="brush: bash">
-$ dotnet new mvc --auth None --framework netcoreapp1.1
-</pre>
-
-<p>Here I am telling the dotnet command utility to create a <code>new</code> application by using the <code>mvc</code> as a template with no authentication of any kind and targeted framework version is <code>1.1</code>. Now if I do <code>ls</code> in the directory I will see the following contents.</p>
-
-<p><img src="/images/dotnet-new-app.png" alt="Creating a new app using dotnet CLI" /></p>
-
-<p>Next thing to do is to restore the packages with restore command.</p>
-
-<pre class="brush: bash">
-$ dotnet restore
-</pre>
-
-<p>After the restore is complete, let&rsquo;s run the application and check if it runs properly or not. To check this we can run the command</p>
-
-<pre class="brush: bash">
-$ dotnet run
-</pre>
-
-<p><img src="/images/dotnet-run-command.png" alt="dotnet run command" /></p>
-
-<p>Our web application is now running on the VM. Now let&rsquo;s try to access it from the local browser with the web address like this.</p>
-
-<pre class="brush: plain">
-http://&lt;ip-address-of-the-vm&gt;:5000
-</pre>
-
-<p>You will notice that you cannot reach the site you have it running on the VM. This is because of many reasons when working with VM. First the port 5000 is not accessible from outside. I have to create a firewall exception to make it accessible from outside. Even if I want to do that, it still not a good idea to have your site visitors to use 5000 as a port address along with the domain name. To overcome this issue and to have a more control over the web server, I now need to install a web server which acts as a reverse proxy for my .NET core application running on VM. One more thing I would like to highlight here is that when I execute the above command you can notice that the terminal window is now hanged up with the dotnet server running. If I terminate the command, it will also terminate my application. I will show you how to overcome this issue in the section where I am going to configure the Nginx server to serve as a reverse proxy for my application.</p>
-
-<h3 id="install-nginx-web-server">Install Nginx Web Server</h3>
-
-<p>Internally .NET Core used <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/#kestrel">Kestrel Server</a> and is installed by default with the project. I cannot use it as a production ready server to host my application and therefore I am going to install Nginx web server and then configure it as a reverse proxy. To install Nginx I am just going to use a simple <code>apt-get</code> command to install it and then start the service.</p>
-
-<pre class="brush: bash">
-$ sudo apt-get install nginx
-$ sudo service nginx start
-</pre>
-
-<p><img src="/images/Install-running-nginx.png" alt="dotnet run command" /></p>
-
-<p>After the installation is done, I should be able to access the default web page delivered by Nginx server by typing the IP address of the VM. If you try this now, it will not work because of the VM <code>Network Security Group</code> in Azure will not let you access it. By default only SSH connections are allowed to the VM. I want to have the HTTP as web applications work on HTTP. Under <code>Network Interfaces</code> of the VM, click on <code>Network Security Groups</code>. Here you can see the <code>Inbound</code> and <code>Outbound</code> security rules. Under <code>Inbound Security Rules</code>, you can see that there is only one rule which is allowing you to have a SSH connection with the VM.</p>
-
-<p><img src="/images/nsg-rules.png" alt="Firewall" /></p>
-
-<p>Under <code>Settings</code>, click <code>Inbound security rules</code> and then click <code>Add</code> to add a new inbound rule.</p>
-
-<p><img src="/images/nsg-inbound-rules.png" alt="Firewall inbound rules" /></p>
-
-<p>I have selected the <code>HTTP</code> from the <code>Service</code> dropdown. This will automatically set the <code>Protocol</code>, <code>Port range</code> and <code>Action</code>. Click <code>OK</code> to set the rule.</p>
-
-<p><img src="/images/firewall-rules-list.png" alt="Firewall rules list" /></p>
-
-<p>Let&rsquo;s try accessing the web page again and this time I should be able to see the default Nginx web page.</p>
-
-<p><img src="/images/nginx-running.png" alt="NGINX Running" /></p>
-
-<p>Time to configure the web server as a reverse proxy for my web application. Open the config file from the below location.</p>
-
-<pre class="brush: bash">
-$ sudo nano /etc/nginx/sites-available/default
-</pre>
-
-<p>Add the below lines in the config file. The configurations I added are pretty self-explanatory. I recommend reading the complete configuration of Nginx <a href="http://rehansaeed.com/nginx-asp-net-core-depth/">here</a>.</p>
-
-<p><img src="/images/nginx-config.png" alt="NGINX Configuration" /></p>
-
-<p>If you made the changes when the server was running then either restart the server to reload the settings or execute the below command to reload the settings without restarting the server.</p>
-
-<pre class="brush: bash">
-$ sudo nginx -s reload
-</pre>
-
-<p>To publish the website, you also have to publish it with release configuration. With .NET Core, there are 2 ways of doing it. The <a href="https://docs.microsoft.com/en-us/dotnet/articles/core/deploying/">.NET Core Guide</a> states 2 methods of deploying the web application.</p>
-
-<ol>
-<li>Framework-Dependent Deployment (FDD)</li>
-<li>Self-Contained Deployment (SCD)</li>
-</ol>
-
-<p>As per the documentation FDD and SCD are described as follows:</p>
-
-<blockquote>
-<p>For an FDD, you deploy only your app and any third-party dependencies. You don&rsquo;t have to deploy .NET Core, since your app will use the version of .NET Core that&rsquo;s present on the target system. This is the default deployment model for .NET Core apps.</p>
-</blockquote>
-
-<p>For a self-contained deployment, you deploy your app and any required third-party dependencies along with the version of .NET Core that you used to build the app. Creating an SCD doesn&rsquo;t include the <a href="https://github.com/dotnet/core/blob/master/Documentation/prereqs.md">native dependencies of .NET Core</a> on various platforms (for example, OpenSSL on macOS), so these must be present before the app runs.</p>
-
-<p>Based on the documentation and as I have already installed .NET Core on the VM, I am going with FDD approach. As said, this is the default deployment model and therefore, I am going to zip the publish content and FTP to the VM.</p>
-
-<p>In my <a href="http://midnightprogrammer.net/post/single-sign-on-in-aspnet-core-with-azure-active-directory">last post</a>, I have build the application where I have integrated the Azure AD authentication in .NET Core web application. I will use the same application and publish it with <code>Release</code> configuration on my Windows machine and zip it. Here are the content of the release publish folder.</p>
-
-<p><img src="/images/publish-files.png" alt="Publish Files" /></p>
-
-<p>Now I can upload this to the VM. I have FTP already with me and therefore I am not configuring it on the VM. If you want to have a FTP server look no further than <a href="https://filezilla-project.org/download.php?type=server">FileZilla Server</a>. Execute the <code>wget</code> command to download the zip file.</p>
-
-<pre class="brush: bash">
-$ wget <ftp address>/ADApp.zip
-</pre>
-
-<p><img src="/images/wget-command.png" alt="Wget command" /></p>
-
-<p>By default, unzip command is not installed on the VM, install it by using the below command.</p>
-
-<pre class="brush: bash">
-$ sudo apt-get install unzip
-</pre>
-
-<p>Extract the zip file in a directory name ADApp by executing the below command.</p>
-
-<pre class="brush: bash">
-$ mkdir ADApp && unzip ~/websites/ADApp.zip -d ADApp
-</pre>
-
-<p><img src="/images/zip-unzip-command.png" alt="Zip &amp; Unzip command" /></p>
-
-<p>Change the working directory and try to run the application so ensure that the publish was successful.</p>
-
-<pre class="brush: bash">
-$ cd ADApp && dotnet AddADAuth.dll
-</pre>
-
-<blockquote>
-<p>Note that the directory structure is bit different in the screen shot and the below screen shot. This is because I have copied all the files and folders from the PublishOuput folder into the ADApp folder root.</p>
-</blockquote>
-
-<p>When you run the application for the first time, you will notice the application will not start just like that. .NET Core CLI utility will first configure the environment and then the application is being executed.</p>
-
-<p><img src="/images/execute-dotnet-command.png" alt="Execute dotnet command" /></p>
-
-<p>To execute the web application, run the below command. The dll file is the one which is being executed by the .NET Core runtime environment.</p>
-
-<pre class="brush:bash">
-$ dotnet AddADAuth.dll
-</pre>
-
-<p>The application started successfully on local server on port 5000.</p>
-
-<p><img src="/images/dotnet-execute-command.png" alt="Starting dotnet web app" /></p>
-
-<p>But there are problems when I run the application like this. One problem is that the command line is now occupied and I cannot do anything. If I terminate the process than the web application will also stop and I will not be able to browse the site. The second problem is that i have configured Nginx web server to power my web application. The internal .NET web server is not something I can use in the production environment. In short, I need this application to be running by .NET Core web server on port 5000 like so but it should not hang up or limit me to use the command line. To overcome these two problems, I can either use <a href="http://manpages.ubuntu.com/manpages/xenial/man1/nohup.1.html">nohup</a> command or I can use something more powerful like <a href="http://supervisord.org/">supervisor</a>. For now I am sticking with <code>nohup</code> as this is just a sample application. When I want to have more control I will switch to <code>supervisor</code>. Here is the <code>nohup</code> command in action. Giving me the terminal control back after I execute the <code>dotnet</code> command.</p>
-
-<p><img src="/images/nohup-dotnet-command.png" alt="Starting dotnet web app with nohup" /></p>
-
-<p>You can notice that first I execute the <code>ps</code> command to list down the processes running in the background. Then I execute the <code>dotnet</code> command with <code>nohup</code> and after that I execute the <code>ps</code> command one more time to check the running processes. You can see that I have the <code>dotnet</code> process running with process ID as 65164.</p>
-
-<p>Just like at the time of configuring Nginx, I have checked whether I was able to access the default page of Nginx from my browser or not, I will now enter the IP address of my VM and this time I should be able to see my AD authentication application running.</p>
-
-<p><img src="/images/final-result-vm-nginx.png" alt="Website running from VM" /></p>
-
-<p>The CSS is bit off in the web application and that is because of the inner URLs need to be configured with the different host name.</p>
-
-<h3 id="add-a-custom-domain-name">Add a custom domain name</h3>
-
-<p>Now I have hosted a ASP.NET Core web application in a Linux VM in Azure. The web server I am using is <code>Nginx</code>. Currently I am accessing the web application by IP address of the VM but now I want to access it with a recognizable name. I have a parked domain with <code>GoDaddy</code> called theevilprogrammer.com. I want to associate this domain name to my web application and to do that I just need access to my VM and GoDaddy account.</p>
-
-<p>Go to your domain registrar from where you can access the DNS settings of your parked domain. In my case it is GoDaddy. Select your domain and click on <code>Manage DNS</code>.</p>
-
-<p><img src="/images/godaddy-dns.png" alt="GoDaddy DNS" /></p>
-
-<p>I have an <code>A record</code> in the DNS management of my domain. All I have to do here is to change the <code>Value</code> to point to the IP address of the VM. Once this is done, click the <code>Save</code> button.</p>
-
-<p>Restart the Nginx server by running the below command. This will reload the configuration and apply those configurations which we have changed. Now I can check whether I am able to access my site with the domain name I have configured or not.</p>
-
-<pre class="brush: bash">
-$ sudo service nginx restart
-</pre>
-
-<p>Open browser and type in the domain name which in my case is theevilprogrammer.com.</p>
-
-<p>So this is how you can also run your .NET Core applications from the VM. Do keep this in mind that there are lot of Nginx configuration and Azure VM configurations you have to set before you go to production. This post is something which can get you started with your own application hosted on a Linux VM in the cloud but there are still lot of little and important things that you have to perform before going to production.</p>
 
   </div>
   
