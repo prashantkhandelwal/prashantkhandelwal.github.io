@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>.Net on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/.net/</link>
+    <description>Recent content in .Net on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Jan 2023 10:34:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Marvel Comics Universe Graph Database</title>
+      <link>https://prashantkhandelwal.github.io/post/marvel-comics-universe-graph-db/</link>
+      <pubDate>Tue, 03 Jan 2023 10:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/marvel-comics-universe-graph-db/</guid>
+      <description>In the past decade Marvel has gathered a lot of fan following which eventually lead all the fans to know more about how the Marvel comics universe characters, stories, events are mapped or linked to each other.
+In 2017 (if I am remembering it correctly), at Microsoft Build event, Microsoft announces Bot framework and did a demo with CosmosDB graph database which uses Gremlin query from Apache TinkerPop. It was a great demo and I was really impressed how they did it but unfortunately I was unable to find the source code for that demo anywhere.</description>
+    </item>
+    
+  </channel>
+</rss>
