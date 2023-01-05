@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://prashantkhandelwal.github.io/post/marvel-comics-universe-graph-db/</loc>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/post/installing-openfaas-on-k3s-single-node/</loc>
+    <lastmod>2021-01-04T20:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://prashantkhandelwal.github.io/post/hosting-drawio-in-azure-webapp-containers/</loc>
     <lastmod>2019-01-20T05:25:00+00:00</lastmod>
   </url>
@@ -788,6 +798,12 @@
   </url>
   
   <url>
+    <loc>https://prashantkhandelwal.github.io/category/.net/</loc>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://prashantkhandelwal.github.io/category/.net-core/</loc>
     <lastmod>2017-05-08T15:21:00+00:00</lastmod>
     <priority>0</priority>
@@ -845,19 +861,19 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/category/c/</loc>
-    <lastmod>2017-05-08T15:21:00+00:00</lastmod>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://prashantkhandelwal.github.io/category/</loc>
-    <lastmod>2017-05-08T15:21:00+00:00</lastmod>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://prashantkhandelwal.github.io/category/cloud/</loc>
-    <lastmod>2019-01-20T05:25:00+00:00</lastmod>
+    <lastmod>2021-01-04T20:27:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -880,6 +896,12 @@
   <url>
     <loc>https://prashantkhandelwal.github.io/category/container/</loc>
     <lastmod>2019-01-20T05:25:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/database/</loc>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -908,6 +930,18 @@
   </url>
   
   <url>
+    <loc>https://prashantkhandelwal.github.io/category/graph/</loc>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/gremlin/</loc>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://prashantkhandelwal.github.io/category/html5/</loc>
     <lastmod>2013-11-17T22:41:00+00:00</lastmod>
     <priority>0</priority>
@@ -926,6 +960,18 @@
   </url>
   
   <url>
+    <loc>https://prashantkhandelwal.github.io/category/k3s/</loc>
+    <lastmod>2021-01-04T20:27:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/linux/</loc>
+    <lastmod>2021-01-04T20:27:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://prashantkhandelwal.github.io/category/microsoft/</loc>
     <lastmod>2016-10-16T20:04:00+00:00</lastmod>
     <priority>0</priority>
@@ -939,7 +985,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/</loc>
-    <lastmod>2019-01-20T05:25:00+00:00</lastmod>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -962,8 +1008,14 @@
   </url>
   
   <url>
+    <loc>https://prashantkhandelwal.github.io/category/open-source/</loc>
+    <lastmod>2021-01-04T20:27:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://prashantkhandelwal.github.io/post/</loc>
-    <lastmod>2019-01-20T05:25:00+00:00</lastmod>
+    <lastmod>2023-01-03T10:34:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1014,7 +1066,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/category/ubuntu/</loc>
-    <lastmod>2017-10-22T15:28:00+00:00</lastmod>
+    <lastmod>2021-01-04T20:27:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
