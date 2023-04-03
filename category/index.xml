@@ -6,10 +6,19 @@
     <description>Recent content in Category on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 May 2017 15:21:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Jan 2023 10:34:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/category/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>.Net</title>
+      <link>https://prashantkhandelwal.github.io/category/.net/</link>
+      <pubDate>Tue, 03 Jan 2023 10:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/.net/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>.Net Core</title>
@@ -86,7 +95,7 @@
     <item>
       <title>C#</title>
       <link>https://prashantkhandelwal.github.io/category/c/</link>
-      <pubDate>Mon, 08 May 2017 15:21:00 +0000</pubDate>
+      <pubDate>Tue, 03 Jan 2023 10:34:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/c/</guid>
       <description></description>
@@ -129,6 +138,15 @@
     </item>
     
     <item>
+      <title>Database</title>
+      <link>https://prashantkhandelwal.github.io/category/database/</link>
+      <pubDate>Tue, 03 Jan 2023 10:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Devbuzz</title>
       <link>https://prashantkhandelwal.github.io/category/devbuzz/</link>
       <pubDate>Fri, 29 Apr 2016 13:51:00 +0000</pubDate>
@@ -161,6 +179,24 @@
       <pubDate>Mon, 23 Apr 2012 13:55:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/fundoo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Graph</title>
+      <link>https://prashantkhandelwal.github.io/category/graph/</link>
+      <pubDate>Tue, 03 Jan 2023 10:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/graph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gremlin</title>
+      <link>https://prashantkhandelwal.github.io/category/gremlin/</link>
+      <pubDate>Tue, 03 Jan 2023 10:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/gremlin/</guid>
       <description></description>
     </item>
     
