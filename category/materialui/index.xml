@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Materialui on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/materialui/</link>
+    <description>Recent content in Materialui on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 31 Mar 2023 13:35:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/materialui/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Autocomplete 2 million Records In React With ZincSearch And Go</title>
+      <link>https://prashantkhandelwal.github.io/post/autocomplete-2-million-records-in-react-with-zinsearch-and-go/</link>
+      <pubDate>Fri, 31 Mar 2023 13:35:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/autocomplete-2-million-records-in-react-with-zinsearch-and-go/</guid>
+      <description>Everyone loves fast search results.
+In 2017 (if I am remembering it correctly), at Microsoft Build event, Microsoft announces Bot framework and did a demo with CosmosDB graph database which uses Gremlin query from Apache TinkerPop. It was a great demo and I was really impressed how they did it but unfortunately I was unable to find the source code for that demo anywhere. So I thought I should atleast get the graph database for my own use and then sometime later will work on building a NLU bot.</description>
+    </item>
+    
+  </channel>
+</rss>

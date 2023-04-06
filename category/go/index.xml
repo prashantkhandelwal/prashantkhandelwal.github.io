@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/go/</link>
+    <description>Recent content in Go on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Apr 2023 12:13:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Capture screenshot and description of a web page using Go and Chromedp</title>
+      <link>https://prashantkhandelwal.github.io/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/</link>
+      <pubDate>Wed, 05 Apr 2023 12:13:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/</guid>
+      <description>Adding or sharing a link with a snapshot of a web page is a very useful feature in Microsoft Teams or in Zoom chat. This gives a user a way to quickly look at the web page snapshot and a small description about the link.
+Go has an amazing library called chromedp which allows you to perform some amazing tasks like taking screenshot, fill out a form and submit it, send key events, device emulation, script evaluation etc.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,10 +6,20 @@
     <description>Recent content on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Jan 2023 10:34:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Apr 2023 12:13:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Capture screenshot and description of a web page using Go and Chromedp</title>
+      <link>https://prashantkhandelwal.github.io/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/</link>
+      <pubDate>Wed, 05 Apr 2023 12:13:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/</guid>
+      <description>Adding or sharing a link with a snapshot of a web page is a very useful feature in Microsoft Teams or in Zoom chat. This gives a user a way to quickly look at the web page snapshot and a small description about the link.
+Go has an amazing library called chromedp which allows you to perform some amazing tasks like taking screenshot, fill out a form and submit it, send key events, device emulation, script evaluation etc.</description>
+    </item>
     
     <item>
       <title>Marvel Comics Universe Graph Database</title>
