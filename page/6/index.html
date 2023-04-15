@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2013-11-17T22:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2014-05-17T23:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,603 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/building-real-time-applications-with-firebase-and-angularjs/">Building Real Time Applications With Firebase And AngularJS</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 17, 2014
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>Building real-time applications with SignalR is easy. But building real-time applications with JavaScript will be a problem if you are not aware of <a href="https://www.firebase.com/">Firebase</a>. I first heard of it when I was learning <a href="http://angularjs.org/">AngularJS</a>. The official AngularJS site has the example where you can add, edit and delete the detials in real-time. This example uses Firebase as the storage and updates the UI in real time.</p>
+
+<p>The data is stored in JSON format and accessing it using jQuery makes it very easy. Firebase API is pretty powerful and lets you get started in minutes. To get started with Firebase, you have to first <a href="https://www.firebase.com/signup/">create a new account with Firebase</a>. It&rsquo;s a paid service but for now you can opt for a developer account. As soon as your account is created you will be redirected to your dashboard where you can create a new application or use the one which is there by default from Firebase. Take the note of the URL ending with <code>firebaseIO.com</code>, we will be needing it later on at the time of implementing.</p>
+
+<p><img src="/images/firebase-create-new-app.png" alt="Firebase New App" /></p>
+
+<p>Clicking on Manage App button will take you to the details page of the application. Where you can view/edit/import/export the data in the JSON format, authentication from Facebook, Twitter, Google etc, simulate read/write operation and more. You can see the sample data in JSON format I have been testing in the below screenshot. If you already have a JSON file, you can directly import it from the dashboard using the <code>Import JSON</code> feature.</p>
+
+<p><img src="/images/firebase-dashboard.png" alt="Firebase Dashboard" /></p>
+
+<p>For this example I am using jQuery and AngularJS. If you wish you can just stick to jQuery. Create a new HTML page and add Firebase JS references in the head section. I am using AngularJS so I am going to add AngularJS reference as well.</p>
+
+<pre class="brush: js">
+&lt;script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.firebase.com/js/client/1.0.11/firebase.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>You get the first three references but the last reference is the AngularFire which is a quick way to work with Firebase applications with AngularJS. This is AngularJS code with firebase dependency.</p>
+
+<pre class="brush: js">
+var feedApp = angular.module('feedDataApp', ['firebase']);
+ 
+feedApp.controller('feedListController', function ($scope, $firebase) {
+    var fbURL = new Firebase("https://scorching-fire-0000.firebaseio.com/Feeds/");
+    $scope.feedsList = $firebase(fbURL);
+ 
+    $scope.save = function () {
+        $scope.feedsList.$add({
+            Name: $scope.feedsList.Name,
+            Url: $scope.feedsList.Url,
+            Description: $scope.feedsList.Description
+             
+        });
+        $(":text").val('');
+    }
+});
+</pre>
+
+<p>I am not getting into the basics of AngularJS, but I will explain few things in the above code. The first line in the above code has the dependency named <code>firebase</code>, in simple AngularJS apps we could have skip the dependecies. Then I have the controller named <code>feeListController</code>, which is accompanied by a very own <code>$scope</code> and new param which is <code>$firebase</code>. Inside the controller I have a variable <code>fbURL</code> which holds my Firebase URL. If you see here, you willl notice that I have appended the URL with <code>Feeds</code>. This is because I want my data to be saved inside the Feeds section in the Firebase storage. The <code>$scope.feedsList</code> will hold the collection of all my entries I have in my storage. I have the save function which will save the details to my storage. Inside the Firebase&rsquo;s <code>$add</code> function, I have passed <code>Name</code>, <code>Url</code> and <code>Description</code>. You can pass as many params as you want. the best thing is that you don&rsquo;t even have to set the storage schema. As soon as you click the save button, a new entry is created in the storage. This is my storage looks like.</p>
+
+<p><img src="/images/firebase-json-tree.png" alt="Firebase JSON Viewer" /></p>
+
+<p>If you don&rsquo;t want to save it under the <code>Feeds</code> section then in the above JS file you just have to remove the <code>Feeds</code> from the above URL. The UI for this demo is simple, just listing down the saved JSON data in a readable form using AngularJS.</p>
+
+<pre class="brush: html">
+&lt;div ng-controller="feedListController"&gt;
+    &lt;table class="table"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                Name
+            &lt;/td&gt;
+            &lt;td&gt;
+                Url
+            &lt;/td&gt;
+            &lt;td&gt;
+                Description
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr ng-repeat=" feeds in feedsList"&gt;
+            &lt;td&gt;{{feeds.Name}}&lt;/td&gt;
+            &lt;td&gt;{{feeds.Url}}&lt;/td&gt;
+            &lt;td&gt;{{feeds.Description}}&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Name" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Url" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Description" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button type="submit" ng-click="save()"&gt;Add Feed&lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+</pre>
+
+<p>Using a simple design I have displayed the details using AngularJS.</p>
+
+<p><img src="/images/firebase-web-app.png" alt="Firebase Angular Web App" /></p>
+
+<p>The best part is the as soon as I add a new feed details, it will get updated in the UI in real-time. Open the same page on a different browser and add a new entry. You will notice that the data is updated in real-time.</p>
+
+<p><img src="/images/firebase-json-db.png" alt="Firebase DB" /></p>
+
+<p><img src="/images/firebase-ng-app-output.png" alt="Firebase Angular Web App" /></p>
+
+<p>Firebase is not limited for web, it is available for iOS/OS x, Java/Android, Node.js, Ember etc. Building mobile applications using Firebase as a real-time storage will be an amazing thing to do. This is not a very good example for Firebase with AngularJS but this will get you started with Firebase and let you test a part of your application using this awesome real-time storage.</p>
+
+<p>I would recommend you to look at <a href="https://github.com/firebase/firereader">this web application</a> build completely on Firebase and AngularJS.</p>
+
+<h4 id="references">References</h4>
+
+<ul>
+<li><a href="https://www.firebase.com/">Firebase</a></li>
+<li><a href="http://angularfire.com/">AngularFire</a> / <a href="https://github.com/firebase/angularFire">Github</a> / <a href="https://www.firebase.com/docs/angular/reference.html">Reference</a></li>
+<li><a href="https://www.firebase.com/docs/">Firebase - Getting started docs</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/turn-your-google-drive-folder-in-an-online-album-viewer/">Turn Your Google Drive Folder In An Online Album Viewer</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 4, 2014
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>Working with <a href="https://developers.google.com/drive/">Google Drive API</a> is fun. The documentation is good and will let you get started with the API pretty quickly. I have my whole complete family album on <a href="http://onedrive.com/">OneDrive</a>, but the API is still a bit hard to use as compared to Google Drive API or maybe it is just for me. But while playing around with Drive API I ended up creating a small razor based web page application which will allow you to show your folder as an online web album. I have the <a href="https://github.com/prashantkhandelwal/DriveGallery">source code at Github</a>.</p>
+
+<p>To get started register your application on the Google Developer Console. Here is a <a href="https://developers.google.com/console/help/">complete guide</a> on how to use the Google APIs.</p>
+
+<p><img src="/images/google-register-app.png" alt="Registering the application on Google Dev Console" /></p>
+
+<p>Copy the API keys and save it on the notepad. The basic usage example on the Google Drive API reference page uses a file called <code>client_secrets.json</code> which actually holds the API key. You can find this file in the <code>bin</code> folder.</p>
+
+<pre class="brush: plain">
+{
+  "installed": {
+    "client_id": "524339914714.apps.googleusercontent.com",
+    "client_secret": "_Lq8D_Ai-T2IbhU8m2zXlQa"
+  } 
+}
+</pre>
+
+<p>You also have to enable the Drive API before you start using it.</p>
+
+<p><img src="/images/dev-console-enable-api.png" alt="Enable API in Google Dev Console" /></p>
+
+<p>I created a wrapper around the Google Drive API so I can use it in my other projects. Here is the complete code of my GoogleDrive class.</p>
+
+<pre class="brush: csharp">
+using System;
+using System.Collections.Generic;
+using System.Web;
+using Google;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Download;
+using Google.Apis.Drive.v2;
+using Google.Apis.Drive.v2.Data;
+using Google.Apis.Logging;
+using Google.Apis.Services;
+using System.Threading.Tasks;
+using System.Threading;
+//using Google.Apis.Upload;
+ 
+public class GoogleDrive
+{
+    DriveService service = null;
+    public GoogleDrive()
+    {
+        Run().Wait();
+    }
+ 
+ 
+    private File GetFileByID(string fileID, DriveService service)
+    {
+        File file = service.Files.Get(fileID).Execute();
+        if (file.ExplicitlyTrashed == null)
+            return file;
+        return null;
+    }
+ 
+    public string GetFolderID(string FolderName)
+    {
+        FilesResource.ListRequest request = service.Files.List();
+        request.Q = "title = '" + FolderName + "'";
+        FileList files = request.Execute();
+        return files.Items[0].Id;
+    }
+    public List&lt;File&gt; ListFolderContent(string FolderID)
+    {
+        ChildrenResource.ListRequest request = service.Children.List(FolderID);
+        List&lt;File&gt; files = new List&lt;File&gt;();
+        //request.Q = "mimeType = 'image/jpeg'";
+ 
+        request.Q = "'" + FolderID + "' in parents";
+ 
+        do
+        {
+            try
+            {
+                ChildList children = request.Execute();
+ 
+                foreach (ChildReference child in children.Items)
+                {
+                    files.Add(GetFileByID(child.Id, service));
+                }
+ 
+                request.PageToken = children.NextPageToken;
+ 
+            }
+            catch (Exception e)
+            {
+                request.PageToken = null;
+            }
+        } while (!String.IsNullOrEmpty(request.PageToken));
+        return files;
+    }
+ 
+    public List&lt;File&gt; ListRootFileFolders()
+    {
+        List&lt;File&gt; result = new List&lt;File&gt;();
+        FilesResource.ListRequest request = service.Files.List();
+        do
+        {
+            try
+            {
+                FileList files = request.Execute();
+ 
+                result.AddRange(files.Items);
+                request.PageToken = files.NextPageToken;
+            }
+            catch (Exception e)
+            {
+                request.PageToken = null;
+            }
+        } while (!String.IsNullOrEmpty(request.PageToken));
+        return result;
+    }
+ 
+    public byte[] DownloadFile(string fileID)
+    {
+        File file = service.Files.Get(fileID).Execute();
+        var bytes = service.HttpClient.GetByteArrayAsync(file.DownloadUrl);
+        return  bytes.Result;
+    }
+ 
+ 
+    private async Task Run()
+    {
+        try
+        {
+            GoogleWebAuthorizationBroker.Folder = "Files";
+            UserCredential credential;
+            using (var stream = new System.IO.FileStream("client_secrets.json",
+                System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            {
+                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets, DriveConstants.Scopes, "user", CancellationToken.None);
+            }
+ 
+            var drvService = new DriveService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = "Drive API Sample",
+ 
+            });
+ 
+            if (drvService != null)
+            {
+                service = drvService;
+            }
+        }
+        catch { }
+    }
+}
+</pre>
+
+<p>The <code>Storage</code> class uses <a href="https://github.com/robconery/biggy">Biggy</a> for the document storage. You have to manually add the names of the folder (considered as albums) on settings page. This will get added/appended in <code>settings.json</code> file in the <code>Data</code> folder which is in the web root of <a href="https://github.com/prashantkhandelwal/DriveGallery">DriveGallery</a>. Here is my settings file.</p>
+
+<pre class="brush: plain">
+{"AlbumName":"Atlassian"}
+{"AlbumName":"DivX"}
+{"AlbumName":"Envato"}
+{"AlbumName":"Disqus"}
+</pre>
+
+<p>Settings page from where I can add the names of folders/albums. No view and delete options as of now, but I will soon add it.</p>
+
+<p><img src="/images/webapp-settings-album.png" alt="Adding a new album" /></p>
+
+<p>The added albums will be listed on the main/default page. The user will then have to click the name of the album to view the contents which should only images. At the moment there is no check which prevents it to show other files rather than only image files.</p>
+
+<p><img src="/images/app-home.png" alt="App home page" /></p>
+
+<p>Google Drive is slow when it comes to handle high amount of data. Google Drive storage is not like Azure or Amazon storage. It’s different and will not get you large results in appropriate time. If you want to use Drive Gallery make sure that you don’t use more than 25-50 images in a folder. Querying 25-50 files in a single go will be long but not more than if you have more than 50. Better option is to break your folder in parts like volume I &amp; II or Part 1 or 2.</p>
+
+<p>I will try to make it look more attractive but for the moment it solves the purpose for me. Click on the <code>View</code> button to view the album. The <code>View</code> page accepts a query string name, which has the name of the folder/album. Google Drive API does not understand the <code>name</code> of the folder, so I have to get the folder id from the name. I will use the <code>GetFolderID</code> method of the <code>GoogleDrive</code> class which gives me the folder id. The received folder id is then passed to <code>ListFolderContent</code> method which will list all the files in the folder.</p>
+
+<blockquote>
+<p>Please note that, for the moment there is no check to retrieve only images from the folder. GoogleDrive.cs class is a generic version of the class I am using in my other projects. You just need to be sure that you have only images in the folder and not any other file.</p>
+</blockquote>
+
+<p><img src="/images/album-output.png" alt="Album output" /></p>
+
+<p>Click the <code>View</code> button to view the full size image in the browser else click the <code>Download</code> button to download it directly. Basically Drive API does not have any property which holds the value of the URL to view the image online. So I tweaked the thumbnail URL in the ViewURL property so I can view the images online without having to download it.</p>
+
+<pre class="brush: csharp">
+public class Albums
+{
+    public string Id { get; set; }
+    public string Title { get; set; }
+    public string AlbumName { get; set; }
+    public string DownloadURL { get; set; }
+    public string ViewURL
+    {
+        get
+        {
+            return ThumbnailLink.Replace("=s220", "=s4000");
+        }
+    }
+    public string ThumbnailLink { get; set; }
+}
+</pre>
+
+<p>Taking the <code>ThumbnailLink</code> property and replace the <code>=s220</code> to <code>=s4000</code> does the trick.</p>
+
+<blockquote>
+<p>Note: The URLs are not permanent, it will change when the request expires.</p>
+</blockquote>
+
+<p>Properties of the Album class:</p>
+
+<ul>
+<li><code>Id:</code> File/Image id.</li>
+<li><code>Tilte:</code> Title of the image/file.</li>
+<li><code>AlbumName:</code> Name of the album/folder.</li>
+<li><code>DownloadURL:</code> Download URL of the image/file. Original Drive API property name: <code>DownloadUrl</code>.</li>
+<li><code>ViewURL:</code> URL which allows user to view the image in the browser.</li>
+<li><code>ThumbnailLink:</code> URL of the thumbnail image. Original Drive API property name: <code>ThumbnailLink</code>.</li>
+</ul>
+
+<p>The duration of the operation depends on the amount of images you have in your folder. The lesser the number of images the fast the query will get executed. Here just for fun I have used Biggy JSON store to save the content details of the folder. If you want to remove it from your implementation, please do so. You may have to change some functions in order to get all other things working fine.</p>
+
+<p>You can <a href="https://github.com/prashantkhandelwal/DriveGallery">download the complete source code from Github</a>. I am still working on it to make it more flexible and good looking. As I am not a designer and I seriously lack when it comes to web designs. Thanks to <a href="http://getbootstrap.com/">Twitter bootstrap</a> to make it look a bit good.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/json-based-document-storage-using-biggy-in-aspnet-mvc/">JSON Based Document Storage Using Biggy In ASP.NET MVC</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 3, 2014
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>While working with a small web based project many developers will take advantage of web.config and XML files to read settings for the application. Using web.config is a good way but you cannot change the settings from within the application and when done manually it causes the website to restart. XML is good but many of us has a problem when it comes to update the details in XML. <a href="https://github.com/robconery/biggy">Biggy</a> is an awesome library developed by <a href="http://www.wekeroad.com/">Rob Conery</a> to work with document storage. It does a lot well more than you can think of if you are not following the project closely on Github. For now I am just going to show you how you can use Biggy to save your application data in JSON based document storage.</p>
+
+<p>The library is not available on <a href="http://nuget.org/">NuGet</a>, so you have to download or fork the whole solution from Github and then build it. Create a new MVC application and add the reference of the Biggy assemblies you just build.</p>
+
+<blockquote>
+<p>Remove Newtonsoft.Json assembly that is added in your project by default when it is created by Visual Studio. The version of assembly seems to be incompatible with Biggy. Instead use the one which accompanies Biggy.</p>
+</blockquote>
+
+<p>Add a new model in your application and name it <code>settings</code>. The settings may depend on your application, as I am using it for my blog I have settings like blog name, blog description, posts per page and disable comments after &lsquo;x&rsquo; days.</p>
+
+<pre class="brush: csharp">
+public class Settings
+{
+    public string BlogName { get; set; }
+    public string BlogDescription { get; set; }
+    public string PostsPerPage { get; set; }
+    public string CommentDays { get; set; }
+}
+</pre>
+
+<p>I am manually building my view but you can use scaffolding if you wish to save your time. On submit of the form, the details will be sent to the server where my controller method will save the settings in the JSON file. Here is my view and controller code.</p>
+
+<pre class="brush: html">
+@model BiggyJSONDataStore.Models.Settings
+@{
+    ViewBag.Title = "Settings Page";
+   }
+ 
+&lt;div class="row"&gt;
+    @using (Html.BeginForm("Settings", "Home", FormMethod.Post))
+    {
+        &lt;label&gt;Blog Name&lt;/label&gt;
+        @Html.TextBoxFor(m =&gt; m.BlogName, new { @id = "blogname" })
+        &lt;br /&gt;
+        &lt;label&gt;Blog Description&lt;/label&gt;
+        @Html.TextBoxFor(m =&gt; m.BlogDescription, new { @id = "blogdesc" })
+        &lt;br /&gt;
+        &lt;label&gt;Posts per Page&lt;/label&gt;
+        @Html.TextBoxFor(m =&gt; m.PostsPerPage, new { @id = "postsperpage" })
+        &lt;br /&gt;
+        &lt;label&gt;Disable comments after&lt;/label&gt;
+        @Html.TextBoxFor(m =&gt; m.CommentDays, new { @id = "commentdays" })
+        &lt;label&gt;days&lt;/label&gt;&lt;br /&gt;
+        &lt;input id="btnSave" type="submit" value="Save Settings" /&gt;
+    }
+&lt;/div&gt;
+</pre>
+
+<p><img src="/images/biggy-ui.png" alt="App to save info using Biggy" /></p>
+
+<p>When the first time the page is loaded I want to check if there are settings in the file or not. If settings are there then render my view with settings. So the default <code>GET</code> view will look like this.</p>
+
+<pre class="brush: csharp">
+IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
+try
+{
+    var data = settingStore.Load().Single();
+    return View(data);
+}
+catch { }
+ 
+return View();
+</pre>
+
+<p>The settingStore object is being created and creates a new file in the <code>Data</code> folder in the application root. the <code>dbPath</code> parameter specifies where the file (JSON file in this case) is saved, which is the web root. The <code>Load()</code> method of the <code>settingStore</code> will load all the data in the JSON file. In this case I have only single set of setting so I will use the <code>Single()</code> method to get the single setting record and not <code>IEnumerable&lt;Settings&gt;</code>.</p>
+
+<pre class="brush: csharp">
+IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
+ 
+var store = new BiggyList&lt;Settings&gt;(settingStore);
+ 
+var newSettings = new Settings();
+ 
+newSettings.BlogName = setting.BlogName;
+newSettings.BlogDescription = setting.BlogDescription;
+newSettings.PostsPerPage = setting.PostsPerPage;
+newSettings.CommentDays = setting.CommentDays;
+ 
+store.Add(newSettings);
+store.Update(setting);
+ 
+return View();
+</pre>
+
+<p>The above code will add a new settings to the JSON file.</p>
+
+<pre class="brush: plain">
+{"BlogName":"Midnight Programmer","BlogDescription":"Programming For Fun","PostsPerPage":"10","CommentDays":"90"}
+</pre>
+
+<p>At this point if you keep pressing save button by entering different values a new entry will be added to the JSON file. To avoid this you have to update the details instead of adding it over and over again in the JSON file.</p>
+
+<pre class="brush: csharp">
+IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
+ 
+var store = new BiggyList&lt;Settings&gt;(settingStore);
+ 
+var newSettings = new Settings();
+ 
+Settings data = null;
+try
+{
+    data = settingStore.Load().Single();
+}
+catch { }
+ 
+ 
+if (data != null)
+{
+    data.BlogName = setting.BlogName;
+    data.BlogDescription = setting.BlogDescription;
+    data.PostsPerPage = setting.PostsPerPage;
+    data.CommentDays = setting.CommentDays;
+    store.Update(data);
+}
+else
+{
+    newSettings.BlogName = setting.BlogName;
+    newSettings.BlogDescription = setting.BlogDescription;
+    newSettings.PostsPerPage = setting.PostsPerPage;
+    newSettings.CommentDays = setting.CommentDays;
+    store.Add(newSettings);
+    store.Update(setting);
+}
+ 
+return View();
+</pre>
+
+<p>As you can see that the store object <code>Add</code> method is not called but only the <code>Update</code> method is called in case if the data object is not null.</p>
+
+<p><img src="/images/biggy-ui-2.png" alt="App to save info using Biggy" /></p>
+
+<p>If you plan to save multiple records in the file, then make sure you use identifier in order to get the required details.</p>
+
+<h4 id="references">References</h4>
+
+<ul>
+<li><a href="https://github.com/robconery/biggy">Biggy - Github</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/new-blogging-engine/">New Blogging Engine!</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 3, 2014
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
+      
+      
+      
+      
+    </span>
+    <p>I like <a href="http://wordpress.org/">Wordpress</a> but not as much as I like <a href="http://www.dotnetblogengine.net/">BlogEngine.NET</a>. I have to move to Wordpress because of a very serious issue in BlogEngine.NET. I am on a shared hosting and they are very peculiar about the memory/CPU usage of a site. So, The problem I faced was that if I use SQL Server CE as your data store than it will increase the disk usage time which in turn shuts down my site application pool and cause 503 service unavailable error. This was very annoying and to keep up my blog up and running I have to suddenly switch to Wordpress before I can figure out the exact cause of this problem.</p>
+
+<p>I still have no issue with Wordpress, but I can&rsquo;t enhance it the way I can do it with BlogEngine.NET because it&rsquo;s in PHP. I decided to switch to BlogEngine once but then I thought it would be good to write a simple blog engine from scratch. So I fired up Visual Studio and start a new MVC web project. I worked on previous versions of MVC and I was aware of things which can be done more quickly than the traditional way. Writing a blog engine from scratch was a great way of learning a new technology. I am very much familiar with MVC so I opted to try some new stuff this time.</p>
+
+<p>There is a lot of work pending but user facing part of my blog is completely ready by the end of this week or may be earlier than that. I want to thank <a href="http://odetocode.com/">K. Scott Allen</a> for his valuable tips for creating a custom blog engine.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -281,328 +878,6 @@ function ShowNotificationsWithIcons(title, body) {
 <ul>
 <li><a href="http://notifications.spec.whatwg.org/">Notifications API – Documentation</a></li>
 <li><a href="https://github.com/whatwg/notifications">Notifications API – Github</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/dev-buzz-2-bookmarks-1-jul-2013/">Dev Buzz #2 - Bookmarks - 1 JUL 2013</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 1, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/devbuzz">DEVBUZZ</a>
-      
-      
-      
-      
-    </span>
-    
-
-<div style="text-align: -webkit-center;">
-<img src="/images/devbuzz2.jpg" alt="Devbuzz Image" />
-</div>
-
-<h4 id="awesome-stuff">Awesome Stuff</h4>
-
-<ul>
-<li><a href="http://code.msdn.microsoft.com/windowsapps/Windows-8-Modern-Style-App-Samples">Windows 8.1 sample apps</a></li>
-<li><a href="https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en">Postman</a> – Chrome based REST client</li>
-<li><a href="http://www.modern.ie/">Modern.IE</a> – Testing for IE
-<a href="http://channel9.msdn.com/Events/Build/2013/3-503">Visual Studio 2013 for Web developers – Build Webcast – Mads Kristensen</a></li>
-<li><a href="http://www.lotaris.com/">Lotaris</a> – A new way to monetize your Windows 8 apps</li>
-<li><a href="http://extensionmethod.net/">Entensionmethods.net</a> – A site dedicate to Extension Methods</li>
-<li><a href="http://curl.haxx.se/download.html">cURL for Windows</a></li>
-</ul>
-
-<h4 id="web-development">Web Development</h4>
-
-<ul>
-<li><a href="http://www.typescriptlang.org/">TypeScript</a></li>
-<li><a href="https://eisk.codeplex.com/">EISK</a> - Employee Info Starter Kit</li>
-<li><a href="http://notebookheavy.com/2013/05/22/angularjs-and-typescript/">AngularJS and TypeScript</a></li>
-<li><a href="http://www.peterprovost.org/blog/2012/06/19/adding-ninject-to-web-api">Adding Ninject to Web API</a></li>
-<li><a href="http://www.faridesign.net/2012/04/20-javascript-frameworks-mvvm-templating-licenses-etc/">20 JavaScript Frameworks: MVVM Templating, Licenses etc</a></li>
-<li><a href="http://www.bluelemoncode.com/post/2013/02/17/One-to-one-chat-using-Aspnet-SignalR-groups.aspx">One to one chat using ASP.NET SignalR groups</a></li>
-<li><a href="http://www.skylinetechnologies.com/Blog/Article/48/Peer-to-Peer-Media-Streaming-with-WebRTC-and-SignalR.aspx">Peer to peer media streaming with WebRTC and SignalR</a></li>
-<li><a href="http://www.jquery4u.com/bootstraps/metro-bootstraps/">10 popular metro bootstraps</a></li>
-</ul>
-
-<h4 id="jquery">JQuery</h4>
-
-<ul>
-<li><a href="http://cube3x.com/adipoli-jquery-image-hover-plugin/">Adipoli</a> – Image Hover Plugin</li>
-<li><a href="http://www.createjs.com/#!/PreloadJS">CreateJS</a> – PreloadJS</li>
-<li><a href="http://www.highcharts.com/">Highcharts</a> – Interactive JavaScript charts</li>
-<li><a href="https://github.com/CodeSeven/toastr">Toastr</a> – Non-blocking notifications</li>
-</ul>
-
-<h4 id="open-source">Open Source</h4>
-
-<ul>
-<li><a href="http://attributerouting.net/">Attribute Routing</a> – Attribute based routing library for MVC and Web APIs</li>
-<li><a href="http://lesscss.org/">LessCSS</a> – The dynamic stylesheet language</li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/msdn-style-syntax-highlighting-in-aspnet/">MSDN Style Syntax Highlighting In ASP.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 30, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>There are many syntax highlighting plugins available on the web right now. Majority of the sites are using javascript based <a href="http://alexgorbatchev.com/SyntaxHighlighter/">Syntax Highlighter from Alex Gorbatchev</a>. I am using it for my current blog and <a href="https://blogengine.codeplex.com/">BlogEngine.NET</a> has it as a default syntax highlighter. It is good because it has a lot of themes to offer and you can also customize according to the look and feel of your blog or site. Moreover it has support for multiple languages which makes it acceptable among most of the bloggers and developers.</p>
-
-<p>I also like the way MSDN and Codeplex style their code. Although it has some flaws like moving the code to the next line if it exceeds the length of the pre or div tags. The library MSDN and Codeplex are using for syntax highlighting is <a href="https://colorcode.codeplex.com/">ColorCode</a>. ColorCode is open-source and supports every language specific to Microsoft. The way ColorCode works is totally different than that of any other syntax highlighting library. Javascript based syntax highlighter use CSS for different styles whereas ColorCode uses in-line CSS to  set styling for the code.</p>
-
-<p>To install ColorCode you can use NuGet command or add ColorCode reference as a library downloadable from Codeplex. NuGet command:</p>
-
-<pre class="brush: shell">
-PM> Install-Package ColorCode
-</pre>
-
-<p>Only Microsoft stack languages are supported by ColorCode. Here is the complete list:</p>
-
-<ul>
-<li>XML</li>
-<li>Java</li>
-<li>JavaScript</li>
-<li>SQL</li>
-<li>C#</li>
-<li>VB.NET</li>
-<li>ASPX (C#)</li>
-<li>ASPX (VB.NET)</li>
-<li>C++</li>
-<li>PHP</li>
-<li>PowerShell</li>
-<li>Typescript</li>
-<li>FSharp</li>
-</ul>
-
-<p>As I mentioned earlier that this library uses in-line CSS and therefore you cannot use it in the windows forms application. You can use the webbrowser control in windows forms application if you want code to render correctly.</p>
-
-<p>This is a sample basic usage of ColorCode.</p>
-
-<pre class="brush: csharp">
-string code = File.ReadAllText(Server.MapPath("~/Test.txt"));
-string finalCode = new CodeColorizer().Colorize(code, Languages.CSharp);
-codediv.InnerHtml = finalCode;
-</pre>
-
-<p>First line of the code will read all the text from a file. The second line will initialize a new <code>CodeColorizer</code> class Colorize method which will take 2 parameters, first is the code for which we want the syntax highlighting for and the second parameter is language. I now have the <code>finalCode</code> string which has the code with syntax highlighting. This is the output I have in my browser window.</p>
-
-<p><img src="/images/msdn-syntaxhighligting.png" alt="MSDN Style Syntax Highlighting" /></p>
-
-<p>It looks pretty good from the front but behind the scenes it’s not that pretty.</p>
-
-<p><img src="/images/msdn-syntaxhighlighting-code.png" alt="MSDN Style Syntax Highlighting Code Behind" /></p>
-
-<p>ColorCode is an open-source library and is hosted on Codeplex.</p>
-
-<h4 id="reference">Reference:</h4>
-
-<ul>
-<li><a href="https://colorcode.codeplex.com/">ColorCode - Codeplex</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/getting-started-with-glimpse-in-aspnet-mvc/">Getting Started With Glimpse In ASP.NET MVC</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 25, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>When I heard about Glimpse, I thought it like to be another MiniProfiler like stuff or a combination of MiniProfiler and this. But it seems to be more robust diagnostic tool for developers. Here is my experience with <a href="http://midnightprogrammer.net/post/diagnostic-check-for-asp-net-mvc-applications-problems/">this</a> awesome diagnostic tool.</p>
-
-<h3 id="what-is-glimpse">What is Glimpse?</h3>
-
-<p>Glimpse is a diagnostic tool for ASP.NET applications which let you see detailed diagnostic information of your web application. Glimpse knows everything your server is doing and displays it straight away to you in your browser. Currently Glimpse is supported for ASP.NET – Web Forms and MVC and PHP and other languages are in queue as well. If you want to contribute to the project as it is open-source, you can contact the project developers <a href="http://groups.google.com/forum/?fromgroups#!forum/getglimpse-dev">here</a>. The Glimpse project is still under development and there are more that 70 bugs reported at Github.</p>
-
-<h3 id="getting-glimpse-getting-started">Getting Glimpse &amp; Getting Started</h3>
-
-<p>I have used MiniProfile in the past and the major difference between the two tools I noticed is that in MiniProfile you have to make changes in the code to profile or view the diagnostic information. On the other hand Glimpse is just simply plug and play library. If you are going to give Glimpse a try make sure that you use NuGet to get the library. Glimpse comes with lots of configurations and setting them out manually in the application will be a pain just like <a href="https://code.google.com/p/elmah/">ELMAH</a>. As we are now living in post-NuGet era, we must use the power of NuGet to do all the hard work and configuration for us. You can get Glimpse depending on the type of project you have. To add Glimpse in MVC application fire the below NuGet command.</p>
-
-<pre class="brush: shell">
-PM> Install-Package Glimpse.MVC
-</pre>
-
-<p>For Web Forms</p>
-
-<pre class="brush: shell">
-PM> Install-Package Glimpse.ASP
-</pre>
-
-<p>After the command gets completed, take a look at the web.config file where you can see all the configurations. Without paying more attention to the configs, run the application to see Glimpse in action. Unlike MiniProfiler, there were no changes in the code. Before you can actually see Glimpse in action you have to turn it on, and to turn Glimpse on navigate to the URL <strong><a href="http://localhost:XXXX/glimpse.axd">http://localhost:XXXX/glimpse.axd</a></strong></p>
-
-<p><img src="/images/glimpse-ui.png" alt="Glimpse UI" /></p>
-
-<p>A cookie is set when Glimpse is turned on. This cookie tells the server to send the diagnostic data to the application. Here is how it looks on my home page.</p>
-
-<p><img src="/images/glimpse-infobar.png" alt="Glimpse UI Bar" /></p>
-
-<p>The above screenshot gives you a summarized information of what your application and server is doing. The summary part is distributed in three parts i.e. HTTP, HOST and AJAX. The HTTP segment shows the summary of the diagnostic information that flows over HTTP. In the HOST segment you can also see the name of the controller and action name. AJAX segment shows zero count as there are no AJAX call yet in my application which communicates with the server. This is just a summary which is visible at the bottom right hand corner of the web page. To view more detailed diagnostic information hover the mouse over any of these segments and you get one level more information.</p>
-
-<p><img src="/images/glimpse-ui-infobar.png" alt="Glimpse UI information bar" /></p>
-
-<p>If this is not enough for you then click on the big g icon at the bottom right corner.</p>
-
-<p><img src="/images/glimpse-ui-report.png" alt="Glimpse UI information report" /></p>
-
-<p>The screenshot above just covering one tab out of 12 tabs which have complete diagnostic information about the application.</p>
-
-<h3 id="what-else-it-can-do">What else it can do?</h3>
-
-<p>Glimpse has extensions that will let you get information about EF, nHibernate, Ninject and many more. You can view the complete list of extensions here which you can use to see what these libraries are doing behind the scenes. Check out the complete list of extensions <a href="http://getglimpse.com/Packages">here</a>.</p>
-
-<h3 id="moving-to-production">Moving to production</h3>
-
-<p>Glimpse is a diagnostic tool and is very powerful from a developer’s perspective. When moving the website or web application to the production servers, no developer would want to leave Glimpse working on the landing page of your site. So before you move to production you have to turn Glimpse off. To turn off Glimpse you can navigate to the same URL which you have used earlier to turn it on. This is the easy option available, but anyone with the Glimpse handler URL can easily turn it on!? The best approach is to change the setting in the web.config file, so even if the third person has the URL of the Glimpse handler he will never be able to turn it on. To turn off Glimpse permanently set <code>defaultRuntimePolicy</code> to <code>Off</code>. The line in your web.config after the change will look like this.</p>
-
-<pre class="brush: xml">
-<glimpse defaultRuntimePolicy="Off" endpointBaseUri="~/Glimpse.axd">
-</pre>
-
-<p>Once this property is set to <code>Off</code>, there is no way a user can turn Glimpse on without changing its value back to <code>On</code>. Glimpse has a lot more options to explore which I can’t cover in single blog post. I am looking forward on using some extensions now for Ninject and Entity Framework.</p>
-
-<h3 id="references">References:</h3>
-
-<ul>
-<li><a href="http://getglimpse.com/Packages">Glimpse – Project site</a></li>
-<li><a href="https://github.com/Glimpse">Glimpse – Github</a></li>
-<li><a href="https://github.com/Glimpse/Glimpse/wiki/Configuration">Glimpse Configuration Wiki</a></li>
-<li><a href="http://getglimpse.com/Packages">Glimpse Extensions</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/dev-buzz-1-bookmarks-19-jun-2013/">Dev Buzz #1 - Bookmarks - 19 JUN 2013</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 19, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/devbuzz">DEVBUZZ</a>
-      
-      
-      
-      
-    </span>
-    
-
-<div style="text-align: -webkit-center;">
-<img src="/images/devbuzz3.jpg" alt="Devbuzz Image" />
-</div>
-
-<h4 id="asp-net-mvc-web">ASP.NET/MVC/Web</h4>
-
-<ul>
-<li><a href="http://dotnet.dzone.com/articles/four-new-single-page?mz=57923-dotnet">4 new single page application templates</a></li>
-<li><a href="http://typecastexception.com/post/2013/04/14/Deploying-an-Azure-Website-from-Source-Control.aspx">Deploying an Azure website from Source Control</a></li>
-<li><a href="http://tech.pro/tutorial/1186/collaborative-route-planner-with-signalr-knockoutjs-and-google-maps">Collaborative route planner with SignalR, Knockout.JS and Google Maps</a></li>
-<li><a href="http://tech.pro/tutorial/1156/using-requirejs-in-an-aspnet-mvc-application">Using Require.JS in an ASP.NET MVC application</a></li>
-<li><a href="http://www.simpleprogrammer.com/2013/05/19/glimpse/">Getting started with Glimpse in ASP.NET MVC</a></li>
-<li><a href="http://www.adamtibi.net/06-2013/five-essential-front-end-tools-that-should-be-used-with-modern-mvc-projects">Five essential front-end tools that should be used with modern MVC projects</a></li>
-</ul>
-
-<h4 id="jquery">JQuery</h4>
-
-<ul>
-<li><a href="http://keithcirkel.co.uk/jwerty/">JWERTY</a> – Awesome handling of keyboard events</li>
-<li><a href="http://www.justgage.com/">JustGage</a> - JustGage is a handy JavaScript plugin for generating and animating nice &amp; clean gauges</li>
-<li><a href="http://www.spritely.net/gallery/">Spritely.NET</a> – Best parallax plugin for jQuery</li>
-<li><a href="http://jamielottering.github.io/DropKick/">DropKick</a> – A jquery plugin for beautiful dropdowns</li>
-<li><a href="http://onehackoranother.com/projects/jquery/tipsy/">Tipsy</a> – Facebook-style tooltip plugin for jQuery</li>
-</ul>
-
-<h4 id="visual-studio">Visual Studio</h4>
-
-<ul>
-<li><a href="http://visualstudiogallery.msdn.microsoft.com/33b0242d-7158-4d39-9a01-0a08cf7c28bd">Farticus</a> – When a build fails, it plays the fart sound</li>
-<li><a href="http://visualstudiogallery.msdn.microsoft.com/ce35c120-405a-435b-af2a-52ff24eb2c30">Voice Commands</a> – Control Visual Studio with your voice</li>
-<li><a href="http://visualstudiogallery.msdn.microsoft.com/366ad100-0003-4c9a-81a8-337d4e7ace05">Color Theme Editor</a> – Visual Studio 2012 Color Theme Editor</li>
-<li><a href="http://www.johnpapa.net/zen-coding-in-visual-studio-2012/">Zen Coding in Visual Studio 2012</a></li>
-</ul>
-
-<h4 id="open-source">Open Source</h4>
-
-<ul>
-<li><a href="https://www.codeplex.com/site/users/view/win8templates">Windows 8 App design templates</a> - More than 70 app design templates</li>
-<li><a href="http://mahapps.com/MahApps.Metro/">MahApps</a> – Make your WPF app look like Windows 8 app</li>
-<li><a href="https://mui.codeplex.com/">MUI</a> – Build Win8 like apps using this library in WPF</li>
-<li><a href="https://modernuicharts.codeplex.com/">ModerUICharts</a> – Modern UI (Metro) Charts for Windows 8, WPF, Silverlight</li>
-<li><a href="https://code.google.com/p/dapper-dot-net/">Dapper</a> – A simple object mapper in .NET – Micro ORM</li>
-<li><a href="http://miniprofiler.com/">Mini-Profiler</a> – A simple but effective min-profiler for .NET &amp; Ruby</li>
-</ul>
-
-<h4 id="misc">Misc</h4>
-
-<ul>
-<li><a href="https://code.google.com/p/zen-coding/">ZenCoding</a> - A new way of writing HTML and CSS</li>
-<li><a href="http://client.cors-api.appspot.com/client">CORS Test</a> – Use this page to test CORS requests</li>
-<li><a href="http://json2csharp.com/">JSON2Csharp</a> – Generate C# classes from JSON</li>
-<li><a href="http://en.wikipedia.org/wiki/User:Svick/LinqToWiki">LINQtoWiki</a> – Library for accessing MediaWiki wikis (including Wikipedia) (<a href="https://github.com/svick/LINQ-to-Wiki">Source</a>)</li>
-<li><a href="http://modernuiicons.com/">ModernUIIcons</a> - Set of awesome icons for WP8 and Win8</li>
 </ul>
 
   </div>
@@ -960,32 +1235,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

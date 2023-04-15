@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-06-13T16:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-06-26T15:37:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,147 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/guids-in-c-sql/">GUIDs in C# / SQL</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 26, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      
+      
+      
+      
+    </span>
+    <p>GUID pronounced as goo&rsquo;id - Globally unique identifier is a 128-bit integer that can be used to uniquely identify something. If you want to identify the large collection of data GUID is the best approach in my view. Also you can use the autoincremental integer to identify records, this is the basic approach programmer&rsquo;s use.</p>
+
+<p>GUID method can be found under the System namespace and it also provides some overloads. Here is how we can use the GUID overloads:</p>
+
+<pre class="brush:csharp">
+System.Guid.NewGuid().ToString();    //c93ded50-7cce-4f3a-b8aa-5a1a34d80b14
+System.Guid.NewGuid().ToString("N"); //636bdfd2bbc541229fbc6b869995ce6f
+System.Guid.NewGuid().ToString("D"); //45e602b6-0904-47ac-a764-a5522f56f40f
+System.Guid.NewGuid().ToString("B"); //{68f55508-f72c-4a38-b96b-f493c3c5adb9}
+System.Guid.NewGuid().ToString("P"); //(1c2e52a7-e384-445e-b80a-e8704c6ecbd6)
+</pre>
+
+<p>To create GUID in SQL Server use the simple select statement:</p>
+
+<pre class="brush:sql">
+SELECT NEWID()
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/backuprestore-sql-database-using-c/">Backup/Restore SQL database using C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 21, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft’s .NET framework provides the flexibility to Backup and Restore SQL server database. A few lines to populate the names of all the server instances, create backups and then restore the backups. The application what you see here is a part of an application, so when you create backups and restore it will use the same path hardcoded in the code itself. You can change the way you like it.</p>
+
+<p><img src="/images/sqldb-backup-app.jpg" alt="SQL datbase backup app" /></p>
+
+<p>Namespace you need to add:</p>
+
+<pre class="brush:csharp">
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Common;
+using System.IO;
+</pre>
+
+<p>I am not going to write on and on and just make it going boring, so it&rsquo;s better just download the code and check the comments, they are one liners, but clears everything.</p>
+
+<p><strong>Download Full Application Here: <a href="/files/DBBackup.zip">DBBackup.zip (290.99 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/set-the-default-printer-for-printing-programatically/">Set the default printer for printing programatically</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 16, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>You need to print the document but you don&rsquo;t want to go to control panel or printer and faxes options and just want to get it changed automatically. You can even set the shared local network printer with this code.</p>
+
+<p>Just with the code you can override the system settings and change the default printer for your system.</p>
+
+<p>You need to use the namespace so in order to use the <code>DLLImport</code> attribute.</p>
+
+<pre class="brush:csharp">
+using System.Runtime.Interopservices;
+//Set default printer to the one available with your system or network.
+[DllImport("Winspool.drv")]
+private static extern bool SetDefaultPrinter(string printerName);
+</pre>
+
+<p>Now on button click or on form load just change the printer you want to use while printing and then change it back to the one before.</p>
+
+<pre class="brush:csharp">
+//Set the default printer. I have set it as my Adobe PDF printer
+SetDefaultPrinter("Adobe PDF");
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -226,119 +367,6 @@ ExitWindowsEx(0, 0)//Shutdowns the machine
 Application.SetSuspendState(PowerState.Suspend, true, true)  //Put the machine in stand-by mode
 Application.SetSuspendState(PowerState.Hibernate, true, true); // Hibernates the system
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/convert-ascii-values-from-hex-to-characters/">Convert ASCII values from hex to characters</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 30, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>This C# code takes in a list of ASCII values (hexadecimal) and shows the actual characters behind, thus converting hex values to strings.</p>
-
-<pre class="brush:csharp">
-// An object storing the hex value
-string HexValue = "4765656B7065646961";
-// An object storing the string value
-string StrValue = "";
-// While there's still something to convert in the hex string
-while (HexValue.Length > 0)
-{
-    // Use ToChar() to convert each ASCII value (two hex digits) to the actual character
-    StrValue += Convert.ToChar(Convert.ToUInt32(HexValue.Substring(0, 2), 16)).ToString();
-    // Remove from the hex object the converted value
-    HexValue = HexValue.Substring(2, HexValue.Length - 2);
-}
-// Show the converted value
-MessageBox.Show(StrValue); 
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/printing-word-documents-without-showing-print-dialog/">Printing word documents without showing Print Dialog</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 29, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>Just one Click! and documents queued to the printer. The code will provide you the full flexiblity to set the default printer and also to set other word document settings. I used the code to convert the word document to PDF using Adobe PDF printer driver, as I was unable to get the code to convert the word files to PDF using DLLs.Cool</p>
-
-<p>Download the code and don&rsquo;t forget to look at the comments.</p>
-
-<p><strong>Download: <a href="/filesdocprntpdf.zip">docprntpdf.zip (645.83 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/populating-restore-and-backup-sql-database-using-c/">Populating, Restore and Backup SQL Database using C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 27, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>You want to add a functionality in your C# application to allow user to select the database to restore and taking backups of the database. C# provides the classes to allow a programmer to achieve this in the application.</p>
-
-<p>Before you go and implement this feature in your application, make sure you have added the references of the following namespaces:</p>
-
-<ol>
-<li>Microsoft.SqlServer.Smo</li>
-<li>Microsoft.SqlServer.ConnectionInfo</li>
-</ol>
-
-<p>Click the below link to download the full application.</p>
-
-<p><strong>Download: <a href="/files/DBBackup.zip">DBBackup.zip (290.99 kb)</a></strong></p>
 
   </div>
   
@@ -691,32 +719,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

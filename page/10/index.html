@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-08-19T15:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-09-04T02:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,286 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/visual-studio-2012-features-comparison-chart/">Visual Studio 2012 Features Comparison Chart</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 4, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p>Visual Studio 2012 is now available and here is a chart that compares the features of different versions of Visual Studio 2012.</p>
+
+<p><img src="/images/vs-features.png" alt="Visual Studio features comparison chart" /></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/attribute-routing-in-mvc/">Attribute Routing In MVC</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 26, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>I took a look at <a href="http://code.google.com/p/stack-exchange-data-explorer/">Stack Overflow Stack-Exchange Data Explorer</a> that is built in MVC and is open-source application to query the <a href="http://blog.stackoverflow.com/category/cc-wiki-dump/">Stack Exchange data dump</a> that is being provided by Stack Exchange team in every month or few. I do have a dump, but I was more curious to know about the application that they built to query the database. And I must admit that I learned tons of things. I came to know the power of <a href="http://code.google.com/p/dapper-dot-net/">Micro-ORM (Dapper)</a> over Entity-Framework (EF) and one more pretty thing that attracted me was the routing mechanism used in the application. I strongly recommend that you check out this tool/application and take a deep dive in the code, lot of things to learn.</p>
+
+<p>Before we start writing the code, we&rsquo;ll take a quick look at a NuGet package <a href="http://nuget.org/packages/AttributeRouting">AttributeRouting</a>. You can find the <a href="https://github.com/mccalltd/AttributeRouting/">source code at GitHub</a> in case if you are interested. The <a href="https://github.com/mccalltd/AttributeRouting/wiki/1.-Getting-Started">documentation</a> is simple and explains almost every bit of the package. It&rsquo;s incredibly easy.</p>
+
+<blockquote>
+<p>The NuGet package I am using is for MVC, if you want to do the same with your Web API application then use <a href="http://nuget.org/packages/AttributeRouting.WebApi">this package</a>.</p>
+</blockquote>
+
+<p>To see how easy it is to implement routing in your MVC application. Start Visual Studio and create a new MVC4 (Internet) application and fire up the below NuGet command.</p>
+
+<p><img src="/images/attr-routing-nuget-cmd.png" alt="AttributeRouting Nuget Command" /></p>
+
+<p>This command just don&rsquo;t install one single package but also some other dependent packages. Here is the output when I fire the above NuGet command:</p>
+
+<pre class="brush: plain">
+PM> Install-Package AttributeRouting
+Attempting to resolve dependency 'AttributeRouting.Core (≥ 2.5.1.0)'.
+Attempting to resolve dependency 'AttributeRouting.Core.Web (≥ 2.5.1.0)'.
+Attempting to resolve dependency 'WebActivator (≥ 1.0.0.0)'.
+Successfully installed 'AttributeRouting.Core 2.5.1.0'.
+Successfully installed 'AttributeRouting.Core.Web 2.5.1.0'.
+Successfully installed 'WebActivator 1.0.0.0'.
+Successfully installed 'AttributeRouting 2.5.1.0'.
+Successfully added 'AttributeRouting.Core 2.5.1.0' to MVCAttrRouteTest.
+Successfully added 'AttributeRouting.Core.Web 2.5.1.0' to MVCAttrRouteTest.
+Successfully added 'WebActivator 1.0.0.0' to MVCAttrRouteTest.
+Successfully added 'AttributeRouting 2.5.1.0' to MVCAttrRouteTest.
+</pre>
+
+<p>Now before you make any changes to the web application, hit <code>CTRL+F5</code>. Hover or click on the links which are on the top which are <code>About</code> and <code>Contact</code>. The URL rendered in the address bar is something like this (as what specified in your application Global.asax file).</p>
+
+<p>For <code>About</code> View:</p>
+
+<pre class="brush: plain">
+/Home/About
+</pre>
+
+<p>For <code>Contact</code> View:</p>
+
+<pre class="brush: plain">
+/Home/Contact
+</pre>
+
+<p>The <code>Home</code> that we see here is the name of the controller being used. I don&rsquo;t want the name of the controller to be visible to my site visitors or maybe I just want a different name there. Usually, I would have switch to my application <code>Global.asax</code> file and register a new route there. But now I can now control my routes within controller itself. This is pretty cool for and a time saver, as I do not have to avoid working with Global.asax. This is the simplest implementation of AttributeRouting. Below are the 2 <code>Home</code> controller methods <code>About</code> and <code>Contact</code>:</p>
+
+<pre class="brush: csharp; highlight:[1,8]">
+[GET("About")]
+public ActionResult About()
+{
+    ViewBag.Message = "Your app description page.";
+    return View();
+}
+ 
+[GET("Contact")]
+public ActionResult Contact()
+{
+    ViewBag.Message = "Your contact page.";
+    return View();
+}
+</pre>
+
+<p>There are no changes in the method, only the routing attribute has been added. The URLs for <code>About</code> and <code>Contact</code> are now free from the controller name <code>Home</code>. Now we look at a second condition where I want to have a totally different URL for <code>About</code> view or to be specific I would say I want to have outbound URLs and this will require <code>RouteName</code> property with the routing attribute. This is called <code>Named Routes</code>. I am going to change the URL to <code>/App/AboutMe</code>.</p>
+
+<pre class="brush: csharp">
+[GET("App/AboutMe", RouteName = "About")]
+public ActionResult About()
+{
+    ViewBag.Message = "Your app description page.";
+    return View();
+}
+</pre>
+
+<p>Working with parameters without routing can lead to very ugly URLs or some un-wanted params in the URLs. Again to have a clean URL we can handle the parameters passed to the controller action. I have added a new view named <code>Welcome</code> (no scaffolding) in the <code>Home</code> controller and added a <code>ViewBag</code> property <code>GreetMessage</code>. When this view is called, it will display a greeting message in a heading. The <code>GreetMessage</code> will hold the name of the person, which is our parameter. Below is our controller action:</p>
+
+<pre class="brush: csharp">
+[GET("App/Greet/{name}")]
+public ActionResult Welcome(string Name)
+{
+    ViewBag.GreetMessage = "Welcome " + Name;
+    return View();
+}
+</pre>
+
+<p>The URL that is rendered on the browser is:</p>
+
+<pre class="brush: plain">
+http://domain.com/App/Greet/Prashant
+</pre>
+
+<p><code>/App/Greet/</code> is the URL we want to show and <code>Prashant</code> is the parameter is being passed to the <code>Welcome</code> view.</p>
+
+<p>This is it for this tutorial but this is not it. The AttributeRouting package has to offer a lot of things and has a very powerful and easy way of routing. There are very advance topics that are <a href="https://github.com/mccalltd/AttributeRouting/wiki/_pages">documented</a> at GitHub.</p>
+
+<p>Related Links:</p>
+
+<ul>
+<li><a href="http://blog.stackoverflow.com/2012/02/stack-exchange-open-source-projects/">Stack Exchange - Open Source Projects</a></li>
+<li><a href="http://data.stackexchange.com/">Stack Exchange - Data Explorer</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/free-tools-every-freelance-developer-should-have/">Free Tools Every Freelance Developer Should Have</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 25, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/freelancing">FREELANCING</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>If you are freelancing or working from home, then you must have some productivity tools which can really make your work from home a lot better. Why one has to invest in a service that can be available with no cost at all? Though some services are good enough to pay for, but I suggest one should not get them unless you really need one.</p>
+
+<p>I have been blogging and in a job for now almost 4 years and as a programmer I am a really big fan of open-source projects which have made my/our life easy without spending a single dime. While working from home and having a decent broadband connection I utilize the power of net and networking, but it can&rsquo;t be possible if you are not using the right set of tools.</p>
+
+<h4 id="social-tools">Social Tools</h4>
+
+<p><a href="http://www.skype.com/intl/en/home">Skype</a>: After the software giant acquired Skype, the best VOIP tool saw lot of updates. Apart from just having your Skype contacts you can now also connect to your Facebook contacts. You can chat and make a video call, conference call (paid for video, if you have more contacts in conference, not applicable to Facebook contacts). You have other alternatives like Google Hangouts, but Skype has better voice quality over Google Hangout (my experience). Skype also allows you to record the conversation using free third-party tools like <a href="http://www.callburner.com/">CallBurner</a> which will allow you to record voice calls you have with your colleagues and clients so you can have a reference with you later on in case you forget something. Skype also have a desktop sharing feature that is worth checking out.</p>
+
+<p><a href="http://www.tweetdeck.com/">Tweet Deck</a> / <a href="http://www.metrotwit.com/">Metro Twit</a>: If you want to keep a keen eye on your Twitter account and followers then use these desktop applications without even opening the browser. I personally used both of these applications and both of them are good. I like Tweet Deck over Metro Twit as it also has notifications for Facebook, but Metro Twit has its own awesomeness. I recommend you to take a look at both of these tools and then decide which one to stick with.</p>
+
+<p><a href="https://join.me/">Join.me</a>: Sharing prototypes and communicating with clients is a problem that mostly every freelancer suffers. It&rsquo;s not a big problem but still we cannot share everything on e-mail, and the deliverables should reach client only when it is the right time and not before. How would you feel if you created a prototype of a website and share the design files with the client on e-mail? May be he will never get back to you and use your design prototype in his project with slight modification. Though there is an NDA signing and other legal docs, but why take chances? Join.me is a perfect solution through which you can easily share your screen with your clients and show them the prototype from your place. This perfect little application will download a client application nd generates a unique ID, which you can share with the clients or with your team members. Join.me Works on HTTPS and is a secured and reliable way to share your screen.</p>
+
+<p><a href="http://gmail-notifier-plus.en.softonic.com/">Gmail Notifier Plus</a>: Keeping in touch with your clients and colleagues is the key to success for a freelancer. An e-mail plays this part very well and no other tool or mechanism can take this place. But why Gmail Notifier Plus? Well, I own a domain and shared hosting and e-mail service. The default e-mail server is ridiculous which is why I shifted to Google Apps and now I have a peace of mind that my e-mails will never went down. I use MS Office Outlook as my primary e-mail client, but while I am on the move or I am out I use web to access my e-mails. Gmail Notifier Plus is not an e-mail client but it notifies you if any new e-mail arrives in your inbox. Just in case if you are not into your e-mail client or in case you don&rsquo;t have one, this small utility make sure that you just don&rsquo;t miss an important e-mail. As a Google App user you will really like this tool as it notifies you on your desktop for a new e-mail and has a very decent integration with Windows 7 as it adds e-mail alerts in the taskbar.</p>
+
+<h4 id="cloud-power">Cloud Power</h4>
+
+<p>There should be a very good reason if you are not using any of the cloud services out there. I am using these services since their launch and I have gigs of files stored on the cloud which are synced on my machine and as well as on my co-worker&rsquo;s machine.</p>
+
+<p><a href="https://skydrive.live.com/">SkyDrive</a>: With recent big update SkyDrive is in lime light and is also offering paid service for biz users. We have data but not so much that we have to buy additional space. I have been using SkyDrive since its launch and I have 2 accounts with 25GB each. The new users will get 7GB of space but for old users Microsoft gave some time to claim your old whooping 25GB of space. It not just about putting your stuff to cloud, but it is about how much you are making out using the service. It&rsquo;s free, but is it beneficial? Yes, it is. With SkyDrive desktop application I can now share my files by just dropping it into a folder which is linked to my SkydDrive. It automatically starts syncing the files when I change anything in the linked folder or vice-versa. I can also access my storage using web interface. If you are new to SkyDrive then you want to know <a href="http://midnightprogrammer.net/post/Microsoft-Launches-SkyDrive-Application-For-Windows.aspx">how to setup SkyDrive desktop app for online storage</a>. I choose SkyDrive as the best option to share files among co-workers and clients.</p>
+
+<p><a href="https://tools.google.com/dlpage/drive?pli=1#eula">Google Drive</a>: Similar to SkyDrive, I am not using it right now but Google Drive also comes up with a desktop utility which sync files between user desktop and cloud. At the moment Google Drive is offering free users a 5GB of space.</p>
+
+<p><a href="http://office.microsoft.com/en-us/web-apps">Microsoft Office WebApps</a> / <a href="http://docs.google.com/">Google Docs</a>: Sharing files with clients and co-workers on e-mails can be tedious and sometimes irritating when the changes are just too small. Using WebApps and Google Docs allows you to share files among clients and co-workers and also to make changes which will reflect in a jiffy. Office WebApps have a very efficient integration with Microsoft Office Products and you should use Office WebApps if you own Office Suite. Just in case if you are wondering, Office WebApps also have integration with SkyDrive.</p>
+
+<p><em>Apart from these you can try using <a href="http://www.amazon.com/clouddrive">Amazon Cloud Drive</a> and <a href="http://www.dropbox.com/">DropBox</a>.</em></p>
+
+<h4 id="general-utils">General Utils</h4>
+
+<p><a href="http://www.getpaint.net/">Paint.NET</a>: An undergraduate college project turns out to be a replacement for Microsoft Paint. Some people says that this is a replacement of Photoshop. I would rather say that Paint.NET has awesome features and also have amazing plugins and filter effects but not a complete replacement of Photoshop. For basic and for some advance photo editing Paint.NET is just perfect. Who can&rsquo;t afford the license of Photoshop should use this tool.</p>
+
+<p><a href="http://keepass.info/">KeePass</a>: It&rsquo;s free, open-source and built with .NET. If you have a problem remembering your user name and password then this tool is meant for you. It allows you to save the credentials and URLs of the website and other confidential information in the encrypted database. You can also take the backup of the database and place it on a remote server. You can login to any of the site using your credentials with a press of a button. The feature I like most in this utility is that it auto-fills the user name and password and auto-login to the website and that too with the press of a (hot) key.</p>
+
+<blockquote>
+<p>You must store your credentials in your head and nowhere else.</p>
+</blockquote>
+
+<p><a href="http://notepad-plus-plus.org/">Notepad++</a>: A perfect notepad replacement. Includes syntax highlighting and more features than your traditional notepad editor.</p>
+
+<p><a href="http://www.microsoft.com/en-us/download/details.aspx?id=21101">RDCMan</a>: A free light-weight tool from Microsoft to establish remote desktop connection. I work on 2 Windows machines and 1 Linux machine. I can now easily manage multiple remote connections with ease. A must have if your home/office network have more than 1 computer.</p>
+
+<p><a href="http://filezilla-project.org/">FileZilla</a>: A free, open-source FTP client. Start using it now and replace it if you running any other FTP client.</p>
+
+<p><a href="http://evernote.com/">Evernote</a>: While working you keep on writing notes, but you forgot to save it or you forgot where you saved it. This tool will help you in to keep track of your notes you made and also serve as a to-do manager.</p>
+
+<p><a href="http://www.autohotkey.com/">AutoHotkey</a>: Automate keystrokes, mouse clicks with a little bit of scripts and lot more to do. I highly recommend you to use this because it will save you a hell of time. Awesome, free and open-source.</p>
+
+<h4 id="online-services">Online Services</h4>
+
+<p>Web is an ultimate resource of information and you can use the best of it. Here are few of them which I feel should be in your bookmark list.</p>
+
+<p><a href="https://secure.logmein.com/">LogMeIn</a>: If you know Join.me then you also know about LogMeIn. LogMeIn is a free/paid service through which you can take remote control of your computer. I use a free service to take remote of my home machine while I am at work and it is all fun if the sysadmin has blocked social networking sites. If we look from a different perspective, you can access any PC remotely (of course, you must have a logmein client installed on that machine) and in a co-working environment where your co-worker is on a remote location, this service is a life-saver as you can have a full access to the remote machine.</p>
+
+<p><a href="http://www.teamlab.com/">TeamLab</a>: A highly intutive application for small business. As working in a team you should use this to track the progress of your on-going projects. This is free and open-source software which you can also download and host it on your network or on a sub-domain. If you don&rsquo;t want to get into much trouble, then sign up for the free service on Teamlab site.</p>
+
+<p><a href="http://del.icio.us/">del.icio.us</a>: A famous bookmarking site to save and share your bookmarks with others. As a freelancer you should be doing a lot of RnD and you must have lots of links. Save it and share it with others so you never have to lose an important bookmark if your system crashes.</p>
+
+<p><a href="http://www.paypal.com/">PayPal</a>: Do I have to say something about this service which dominates the mode of online payment. I believe everyone has one.</p>
+
+<p><a href="http://markup.io/">Markup.io</a>: Discuss site design more specifically without sharing your screen. Mark it up on the page and share it with others.</p>
+
+<p>There can be more of them and it all depends on the user and the way they are working. My list ends here, but if I found something useful, I&rsquo;ll share it here. Feel free to leave comments and share any other tool/utils/service you are using.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/free-e-book-ux-guidelines-for-metro-style-apps-for-windows-8/">Free e-Book: UX Guidelines For Metro Style Apps For Windows 8</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 23, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft made it available a free e-book for developers to understand UX Guidelines for Metro styled apps for Windows 8 and that too for both PC and tablets. This is an awesome resource which will let you know the basics and fundamentals while designing applications for PC annd tablets. As we all know that Windows 8 is the new OS with new UI design (metro) and it is necessary for every developer to know the basics before he starts developing the application for PC or for tablets. The e-book has it all from planning a metro app to making a stylish metro app.</p>
+
+<p><strong><a href="http://go.microsoft.com/fwlink/?LinkId=258743">Download</a></strong> your copy today.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -243,470 +523,6 @@ $(document.forms[0]).append($overlay, $box.append($wrap, $loadingBay));
 </pre>
 
 <p>After the changes have been made, it&rsquo;s time to check again. Try clicking the button and check again. This time you will be redirected to the about page. Although, this seems to be simple problem, but there will be few fellow programmers who will scratch their head if they stuck in this sort of a problem. Hope this helps someone out there.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/deploying-net-application-to-appharbor-using-git/">Deploying .NET Application To Appharbor Using Git</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 7, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/apphb-logo.png" alt="Devbuzz Image">
-I have an account with Appharbor but never tried to deploy an application. <a href="https://appharbor.com/">Appharbor</a> has an excellent integration with Github and Codeplex and if you are planning to showcase you application latest build then Appharbor is the best thing to do that. The Appharbor site has a detailed tutorial on how you can deploy your application from <a href="http://support.appharbor.com/kb/3rd-party-integrations/integrating-with-github">Github</a> and <a href="http://support.appharbor.com/kb/3rd-party-integrations/integrating-with-codeplex">Codeplex</a>. But the question here is what will a programmer do if he just wants to deploy the application from his dektop or in other words if he wants to test his application which is not an open source application. Fortunately, it is possible and is pretty easy to use by using <a href="http://code.google.com/p/msysgit/downloads/list">Git Bash</a>. All a programmer need to to is to execute a bunch of commands to deploy the application. I have already deployed one of my application called <a href="http://midnightprogrammer.net/page/mp3app.apphb.com">MP3app</a> to Appharbor (just for few days) which was previously hosted on <a href="http://midnightprogrammer.net/page/mp3app.midnightprogrammer.net">sub-domain</a>.</p>
-
-<p>If you have an application and you want to showcase it then you can deploy the application to Appharbor. The application I have with me right now is an ASP.NET MVC application which demonstrates the use of <a href="http://code.google.com/p/dapper-dot-net/">Micro-ORM Dapper</a>. This application is with me and is not hosted on Github or Codeplex and therefore I cannot take the advantage of deploying it from the code hosting service.</p>
-
-<p>Before you proceed I assume that you have an account with Appharbor and have Git bash installed on your machine. If you don&rsquo;t have Git bash installed on your machine, download it from <a href="http://code.google.com/p/msysgit/downloads/list">here</a>. After successfull login you can create a new application with the name of your choice. You can also select the datacenter location for your application, either United States or Europe.</p>
-
-<p><img src="/images/apphb-new-app.png" alt="AppHarbor New Application" /></p>
-
-<p>Click <code>Create New</code> button to create your application, after which you will be shown with the application settings screen. On the right-hand side you can also see the links which will help you to get started with Appharbor using Bitbucket, Github and Codeplex. Moreover, you can also select add-on services like SQL Server with 20MB of space. You can see the complete list of add-ons and their charges <a href="https://appharbor.com/applications/dappertest/addons">here</a>.</p>
-
-<p><img src="/images/apphb-application.png" alt="AppHarbor Application Page" /></p>
-
-<p>I am calling my application DapperTest which demonstrates the use of Micro-ORM with SQL ServerCE 4.0 in ASP.NET MVC3. On the left side under the application name and other configurations you can see two buttons, REPOSITORY URL and BUILD URL. Click on the REPOSITORY URL button and you will have the URL copied to your clipboard. Open any text editor and paste the copied URL over there as you will be need it afterwards.</p>
-
-<p>Open Git bash and then navigate to the project/solution directory. This will be the original project/solution with source code and not the published version. Also you need to be sure that the project/solution has Visual Studio solutiuon (.sln) file. If the file is not present then you will not be able to deploy your application to Appharbor.</p>
-
-<p>To navigate to the project directory fire the below command in the Git bash console:</p>
-
-<pre class="brush: plain">
-cd D:\DapperApp
-</pre>
-
-<p>To initialize empty Git repository, execute the below command:</p>
-
-<pre class="brush: plain">
-git init
-</pre>
-
-<p>If you navigate to your project folder, then you can see a folder named <code>.git</code>. By default, this folder is hidden. Now the repositiry is created, I can now add all the files to the repo using the below command:</p>
-
-<pre class="brush: plain">
-git add .
-</pre>
-
-<p>It might be possible that you don&rsquo;t want to add certain files to the repository then you can add a .gitignore file. You can see an example <a href="https://gist.github.com/825373">here</a>. After this, I can then commit it using the below command:</p>
-
-<pre class="brush: plain">
-git commit -m "initial commit"
-</pre>
-
-<p>After the commit is successful, copy the repository URL that you saved initially in your text editor. Add the remote repository (in our case it is Appharbor) using the below command:</p>
-
-<pre class="brush: plain">
-git remote add appharbor https://prashantkhandelwal@appharbor.com/dappertest.git
-</pre>
-
-<p>Make sure to replace the URL with the correct one. Once this command executed successfully, you can then deploy/push to Appharbor by using below command:</p>
-
-<pre class="brush: plain">
-git push appharbor master
-</pre>
-
-<p>Before the application is being deployed, it will ask you for your Appharbor password. Make sure that you type it slowly because you will not be able to see the password being typed on the Git bash console.</p>
-
-<p><img src="/images/apphb-hostedapp.png" alt="Application running from AppHarbor" /></p>
-
-<p>This is it, enjoy the power of cloud.</p>
-
-<p>Here is the list of few applications hosted on Appharbor:</p>
-
-<ul>
-<li><a href="http://json2csharp.com/">JSON2CSHARP</a></li>
-<li><a href="http://hangman.apphb.com/">Hangman</a></li>
-<li><a href="http://chirpyhq.apphb.com/">ChirpyHQ</a></li>
-<li><a href="http://jkchat.apphb.com/Chat">jkChat</a></li>
-<li><a href="http://kendotodo.apphb.com/">Kendo UI Todo List</a></li>
-<li><a href="http://funwithsignalr.apphb.com/">Fun with SignalR</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/integrate-windows-live-signin-support-in-aspnet/">Integrate Windows Live SignIn Support In ASP.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 28, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>Last year I wrote a post on how you can <a href="http://midnightprogrammer.net/post/Add-Google-Login-Support-In-ASPNET-With-OAuth.aspx">integrate OpenID support in your ASP.NET application</a>. Few days back as usual I was chasing Windows Live SDK updates on Twitter and yes the most awaited SkyDrive API was made available to all the developers. I will be writing a post later on how to upload files using SkyDrive API.</p>
-
-<h4 id="setting-up-the-application">Setting up the application</h4>
-
-<p>To integrate Windows Live Sign-In support I have downloaded the <a href="https://github.com/liveservices/LiveSDK">LiveService samples</a> from <a href="https://github.com/">Github</a> and take a look at ASP.NET sample. All the hard work has been done for you from before. First you need to create an application at <a href="https://manage.dev.live.com/">https://manage.dev.live.com</a>. Once you create an application, you will get the <code>Client ID</code> and <code>Client secret</code> for the application which we will be using in our application.</p>
-
-<p><img src="/images/live-api-settings.png" alt="Windows Live API Settings Page" /></p>
-
-<p>Now you have the Client ID and Client secret, you then need to update the same in the Callback.aspx code-behind. The redirect domain will be the name of the domain. In my case I have hosted the complete solution which you can try <a href="http://midnightprogrammer.net/live/oauthsample/default.html">here</a>. The pretty looking Sign In button rendered on the page is from the JavaScript code.</p>
-
-<p><img src="/images/live-llivetest.png" alt="Windows Live Test Page" /></p>
-
-<p>When you click on the button it will open a window which will ask your Live or Hotmail credentials.</p>
-
-<p><img src="/images/live-login-page.png" alt="Windows Live Login Page" /></p>
-
-<p>After you successfully authenticated from Live service, it will return you the authentication code. For your ease I have made the authentication code (along with the URL that retrieves the user&rsquo;s image) available to you through a JavaScript alert.</p>
-
-<p><img src="/images/live-token-alert.png" alt="Windows Live Token Alert Dialog" /></p>
-
-<p>Don&rsquo;t waste your time in looking into the alert message. Just press CTRL+C to copy the whole message and paste it into notepad. Now it&rsquo;s time to look into it carefully. If you quickly open a new tab in your browser and paste the copied URL, then you will get the image of the user who is authenticated. To get more information about the user, modify the URL in the notepad to this:</p>
-
-<pre class="brush:plain">
-https://apis.live.net/v5.0/me?access_token=EwBAAq1DBAAUlbRWyAJjK5w968Ru3Cyt/6GvwXwAAf/Zr2CM5/qilrH.......
-</pre>
-
-<p>Note that from the URL above I have removed <code>/picture</code>. Now hit the new URL to the browser again, and this time the output has more information:</p>
-
-<p><img src="/images/live-response-user.png" alt="Windows Live user details" /></p>
-
-<p>The question comes here is: What if I want to get the contacts of the authenticated user or want to get the list of folders in his/her SkyDrive? To understand this, consider that Windows Live is a big application which is built up with small applications like mail, SkyDrive, calendar etc. Now if someone wants to access any part of the application we need to specify which part of the application we need to access. For us (programmers) it is called <code>Scope</code>. The test application I am demonstrating here has the following scopes: <code>wl.signin</code>, <code>wl.basic</code>, <code>wl.offline_access</code>, <code>wl.skydrive</code>. To grant access to your application you should provide the correct scopes in your application. To know more about scopes read <a href="http://msdn.microsoft.com/en-us/library/live/hh243646.aspx">here</a>.</p>
-
-<p>After everything went fine and I was successfully authenticated I get my picture with Windows Live (it&rsquo;s 2 year old) and the Sign in button changed to Sign out:</p>
-
-<p><img src="/images/live-user-pic.png" alt="Windows Live user image" /></p>
-
-<p>You can also display other user information, if you wish. I have compiled all the files under one hood for your ease and you only have to create a new application, get the Client ID and Client secret and update it into the application.</p>
-
-<p><strong>Download</strong>: <a href="/files/Live-SignIn.zip">Live-SignIn.zip (9.71 kb)</a></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/mp3app-a-web-application-to-get-lyrics-album-name-album-art-and-more/">MP3APP - A Web Application To Get Lyrics, Album Name, Album Art and More</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 29, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/mp3app.png" alt="Devbuzz Image">
-I was busy in few of my freelance projects and got a very rough weekends this whole month. But still I get a bit of time to work on my so called in-house project and somehow I was able to get it completed after a bit of testing. The application I built is a simple web application which will allow you to enter artist name and the song name and let you search the lyrics, album art, artist image, album name and album release date. I hope this application help few people out there.</p>
-
-<p>Now, something about the internals and history of the application. I created a windows application 2 years back and thought of porting the same application for the web. For the, web I used ASP.NET MVC 3 with jQuery but the internals of the application remains the same as it was for my windows app. To fetch the lyrics I use <a href="http://www.lyrdb.com/">LyrDB</a> and <a href="http://lyrics.wikia.com/Lyrics_Wiki">WikiLyrics</a> web services and for album art, album name, artist image etc. I used <a href="http://www.last.fm/api">Last.FM</a> web service. I package the whole stuff and what I got is the application which I was running since 2 years on my machine and now the same application is out for you, use it and suggest me something new if you anything in your minds.</p>
-
-<p>I am not yet finished with this application and you&rsquo;ll see more in coming days.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/working-with-micro-orm-dapper-in-mvc/">Working With Micro-ORM Dapper In MVC</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 19, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>I love working with MVC but I do have a hard time working with complex data with EntityFramework (EF). I heard of using inline SQL queries in MVC but don&rsquo;t know how to use it and will it have any performance issues? Few month&rsquo;s back I downloaded the <a href="http://code.google.com/p/stack-exchange-data-explorer/">StackOverflow (SO) Data Explorer</a> which is an open-source project built on MVC to explore data dump provided by SO. The thing that took my attention in that code was that they have been SQL queries to get the data from the database. This looks promising to me as the guys at SO will never compromise with performance. SO Data Explorer uses the micro-ORM called <a href="http://code.google.com/p/dapper-dot-net/">Dapper</a> which is authored by <a href="http://samsaffron.com/">Sam Saffron</a> of Stack Overlfow.</p>
-
-<h4 id="getting-dapper">Getting Dapper</h4>
-
-<p>Dapper is also available on NuGet or you can also drop <a href="http://code.google.com/p/dapper-dot-net/source/browse/Dapper/SqlMapper.cs">this</a> single file in your project which is hosted at Google Code. You can use the below NuGet command to install Dapper.</p>
-
-<p><img src="/images/dapper-nuget-cmd.png" alt="Dapper Nuget Command" /></p>
-
-<h4 id="usage">Usage</h4>
-
-<p>Performing CRUD operations in EF is simple for simple scenarios, but when the required data is complex I prefer using SQL queries with joins and other related stuff which make my work far much easier. To demonstrate how to use Dapper to perform CRUD operations, I am building a simple application to manage contacts. I started up with creating a model named <code>ContactModel</code>. You can copy the below code or you can have one for yourself.</p>
-
-<pre class="brush: csharp">
-public class Contacts
-{
-    [Key]
-    public int ContactID { get; set; }
-    public string Name { get; set; }
-    public string Address { get; set; }
-    public string Email { get; set; }
-    public string Skype { get; set; }
-}
-</pre>
-
-<p>The model is ready but we are not using EF Code First which created the database for us on the fly and therefore I have a bit more work to do. I&rsquo;ll now create a database with a table which is same like my model. After the table has been created now I will add a new class to my project where I will write functions which will help me in performing CRUD operations. I will talk about view and controllers later when I am done with my DB access class. For this sample application I have used SQL CE 4.0 DB, but if you wish you can use SQL Server DB.</p>
-
-<p>At the first, I just want to list down the contacts I have in the database. Practically this would have been the last thing to show in the example but I am showing this at first so you get an idea how Dapper works. As we have fresh database with no records, write down and insert query or just simply punch in the data in. Now in my data access class I will create a simple function which returns me the collection of <code>contacts</code>.</p>
-
-<pre class="brush: csharp">
-try
-{
-    using (SqlCeConnection con = new SqlCeConnection(ConStr))
-    {
-        con.Open();
-        var contacts = con.Query<Contacts>("Select Name, Address, Email, Skype from Contacts");
-        return contacts;
-     }
-}
-catch (Exception x)
-{
-    throw x;
-}
-</pre>
-
-<p>The above functions returns the collection of the contacts which I will use in my Index view where I am going to list down all the contacts I have with me (See the SQL query :) ). Add a new controller or use the existing <code>Home</code> controller and add the below <code>ActionResult</code> method <code>ListContacts</code>.</p>
-
-<pre class="brush: csharp">
-public ActionResult ListContacts()
-{
-    var db = new DB();
-    return View(db.GetContacts());
-}
-</pre>
-
-<p>I now must have a view which will display the list of all the contacts. Right-click on <code>ListContacts()</code> method and choose <code>Add View</code>. A pretty familiar dialog pops up like the one below.</p>
-
-<p><img src="/images/dapper-addview-dialog.png" alt="Add new view dialog" /></p>
-
-<p>Nothing fancy here, just select the model class as the <code>Contacts</code> and Scaffold template as List. Hit F5 and change the URL to <code>{View}/ListContacts</code> and you will be able to see the list of contacts.</p>
-
-<p><img src="/images/dapper-app-view.png" alt="Application displaying data using dapper" /></p>
-
-<h4 id="performing-insert-update-and-delete-operations">Performing INSERT/UPDATE and DELETE operations</h4>
-
-<p>To insert the data in the database create the below method in the DB access class:</p>
-
-<pre class="brush: csharp">
-public bool CreateContact(Contacts contact)
-{
-    try
-    {
-        using (SqlCeConnection con = new SqlCeConnection(ConStr))
-        {
-            con.Open();
- 
-            string sqlQuery = "INSERT INTO Contacts([Name],[Address],[Email],[Skype]) VALUES (@Name,@Address,@Email,@Skype)";
-            con.Execute(sqlQuery,
-                                  new
-                                  {
-                                      contact.Name,
-                                      contact.Address,
-                                      contact.Email,
-                                      contact.Skype
-                                  });
-        }
-        return true;
-    }
-    catch (Exception x)
-    {
-        return false;
-    }
-}
-</pre>
-
-<p>I have a normal INSERT statement which will insert the records for me. The point that you need to note is that it is executed by the <code>Execute</code> extension method of the <code>SqlCeConnection</code> class. If you use SQL Server then the class will be <code>SqlConnection</code> class. Returning to controller and just to remind you that if we were working with EF which would have done the CRUD part for us then you must be aware that there are 2 <code>ActionResult</code> methods which were required for this purpose. One will just return the view and the other one with <code>[HttpPost]</code> attribute will create the record. I require a create view so I can add contacts. Follow the same steps you have followed above while creating the <code>ListContacts</code> view. For your further help here are the 2 ActionResult methods to create a new record (I am sure you can create a view!! Just right-click <code>Create()</code> method and click <code>AddView</code> and the scaffold is <code>Create</code>).</p>
-
-<pre class="brush: csharp">
-public ActionResult Create()
-{
-    return View();
-}
-
-[HttpPost]
-public ActionResult Create(Contacts contact)
-{
-    var db = new DB();
-    bool isCreated = db.CreateContact(contact);
-    if (isCreated)
-    {
-        return RedirectToAction("ListContacts");
-    }
-    else
-    {
-        return View();
-    }
-}
-</pre>
-
-<p>The process of updating a contact will be similar like we have done for the insert. Before updating a contact I need to get the details of the contact when the user clicks on the <code>Edit</code> link on the page. When the user clicks the <code>Edit</code> hyperlink on the list page, the contact ID will be paased as a parameter.</p>
-
-<pre class="brush: csharp">
-public Contacts GetContactByID(int ContactId)
-{
-    using (SqlCeConnection con = new SqlCeConnection(ConStr))
-    {
-        con.Open();
-        string strQuery = string.Format("Select ContactID, Name, Address, Email, Skype from Contacts where " +
-        "ContactID={0}", ContactId);
-        var customer = con.Query&lt;Contacts&gt;(strQuery).Single&lt;Contacts&gt;();
-        return customer;
-    }
-}
- 
-public bool UpdateContact(Contacts contact)
-{
-    try
-    {
-        using (SqlCeConnection con = new SqlCeConnection(ConStr))
-        {
-            con.Open();
-            string sqlQuery = "UPDATE Contacts SET Name =@Name, Address =@Address, Address = @Address, " +
-            "Email = Email, Skype = @Skype WHERE ContactID=@ContactID";
-            con.Execute(sqlQuery, new
-            {
-                contact.Name,
-                contact.Address,
-                contact.Email,
-                contact.Skype,
-                contact.ContactID
-            });
-        }
-        return true;
-    }
-    catch (Exception)
-    {
-        return false;
-    }
-}
-</pre>
-
-<p>The <code>GetContactByID</code> method will accept the contactId which is passed as a parameter to the <code>Edit</code> ActionResult method. I am calling this method from the <code>Edit</code> ActionResult. The main purpose of this method is to fetch the contact details on the basis of the ID passed to it. The returned Contacts serves as a model to the <code>Edit</code> view which then populates the details of the contact I want to edit. I assume here you know how to create a <code>View</code>. Here is my <code>Edit</code> and <code>Edit</code> with HttpPost which does the actual update work. The <code>UpdateContact</code> method will get called from the <code>Edit ActionResult</code> method which is attributed with <code>HttpPost</code>.</p>
-
-<pre class="brush: csharp">
-public ActionResult Edit(int ContactID)
-{
-    var db = new DB();
-    return View(db.GetContactByID(ContactID));
-}
- 
-[HttpPost]
-public ActionResult Edit(Contacts contact)
-{
-    var db = new DB();
-    db.UpdateContact(contact);
-    return RedirectToAction("ListContacts");
-}
-</pre>
-
-<p>Following the same procedure that I followed for insert and update I am going to implement the delete functionality. The below code will be used to delete the contact details.</p>
-
-<pre class="brush: csharp">
-public bool DeleteContact(int ContactID)
- {
-     try
-     {
-         using (SqlCeConnection con = new SqlCeConnection(ConStr))
-         {
-             con.Open();
-             string sqlQuery = "DELETE FROM Contacts WHERE ContactID=@ContactID";
-             con.Execute(sqlQuery, new { ContactID });
-         }
-         return true;
-     }
-     catch (Exception)
-     {
-         return false;
-     }
- }
-</pre>
-
-<p>And for your ease, here are the 2 ActionResult methods.</p>
-
-<pre class="brush: csharp">
-public ActionResult Delete(int ContactID)
-{
-    var db = new DB();
-    return View(db.GetContactByID(ContactID));
-}
- 
-[HttpPost]
-public ActionResult Delete(int ContactID, FormCollection frm)
-{
-    var db = new DB();
-    bool IsDeleted = db.DeleteContact(ContactID);
-    if (IsDeleted)
-    {
-        return RedirectToAction("ListContacts");
-    }
-    else
-    {
-        return View();
-    }
-}
-</pre>
-
-<p>This is it. A simple application where you can perform CRUD operations using SQL queries with micro-ORM Dapper.</p>
-
-<h4 id="performance">Performance</h4>
-
-<p>Another reason for using a micro-ORM, Dapper in my case, but if you check the documentation you can see the table which clearly state the difference between the different ORMs.</p>
-
-<p><img src="/images/dapper-perf.png" alt="Dapper performance stats" /></p>
-
-<p>There are other ORMs that you can try like the <a href="https://github.com/robconery/massive">Massive ORM</a> and <a href="https://github.com/toptensoftware/PetaPoco">PetaPOCO</a>.</p>
 
   </div>
   
@@ -1063,32 +879,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

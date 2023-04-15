@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-05-09T16:55:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-07-04T14:26:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,436 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/bin-deploy-aspnet-mvc-3-application-with-sql-ce-40-entity-framework/">Bin Deploy ASP.NET MVC 3 Application With SQL CE 4.0 &amp; Entity Framework</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 4, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/net-framework">NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p>A few days back <a href="http://haacked.com/">Phil Haack</a> wrote a blog post on <a href="http://haacked.com/archive/2011/05/25/bin-deploying-asp-net-mvc-3.aspx">how to bin deploy ASP.NET MVC 3 application</a> on the web server where ASP.NET MVC 3 is not installed. Like many users I am also on shared hosting and therefore I do not have full control over IIS or the remote machine so I can install or update ASP.NET MVC 3, SQL Server CE 4.0 and other development related stuff. Phil did an excellent post but that works only if you are deploying application with SQL Server as a database. If you are planning to deploy your application with SQL CE as your application backend then here are the steps you need to perform.</p>
+
+<p>I assume that you have your ASP.NET MVC 3 application ready to be deployed with SQL CE 4.0 and EF 4.1. But make sure you have add assembly and for SQL CE 4.0 using NuGet. I recommend you to use NuGet here because it will add all the necessary configurations in Web.config file and also add the correct references to your project. If you have <a href="http://www.microsoft.com/download/en/details.aspx?id=1491">MVC 3 tools update</a> installed then there is no need to add the references for SQL CE 4.0 and for EF 4.1, the default MVC 3 template will do it for you. But there are still some changes to be done in Web.config file.</p>
+
+<p>To deploy your application with SQL CE 4.0 you need to make below changes to the web.config file:</p>
+
+<p>Comment or delete everything inside the <code>connectionStrings</code> tag. The connection string by default is pointing to your default SQL Server instance and as we are going to deploy our application with SQL CE 4.0 we need to change the value under connectionStrings tag like the one below.</p>
+
+<pre class="brush:xml">
+&lt;add name="ContactEntities" connectionString="Data Source=|DataDirectory|DB.sdf" providerName="System.Data.SqlServerCe.4.0" /&gt;
+</pre>
+
+<p>Next is to add <code>DbProviderFactories</code> under <code>System.Data</code> tag. If you run the application on your local development server then it will run without any problems, but if you deploy the web application to the hosting web server where SQL CE 4.0 is not installed then you will get the below error.</p>
+
+<p><img src="/images/bindeploy-error-in-app.png" alt="Bin deploy runtime exception in application" /></p>
+
+<p>To avoid this error you need to manually add the <code>DbProviderFactories</code> in the Web.config file. Below in the markup you need to add to your web.config file.</p>
+
+<pre class="brush:html">
+&lt;system.data&gt;
+    &lt;DbProviderFactories&gt;
+      &lt;remove invariant="System.Data.SqlServerCe.4.0" /&gt;
+      &lt;add name="Microsoft SQL Server Compact Data Provider 4.0" invariant="System.Data.SqlServerCe.4.0" description=".NET Framework Data Provider for Microsoft SQL Server Compact" type="System.Data.SqlServerCe.SqlCeProviderFactory, System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /&gt;
+    &lt;/DbProviderFactories&gt;
+&lt;/system.data&gt;
+</pre>
+
+<p>The best way to do this and to avoid any unnecessary error is to use NuGet. If you use NuGet to deploy SQL CE 4.0 then it will add all necessary configurations to the web.config file, add the correct dependent assembly to the project.</p>
+
+<p><strong>Copy all the dependencies to the BIN folder</strong></p>
+
+<p>The question here is how the one knows what are the dependencies and where to find them all so that they can be deployed with the application? To perform this step you should have <a href="http://www.microsoft.com/download/en/details.aspx?id=23691">Visual Studio 2010 Service Pack 1</a> (VS 2010 SP1) installed on your machine. After installing VS 2010 SP1 there will be an option called <code>Add Deployable Dependencies</code> added when the user right-click the project icon in the solution explorer. When you click this option a dialog box appears which allows you to select the dependencies required for the project.</p>
+
+<p><img src="/images/vs-add-deployable-dependencies.png" alt="Adding deployable assemblies in Visual Studio" /></p>
+
+<p>If you have read Phil&rsquo;s post by now, you might know the difference of all the above options. Here, as we are deploying SQL CE 4.0 database we will also check <code>SQL Server Compact</code> also. Click <code>OK</code> button to add all the required dependencies. As soon as you click OK button you will notice that a new folder named <code>_bin_deployableAssemblies</code> gets added to the solution explorer.</p>
+
+<p><img src="/images/bin-deploy-solution-explorer.png" alt="Deplyable assemblies in solution explorer" /></p>
+
+<p>After adding all the dependencies you then need to build you web application which then copies all the dependencies to the project&rsquo;s or web application&rsquo;s bin folder. While deploying the application we will place each file with similar directory structure in the BIN folder on the hosting web server where ASP.NET MVC 3, SQL CE 4.0 and EF 4.1 is not installed. Just in case if you are wondering on how to deploy EF 4.1, then there is no other thing to be done to deploy EF 4.1, a DLL named <code>EntityFramework</code> inside the bin folder will do the work for us.</p>
+
+<p><strong>Note: I have made no changes to the directory structure while placing files at the remote hosting server.</strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/getting-started-with-netmf-and-netduino/">Getting Started With NETMF And Netduino</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 25, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-micro-framework">.NET MICRO FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>My Netduino card arrived this Sunday but I was not able to play with my new development board due to some serious &ldquo;crap work&rdquo; I was doing. Today I was able to run a small piece of code which blinks the user LED on the Netduino board. The code is simple enough and just like &ldquo;hello world&rdquo; example like we have for all other programming languages.</p>
+
+<p>Here is my Netduino kit:</p>
+
+<p><img src="/images/netduino-kit.jpg" alt="Netduino Kit" /></p>
+
+<p>The best part of this development board is that it is the advanced version of the very famous Ardunio boards. Below is the detailed comparison of the three boards.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Netduino</th>
+<th>Arduino Uno</th>
+<th>Arduino Mega 2560</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>CPU</td>
+<td>Atmel ATSAM7X</td>
+<td>Atmel ATmega328</td>
+<td>Atmel ATmega2560</td>
+</tr>
+
+<tr>
+<td>Architecture</td>
+<td>32-bit ARM7</td>
+<td>8-bit AVR</td>
+<td>8-bit AVR</td>
+</tr>
+
+<tr>
+<td>Clock</td>
+<td>48 Mhz</td>
+<td>16 Mhz</td>
+<td>16 Mhz</td>
+</tr>
+
+<tr>
+<td>MIPS / Mhz</td>
+<td>0.9</td>
+<td>1</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>MIPS</td>
+<td>43.2</td>
+<td>16</td>
+<td>16</td>
+</tr>
+
+<tr>
+<td>Code</td>
+<td>128 KB</td>
+<td>32 KB</td>
+<td>256 KB</td>
+</tr>
+
+<tr>
+<td>RAM</td>
+<td>60KB</td>
+<td>2 KB</td>
+<td>8 KB</td>
+</tr>
+
+<tr>
+<td>Flash</td>
+<td>512 KB</td>
+<td>32 KB</td>
+<td>256 KB</td>
+</tr>
+
+<tr>
+<td>SRAM</td>
+<td>128 KB</td>
+<td>2 KB</td>
+<td>8 KB</td>
+</tr>
+
+<tr>
+<td>EEPROM</td>
+<td>–</td>
+<td>1 KB</td>
+<td>4 KB</td>
+</tr>
+
+<tr>
+<td>Pins</td>
+<td>14 Dig. I/O (4 PWM)</td>
+<td>14 Dig. I/O (6 PWM)</td>
+<td>54 Dig. I/O (14 PWM)</td>
+</tr>
+
+<tr>
+<td></td>
+<td>6 analog-in or digital I/O</td>
+<td>6 analog-in</td>
+<td>16 analog-in</td>
+</tr>
+
+<tr>
+<td>UARTs</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+</tr>
+
+<tr>
+<td>output limits</td>
+<td>8 mA / pin &amp; 16 mA / PWM</td>
+<td>40 mA per Pin</td>
+<td>40 mA per Pin</td>
+</tr>
+</tbody>
+</table>
+
+<p>As you can see from the above comparison, the Netduino board is 3x faster than the Arduino and on the top it has 30x the RAM and check the processor 32-bit ARM7 awesome!!</p>
+
+<p><strong>Getting Started</strong></p>
+
+<p>To get started, you first need to set up your machine with some SDKs from Microsoft and Netduino. Below is the list of the SDKs you need to install on your development machine:</p>
+
+<ul>
+<li><a href="http://www.netduino.com/downloads/MicroFrameworkSDK.msi">.NET Microframework SDK 4.1</a></li>
+<li><a href="http://www.netduino.com/downloads/netduinosdk_32bit.exe">Netduino SDK</a></li>
+<li><a href="http://www.netduino.com/downloads/gettingstarted.pdf">Getting started guide on Netduino</a></li>
+</ul>
+
+<p>This is it and you are good to go with your first Netduino application. Fire Visual Studio and create new project under Micro Framework and select Netduino Application.</p>
+
+<p><img src="/images/vs-netduino-project-template.png" alt="Netduino project template in Visual Studio" /></p>
+
+<p>I have named the project Blink because we are going to blink the LED on board. As you can see there are two LEDs on the board. The one near the micro-USB indicates power (white) and the one near the onboard button is user LED (blue).</p>
+
+<p>We are going to blink the user LED and for this I am going to use the code from the getting started guide form Netduino (nothing fancy here from my side) I am just re-using the code. below is the code you have to put inside you main method:</p>
+
+<pre class="brush:csharp">
+OutputPort led = new OutputPort(Pins.ONBOARD_LED, false);
+while (true)
+{
+        led.Write(true); // turn on the LED
+        Thread.Sleep(250); // sleep for 250ms
+        led.Write(false); // turn off the LED
+        Thread.Sleep(250); // sleep for 250ms
+}
+</pre>
+
+<p>Now before you hit F5 go to project properties and under <code>.NET Micro Framework</code> change the <code>Transport</code> mode from <code>Emulator</code> to <code>USB</code>. As soon as you change the <code>Transport</code> mode you will notice the <code>Device</code> has been changed from <code>Microsoft Emulator</code> to <code>Netduino_Netduino</code>. Now press F5 and the application will get deployed to your Netduino board.</p>
+
+<p><img src="/images/vs-netduino-project-properties.png" alt="Netduino project properties" /></p>
+
+<p>This is just a simple thing to do with a small but powerful development board. There are people around the globe building some amazing things with Netdunio and Arduino shields. In my next post I will show you how to erase Netduino memory for other application to deploy.</p>
+
+<p>Below are some of the resources that I think you may find useful:</p>
+
+<ul>
+<li><a href="http://10rem.net/blog/2011/01/19/10-interesting-net-micro-framework-demos-and-applications">10 Interesting .NET Micro Framework Demos and Applications - Pete Brown</a></li>
+<li><a href="http://10rem.net/blog/2010/09/24/using-a-4x20-hd44780-controlled-lcd-display-with-the-netduino">Using a 4x20 HD44780-controlled LCD Display with the Netduino - Pete Brown</a></li>
+<li><a href="http://blog.bobcravens.com/2010/09/gps-using-the-netduino/">GPS using the Netduino - Bob Cravens</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-be-a-rockstar-freelancer/">How To Be A Rockstar Freelancer</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 10, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
+      
+      
+      
+      
+    </span>
+    <p>A friend of mine who is a freelancer purchased the PDF version of this book and sends over me a copy to read today. If you are a freelancer or working from home then this is the book you should read and follow. I am bit lazy in reading non-tech related books or articles but this book is worth reading as compared to some other tech books. I am reading this book at the moment and I must said that this is the best book available for freelancers and for the people who are working from home.</p>
+
+<p>I always wanted to be a freelancer but somehow I got into the job thing. Maybe not today but in the near future I will start freelancing but part-time. It&rsquo;s the right time for me to start following to the guidelines in this book so when I start I will have a complete picture in my head about my work and time.</p>
+
+<p>Here is the quote from the publisher&rsquo;s (Rockable Press) site:</p>
+
+<blockquote>
+<p>Covering everything from getting started to expanding your business, How to Be a Rockstar Freelancer is the official <a href="http://freelanceswitch.com/">FreelanceSwitch</a> book. Written by Collis &amp; Cyan Ta’eed – the founders of the site – it’s packed with new information, advice and insights not covered on the blog.</p>
+
+<p>If you want to start your freelance career the right way, then How to Be a Rockstar Freelancer will give you everything you need to become the best freelancer in town!</p>
+</blockquote>
+
+<p>You can purchase this book online from the <a href="http://rockablepress.com/books/rockstar-freelancer/">Rockable Press website</a>. There are two versions of this book available one is in PDF and a paperback copy. And don&rsquo;t forgot to check other stuff on their website, they also have some other Rocking books.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/prepare-your-site-for-ie9-with-pinify/">Prepare Your Site For IE9 With Pinify</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 14, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/ie9ify-logo.png" alt="IE9ify Logo"/></p>
+
+<p>This is great stuff. If you own a website or a blog you should use this excellent feature of pinning fav links of your site on user&rsquo;s Windows 7 taskbar. Though this feature of IE9 was on hype since it&rsquo;s beta realease. Now it&rsquo;s time to use this feature for my blog. But before you start grab the latest stable version of the <a href="http://ie9ify.codeplex.com/">Pinify (formerly know as IE9ify) from Codeplex</a>.</p>
+
+<p><strong>About Pinify</strong></p>
+
+<p>This plugin is written in jQuery and is hosted on Codeplex. I highly recommend you to follow this project on Codeplex. This plugin is not just about pinning, but also allows the user to customize the skin of the browser, adds a jumplist of your favourite links to the taskbar, overlay icons, tasks and thumbbar buttons. This is a total different user experience for the users /readers of your blog or site.</p>
+
+<p><strong>Preparing your site for the new experience</strong></p>
+
+<p>By now you have downloaded the latest release of the pinify from Codeplex. Open your site in Visual Studio and get to the head section. Fire the below NuGet command to install the Pinify plugin.</p>
+
+<p><img src="/images/ie9ify-nuget-cmd.png" alt="IE9ify Nuget Command" /></p>
+
+<p>For the simplest implementation of this plugin, use the below script in the head section of your page.</p>
+
+<pre class ="brush:jscript">
+&lt;script src="Scripts/jquery-1.5.2.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="Scripts/jquery.pinify.js" type="text/javascript"&gt;&lt;/script&gt;
+ 
+&lt;script type="text/javascript"&gt;
+$().ready(function () {
+     $('head').pinify();
+});
+&lt;/script&gt;
+</pre>
+
+<p>Hit F5 and make sure you have selected IE9 as your default browser. After you see your site home page in the browser hit F12 to get the IE9 developer window. Under HTML tab expand the <code>Head</code> tree and you will come to see few meta tags.</p>
+
+<p><img src="/images/ie9ify-html-source.png" alt="IE9ify HTML source" /></p>
+
+<p>Drag and drop the tab to your task bar. This time a new IE window will open but with a difference. Check out below, the navigation buttons has a different color, the site has an icon also.</p>
+
+<p><img src="/images/ie9ify-address-bar.png" alt="IE9ify icon in the address bar" /></p>
+
+<p>In the above screenshot you can see the default IE icon because I have not set the favicon for my site. Once I set the fav icon in the head section of my page, I will then have a new favicon to show off. Same is with the navigation buttons, here what you are seeing is the default color, you can set your own like yellow or red or some other different color which matches the theme of your site.</p>
+
+<p>Let&rsquo;s take a bit more complicate example. Now I want to do the same for my blog. For the moment I will have the following in the jumplist.</p>
+
+<ul>
+<li>Archives - Link to my blog archive.</li>
+<li>Twitter</li>
+<li>Facebook and</li>
+<li>Contact Me</li>
+</ul>
+
+<p>The icon will be the same as my current favicon. To implement pinify for my blog I do all the work in master page which is <code>site.master</code> in my case. Copy and paste the below script in the head section of your page. Change the text and links accordingly.</p>
+
+<pre class="brush:jscript">
+&lt;script src="Scripts/jquery-1.5.2.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="Scripts/jquery.pinify.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+        &dollar;().ready(function () {
+            &dollar;('head').pinify({
+                applicationName: 'Midnight Programmer',
+                tooltip: 'Programming For Fun',
+                tasks: [{
+                    'name': 'Archive',
+                    'action': 'http://midnightprogrammer.net/archive.aspx',
+                    'icon': 'favicon.ico'
+                },
+                {
+                    'name': 'Twitter',
+                    'action': 'http://twitter.com/prashantmx',
+                    'icon': 'twitter.ico'
+                },
+                {
+                    'name': 'Facebook',
+                    'action': 'http://facebook.com/khandelwal.p',
+                    'icon': 'facebook.ico'
+                },
+                {
+                    'name': 'Contact Me',
+                    'action': 'http://www.midnightprogrammer.net/contact.aspx',
+                    'icon': 'favicon.ico'
+                }]
+            });
+        });
+&lt;/script&gt;
+</pre>
+
+<p>After adding the script drag the tab to the taskbar and right-click it to view the task list.</p>
+
+<p><img src="/images/ie9ify-taskbar-options.png" alt="IE9ify Jumplist options" /></p>
+
+<p><img src="/images/ie9ify-address-bar-change.png" alt="IE9ify Address bar" /></p>
+
+<p>There are many other things which you can do with this plugin. I have just showed a simplest way to get you jump started with pinify. As you are reading this post try dragging the tab on your windows taskbar and right-click to see the task list as shown above.</p>
+
+<p>There are many things which can be done with pinify. To know more read the below links.</p>
+
+<ul>
+<li><a href="http://ie9ify.codeplex.com/">Pinify - CodePlex</a></li>
+<li><a href="http://nuget.org/List/Packages/jQuery.ie9ify">NuGet Gallery - Pinify</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/gg131029(VS.85).aspx">Pinned Sites: Windows 7 Desktop Integration with Internet Explorer 9</a></li>
+<li><a href="http://www.userinexperience.com/post/Applify-Your-Sites-with-Pinned-Sites-and-ie9ify-the-IE9-jQuery-Plugin.aspx">Brandon Satrom post on Pinify</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -271,367 +701,6 @@ txtCode.ShowLineNumbers = true;
 <li><a href="http://www.icsharpcode.net/opensource/sd/">SharpDevelop</a></li>
 <li><a href="http://wiki.sharpdevelop.net/AvalonEdit.ashx">Avalon Edit</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/code-snippet-remove-duplicates-from-arraylist/">Code Snippet: Remove Duplicates From ArrayList</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 30, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>Two methods to remove Duplicates from ArrayList.</p>
-
-<p><strong>Method 1:</strong></p>
-
-<pre class="brush:csharp">
-private static ArrayList RemoveDuplicates(ArrayList arrList) 
-{ 
-        ArrayList list = new ArrayList();
-        foreach (string item in arrList) 
-        { 
-             if (!list.Contains(item)) 
-            { 
-                list.Add(item); 
-            } 
-        } 
-        return list; 
-}
-</pre>
-
-<p><strong>Method 2:</strong></p>
-
-<pre class="brush:csharp">
-private static string[] RemoveDuplicates(ArrayList arrList)
-{
-        HashSet&lt;string> Hset = new HashSet&lt;string>((string[])arrList.ToArray(typeof(string)));
-        string[] Result = new string[Hset.Count];
-        Hset.CopyTo(Result);
-        return Result;
-}
-</pre>
-
-<blockquote>
-<p>Note: I found this method on the net and therefore I am sharing it as it is. Use any of the above which suites your requirement.</p>
-</blockquote>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/">Blog Analytics: Widget For BlogEngine.NET Powered By Google Analytics</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 19, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/blog-analytics-logo.png" alt="Blog Analytics Logo"/></p>
-
-<p>Finally, I got to know the way to show Google Analytics stats on my blog space. To know more about using Google Analytics API <a href="http://code.google.com/apis/analytics/docs/gdata/gdataArticlesCode.html">read their official article on using the API</a>.</p>
-
-<p>I have built a widget with the help of Analytics API to show the Google Analytics stats on my blog. The widget shows three stats at the moment (I don&rsquo;t want to make the widget look complex). Below is a screenshot for the widget in action on my blog:</p>
-
-<p><img src="/images/blog-analytics-widget.png" alt="Blog Analytics Widget" /></p>
-
-<p>The above widget shows the stats since I have started blogging. As you can see my blog is not as popular as yours or as popular comparative with other MSFT guys and other popular bloggers. As usual before you can use the widget you need to do some settings for the widget.</p>
-
-<p><img src="/images/blog-analytics-settings.png" alt="Blog Analytics widget settings" /></p>
-
-<p>You should be aware by now that this widgets uses Google Analytics API, and I hope you all have <a href="http://www.google.com/analytics">Analytics</a> account. The <code>Username</code> and <code>Password</code> will be the same as your Analytics account (<em>and without @xyz.com</em>). <code>From Date</code> and <code>To Date</code> specifies the date range which then populate the stats from Analytics service for the specified date range. I have provided an option that allows you to always use the <code>To Date</code> as the current date, you can do that by checking<code>Always use Current Date</code> (<em>checking this will override <code>To Date</code> value</em>). If you wish to show the stats ONLY for the current day then check <strong>Use From and To Date as Current Date</strong> (<em>change the widget title from what you have to <code>Today's Hit</code> or whatever you wish!</em>). I have settings as shown in the screenshot above for my blog and I am showing all my stats since I have started blogging.Last three options will allow you to toggle between the three statistics options you want to show on the widget or not.</p>
-
-<p><strong>Download: <a href="/files/BlogAnalytics - Widget.zip">BlogAnalytics - Widget.zip (107.28 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/windows-live-theme-for-blogenginenet/">Windows Live Theme For BlogEngine.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 17, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/win-theme-blogengine.png" alt="Windows live theme for blog engine"/></p>
-
-<p>I have now been using <a href="http://blogengine.codeplex.com/">BlogEngine</a> for 2 years now and I was kinda fed up with the standard theme I have been since starting which I have modified a bit to look more prettier. I am not saying it&rsquo;s bad but it&rsquo;s too much now, I should do a makeover of my blog. Now the BlogEngine community is not as big and vast as that of the most popular blogging engine <a href="http://www.wordpress.org/">Wordpress</a> and therefore it is hard to get beautiful <a href="http://www.blogenginetheme.com/">themes for BlogEngine</a>.</p>
-
-<p>This time I made my mind and sat down to create a new theme for my blog from scratch (LOL!!) but with the help of some good looking Wordpress theme. So I began my search and what I got is the one I have been looking for in the past when I started blogging. I found a Wordpress theme which resembles Windows Live default blue skin. It looks good to me so I download and start changing the looks for my blog. I don&rsquo;t know if I have messed up, but I like it and so my blog is up with a new Windows Live theme. There are few other customizations that I have done with the theme that works for my blog like after every post you see a Google Ads (let me know if they are annoying, which I feel they are not), logos of the sites having a reference of my blog and some other internal stuff (simple HTML and server-side work). This is the case with me, for you there are no hiccups, just copy and paste the Windows Live theme folder inside Themes folder and you are done.</p>
-
-<p>This theme is based on the standard theme template for BlogEngine. If you have any suggestions to make the theme look more beautiful in some way or the other (as I am not a designer) please do share with me and all of us in the community.</p>
-
-<p><strong>Download: <a href="files/WindowsLive.zip">WindowsLive.zip (70.33 kb)</a></strong></p>
-
-<p><strong>UPDATE:</strong> There is a slight change in the style.css file. The image above is broken when a blog is viewed in a large display.</p>
-
-<p>it is now been fixed. Please download the latest style sheet from the link below.</p>
-
-<p><a href="/files/style.css">style.css (13.91 kb)</a></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/">Windows Live Theme For BlogEngine.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 17, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/bitly-logo.jpg" alt="Bit.ly logo"/></p>
-
-<p>If you have long URLs and other and want to create short URLs then <a href="http://bit.ly/">Bit.ly</a> API can help. I wrote a wrapper class which can let me create short URLs in jiffy. I was working on Bit.ly API to create my short URLs with a click of a button (that&rsquo;s for my personal use). Therefore, I ended up with a &lsquo;short&rsquo; class to create short URLs using Bit.ly API. What you need is a <code>login</code> and an <code>apikey</code>, which you can have one for yourself by signing up for a free account. You can find your apikey <a href="http://bit.ly/a/account">here</a> after login. The class gives you two ways to make short URL, one with XML and the other with plain TEXT. I haven&rsquo;t write anything for JSON as it was not required at all to me in any ways. I am using plain TEXT for this example. You can read <a href="http://code.google.com/p/bitly-api/wiki/ApiDocumentation">Bit.ly API official documentation</a> for more information.</p>
-
-<p>The below class can be used to create short URLs using Bit.ly API, reverse the short URLs and get the original URL. Also if you are not aware you can have a QR code of your short URL. Read more about QR Code <a href="http://2d-code.co.uk/goo-gl-versus-bit-ly-qr-code/">here</a>. If you are using Bit.ly or Goo.gl to shorten your URLs then you can have the QR code image by adding .qrcode in the end of the short URL (See in the code example below)</p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Net;
-using System.IO;
- 
-namespace Bitly.API
-{
- 
-    public class BitlyData
-    {
-        #region Properties
- 
-        public static string APIKEY { get; set; }
-        public static string LoginName { get; set; }
- 
-        public static string StatusCode { get; set; }
-        public static string StatusDesc { get; set; }
-        public static string ShortURL { get; set; }
-        public static string LongURL { get; set; }
-        public static string HashCode { get; set; }
-        public static string GlobalCode { get; set; }
-        public static string NewHash { get; set; }
- 
-        #endregion
-    }
- 
-    public class Bitly
-    {
- 
-        #region Bit.Ly Variables
- 
-        private static string URL = "http://api.bit.ly/v3/shorten?login=";
- 
-        private static string BitResponse = "";
- 
-        #endregion
- 
-        #region Enums
- 
-        public enum Format
-        {
-            XML,
-            JSON,
-            TXT
-        }
- 
-        #endregion
- 
-        #region Sample Response
-        //        &lt;?xml version="1.0" encoding="utf-8"?&gt;
-        //&lt;response&gt;
-        //    &lt;status_code&gt;200&lt;/status_code&gt;
-        //    &lt;status_txt&gt;OK&lt;/status_txt&gt;
-        //    &lt;data&gt;
-        //        &lt;url&gt;http://bit.ly/ekYLee&lt;/url&gt;
-        //        &lt;hash&gt;ekYLee&lt;/hash&gt;
-        //        &lt;global_hash&gt;gBH72m&lt;/global_hash&gt;
-        //        &lt;long_url&gt;http://midnightprogrammer.net/post/Windows-7-Development-Working-With-Task-Dialog-Class.aspx&lt;/long_url&gt;
-        //        &lt;new_hash&gt;1&lt;/new_hash&gt;
-        //    &lt;/data&gt;
-        //&lt;/response&gt;
- 
-        #endregion
- 
-        public static string ShortURL(string LongURL, Format ReqFormat = Format.TXT)
-        {
-            string sURL = string.Empty;
-            string BitLyURL = URL + BitlyData.LoginName + "&apikey=" + BitlyData.APIKEY + "&longUrl=" + LongURL + "&format=";
- 
-            if (ReqFormat == Format.JSON)
-            {
-                throw new NotImplementedException("This method is not implemented yet!");
-            }
- 
-            if (ReqFormat == Format.XML)
-            {
-                BitResponse = new WebClient().DownloadString(BitLyURL + "xml");
-                string Response = BitResponse;
- 
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(Response);
-                XmlNodeList XlistResponse = doc.GetElementsByTagName("response");
- 
-                foreach (XmlNode XResnode in XlistResponse)
-                {
-                    XmlElement ResElm = (XmlElement)XResnode;
- 
-                    BitlyData.StatusCode = ResElm.GetElementsByTagName("status_code")[0].InnerText;
- 
-                    if (BitlyData.StatusCode != "200")
-                    {
-                        BitlyData.StatusDesc = ResElm.GetElementsByTagName("status_txt")[0].InnerText;
-                        return BitlyData.StatusDesc;
-                    }
-                }
- 
-                if (BitlyData.StatusCode == "200")
-                {
- 
-                    XmlNodeList XlistData = doc.GetElementsByTagName("data");
- 
-                    foreach (XmlNode XDatanode in XlistData)
-                    {
-                        XmlElement DataElm = (XmlElement)XDatanode;
- 
-                        BitlyData.ShortURL = DataElm.GetElementsByTagName("url")[0].InnerText;
-                        BitlyData.LongURL = DataElm.GetElementsByTagName("long_url")[0].InnerText;
-                        BitlyData.HashCode = DataElm.GetElementsByTagName("hash")[0].InnerText;
-                        BitlyData.GlobalCode = DataElm.GetElementsByTagName("global_hash")[0].InnerText;
-                        BitlyData.NewHash = DataElm.GetElementsByTagName("new_hash")[0].InnerText;
-                    }
-                }
-            }
- 
-            if (ReqFormat == Format.TXT)
-            {
-                if (ReqFormat == Format.TXT)
-                {
-                    BitResponse = new WebClient().DownloadString(BitLyURL + "txt");
-                    string Response = BitResponse;
- 
-                    BitlyData.ShortURL = Response;
-                }
-            }
- 
-            return sURL = BitlyData.ShortURL;
-        }
- 
-        public static string ReverseShortURL(string ShortURL)
-        {
-            HttpWebRequest Webrequest = (HttpWebRequest)HttpWebRequest.Create(ShortURL);
-            HttpWebResponse Webresponse = (HttpWebResponse)Webrequest.GetResponse();
-            Uri uri = Webresponse.ResponseUri;
-            return uri.AbsoluteUri;
-        }
- 
-        public static string GetQRCodeURL(string ShortURL)
-        {
-            string QRCodeURL = string.Empty;
-            QRCodeURL = ShortURL + ".qrcode";
-            return QRCodeURL;
-        }
-    }
-}
-</pre>
-
-<p>In the above class you can see that the second parameter is accepting TXT by default. So, if you call the method with or without the second parameter it will still work with the default parameter TXT. The enumeration called <code>Format</code> contains all the possible format of all the formats which is accepted by Bit.ly API. <strong>The second parameter in the class above should be removed if you plan to use the above code with the lower versions of .NET i.e. 3.x/2.0.</strong></p>
-
-<p><strong>Sample Usage .NET 3.x / 2.0</strong></p>
-
-<pre class="brush:csharp">
-Bitly.API.BitlyData.LoginName = "LOGIN NAME GOES HERE";
-Bitly.API.BitlyData.APIKEY = "API KEY GOES HERE";
-Console.WriteLine("Short URL: "+Bitly.API.Bitly.ShortURL("http://midnightprogrammer.net/post/9-Promises-Should-Be-Taken-Before-Choosing-IT-Profession.aspx", Bitly.API.Bitly.Format.TXT));
-Console.WriteLine("Reverse URL: "+Bitly.API.Bitly.ReverseShortURL("http://bit.ly/eZ1kdb"));
-Console.WriteLine("QRCode Image URL " + Bitly.API.Bitly.GetQRCodeURL("http://bit.ly/eZ1kdb"));
-</pre>
-
-<p><strong>Sample usage .NET 4.0</strong></p>
-
-<pre class="brush:csharp">
-Bitly.API.BitlyData.LoginName = "LOGIN NAME GOES HERE";
-Bitly.API.BitlyData.APIKEY = "API KEY GOES HERE";
-Console.WriteLine("Short URL: "+Bitly.API.Bitly.ShortURL("http://midnightprogrammer.net/post/9-Promises-Should-Be-Taken-Before-Choosing-IT-Profession.aspx", Bitly.API.Bitly.Format.TXT));
-Console.WriteLine("Reverse URL: "+Bitly.API.Bitly.ReverseShortURL("http://bit.ly/eZ1kdb"));
-Console.WriteLine("QRCode Image URL " + Bitly.API.Bitly.GetQRCodeURL("http://bit.ly/eZ1kdb"));
-</pre>
-
-<p>I have tested my code with Console Application, but you can test it with web or Windows form application. Note that the default parameters are only accepted if you are working with .NET 4.0 and not by the lower versions of .NET. If you wish to use the second parameter in .NET 4 then also it will work, but not using it with lower version will give you error.</p>
 
   </div>
   
@@ -988,32 +1057,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

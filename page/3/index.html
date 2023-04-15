@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2016-09-26T21:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2017-04-02T07:39:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,561 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/">Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 2, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/iot">IOT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/raspberry-pi">RASPBERRY PI</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</p>
+
+<p><img src="/images/iot-arch-diag.png" alt="IoT Architecture Diagram" /></p>
+
+<p>Here is the list of things to get started:</p>
+
+<ul>
+<li>Raspberry PI 3 with Windows 10 IoT Core</li>
+<li>Adafruit BME280 Temperature Humidity Pressure sensor<br /></li>
+<li>Jumper wires</li>
+<li>Power Bank</li>
+<li>Visual Studio <sup>2015</sup>&frasl;<sub>2017</sub></li>
+<li><a href="https://developer.microsoft.com/en-us/windows/iot/docs/iotdashboard">IoT Dashboard</a></li>
+<li>Azure account</li>
+</ul>
+
+<p>Setting up the PI with Windows 10 IoT Core is a very straight forward process. You can read about it more <a href="https://developer.microsoft.com/en-us/windows/iot/docs/iotdashboard">here</a>. I recommend to connect the device to your Wi-Fi network. This will give you a benefit to move your device around. The problem for the first time users will be that the device will not auto-connect to the Wi-Fi network. To solve this problem, you need to use a wired LAN connection from the network or from the local computer. Once plugged in you will be able to see the device in the IoT dashboard from where you can go to <code>Device Portal</code> and connect to the Wi-Fi network. After the connection is successful, you can then remove the LAN cable. To follow the exact steps, head over to this <a href="http://www.opentechguides.com/how-to/article/windows-iot/111/windows-iot-wifi.html">documentation</a>. This is how your device will get displayed in the IoT dashboard.</p>
+
+<p><img src="/images/iot-dashboard.png" alt="IoT Dashboard" /></p>
+
+<h3 id="getting-things-ready-in-azure">Getting things ready in Azure</h3>
+
+<p>You can set up things in the cloud from the Azure Portal as well as from the IoT Dashboard itself. From dashboard you can create and provisioned a new IoT Hub and register the device in that Hub. Here is how you can do that. First sign-in to your Azure account by clicking the Sign-In option in the left hand side bar. After the sign-in is successful, you will be prompted with the below screen where you can provision a new IoT Hub and add your current device in the hub.</p>
+
+<p><img src="/images/iot-provisioning-device.png" alt="IoT Dashboard" /></p>
+
+<p>I am skipping the step for setting the IoT Hub from the Azure Portal as there is a <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal">good documentation</a> available at Azure Docs. Pushing data to the IoT Hub with the SDK is easy but you can&rsquo;t make use of the IoT Hub alone to read that data and do your work. Therefore, you also need to set up a Queue to read that data. As of now, you cannot create a Queue from the new Azure Portal instead you have to head towards the old portal at manage.windowsazure.com and create a queue from there. To create a queue, click the <code>New&gt;App Services&gt;Service Bus&gt;Queue&gt;Quick Create</code>. Fill in the details to create a new queue.</p>
+
+<blockquote>
+<p>Make sure that the region you are selecting here for the queue, it should be the same as your IoT Hub region. If you select a different region than that of your IoT Hub, you will not be able to associate this queue with the hub endpoint.</p>
+</blockquote>
+
+<p>In the Azure Portal, to associate this queue with the IoT Hub endpoint, click the <code>Endpoints</code> and then click <code>Add</code> to add the queue to the endpoint.</p>
+
+<p><img src="/images/create-service-bus.png" alt="Create Service Bus" /></p>
+
+<h4 id="setting-up-the-circuit">Setting up the circuit</h4>
+
+<p>Now as you have the device and the OS ready, you can now build the circuit. The BME280 sensor can be used with both I2C and SPI. For the project, I am using I2C. Below is the Fritzing diagram for your reference. You can download the <a href="https://github.com/prashantkhandelwal/Pi-Code/raw/master/BME280-PI3-Win10IoT-Azure/BME280.fzz">Fritzing sketch file on Github repo</a>.</p>
+
+<p><img src="/images/iot-fritz-sketch.png" alt="IoT Fritzing Sketch" /></p>
+
+<h4 id="creating-device-application">Creating Device Application</h4>
+
+<p>I am using Visual Studio 2017 Enterprise Edition to build the device application and the web monitor application which I will be hosting in the cloud. For creating the device application, start with selection the Windows Universal project templates and then select <code>Blank App (Universal)</code> template.</p>
+
+<p><img src="/images/vs-universal-app.png" alt="VS Universal app" /></p>
+
+<blockquote>
+<p>There is a project template available for Visual Studio which will let you build applications for Raspberry PI. The problem with that project type is that you will not be able to make use of the libraries or the SDK available for .NET yet. You can still build applications with this project type but you have to make use of REST API and using REST API is not as straight-forward as SDKs.</p>
+</blockquote>
+
+<p>After the project creation is successful, you need to add below dependencies which will let you connect to IoT Hub and have a device to cloud communication. Below are the NuGet packages you need to install.</p>
+
+<p>This package will enable you to have a device to cloud communication.</p>
+
+<pre class="brush: plain">
+Install-Package BuildAzure.IoT.Adafruit.BME280
+</pre>
+
+<p>This package is the wrapper for the BME280 sensor.</p>
+
+<pre class="brush: plain">
+Install-Package Microsoft.Azure.Devices.Client
+</pre>
+
+<p>Add the below namespaces in the <code>Main.xaml.cs</code> file.</p>
+
+<pre class="brush: csharp">
+using Newtonsoft.Json;
+using Microsoft.Azure.Devices.Client;
+using BuildAzure.IoT.Adafruit.BME280;
+</pre>
+
+<p>Declare the variables.</p>
+
+<pre class="brush: csharp">
+private DeviceClient _deviceClient;
+private BME280Sensor _sensor;
+private string iotHubUri = "piiothub.azure-devices.net";
+private string deviceKey = "Tj60asOk5ffVAT6a6SvZKMOqo8DYKSwWV7eQ2pLf0/k=";
+</pre>
+
+<p>The <code>iothuburi</code> is the URL for the IoT Hub created in the Azure portal or from the IoT dashboard. You can get the device key from the <code>Device Explorer</code> section in the IoT Hub. You can see how to get the <code>Key</code> from the <code>Device Explorer</code> from the below screen shot. I am using the <code>Primary Key</code> as a <code>devicekey</code> in my code.</p>
+
+<p><img src="/images/azure-iot-device-explorer.png" alt="Azure IoT Hub Device Explorer" /></p>
+
+<p>In the constructor, initialize the <code>DeviceClient</code> and <code>BME280Sensor</code> objects. I have commented out the <code>InitializeComponent()</code>, but if you want you can keep it as it is.</p>
+
+<pre class="brush: csharp">
+public MainPage()
+{
+    //this.InitializeComponent();
+    deviceClient = DeviceClient.Create(iotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey("raspberrypi", deviceKey), TransportType.Mqtt);
+    _sensor = new BME280Sensor();
+    DeviceToCloudMessage();
+}
+</pre>
+
+<p>Now add a function named <code>DeviceToCloudMessage</code> which will connect to the IoT Hub using the device key, read the sensor data, serialize the data in JSON format and send it to the IoT Hub. Add this at the very bottom of the constructor.</p>
+
+<pre class="brush: csharp">
+private async void DeviceToCloudMessage()
+{
+    await _sensor.Initialize();
+    float temperature = 0.00f;
+    float humidity = 0.00f;
+    while (true)
+    {
+        temperature = await _sensor.ReadTemperature();
+        humidity = await _sensor.ReadHumidity();
+        var sensorData = new
+        {
+            date = String.Format("{0}, {1}, {2}",
+                                 DateTime.Now.ToLocalTime().TimeOfDay.Hours,
+                                 DateTime.Now.ToLocalTime().TimeOfDay.Minutes,
+                                 DateTime.Now.ToLocalTime().TimeOfDay.Seconds),
+            temp = Math.Round(temperature, 2),
+            humid = Math.Round(humidity, 2)
+        };
+        var messageString = JsonConvert.SerializeObject(sensorData);
+        var message = new Message(Encoding.ASCII.GetBytes(messageString));
+        await deviceClient.SendEventAsync(message);
+        //Debug.WriteLine("{0} &gt; Sending message: {1}", DateTime.Now, messageString);
+        Task.Delay(5000).Wait();
+    }
+}
+</pre>
+
+<p>The <code>date</code> property in the <code>sensorData</code> type is being set in this specific way because we want to see the graph continuously moving. I can also read <code>Pressure</code> from the sensor but as I am not interested in showing this data, I am skipping it out. If you want you can use it but you also have to change the web app to show this reading. Before I can send this data to the IoT Hub, I am serializing the <code>sensorData</code> object and use ASCII encoding to get the <code>byte[]</code> and pass it to the <code>Message</code> class constructor. The last step is to send the message to the hub by using the <code>DeviceClient</code> class <code>SendEventAsync</code> method. In the last line I am adding a delay of 5 seconds between each reading. You can increase the time and see how the chart renders. I recommend not to go below this time delay as this might give you some false readings from the sensor.</p>
+
+<p>I took this code from the documentation here and tweaked it to have the real data from the sensor connected to the device. Press Ctrl+Shift+B to build the solution. Navigate to <code>Project</code> and then click <code>&lt;project&gt; Properties</code>. Under <code>Debug</code> section, set the <code>Start Options</code> as shown below. Notice that the <code>Platform</code> is set to <code>ARM</code> and <code>Configuration</code> is <code>Active (Debug)</code>. When you are done with debugging the code and ready to deploy the code to the device you need to change it to <code>Release</code>.</p>
+
+<p><img src="/images/iotweatherhub-properties.png" alt="IoT Weather App Properties" /></p>
+
+<p>Unlike Raspbian, where we ssh or RDP into the device and compile or build the code, Windows 10 IoT works in a different way. You need to remote deploy the application from Visual Studio. Also, if you have enabled the remote debugging on the device, you also have to add the <code>port number</code> to the <code>Remote Machine</code> value and set the <code>Authentication Mode</code> to <code>None</code>.</p>
+
+<blockquote>
+<p>NOTE: When you make changes to device application, you also need to change/increment the version of the application in the Package.appxmanifest file. If you miss this step then the application deployment will fail.
+<img src="/images/iot-app-packaging.png" alt="IoT App Packaging" /></p>
+</blockquote>
+
+<p><img src="/images/windows10-iot-debug.png" alt="Windows 10 IoT Debug" /></p>
+
+<p>To deploy the app to the device, click the <code>Build</code> menu and select <code>Deploy &lt;Project Name&gt;</code>. If you are deploying the application for the first time, it will take some time to get deployed. After the deployment is successful, you will see the application under the <code>App</code> section. At this moment, the application is stopped. To start the application in the, click the <code>Play</code> button in the list to start the application. The <code>App Type</code> show the type of application or you can say the mode it is running on. When I created the application, I selected the <code>UWP</code> application and therefore, it will always run in the <code>Foreground</code> type. The reason I choose this application type (UWP) is because I can then use the SDK to communicate with the IoT Hub. If you want to create a <code>Background</code> application type then you can download this Visual Studio Extension for 2017 and <a href="https://marketplace.visualstudio.com/items?itemName=MicrosoftIoT.WindowsIoTCoreProjectTemplates">this</a> for Visual Studio 2015 which will let you build the background application. Keep in mind that you cannot use any SDK library with this project type. All you have now is the power of REST API which is not very easy to use.</p>
+
+<p><img src="/images/win10-iot-app-manager.png" alt="Windows 10 IoT App Manager" /></p>
+
+<h4 id="setting-the-web-app">Setting the Web App</h4>
+
+<p>You can build any kind of app to visualize the data, but because the SDK support for .NET is good I am going to set up a simple MVC application using .NET Framework. As of now, you cannot use Azure SDK with .NET Core application and also it looks like the team does not have any plans to shift their focus for releasing the SDK for .NET Core anytime soon.</p>
+
+<p>Start with installing NuGet packages. First with the package that will let you read the data from the Queue.</p>
+
+<pre class="brush: plain">
+Install-Package WindowsAzure.ServiceBus
+</pre>
+
+<p>Because this is a real-time application you also need to install SignalR</p>
+
+<pre class="brush: plain">
+Install-Package Microsoft.AspNet.SignalR
+</pre>
+
+<p>After these packages are installed, You need a way to visualize the temperature and humidity received from the queue. To do this you can use any jquery chart plugin or any other library of your choice. I will be using <a href="https://developers.google.com/chart">Google Charts</a> in my app, <a href="https://developers.google.com/chart/interactive/docs/gallery/linechart">Line Charts</a> to be precise. Installation is straight forward for the charts and you can play around with different options to tweak the look and feel of the chart. I am going to add the chart code in the <code>Index.cshtml</code> file. Below is the complete code for the chart to render.</p>
+
+<pre class="brush: javascript">
+&lt;script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"&gt;&lt;/script&gt;
+&lt;div id="chart_div"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var data = [];
+    var chart;
+    google.charts.load('current', { packages: ['corechart', 'line'] });
+    google.charts.setOnLoadCallback(loadChart);
+    var hub = $.connection.ioTHub;
+    $.connection.hub.start();
+    hub.client.iotHubNotification = function (d) {
+        console.log(d);
+        var pi = JSON.parse(d);
+        var time = pi.date.split(',');
+        var temp = pi.temp;
+        var humid = pi.humid;
+        data.addRows([[[parseInt(time[0]), parseInt(time[1]), parseInt(time[2])], temp, humid]]);
+        var options = {
+            height: 250,
+            hAxis: {
+                title: 'Time'
+            },
+            vAxis: {
+                title: 'Temperature / Humidity',
+                gridlines: { count: 22 }
+            }
+        };
+        chart.draw(data, options);
+    };
+    function loadChart() {
+        data = new google.visualization.DataTable();
+        data.addColumn('timeofday', 'Time');
+        data.addColumn('number', 'Temperature');
+        data.addColumn('number', 'Humidity');
+        var options = {
+            height: 250,
+            hAxis: {
+                title: 'Time'
+            },
+            vAxis: {
+                title: 'Temperarture / Humidity',
+                gridlines: { count: 22 }
+            }
+        };
+        chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+&lt;/script&gt;
+</pre>
+
+<p>I make use of the sample code from the examples at Google Charts and used it along with some minor tweaks to suite my needs. <code>loadChart()</code> function is called for the first time when the page is loaded and then I have a SignalR hub which updates the chart with the same option sets that I have in the <code>loadChart()</code> function. I add 3 data columns to display the data in the chart. There are few things that I would like to talk about in the above code. First is the <code>timeofday</code> is displayed on a <code>X-Axis</code> because time is continuous and I want to update the chart with time. Second, the <code>gridlines</code> property of the <code>vAxis</code> let you set how many horizontal rows you want to see in the graph. I have increased it to quite a significant number because I want to see the graph in more detail. You can play around with these settings and see what looks better for you. Third, the response I receive in the <code>hub</code> is in string format and therefore, I have parsed that string to JSON in order to read it and set to the rows. Also note that I have leave the <code>console.log</code> in the above code so that when you run the web app you can see the raw data in the console.</p>
+
+<p>In the <code>HomeController.cs</code>, first I will set the connection string to the queue which I have associated with the IoT Hub endpoint in Azure and set the queue name along with the <code>IHubContext</code> for SignalR communication.</p>
+
+<pre class="brush: csharp">
+private string connectionString = "Endpoint=sb://iothubqueue-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=88kJcD1mvJnO1jtiiY+AcUtIoinW//V/lF2WicOJ50s=";
+private string queueName = "iothubqueue";
+private IHubContext _hubContext;
+</pre>
+
+<p>In the constructor, initialize the <code>IHubContext</code> object.</p>
+
+<pre class="brush: csharp">
+_hubContext = GlobalHost.ConnectionManager.GetHubContext&lt;IoTHub&gt;();
+</pre>
+
+<p>Here is the code for the <code>IoTHub</code> class:</p>
+
+<pre class="brush: csharp">
+using Microsoft.AspNet.SignalR;
+namespace IoTHubTempWebApp.Hubs
+{
+    public class IoTHub : Hub
+    {
+        public void IoTHubNotification(string value)
+        {
+            Clients.All.iotHubNotification(value);
+        }
+    }
+}
+</pre>
+
+<p>And the code for <code>Startup</code> class <code>(Startup.cs)</code></p>
+
+<pre class="brush: csharp">
+using Microsoft.Owin;
+using Owin;
+[assembly: OwinStartup(typeof(IoTHubTempWebApp.Startup))]
+namespace IoTHubTempWebApp
+{
+    public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            app.MapSignalR();
+        }
+    }
+}
+</pre>
+
+<p>In the Index <code>ActionResult</code>, I will start a task which will read the messages from the queue and then SignalR will broadcast it to the client side which in turn update the chart with the latest data or temperature/humidity readings.</p>
+
+<pre class="brush: csharp">
+public ActionResult Index()
+{
+    Task task = Task.Run(() =&gt;
+    {
+        QueueClient client = QueueClient.CreateFromConnectionString(connectionString, queueName, ReceiveMode.ReceiveAndDelete);
+        client.OnMessage(message =&gt;
+        {
+            Stream stream = message.GetBody&lt;Stream&gt;();
+            StreamReader reader = new StreamReader(stream, Encoding.ASCII);
+            string s = reader.ReadToEnd();
+            _hubContext.Clients.All.ioTHubNotification(s);
+        });
+    });
+    task.Wait();
+    return View();
+}
+</pre>
+
+<p>First I create a <code>QueueClient</code> object with the connection string and queue name along with the <code>ReceiveMode</code>. I have set <code>ReceiveMode</code> to <code>ReceiveAndDelete</code> as I want to delete the data from the queue once it has been read. Though you have an option to have the data in the queue for the maximum of 7 days in Azure. The <code>QueueClient</code> has an <code>OnMessage</code> event which process a message in an event-driven message pump, which means that as soon as the something is being added to the queue, this event is fired. I get the message body in the form of <code>Stream</code>, read the message to the end and pass the message to SignalR hub which in turn updates my chart in real-time. Here is the final output I have now.</p>
+
+<p><img src="/images/iot-weatherhub-ui.png" alt="IoT Weather App in action" /></p>
+
+<p>If you look closely, you will notice that the temperature line is not as smooth as you thought it would be. This is because every time when Raspberry PI read the data from the sensor there is a slight change in the temperature only with a few decimal places. If you don&rsquo;t like this then you can change the <code>gridlines</code> property of the <code>vAxis</code> in the chart. Also you can try changing the time delay on the device to see if that impacts the lines on the chart. try changing both time delay in the device application and the <code>gridlines</code> in the web application to see how the chart renders.</p>
+
+<p><a href="https://github.com/prashantkhandelwal/Pi-Code/tree/master/BME280-PI3-Win10IoT-Azure">The complete source code is available on Github</a>.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/">Upload Files In .NET Core By Drag And Drop Using Dropzone.JS</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 17, 2016
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC&#34;</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>Mostly all web applications out there has some way or the other amazing ways to upload a single or multiple files. While surfing on Github I found <a href="http://www.dropzonejs.com/">this amazing library</a> to upload the files to the server in a unique way with lot of configurations. It support parallel uploads along with cancellation of the files which are in the upload queue along with a good looking progress bar to show the progress of upload.</p>
+
+<p>I get the drag and drop to work in just like 5 minutes. It is super easy and that with some powerful configurations. To install Dropzone you can use the Nuget command.</p>
+
+<pre class="brush: plain">
+PM> Install-Package dropzone
+</pre>
+
+<p>Add reference of js and css files on your page. To get the UI ready use this HTML.</p>
+
+<pre class="brush: html">
+&lt;div class="row"&gt;
+    &lt;div class="col-md-9"&gt;
+        &lt;div id="dropzone"&gt;
+            &lt;form action="/Home/Upload" class="dropzone needsclick dz-clickable" id="uploader"&gt;
+                &lt;div class="dz-message needsclick"&gt;
+                    Drop files here or click to upload.&lt;br&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<p>The output of the above HTML looks like this.</p>
+
+<p><img src="/images/dropzonejs-output.png" alt="Dropzone output in HTML" /></p>
+
+<p>There are few points to be noted here in the above HTML. Notice the <code>action</code> and <code>class</code> attributes for the <code>form</code> element. You will also be needing the <code>id</code> attribute as well. Here the <code>action</code> attribute points to the <code>ActionResult</code> which is responsible to handle the file upload. I have pointed it to the <code>Upload</code> ActionResult in my controller class which accepts a parameter of type <a href="https://docs.asp.net/projects/api/en/latest/autoapi/Microsoft/AspNetCore/Http/IFormFile/">IFormFile</a>. In case of a MVC application, we would have used <a href="https://msdn.microsoft.com/en-us/library/system.web.httppostedfilebase(v=vs.110).aspx">HttpPostedFileBase</a> class. Here is the complete code which handles the file upload.</p>
+
+<pre class="brush: csharp">
+[HttpPost]
+public async Task&lt;IActionResult&gt; Upload(IFormFile file)
+{
+    var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+    if (file.Length &gt; 0)
+    {
+        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+        {
+            await file.CopyToAsync(fileStream);
+        }
+    }
+    return RedirectToAction("Index");
+}
+</pre>
+
+<p>The <code>_environment</code> variable you see in the above code is the instance of <code>IHostingEnvironment</code> interface which I have injected in the controller. Always use <code>IHostingEnvironment</code> interface to resolve the paths. You can hard code the file path but it may not work on other platforms. The combine method returns the correct path based on the platform the code is executing. The <code>WebRootPath</code> property returns the path of <code>wwwroot</code> folder and the second parameter <code>uploads</code> is then appended correctly with the path.</p>
+
+<p>Now it is time to make some adjustment in the Dropzone configuration. Recall the <code>id</code> attribute of the <code>form</code> element. I named it uploader. The Dropzone library has a unique way to set the configuration. Like this.</p>
+
+<pre class="brush: javascript">
+&lt;script&gt;
+    $(document).ready(function () {
+        Dropzone.options.uploader = {
+            paramName: "file",
+            maxFilesize: 2,
+            accept: function (file, done) {
+                if (file.name == "test.jpg") {
+                    alert("Can't upload a test file.");
+                }
+                else {
+                    //Show a confirm alert and display the image on the page.
+              }
+           }
+        };
+});
+&lt;/script&gt;
+</pre>
+
+<p>You have to be a bit careful when setting this configuration. In the configuration above the <code>paramName</code> states the name that will be used to transfer the file. This name should be the same as the <code>IFormFile</code> parameter of the <code>Upload</code> method in the controller. In this case I am using <code>file</code> and the same has to be there in the param of the <code>Upload</code> method. If the names mis-match the files will not be uploaded. The other parameter I am using is the <code>maxFileSize</code> and is very much self-explanatory. I have set the size to be <code>2 MB</code> and because of this configuration, any file above this limit will not be uploaded. Here is an example of such kind of failure.</p>
+
+<p><img src="/images/file-upload-dragndrop.png" alt="Dropzone drag and drop upload" /></p>
+
+<p>All the other files were uploaded successfully except one file which is <code>4.32 MB</code> and is way beyond the limit I set in my Dropzone configuration. If you hover the file, you will see why it got failed.</p>
+
+<p><img src="/images/file-upload-error.png" alt="Upload file error" /></p>
+
+<p>This is the simplest approach through which you can have drag and drop upload support in your applications. The configuration I am using here is the simplest and minimalistic configuration that can get you started in no time. There are some more powerful configurations like <a href="http://www.dropzonejs.com/#config-parallelUploads">parallelUploads</a> and <a href="http://www.dropzonejs.com/#config-uploadMultiple">uploadMultiple</a> that you should look into and use it.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/free-e-book-understanding-azure-a-guide-for-developers/">Free E-Book: Understanding Azure - A Guide For Developers</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 16, 2016
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      
+      
+      
+      
+    </span>
+    <p><img src="/images/azure-ebook.png" style="float:right;"/>
+There is no time better to be a developer. With the cloud, you can compose solutions that were never possible before. You can release new features to millions of users within minutes. You can push the boundaries of current technological limitations in days. Developers can turn ideas from the ground up to successful businesses in only months. Companies need apps that allow them to maximize customer engagement and differentiate against competitors. Teams must have agility with app development for faster time to market. Developers need a flexible platform to scale up and down based on business demands, yet rock-solid resources that can withstand failure.</p>
+
+<p>This guide breaks down the &ldquo;why&rdquo; and &ldquo;how&rdquo; for scenarios suited to the cloud with a focus on building apps using platform services available in Microsoft Azure. The second half of the guide showcases the breadth and depth of the Azure platform and services designed to help developers make truly competitive and differentiated applications.</p>
+
+<p>The intended audience for this guide includes:</p>
+
+<ul>
+<li><p>Developers wanting to understand why Azure is the best cloud platform for creating applications and how to get started quickly based on the app you want to build today.</p></li>
+
+<li><p>Technical leaders considering Azure to support new or existing application development.</p></li>
+</ul>
+
+<p><a href="http://download.microsoft.com/download/2/C/F/2CF7401A-B9D7-4828-917D-199E0896BFE5/Azure_Developer_Guide_eBook.pdf">Click to download</a></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/get-the-correct-file-paths-in-net-core/">Get The Correct File Paths In .NET Core</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 3, 2016
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC&#34;</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>I run a custom blog engine I wrote myself on MVC 4 and as you would have thought it is on Windows hosting. I am re-writing my blog engine in .NET Core so that I can get it running on a Linux hosting as well. I am using Windows machine and Visual Studio Community Edition to write it and using a Ubuntu VM box to test it. My current blog uses SQL Server as a back-end but Linux does not support SQL Server and therefore I have to move to MySQL or any other No-SQL database available for Linux distros. For now I will be saving everything on the disk in JSON format.</p>
+
+<p>The problem comes when I switch from database to file system. Both Windows and Linux file systems are different, so when working I hard-coded the data folder which holds all the posts for my blog. I publish the solution and deploy it to Ubuntu VM. I started the server and it ended up showing me this error in the console.</p>
+
+<p><img src="/images/dotnet-prod.png" alt="Dotnet production command" /></p>
+
+<p>Notice the path of the data folder in the above screenshot. The path I am referring in the code ends up with backward slash which is not a UNIX format. Also a thing to note here is that UNIX follows a strict naming convention unlike Windows. For example, in Windows Data and data are same, but in UNIX they are not. Because I have hard-coded the path in my application while developing, it will end up in an error on UNIX machine.</p>
+
+<p>To make the paths consistent in your application, I have to make use of the <a href="https://docs.microsoft.com/en-us/dotnet/core/api/system.io">System.IO</a> namespace <a href="https://docs.microsoft.com/en-us/dotnet/core/api/system.io.path">Path</a> class&rsquo;s <a href="https://docs.microsoft.com/en-us/dotnet/core/api/system.io.path#System_IO_Path_Combine_System_String_System_String_">Combine</a> method. <code>Combine</code> method is an overloaded method. If you are hearing this method for the first time then make sure you read the documentation. This method renders the correct path based on the platform my code is executing. So instead of doing something like this.</p>
+
+<pre class="brush: csharp">
+var _posts = Directory.EnumerateFiles("Data\\Posts");
+</pre>
+
+<p>I have done something like this.</p>
+
+<pre class="brush: csharp">
+string posts = Path.Combine("Data", "Posts");
+_files = Directory.EnumerateFiles(posts);
+</pre>
+
+<p>In short, if you are developing a .NET Core application targeting Windows along with UNIX and OSX, then make sure that you follow this approach to get the correct paths or else you will end up with an exception and your website inaccessible.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -349,490 +904,6 @@ Z_Label.Text = Convert.ToString(adxl[2].Split(':')[1]);
 <p><img src="/images/adxl345-viz-winform.png" alt="ADXL345 application output" /></p>
 
 <p>The overall idea of building this application is to see whether it is possible or easy to communicate from Raspberry PI apart from using frameworks like <a href="http://webiopi.trouch.com/">WebioPI</a> or <a href="http://flask.pocoo.org/">Flask</a>. The complete source code for Raspberry PI and Windows Forms application is <a href="https://github.com/prashantkhandelwal/Pi-Code/tree/master/ADXL345%20Visualizer">available on Github</a> along with Fritzing sketch file and additional instructions to install the dependencies.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/building-angular-2-app-with-web-api-and-net-core/">Building Angular 2 App With Web API And .NET Core</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 21, 2016
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    <p>Setting up the new Angular 2 app with Web API and .NET core is easy but can be a bit tricky. The older beta releases of Angular 2 works fine as there are not many files to refer and to work with. When I started using Angular 2 it was in RC1 and the way the files are being referenced in the app is bit different than the older versions of Angular 2. I don&rsquo;t want to repeat these steps again and again so I put up a Github repo for this seed project. You clone it and hit F5 and you will have your Angular 2 app with Web API.</p>
-
-<blockquote>
-<p>At the time of writing this post I am using .NET Core version 1.0.0-preview1-002702. The complete seed project is available on <a href="https://github.com/prashantkhandelwal/Angular2WebAPI-Seed">GitHub</a>.</p>
-</blockquote>
-
-<p>Here is how I did it. Select <code>ASP.NET Core Web Application (.NET Core)</code>. I have installed the new .NET Core RC2. Name the project as you like.</p>
-
-<p><img src="/images/vs-new-project.png" alt="Visual Studio New Project" /></p>
-
-<p>Select the <code>Web API</code> project template.</p>
-
-<p><img src="/images/vs-new-add-api.png" alt="Visual Studio Add Web API" /></p>
-
-<p>After the project creation is successfull. The first thing is to create a <code>Views</code> folder. The folder structure is like the same like it is for MVC application. This is how the folder structure looks like.</p>
-
-<p><img src="/images/vs-view-project-files.png" alt="Visual Studio Project Files View" /></p>
-
-<p>Because its a a Web API project, by default it will not render the views and therefore we have to add some dependencies in <code>project.json</code> file.</p>
-
-<pre class="brush: plain">
-"Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
-"Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0-rc2-final",
-"Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0-rc2-final"
-</pre>
-
-<p>The <code>project.json</code> file is different than that of the older version of the .NET Core. You will see the difference when you see it.
-Next we set the routes for the views we have in the <code>Startup.cs</code> file.</p>
-
-<pre class="brush: csharp">
-app.UseMvc(routes =&gt;
-{
-    routes.MapRoute("default",
-                    "{controller=Home}/{action=Index}/{id?}");
- 
-    routes.MapWebApiRoute("defaultApi",
-                          "api/{controller}/{id?}");
-});
-</pre>
-
-<p>The routes are now set and you can run the application and check if you can see the view or not. Once that is set, let start adding the support for Angular. Here is the list of the files which we need to add.</p>
-
-<p><code>tsconfig.json</code> file</p>
-
-<p><img src="/images/add-tsconfig-file.png" alt="Add tsconfig.json file" /></p>
-
-<p>Add the below code to the file and save it.</p>
-
-<pre class="brush: plain">
-{
-  "compilerOptions": {
-    "target": "es5",
-    "module": "system",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "rootDir": "wwwroot",
-    "outDir": "wwwroot",
-    "listFiles": true,
-    "noLib": false,
-    "diagnostics": true
-  },
-  "exclude": [
-    "node_modules"
-  ]
-}
-</pre>
-
-<p><code>typings.json</code> file</p>
-
-<p>Add a blank <code>.json file</code> and name it <code>typings.json</code></p>
-
-<p><img src="/images/add-typings.json.png" alt="Add typings.json file" /></p>
-
-<p>Add below lines to the <code>typings.json</code> file.</p>
-
-<pre class="brush: plain">
-{
-  "ambientDependencies": {
-    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
-    "jasmine": "registry:dt/jasmine#2.2.0+20160412134438"
-  }
-}
-</pre>
-
-<p>As per the official <a href="https://angular.io/docs/ts/latest/quickstart.html">Angular documentation</a>, we will stick with <code>NPM</code> to fulfill the client-side dependencies. Start with adding new <code>npm Configuration File</code>. The content of the <code>NPM</code> file is almost the same, but I made few changes as per my requirement. Here is the complete configuration file.</p>
-
-<p><img src="/images/npm-configuration-file.png" alt="NPM Configuration File" /></p>
-
-<pre class="brush: plain">
-{
-  "name": "Angular2WebAPI-Seed",
-  "version": "1.0.0",
-  "scripts": {
-    "postinstall": "typings install"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "@angular/common": "2.0.0-rc.1",
-    "@angular/compiler": "2.0.0-rc.1",
-    "@angular/core": "2.0.0-rc.1",
-    "@angular/http": "2.0.0-rc.1",
-    "@angular/platform-browser": "2.0.0-rc.1",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
-    "@angular/router": "2.0.0-rc.1",
-    "@angular/router-deprecated": "2.0.0-rc.1",
-    "@angular/upgrade": "2.0.0-rc.1",
- 
-    "lodash": "4.12.0",
-    "systemjs": "0.19.27",
-    "es6-shim": "^0.35.0",
-    "reflect-metadata": "^0.1.3",
-    "rxjs": "5.0.0-beta.6",
-    "zone.js": "^0.6.12",
-    "angular2-in-memory-web-api": "0.0.7",
-    "bootstrap": "^3.3.6"
-  },
-  "devDependencies": {
-    "gulp": "3.9.1",
-    "concurrently": "^2.0.0",
-    "typescript": "^1.8.10",
-    "typings": "^0.8.1"
-  }
-}
-</pre>
-
-<p>Notice the <code>postinstall</code> section in the npm configuration file. In this section we are installing the types required by our Angular 2 application. Now we can start setting up the Angular stuff in the <code>wwwroot</code> folder. Create an <code>app</code> and <code>js</code> folder inside this folder. Inside <code>app</code> folder create a new <code>.ts</code> file (TypeScript file). Here is the folder structure looks like in the <code>wwwroot</code> folder.</p>
-
-<p><img src="/images/angular-files.png" alt="Angular Files Structure" /></p>
-
-<p>You can see a <code>system.config.js</code> file is the same as you can see the Angular quickstart guide. I just have map the paths for the dependencies so that can be loaded without any problem. The <code>main.ts</code> file will be the main bootstrapper and <code>app.component.ts</code> file is the component file which will render the content on the page. At this point running the application will fail and it will give you several warnings and errors. To resolve that we need to add the references and we can do this easily by using a gulp file. The gulp file will automate the copying of dependencies in the <code>wwwroot</code> folder and ease our task.</p>
-
-<p><img src="/images/add-gulp-config-file.png" alt="Add Gulp Configuration File" /></p>
-
-<p>The content of the gulp file in this case looks like this.</p>
-
-<pre class="brush: plain">
-/// <binding BeforeBuild='default' />
- 
-var _ = require('lodash');
-var gulp = require('gulp');
- 
-var js = [
-    'node_modules/zone.js/dist/zone.min.js',
-    'node_modules/systemjs/dist/system.js',
-    'node_modules/reflect-metadata/Reflect.js',
-    'node_modules/es6-shim/es6-shim.min.js'
-];
- 
-var map = [
-    'node_modules/es6-shim/es6-shim.map',
-    'node_modules/reflect-metadata/reflect.js.map',
-    'node_modules/systemjs/dist/system.js.map'
-];
- 
-var folders = [
-    'node_modules/@angular/**/*.*',
-    'node_modules/rxjs/**/*.*'
-];
- 
-gulp.task('copy-js', function () {
-    _.forEach(js, function (file, _) {
-        gulp.src(file)
-       .pipe(gulp.dest('./wwwroot/js'))
-    });
-});
- 
-gulp.task('copy-map', function () {
-    _.forEach(map, function (file, _) {
-        gulp.src(file)
-        .pipe(gulp.dest('./wwwroot/js'))
-    });
-});
- 
-gulp.task('copy-folders', function () {
-    _.forEach(folders, function (folder) {
-        gulp.src(folder, { base: 'node_modules' })
-            .pipe(gulp.dest('./wwwroot/js'))
-    });
-})
- 
-gulp.task('default', ['copy-js', 'copy-map', 'copy-folders']);
-</pre>
-
-<p>Notice the very first line in the file above. We want to execute the task on every time before the build is triggered. The gulp file will only be copying the required files to the <code>js</code> folder and other unnecessary files will not be required. After the task is executed here is the how the final directiry structure will look like under <code>wwwroot</code>.</p>
-
-<p><img src="/images/angular-wwwroot-content.png" alt="Angular wwwroot content" /></p>
-
-<p>Depending on the selector you have in your component, you need to add the selector to your view. In my case the selector is <code>app</code>, hence add <code>&lt;app&gt;&lt;/app&gt;</code> in your <code>Index.cshtml</code> file.</p>
-
-<p>After you set up the index page, there is one more thing that you have to do is to set the launch URL.</p>
-
-<p><img src="/images/launch-settings.png" alt="App Launch Settings" /></p>
-
-<p>The URL may change and differ as per your API endpoint. Press F5 to run the application.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/dev-buzz-3-bookmarks/">Dev Buzz #3 - Bookmarks</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 29, 2016
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/devbuzz">DEVBUZZ</a>
-      
-      
-      
-      
-    </span>
-    
-
-<div style="text-align: -webkit-center;">
-<img src="/images/devbuzz1.jpg" alt="Devbuzz Image" />
-</div>
-
-<h4 id="net-core">.NET Core</h4>
-
-<ul>
-<li><a href="http://jameschambers.com/2016/04/github-authentication-asp-net-core/">GitHub Authentication with ASP.NET Core</a></li>
-<li><a href="http://rehansaeed.com/social-taghelpers-for-asp-net-core/">Social TagHelpers for ASP.NET Core</a></li>
-<li><a href="https://blogs.msdn.microsoft.com/webdev/2016/03/28/dependency-injection-in-asp-net-core/">Dependency Injection in ASP.NET Core</a>
-<a href="http://dotnetliberty.com/index.php/2016/04/11/asp-net-core-custom-service-based-on-request/">ASP.NET Core: Custom Service Based on Request</a></li>
-</ul>
-
-<h4 id="visual-studio-visual-studio-code">Visual Studio/Visual Studio Code</h4>
-
-<ul>
-<li><a href="http://tattoocoder.azurewebsites.net/setting-up-asp-net-core-debugging-in-vs-code">Setting up ASP.NET Core debugging in VS Code</a></li>
-<li><a href="https://blogs.msdn.microsoft.com/dotnet/2016/04/18/whats-new-for-the-net-native-compiler-and-runtime-in-visual-studio-2015-update-2/">What’s new for the .NET Native Compiler and Runtime in Visual Studio 2015 Update 2</a></li>
-<li><a href="https://blogs.msdn.microsoft.com/dotnet/2016/04/02/whats-new-for-c-and-vb-in-visual-studio/">What’s New for C# and VB in Visual Studio</a></li>
-<li><a href="http://jameschambers.com/2016/02/building-your-project-should-be-pretty-quick/">Tips for Speeding Up Visual Studio</a></li>
-</ul>
-
-<h4 id="open-source">Open Source</h4>
-
-<ul>
-<li><a href="https://github.com/baedert/corebird">Corebird - Native GTK+ Twitter Client</a></li>
-<li><a href="https://github.com/OpenLiveWriter/OpenLiveWriter.Github.io">OpenLiveWriter - WLW</a></li>
-</ul>
-
-<h4 id="miscellaneous">Miscellaneous</h4>
-
-<ul>
-<li><a href="http://www.omgubuntu.co.uk/2016/04/10-things-to-do-after-installing-ubuntu-16-04-lts">16 Things To Do After Installing Ubuntu 16.04 LTS</a></li>
-<li><a href="http://nickcraver.com/blog/2016/02/17/stack-overflow-the-architecture-2016-edition/">Stack Overflow: The Architecture - 2016 Edition</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/markdown-parser-taghelper-in-aspnet-mvc-6/">Parsing Markdown Using Custom TagHelper In ASP.NET MVC 6</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Nov 30, 2015
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    <p>Previous versions of MVC allows us to write <a href="https://msdn.microsoft.com/en-us/library/system.web.mvc.htmlhelper%28v=vs.118%29.aspx">HtmlHelpers</a> which does a pretty good job then and they are doing it now as well. But in MVC 6, the ASP.NET team has introduced TagHelpers.</p>
-
-<p>Parsing <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> in .NET is way too simple than one can imagine. Thanks to Stackoverflow&rsquo;s <a href="https://code.google.com/p/markdownsharp/">MarkdownSharp</a> and Karlis Gangis&rsquo;s CommonMark.NET. I use CommonMark.NET as it provides a much faster parsing than other libraries. The blogging platform I use is a custom blogging engine I wrote in MVC4. The post content is saved in HTML which makes my raw HTML way to messy when compared to simple markdown syntax. I have no plans to change the way it is right now, but for the other simple application which is quite similar to notes taking or blogging apps, I would like to save the content in markdown.</p>
-
-<p>I will start with a simple implementation of this custom TagHelper and then then we can look into the other ways to enhance it. Here is how easy it is to create your custom TagHelper.</p>
-
-<p>Create a new class file <code>MarkdownTagHelper.cs</code>. Inside the file, rename the class name to match the file name or you can change the name way you like. In my case I am keeping the class name as same as the file name.</p>
-
-<blockquote>
-<p>Pay attention to the name of the custom TagHelper. By design, compiler will remove the word TagHelper from the class name and the rest of the name will become your custom TagHelper name.</p>
-</blockquote>
-
-<p>The next step is to inherit our class with <code>TagHelpers</code> class. Every custom TagHelper will inherit this class. Just like the UserControl class when creating a custom user control. The TagHelper provide us two virtual methods, <code>Process</code> and a <code>ProcessAsync</code> method which we will be going to override to implement our custom logic for our custom markdown TagHelper. The first parameter is the <code>TagHelperContext</code> which holds the information about the current tag and the second parameter is <code>TagHelperOutput</code> object represents the output being generated by the TagHelper. As we need to parse the markdown in our razor view pages, we need to add reference of CommonMark.Net library. Use the below Nuget command to add it to your current project.</p>
-
-<pre class="brush: plain">
-Install-Package CommonMark.Net
-</pre>
-
-<p>Till here this is how the code will look like.</p>
-
-<p><img src="/images/code-md-scrshot.png" alt="Markdown screenshot in Visual Studio" /></p>
-
-<p>So now we have our custom TagHelper that will let us parse the markdown. But to use it in our views we need to opt-in for this TagHelper in the <code>_ViewImports.cshtml</code> file. To enable your custom TagHelper just type in like this:</p>
-
-<pre class="brush: csharp">
-@addTagHelper "*, WebApplication1"
-</pre>
-
-<p>Your custom tag helper would have been turned purple in color on the view page. It is similar to the line above it where <code>@addTagHelper</code> is importing all the TagHelpers from the given namespace. If you are not interested in opting-in for all the TagHelpers in the given namespace then make use of the <code>@removeTagHelper</code> to disable the TagHelpers you don’t need. For this I want all the tag helpers I have created to be a part of the application and hence the * symbol.</p>
-
-<p>In your view, where you want to use this just type in <code>&lt;markdown&gt;</code> and inside this tag you should have your markdown. To test it, you can view the any raw file in Github and copy the text. I am using <a href="https://raw.githubusercontent.com/Knagis/CommonMark.NET/master/README.md">README.md</a> from CommonMark.NET and it rendered perfectly.</p>
-
-<blockquote>
-<p>Caution: When copy-pasting the markdown code from anywhere to your view make sure that you do not have a whitespace in the front of the line. This is only applicable when you are working with the in-line markdown. Here is the screenshot with comparison. <img src="/images/markdown-comparison.png" alt="Markdown code comparison Visual Studio" /></p>
-</blockquote>
-
-<p>Hit F5 and see the markdown tag helper in action. Below is the output I get.</p>
-
-<p><img src="/images/output-markdown.png" alt="Markdown output" /></p>
-
-<p>This is the simplest of all. Now let’s add some prefix to our custom TagHelper. To add a custom tag prefix to the TagHelper, we just need to pay a visit to <code>_ViewImports.cshtml</code> file again and add a new line like so:</p>
-
-<pre class="brush: csharp">
-@tagHelperPrefix "blog-"
-</pre>
-
-<p>After adding the above line in the file, go to the view page where you have used your custom TagHelper and you can notice that the <code>&lt;markdown&gt;</code> tag isn’t purple anymore. This is because we now have to add a custom tag-prefix that we just defined in the <code>_ViewImports.cshtml</code> file. Change it from <code>&lt;markdown&gt;</code> to <code>&lt;blog-markdown&gt;</code> and it is purple again.</p>
-
-<p>By design, the TagHelper will take <code>&lt;markdown&gt;</code> as a tag to be processed. But it can be easily ignored by using the <code>HtmlTargetElement</code> attribute at the top of the class and allow the use of another name rather than <code>&lt;markdown&gt;</code>. This does not mean that you cannot use <code>&lt;markdown&gt;</code> but instead you can also use the custom TagHelper with the name specify in this attribute.</p>
-
-<p>Now let’s add some attributes to my markdown TagHelper. Let’s try to add a url attribute which will help user to render the markdown on the view from a remote site like Github. To add an attribute, simply add a new public property of type string and call it url. When you create a public property in the <code>TagHelper</code> class it is automatically assumed it is an attribute. To make use of this property, my view now simply say this:</p>
-
-<pre class="brush: csharp">
-&lt;blog-markdown url="https://raw.githubusercontent.com/Knagis/CommonMark.NET/master/README.md">
-&lt;/blog-markdown&gt;
-</pre>
-
-<p>The url attribute value is being read by the TagHelper which in turn read the whole string of markdown from Github and render the HTML on the page. Let’s focus again on TargetElement attribute for a while. Consider a scenario where you don’t want your custom TagHelper to render or work if the attributes are not passed or missing. This is where <code>HtmlTargetElement</code> attribute comes into picture. If I don’t want my TagHelper to work if the <code>url</code> parameter is missing then you can simple write your <code>HtmlTargetElement</code> attribute like so:</p>
-
-<pre class="brush: csharp">
-[HtmlTargetElement("markdown", Attributes = "url")]
-</pre>
-
-<p>Notice the <code>Attributes</code> parameter. The <code>Attributes</code> parameter allows you to set the name of all the attributes which should be processed by your TagHelper or else the TagHelper will not work. For instance, if I just use the <code>&lt;markdown&gt;</code> TagHelper but did not pass the url attribute, the TagHelper will not execute and you will see the raw markdown code. My requirement is to have this TagHelper working with or without the use of <code>url</code> attribute. I can comment out or remove the <code>HtmlTargetElement</code> attribute or just remove the <code>Attributes</code> parameter to get going.</p>
-
-<p>Here is the complete MarkdownTagHelper.cs:</p>
-
-<pre class="brush: csharp">
-using Microsoft.AspNet.Razor.Runtime.TagHelpers;
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
- 
-namespace WebApplication1.TagHelpers
-{
-    //[HtmlTargetElement("markdown", Attributes = "url")]
-    public class MarkdownTagHelper : TagHelper
-    {
-        //Attribute for our custom markdown
-        public string Url { get; set; }
- 
-        private string parse_content = string.Empty;
- 
-        //Stolen from: http://stackoverflow.com/questions/7578857/how-to-check-whether-a-string-is-a-valid-http-url
-        private bool isValidURL(string URL)
-        {
-            Uri uriResult;
-            return Uri.TryCreate(URL, UriKind.Absolute, out uriResult)
-                && (uriResult.Scheme.ToLowerInvariant() == "http" || uriResult.Scheme.ToLowerInvariant() == "https");
-        }
- 
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
-        {
-            if (context.AllAttributes["url"] != null)
-            {
-                string url = context.AllAttributes["url"].Value.ToString();
-                string webContent = string.Empty;
-                if (url.Trim().Length &gt; 0)
-                {
-                    if (isValidURL(url))
-                    {
-                        using (HttpClient client = new HttpClient())
-                        {
-                            webContent = await client.GetStringAsync(new Uri(url));
-                            parse_content = CommonMark.CommonMarkConverter.Convert(webContent);
-                            output.Content.SetHtmlContent(parse_content);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                //Gets the content inside the markdown element
-                var content = await output.GetChildContentAsync();
- 
-                //Read the content as a string and parse it.
-                parse_content = CommonMark.CommonMarkConverter.Convert(content.GetContent());
- 
-                //Render the parsed markdown inside the tags.
-                output.Content.SetHtmlContent(parse_content);
-            }
-        }
-    }
-}
-</pre>
-
-<p>I found the full TagHelper feature in MVC 6 a lot more convenient and powerful. I hope you like it as well.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/free-e-book-52-tips-tricks-to-boost-net-performance-from-redgate/">Free E-Book: 52 Tips &amp; Tricks to Boost .NET Performance from Redgate</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Nov 26, 2015
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p><img src="/images/redgate-book.png" alt="Redgate Free e-book" style="float: right;"/></p>
-
-<p>A super awesome free e-book from our friends at RedGate.</p>
-
-<ul>
-<li>52 tips from the .NET community for boosting performance in your applications.</li>
-<li>Learn the secrets of your fellow developers and read advice from MVPs and other experts.</li>
-<li>Covers .NET and ASP.NET, database access, memory usage, and more&hellip;</li>
-</ul>
-
-<h3 id="download-now-http-www-red-gate-com-products-dotnet-development-ants-performance-profiler-entrypage-52-net-performance-tips"><a href="http://www.red-gate.com/products/dotnet-development/ants-performance-profiler/entrypage/52-net-performance-tips">Download Now</a></h3>
 
   </div>
   
@@ -1183,32 +1254,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

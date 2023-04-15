@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-10-14T05:16:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-10-21T18:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,292 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/readwrite-settings-to-ini-file-using-c/">Read/Write settings to INI File using C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 21, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>When we design application we always face problems to save settings for the application and to achieve that we use different options available to us. A very common method to use in accordance of complexity XML files, Registry, Application.config or other/normal files. Best option is to use application configuration file but it seems that most of the people are not fully aware with the usage of the application configuration file. I will discuss late on the application configuration file a.k.a. app.config, but here is the way to use the INI files to save application settings.</p>
+
+<p>Here I am using a simple class which has two methods Write &amp; Read methods which internally calls the functions inside the <code>Kernel32.dll</code> which are WritePrivateProfileString and ReadPrivateProfileString. Both methods take parameters and write it to the INI file. Here is the complete listing of the class which can be use to read and write settings to the INI file.</p>
+
+<p>INI files have sections and keys from where the data can be read on the combination of the sections and keys. As there can be a common key in different sections of the INI file. A section is defined in [SECTION NAME] and then it have a Key and its KeyValue.</p>
+
+<pre class="brush:csharp">
+class INIFile
+{
+    private string filePath;
+       
+    [DllImport("kernel32")]
+    private static extern long WritePrivateProfileString(string section,
+    string key,
+    string val,
+    string filePath);
+ 
+    [DllImport("kernel32")]
+    private static extern int GetPrivateProfileString(string section,
+    string key,
+    string def,
+    StringBuilder retVal,
+    int size,
+    string filePath);
+       
+    public INIFile(string filePath)
+    {
+        this.filePath = filePath;
+    }
+ 
+    public void Write(string section, string key, string value)
+    {
+        WritePrivateProfileString(section, key, value.ToLower(), this.filePath);
+    }
+ 
+    public string Read(string section, string key)
+    {
+        StringBuilder SB = new StringBuilder(255);
+        int i = GetPrivateProfileString(section, key, "", SB, 255, this.filePath);
+        return SB.ToString();
+    }
+         
+    public string FilePath
+    {
+        get { return this.filePath; }
+        set { this.filePath = value; }
+    }
+}
+</pre>
+
+<p>Now when you have to perform the read and write operations to the INI file you have to just call the Write and Read method from the above class. Initialize the above class anywhere in your application and then call the below methods to work.</p>
+
+<p>To write a new entry to an INI file use the write method. As you can see in the below method you need to first initialize a class which takes in the path of the INI fie. The write method takes 3 arguments which have Section, Key and KeyValue respectively. I have used a single section and a key to demonstrate the usage, but you can call the write method a number of time to write different settings value.</p>
+
+<pre class="brush:csharp">
+INIFile inif = new INIFile("D:\\config.ini");
+inif.Write("Database", "Devs", "sa");
+</pre>
+
+<p><img src="/images/ini-config.jpg" alt="Settings INI file" /></p>
+
+<p>To read the particular value from the INI file use the read method. It takes in 2 arguments i.e. Section and Key respectively to read a KeyValue.</p>
+
+<pre class="brush:csharp">
+INIFile inif = new INIFile("D:\\config.ini");
+Console.WriteLine("The Value is:" +inif.Read("Database", "Devs"));
+</pre>
+
+<p>I have just displayed the value after reading from the file after the write operation is completed. You can set a local variable to preserve the value and then take a required action.</p>
+
+<p><img src="/images/ini-demo.jpg" alt="Output after reading the INI file" /></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/passing-parameters-to-crystal-reports/">Passing Parameters to Crystal Reports</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 20, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>I found many tutorials on the internet that shows how to pass the parameters (Discreet Parameters) to crystal reports, I tried all of them, but unfortunately I didn&rsquo;t get anyone of it to work. Therefore I though to give a trial on my code and eventually I got it running. I assume that you have a report ready with a parameter.</p>
+
+<p>Firstly to get it running we have to use the below namespaces:</p>
+
+<pre class="brush:csharp">
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+</pre>
+
+<p>After you added a namespace now we have to pass a value to the report parameter, Here is the code to do this: Step 1: Create a ReportDocument object and initialize it</p>
+
+<pre class="brush:csharp">
+ReportDocument crReportDocument = new ReportDocument();
+</pre>
+
+<p><strong>Step 2:</strong> Use the Load method of the ReportDocument object to load the report in the memory and use it.</p>
+
+<pre class="brush:csharp">
+crReportDocument.Load("C:\\report.rpt");
+</pre>
+
+<p><strong>Step 3:</strong> After loading the report in the ReportDocument object, we can now set the value to the report parameter using SetParameterValue method. This is an overloaded method which we can use according to the requirement. I have used the parameter name and parmeter value which are of string and object type respectively.</p>
+
+<pre class="brush:csharp">
+crReportDocument.SetParameterValue("id", 115);
+</pre>
+
+<p><strong>Step 4:</strong> As the data in the report is being populated from the database according to the parameter provided in the previous step. So to populate the data from the database we also have to set the database credentials to log in to the database and populate the report data.</p>
+
+<pre class="brush:csharp">
+crReportDocument.SetDatabaseLogon("sa", "pass#word1", "MX", "AdventureWorks");
+</pre>
+
+<p><strong>Step 5:</strong> After the credentials have been set up for he database, the last step is to set the ReportSource property of the Crystal Report Viewer.</p>
+
+<pre class="brush:csharp">
+crystalReportViewer1.ReportSource = crReportDocument;
+</pre>
+
+<p>Here is the complete code:</p>
+
+<pre class="brush:csharp">
+ReportDocument crReportDocument = new ReportDocument();
+crReportDocument.Load("C:\\report.rpt");
+crReportDocument.SetParameterValue("id", 115);
+crReportDocument.SetDatabaseLogon("sa", "pass#word1", "MX", "AdventureWorks"); crystalReportViewer1.ReportSource = crReportDocument;
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/requesting-deliveryread-receipt-from-c-using-mailmessage-class/">Requesting delivery/read receipt from C# using MailMessage class</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 16, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>Sending e-mail through code is easy, but how do we get to know that an e-mail that we send is delivered and read by the intended recipient. When we send e-mail through code we can request a delivery notification and read receipt from the receiver, similar to the way we do in outlook. But the problem is not every mail server supports this kind of request from the code. We set a mail header while sending mail from code which is then processed by the mail server and the sender of the mail gets the intended response. I have test the below code with Microsoft Exchange Server and it works perfectly fine. So let’s see what the code has:</p>
+
+<p>First we need the namespace to use MailMessage class.</p>
+
+<pre class="brush:csharp">
+using System.Net;
+using System.Net.Mail;
+</pre>
+
+<p>Initialize MailMessage class and set To, From, Subject and Body parameters</p>
+
+<pre class="brush:csharp">
+//create the mail message
+MailMessage mail = new MailMessage();
+//set the addresses
+mail.From = new MailAddress("prashantmx@xyz.com"); mail.To.Add("ankur@abc.com"); //set the content mail.Subject = "This is an email"; mail.Body = "this is the body content of the email.";
+</pre>
+
+<p>Now we have to set the Header property of the mail message class to request read/delivery recipt. As usual I first want to get notified for the e-mail I have sent has been delivered or not and then I want to get notified when my e-mail has been read by the recipient. Here I have also commented the deprecated method which is used in the previous version of .NET framework.</p>
+
+<pre class="brush:csharp">
+//This method has been deprecated.
+//mail.Headers.Add("Return-Receipt-To", "prashantmx@xyz.com");
+//Use this if you need a delivery notification of an email. DeliveryNotificationOption is an //umeration and can be used to set the delivery notification on the following options:
+//1. Delay
+//2. Never
+//3. None
+//4. OnFailure
+//5. OnSuccess
+/You can use also use OnFailure enum with OnSuccess enum. If in case the e-mail fails to 
+//delivered you'll get notification for both the cases
+mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnSuccess;
+//Add "Disposition-Notification-To" for Read receipt
+mail.Headers.Add("Disposition-Notification-To", "");
+</pre>
+
+<p>When you set the headers for requesting delivery and read receipt, set the mail server and login credentials for the domain or for the e-mail service you use and then in the end call the Send method to send the e-mail.</p>
+
+<pre class="brush:csharp">
+//Set the SMTP server. You can also set the hostname instead of IP Address
+SmtpClient smtp = new SmtpClient("192.168.1.5"); 
+//Set the user network/domain credentials
+NetworkCredential netCredit = new NetworkCredential("prashant@xyz.com", "pass#word1", "DOMAIN_NAME");
+//Get SMTP to authenticate the credentials
+smtp.Credentials = netCredit;
+//Send the e-mail
+smtp.Send(mail);
+</pre>
+
+<p>As I mentioned earlier also I have tested the above code with Exchange server only and it works perfectly. Here is the complete listing of the code :</p>
+
+<pre class="brush:csharp">
+static void ReadReceipts()
+{
+ //create the mail message
+ MailMessage mail = new MailMessage();
+ //set the addresses
+ mail.From = new MailAddress("prashantmx@xyz.com");
+ mail.To.Add("ankur@abc.com");
+ //set the content
+ mail.Subject = "This is an email";
+ mail.Body = "this is the body content of the email.";
+ //This method has been deprecated.
+ //mail.Headers.Add("Return-Receipt-To", "prashantmx@xyz.com"); 
+ //Use this if you need an delivery notification of an email.             //DeliveryNotificationOption is an enumeration
+ //and can be used to set the delivery notification on the following options:
+ //1. Delay
+ //2. Never
+ //3. None
+ //4. OnFailure
+ //5. OnSuccess
+ //You can use also use OnFailure enum with OnSuccess enum. If in case the e-mail
+ //fails to delivered you'll get notification for both the cases
+ mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnSuccess;
+ //Add "Disposition-Notification-To" for Read receipt
+ mail.Headers.Add("Disposition-Notification-To", "");
+  
+ //Set the SMTP server. You can also set the hostname instead of IP Address
+ SmtpClient smtp = new SmtpClient("192.168.1.5"); 
+ //Set the user network/domain credentials
+ NetworkCredential netCredit =             new NetworkCredential("prashant@xyz.com", "pass#word1", "DOMAIN_NAME");
+         //Get SMTP to authenticate the credentials
+ smtp.Credentials = netCredit;
+ //Send the e-mail
+ smtp.Send(mail);
+}
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -224,346 +510,6 @@ AS destORDER BY deqs.last_execution_time DESC
 <p>In the end we move to the round-table session where we all developers start with a short introduction of ourselves and end up with a feedback on Microsoft Technologies / Events / Cons / Pros and how can we make more and more people aware of the fact on how Microsoft Technologies affect their lives. Moving further we also discussed on how do we get more and more people especially students at the events so they know about the new technology and eventually this will help them as a fresher to choose a domain / technology to move on. Even personally I have seen students that they are very confused about on what they have to choose &hellip;..the technology they want to work in. They just think should I choose Java or .NET but they find it hard to decide. So it&rsquo;s better that someone from Microsoft or on behalf of Microsoft can guide them to choose what&rsquo;s best for them. All other developers also put questions regarding Microsoft certifications and the black market associated with it. Bijoy guarantees that he will be informing Microsoft regarding the same and will definitely take a serious action against this. After all this is about software giant&rsquo;s reputation.</p>
 
 <p>Finally, we decided to get connected once again and we will make our best efforts to promote Microsoft Technologies at every level as we can. I myself is a DieHard Microsoft Fan and I personally will make every possible effort to make people / students aware / beleive in the power of technology Microsoft provides.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/using-hashtables/">Using Hashtables</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 20, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>Here I illustrate how to create and use hash table. Each element of hash table is a combination of Key/Value pair stored in a <code>DictionaryEntry</code> object. A value in a hash table can be null or contains no value but a key cannot be of null reference. Key in hash table work as an identifier for the value where you can search a hash table for a value with a specified key.</p>
-
-<p>First you will need to import the namespace <code>System.Collection</code>. We use <code>System.Collection</code>namespace because it contains various interface and classes the defines various collection of objects like list, dictionary, queues, hash tables and bit arrays.</p>
-
-<p><strong>Adding Key/Values to Hash Table</strong></p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections;
-class HashtableClass
-{
- public static void Main()
- {
-   Hashtable htbl = new Hashtable();
-   htbl.Add("AL", "Alabama");
-   htbl.Add("CA", "California");
-   htbl.Add("FL", "Florida");
-   htbl.Add("NY", "New York");
-   htbl.Add("WY", "Wyoming");
-   // Get a collection of the keys.
-   ICollection coll = htbl.Keys;
-   foreach (string str in coll)
-   {
-     Console.WriteLine(str + ": " + htbl[str]);
-   }
- }
-}
-</pre>
-
-<p><strong>Clear all Key/Value pairs in a hash table</strong></p>
-
-<p>To clear all the key/value pairs in a hash table use <code>Clear()</code> method of a hash table class:</p>
-
-<pre class="brush:csharp">
-htbl.Clear();
-</pre>
-
-<p><strong>Remove Key/Value pairs from hash table</strong></p>
-
-<p>Just if you want to remove a particular value from a hash table use the <code>Remove()</code> method of hash table class and specify the Key to remove the key/value:</p>
-
-<pre class="brush:csharp">
-htbl.Remove("NY");
-</pre>
-
-<p><strong>Adding Key/value pair to hash table by using indexer</strong></p>
-
-<p>We can use <code>Add()</code> method of the hash table class to add key/value pair to the hash table, but instead we can use indexer to add key/pair:</p>
-
-<pre class="brush:csharp">
-htbl["NY"] = "New York";
-</pre>
-
-<p><strong>Use the <code>ContainsKey()</code> method to check if hash table contains a key</strong></p>
-
-<p>Just a simple method to use with an <code>IF</code> condition:</p>
-
-<pre class="brush:csharp">
-if(htbl.ContainsKey("NY"))
-{
-       Console.WriteLine("Hashtable contains key NY");
-}
-</pre>
-
-<p><strong>Use the <code>ContainsValue()</code> method to check if hash table contains a key</strong></p>
-
-<p>Just a simple method to use with an IF condition:</p>
-
-<pre class="brush:csharp">
-if(htbl.ContainsValue("New York"))
-{
-    Console.WriteLine("Hashtable contains value New York");
-}
-</pre>
-
-<p><strong>Copy the keys from hash table into an array using the <code>CopyTo()</code> method</strong></p>
-
-<pre class="brush:csharp">
-string[] keys=new string[5];
-htbl.Keys.CopyTo(keys,0);
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/laws-of-computer-programming/">Laws of Computer Programming</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 13, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/fundoo">FUNDOO</a>
-      
-      
-      
-      
-    </span>
-    <ol>
-<li><p>Any given program, once deployed, is already obsolete.</p></li>
-
-<li><p>It is easier to change the specification to fit the program than vice versa.</p></li>
-
-<li><p>If a program is useful, it will have to be changed.</p></li>
-
-<li><p>If a program is useless, it will have to be documented.</p></li>
-
-<li><p>Only ten percent of the code in any given program will ever execute.</p></li>
-
-<li><p>Software expands to consume all available resources.</p></li>
-
-<li><p>Any non-trivial program contains at least one error.</p></li>
-
-<li><p>The probability of a flawless demo is inversely proportional to the number of people watching, raised to the power of the amount of money involved.</p></li>
-
-<li><p>Not until a program has been in production for at least six months will its most harmful error be discovered.</p></li>
-
-<li><p>Undetectable errors are infinite in variety, in contrast to detectable errors, which by definition are limited.</p></li>
-
-<li><p>The effort required to correct an error increases exponentially with time.</p></li>
-
-<li><p>Program complexity grows until it exceeds the capabilities of the programmer who must maintain it.</p></li>
-
-<li><p>Any code of your own that you haven’t looked at in months might as well have been written by someone else.</p></li>
-
-<li><p>Inside every small program is a large program struggling to get out.</p></li>
-
-<li><p>The sooner you start coding a program, the longer it will take.</p></li>
-
-<li><p>A carelessly planned project takes three times longer to complete than expected; a carefully planned project takes only twice as long.</p></li>
-
-<li><p>Adding programmers to a late project makes it later.</p></li>
-
-<li><p>A program is never less than 90% complete, and never more than 95% complete.</p></li>
-
-<li><p>If you automate a mess, you get an automated mess.</p></li>
-
-<li><p>Build a program that even a fool can use, and only a fool will want to use it.</p></li>
-
-<li><p>Users truly don’t know what they want in a program until they use it.</p></li>
-</ol>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/import-excel-to-sql-table/">Import Excel to SQL Table</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 23, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>Using bulk operations using code with sql can be complex, time consuming and tedious for most of the programmers. I just used a stored procedure in one of my projects instead of traversing from cell to cell and save the value in the database, so I search the net and found this SQL Stored Procedure achieve this. I have just copied and paste the code as it is.</p>
-
-<pre class="brush:sql">
-set ANSI_NULLS ON
-set QUOTED_IDENTIFIER ON
-go
---drop procedure sp_excel_Convert_Excel_To_Table
---go
-Create procedure [dbo].[sp_excel_Convert_Excel_To_Table]
-(
-@excel_full_file_name varchar(666)
-,@convert_to_table_name varchar(50)
-,@transfer_to_table bit=1
-,@clear_existing_records_first bit=1
-,@good int =null output
-,@error_code int =null
-,@error_description varchar(255) = null output
-)
-as
-set nocount on
-declare @command varchar(8000)
--- copy excel file under temp and change worksheet name
-set @good=0
-set @error_description = ''
-set @error_code=0
-declare @object int
-,@hr int
-,@src varchar(255)
-exec @hr = master.dbo.sp_OACreate 'Excel.Application', @object out
-if @hr <> 0
-begin
-exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
-set @error_description = '1. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=1
-set @good=0
-goto error
-end
-exec @hr = master.dbo.sp_OASetProperty @object, 'DisplayAlerts', 'false'
-if @hr <> 0
-begin
-exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
-set @error_description = '2. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=2
-set @good=0
-goto error
-end
-declare @workbook int
-,@workbook_path_save_as varchar(666)
-set @workbook_path_save_as = 'c:\test.xls'
-exec @hr = master.dbo.sp_oaMethod @Object,'WorkBooks.Open',@workbook out,@excel_full_file_name
-if @hr <> 0
-begin
-exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
-set @error_description = '3. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=3
-set @good=0
-goto error
-end
-exec @hr = master.dbo.sp_OASetProperty @object, 'Workbooks(1).Worksheets(1).Name','excel_data'
-if @hr <> 0
-begin
-exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
-set @error_description = '4. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=4
-set @good=0
-goto error
-end
-exec @hr = master.dbo.sp_oaMethod @workbook ,'SaveAs',null,@workbook_path_save_as
-if @hr <> 0
-begin
-exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
-set @error_description = '5. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=5
-set @good=0
-goto error
-end
--- get full file name
-exec @hr = master.dbo.sp_OAGetProperty @object, 'Workbooks(1).FullName',
-@workbook_path_save_as output
-if @hr <> 0
-begin
-exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
-set @error_description = '6. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=6
-set @good=0
-goto error
-end
-exec @hr = master.dbo.sp_oaMethod @Object,'Application.Quit'--,@workbook out,@workbook_path
-if @hr <> 0
-begin
-exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
-set @error_description = '7. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=7
-set @good=0
-goto error
-end
-if @transfer_to_table = 1
-begin
-if @clear_existing_records_first=1
-begin
-set @command = 'delete from ' + @convert_to_table_name
-exec (@command)
-end
--- copy records from excel into table:
-set @command = 'insert into ' + @convert_to_table_name +
-' select * from ' +
-' OpenRowSet(''MSDASQL'' '+
-', ''Driver={Microsoft Excel Driver (*.xls)};'+
-'DBQ=' + @workbook_path_save_as + ''''+
-',''SELECT * FROM [excel_data$]'')'
-print @command
-exec (@command)
-set @command = 'select * from ' + @convert_to_table_name
-exec (@command)
-end
-error:
-select @error_description as 'Error', @error_code as 'Error Code'
-exec @hr = master.dbo.sp_OADestroy @workbook
-if @hr <> 0
-begin
-set @error_description = '7. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=7
-set @good=0
-end
-exec @hr = master.dbo.sp_OADestroy @object
-if @hr <> 0
-begin
-set @error_description = '8. ' + isnull(@error_description,'N/A')
-select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
-set @error_code=8
-set @good=0
-end
-</pre>
 
   </div>
   
@@ -920,32 +866,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

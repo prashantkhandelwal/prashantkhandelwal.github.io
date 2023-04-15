@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-03-24T01:15:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-04-24T00:24:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,388 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-sql-clr-stored-procedure-track-ip-address/">Using SQL CLR Stored Procedure To Track IP Address</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 24, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL&#34;</a>
+      
+      
+      
+      
+    </span>
+    <p>Recently I was asked by one of my friend how to call a web service directly from a stored procedure. He needs to track IP addresses using a stored procedures so, I suggested him two ways to call a web service using the SQL Procedure.</p>
+
+<ul>
+<li>Using SP_OACREATE with MSXML</li>
+<li>Create an assembly using SQL CLR using C#.</li>
+</ul>
+
+<p>I personally tried using the first way to call a web service but was not successful. Then I learnt about SQL CLR programming with Visual Studio and C# and get it done in a first go. As a good friend I create the whole project for my friend. And if your thinking that this is going to be a difficult, this is not so.</p>
+
+<p>To start creating a project, open Visual Studio and create a new project.</p>
+
+<p><img src="/images/sqlclr-newproject.png" alt="SQL CLR new Visual Studio project" /></p>
+
+<p>Before the project gets loaded completely, you will be asked to add database reference. Here select the database you want to build the assembly for. If you don’t want to add a database reference then just simply cancel. But if you choose the reference to add at this point then this would really be of help as this will allow you to deploy your assembly directly to the SQL Server database but if you have not then you need to write some SQL scripts.</p>
+
+<p><img src="/images/sqlclr-add-db-ref.png" alt="Add a database reference to the project" /></p>
+
+<blockquote>
+<p><strong>NOTE:</strong> If you have added a database reference then it doesn’t mean that your assembly is build specifically for that database you can still deploy your assembly in other database also.</p>
+</blockquote>
+
+<p>As I am creating a stored procedure, I then have to add a <code>New Item</code> to my project. Right-click project choose <code>Add&gt;Stored Procedure</code>. Here give a name of your choice to stored procedure. In my case it is <code>IPInfo</code>.</p>
+
+<p><img src="/images/sqlclr-add-new-item.png" alt="Add a new stored procedure" /></p>
+
+<p>Change the static method here to accept a parameter. Our parameter will be an IP address, which I have set as of string type.</p>
+
+<pre class="brush:csharp">
+public static void GetIPInfo(string IP)
+{  
+//Do something here
+}
+</pre>
+
+<p>Now the question here is from where we can the information of the IP Addresses? I do some search and found a website <a href="http://www.geobytes.com">http://www.geobytes.com</a>. It offers some rich information of the IP Address you want to track, so out of five sources I choose to go with geobytes.</p>
+
+<p>Lets take a quick look at the code. This is not a web service as you can see from the code below, I am just making a http request and then get the response in an XML form so I can easily traverse the nodes and read/save the information I received.</p>
+
+<pre class="brush:csharp">
+string XMLResponse;
+IPAddress = IP;
+byte[] XMLResults;
+string str = "http://www.geobytes.com/IpLocator.htm?GetLocation&template=xml.txt"
++ "&IpAddress=" + IP;
+XMLResults = new WebClient().DownloadData(str.ToString());
+XMLResponse = Encoding.UTF8.GetString(XMLResults);
+</pre>
+
+<p>Note the fourth line where I have built the URL. The parameter Template should always have a value to xml.txt. If you change the name, it won’t throw any error but the data received cannot be read and saved in a database table. Convert the response to string format and then read the nodes one by one using the below code.</p>
+
+<pre class="brush:csharp">
+try
+        {
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(XMLResponse);
+            XmlNode documentElement = document.DocumentElement;
+            if (documentElement.HasChildNodes)
+            {
+                for (int i = 0; i < documentElement.ChildNodes.Count; i++)
+                {
+                    if (documentElement.ChildNodes[i].NodeType == XmlNodeType.Element)
+                    {
+                        switch (documentElement.ChildNodes[i].Name)
+                        {
+                            case "locationcode":
+                                LocationCode = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "fips":
+                                FIPS104 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "iso2":
+                                ISO2 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "iso3":
+                                ISO3 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "ison":
+                                ISON = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "internet":
+                                Internet = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "countryid":
+                                CountryID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "country":
+                                Country = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "regionid":
+                                RegionID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "region":
+                                Region = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "code":
+                                RegionCode = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "adm":
+                                Admn1Code = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "cityid":
+                                CityID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "city":
+                                City = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "latitude":
+                                Latitude = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "longitude":
+                                Longitude = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "timezone":
+                                TimeZone = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "certainty":
+                                Certainty = documentElement.ChildNodes[i].InnerText;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception) { }
+</pre>
+
+<p>Build you project and you will see a DLL file in your debug/release folder. But this will not work. You will still have to set some permission level to assembly and to SQL Server database.</p>
+
+<p><strong>Set Assembly Permissions</strong></p>
+
+<p>Before you build the final version of the assembly go the project properties and set the permissions as shown below.</p>
+
+<p>Under <code>Build</code> select option for <code>Generate Serialization Assembly</code> to <code>On</code>.</p>
+
+<p><img src="/images/sqlclr-assembly-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
+
+<p>Under <code>Database</code> select <code>Permission Level</code> to <code>Unsafe</code></p>
+
+<p><img src="/images/sqlclr-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
+
+<p><strong>SQL Server Permissions</strong></p>
+
+<p>If you find problems while deploying your assembly, then make sure you have CLR enabled and set the <code>Trustworthy</code> property for the database to ON.</p>
+
+<p>You can find all the scripts in the attached solution below.</p>
+
+<p><strong>Deploying your assembly</strong></p>
+
+<p>To deploy your assembly use the below SQL command:</p>
+
+<pre class="brush:sql">
+CREATE ASSEMBLY IPTracker from 'C:\IPInfo.dll' WITH PERMISSION_SET = EXTERNAL_ACCESS
+GO
+</pre>
+
+<p>To create a stored procedure whcih in trun calls the SQL method from the deployed assembly:</p>
+
+<pre class="brush:sql">
+CREATE PROC TrackIP(@IP as nvarchar(50))AS
+-- [Assembly Name].[Class Name].[CLR function Name]
+EXTERNAL NAME IPTracker.StoredProcedures.GetIPInfo 
+GO
+</pre>
+
+<p>And execute the procedure to get the IP information.</p>
+
+<p><img src="/images/sqlclr-execution-output.png" alt="SQL CLR procedure output" /></p>
+
+<p><strong>Download: <a href="/files/IPInfo.zip">IPInfo.zip (19.46 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-7-development-creating-jumplist-in-windows-7/">Windows 7 Development: Creating Jumplist In Windows 7</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 28, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>I am quite fascinated with Windows 7 before even I get it started using it. Actually I have just started on a fun project for my personal use which includes jump list. Why I am doing this? To navigate and get access to the application and internet addresses I need anytime. I am tired of typing addresses and navigating to the programs I frequently use. I have just started so I thought I must blog about my jump list experience with you all. You won&rsquo;t believe but I am still using Visual Studio 2008 with .NETFX 3.5. Ok, Let&rsquo;s talk about some Windows development. In my last post on Windows 7 development I explain how can you have Aero effects for your Windows applications. If you haven&rsquo;t read my post on <a href="http://midnightprogrammer.net/post/windows-7-development-aero-effects-in-net-applications">Aero effects in Windows Application</a> then you should have a look at this.</p>
+
+<p>Windows 7 API Code Pack comes packed up with some serious development stuff for Windows 7. If you don&rsquo;t have it yet then check my post for Windows 7 Development resources.</p>
+
+<p>We all know and view the new taskbar in Windows 7 and when your program got pinned in the taskbar you can simply left click to run your program or right-click to view more options associated with your program. To make it more clear I give you an example. I use Winsnap (a tool to take screenshots with dropshadows) to take screenshots and yes I use it quite frequently, so I pinned it to my taskbar.</p>
+
+<p><img src="/images/win7-jumplist.png" alt="Windows 7 jumplist" /></p>
+
+<p>That&rsquo;s the third icon from the Windows start button. When I click it normally it opens up the Winsnap application and show me the panel from where I can take and make settings for my next screenshot. but when I right-click the pinned Winsnap icon on my taskbar it show me the same basic settings which I will be using if I would have launched the application.</p>
+
+<p><img src="/images/win7-jumplist-options.png" alt="Windows 7 jumplist options" /></p>
+
+<p>Now when I have to take screenshots with my utility I just right-click Winsnap icon pinned to my taskbar and I am done. The items that you see under the heading Tasks is having all your jump list items. It is indeed possible to have some common functions from your application to be included in the jump list or can have some external links for applications like calculator, notepad, paint etc. If you don&rsquo;t know (just in case) if you can pin something on the taskbar then you can also unpin it.</p>
+
+<p>I hope now I am quite clear with jump list in Windows 7. So lets gets our hands on developing an application with jump list.</p>
+
+<p><strong>Getting Started</strong></p>
+
+<p>Start it up creating a simple windows forms application with a name of your choice. As we are delaing with Windows 7 API we need to have it added in our project references. Files you need to add to references are:</p>
+
+<ul>
+<li>Microsoft.WindowsAPICodePack.DLL</li>
+<li>Microsoft.WindowsAPICodePack.Shell.DLL</li>
+</ul>
+
+<p>You can have these API libraries once you donwlod the API code pack. After you are done adding the required references, you can switch to the code window and do the rest of the work.</p>
+
+<p><strong>Creating Jump List</strong></p>
+
+<p>Start up with adding the namespace:</p>
+
+<pre class="brush:csharp">
+using Microsoft.WindowsAPICodePack.Taskbar;
+using Microsoft.WindowsAPICodePack.Shell;
+</pre>
+
+<p>Create a jump list by calling <code>CreateJumpList</code> method, which is a part of <code>Microsoft.WindowsAPICodePack.Taskbar.JumpList</code> namespace.</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+</pre>
+
+<p>If you want to show the most recent files you have used, then you can do that by using this line of code:</p>
+
+<pre class="brush:csharp">
+list.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
+</pre>
+
+<p><code>JumpListKnownCategoryType</code> is an enumeration which will let you accomplish this. You can also have some other available options.</p>
+
+<ul>
+<li><strong>Frequent:</strong> Display the frequent known category.</li>
+<li><strong>Neither:</strong> Don&rsquo;t display either known category. You must have atleast one user task and or custom category link in order to not see the default &lsquo;Recent&rsquo; known category.</li>
+<li><strong>Recent:</strong> Display the recent known category.</li>
+</ul>
+
+<p>To add some commonly used applications to the jump list then you can have it with in less than a jiffy. Create a <code>JumpListLink</code> class object and associate it with the <code>JumpList</code> class object. I use notepad a lot to note down my work, now I want to add to the jump list and I code it this way:</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
+"notepad.exe");
+JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
+list.AddUserTasks(JLink);
+list.Refresh();
+</pre>
+
+<p>One line of code can be used to include icon for your program. The <code>IconReference</code> property will let you add the icon the jump list item. Set the default value to &lsquo;0&rsquo;, if you want to use the default icon for the application.</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
+"notepad.exe");
+JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
+JLink.IconReference = new IconReference(SysPath, 0);
+list.AddUserTasks(JLink);
+</pre>
+
+<p><img src="/images/win7-customjumplist.png" alt="Windows 7 jumplist" /></p>
+
+<p>Categorizing programs is bit easy this way. I can categorize web URLs, my favourites programs and some other places/links on my computer. There is lot more you can do with Jump Lists. I hope the explaination above can let you create your own applications with jump lists.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/submit-your-site-blog-to-bing-search/">Submit Your Site To Bing Search</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 26, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      
+      
+      
+      
+    </span>
+    <p>If you want your website or blog content to be noticed or searched by Microsoft Bing search engine, then you can do this to get your work noticed. But beofre you can do this you need a Live ID a.k.a. Hotmail ID.</p>
+
+<p>Go to <a href="http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx">http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx</a></p>
+
+<p><img src="/images/bing-1.png" alt="Bing webmaster" /></p>
+
+<p>Fill up your web address and sitemap address. Though the sitemap address is optional, but I recommened to give a sitemap as it help the crawlers to crawl all the pages on your website. You can also sign up for a webmaster&rsquo;s e-mail, just in case if Bing encouters somes issues with your website. When you are done click the submit button and you are prompted with a confirmation with an authentication code.</p>
+
+<p><img src="/images/bing-2.png" alt="Bing webmaster" /></p>
+
+<p>Now when you are done it is time for authentication. When you submit a website to Bing search it asks for an authentication, just to ensure that you are the owner and so provides you with an authentication key which is used to autheticate the ownership in two different ways.</p>
+
+<ul>
+<li>You can have a XML fle with authentication code in the root of your website. Read more instructions on the screen OR</li>
+<li>You can add the authentication code within meta tag in your page head section of your default page.</li>
+</ul>
+
+<p>And this is it, your website is submitted on the Bing. Now to check it back click the <code>Return to Site List</code> button to view the site you have submitted. And yes you get it right you can submit a number of sites to Bing. Below is what a <code>Site List</code> look like:</p>
+
+<p><img src="/images/bing-3.png" alt="Bing webmaster" /></p>
+
+<p>lick on the Web Address, and you will get a detailed list of your website, if Bing crawlers didn&rsquo;t found any problems with your website.</p>
+
+<p>When you get the meta tag in your head section of your website default page or have placed the XML file in the root folder as metioned in the above step, you now need to take a nap for a while and give the search engine crawler a bit of time to crawl you webpage. I actually don&rsquo;t know when to check the site list and other information and whether the crawlers have crawl my website or not, by the way I have checked my website status on Bing after 24 hrs. So after 24 hrs you can also check and this is what you will see. You can see the last crawl date and other information of your website.</p>
+
+<p><img src="/images/bing-4.png" alt="Bing webmaster" /></p>
+
+<p>So don&rsquo;t wait&hellip;.leave no opportunity to draw more traffic to your website or blog.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -225,354 +607,6 @@ So first, as usual create a normal ASP.NET project and add the required files. C
 <img src="/images/ajax-jquery-2.png" alt="AJAX call in ASP.NET app via JQuery" /></p>
 
 <p><strong>Download: <a href="JqueryAjaxSQLDemo.zip">JqueryAjaxSQLDemo.zip (97.86 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/calling-aspnet-web-service-using-jquery-part-ii/">Calling ASP.NET Web Service Using Jquery - Part II - Passing Parameters</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 5, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>In my previous post I have shown with a simple example on how you call an ASP.NET web service using JQuery. In this post I will show how you on how can you pass parameters to the web method and get the result using the web service. If you have read my previous post, you have seen that we have just called a web method which returns a simple string back to us. In this example, instead of returning a plain simple string back to the client, we will ask the user to enter two numbers and the call the web service which in turn add the two numbers and returns the result back to the client.</p>
-
-<p>First start up with the design of the page. As we are going to add two numbers, we will add a label, textboxes and a button as shown in the below screenshot:</p>
-
-<p><img src="/images/ajax-jquery-ui.png" alt="Web UI" />
-<img src="/images/ajax-jquery-ui-html.png" alt="Web markup" /></p>
-
-<p>Add a web service to your project as I have described in my previous post. Follow the same steps to add a web service to your project. The only change that you have to make is to add a method which accepts two numbers as parameters and return the sum of the two numbers. For your convenience, the method is as follows.</p>
-
-<pre class="brush:csharp">
-[WebMethod]
-public int Add(int num1, int num2)
-{
-    return num1 + num2;
-}
-</pre>
-
-<p>The script which I am using here to call the web service is the same as I have shown in my previous post, but the data parameter in the ajax function needs to be changed. When we are calling a web service which returns a normal string to us we can set the data parameter to blank. But this is not the case when we have to pass parameters to the web service to return the result. The data parameter in the Jquery ajax script goes something like this:</p>
-
-<pre class="brush:plain">
-data: "{'num1': " + $("#txt_num1").val() + ", 'num2': " + ("#txt_num2").val() + "}"
-</pre>
-
-<p>In this parameter the ‘num1’ and ‘num2’ are the name of the parameters in the web service which we have to fulfill if we want the result from the web service. The parameter variable name should always remains the same as defined in the web service method. The parameters and their values are separated by a ‘:’( colon) and a ‘,’ (comma) is used to separate the parameters. The Jquery script $(“txt_num1”).val() will set the value to the parameter and then pass it to the web service method to get the result.</p>
-
-<p>The code for Jquery script to call a web service in this example goes like this:</p>
-
-<pre class="brush:jscript">
-function CallService() {
-         &dollar;("#lblResult").addClass("loading");
-         &dollar;("#lblResult").html('');
-         &dollar;.ajax({
-             type: "POST",
-             url: "Service.asmx/Add",
-             data: "{'num1': " + &dollar;("#txt_num1").val() + ", 'num2': " + &dollar;("#txt_num2").val() + "}",
-             contentType: "application/json; charset=utf-8",
-             dataType: "json",
-             success: OnSuccess,
-             error: OnError
-         });
- 
-         function OnSuccess(data, status) {
-             &dollar;("#lblResult").removeClass("loading");
-             &dollar;("#lblResult").html(data.d);
-         }
- 
-         function OnError(request, status, error) {
-             &dollar;("#lblResult").removeClass("loading");
-             &dollar;("#lblResult").html(request.statusText);
-         }
-     }
-</pre>
-
-<p>I have added a bit of CSS to show ajax loading style animation. I am not covering it here but sure I will in the later Jquery posts. In my next post I will cover on how to fetch data from the SQL Server using a web service.</p>
-
-<p><strong>Download: <a href="/files/JqueryAjaxParams.zip">JqueryAjaxParams.zip (94.76 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/calling-aspnet-web-service-using-jquery-part-i/">Calling ASP.NET Web Service Using Jquery - Part I</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 5, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>Jquery is now one of the most favorite JavaScript frameworks to play around. It offers some more advance feature to the developers and UI designers to accomplish their task easily and more conveniently. Take an example of AJAX and think where you can face the problems when you have to deal with different browsers who support XMLHTTP request and the one who don’t. I remember, I use to initialize the AJAX’s XMLHTTP object keeping in mind what will be my client’s browser. So, on the first go I have to detect the client’s browser and then set the XMLHTTP object and then process requests.</p>
-
-<p>But Jquery gives us a tons of features to be happy and so as with handling data. In Jquery we have not to worry about what will our client’s browser and what will be the request object. Jquery handles all this for us and makes its pretty easy to use.</p>
-
-<p>So start up with creating a new ASP.NET website project.</p>
-
-<p><img src="/images/ajax-new-proj.png" alt="Create new project" /></p>
-
-<p>When you create a new project a new page named Default.aspx is added by default. I am going to use the same page in this example. If you wish you can change the name of the page. Add a button on the page and a label to show text.</p>
-
-<p><img src="/images/ajax-markup.png" alt="Markup" /></p>
-
-<p>Right-Click the project and add choose New Item. Add a new Web Service.</p>
-
-<p><img src="/images/ajax-websrv.png" alt="Add web service" /></p>
-
-<p>After this add the below code to the web service code behind file. But before you do that there are some things we need to keep in mind. Let’s talk about a normal web service which we are going to consume in a normal way i.e. using the server-side code. But this is not the case I am explaining here. What we are going to do is to consume the web service on the client-side using Jquery.</p>
-
-<p>Now the changes that you have to made in the code-behind file to allow the web service to be consumed by the client-side script is as follows:</p>
-
-<p>First you have to add or un-comment the attribute above of the web service class. This attribute allows the web service to be called from the client-side script (Jquery or other client-side scripts).</p>
-
-<pre class="brush:plain">
-[System.Web.Script.Services.ScriptService]
-</pre>
-
-<p>After this you can write your method the same way you use to write with attribute [WebMethod]. I am just writing a simple method which will return a string.</p>
-
-<pre class="brush:csharp">
-[WebMethod]
-Public string Hello()
-{
-    Return “Welcome to ASP.NET Web Services and Jquery”;
-}
-</pre>
-
-<p>We have our web service ready and now we have to write client-side script to consume this webservice. The method in our web service will return only a plain simple string to the client. First I have added a button and a label to the page. On button click I have called the method (Jquery method) which will call the web service. The response of the web service is then shown on the label. On the page from where we are calling the web service, add the following Jquery script to call the web service.</p>
-
-<pre class="brush:jscript">
-function CallService()
-{
-      &dollar;.ajax({
-          type: "POST",
-          url: "Service.asmx/Hello",
-          data: "{}",
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success: OnSuccess,
-          error: OnError
-      });
-}
-
-function OnSuccess(data, status) 
-{
-      &dollar;("#lblResult").html(data.d);
-}
- 
-function OnError(request, status, error)
-{
-      &dollar;("#lblResult").html(request.statusText);
-}
-</pre>
-
-<p>In the above code I have created a method and named it CallService(). Inside this method there are several parameters that we have to set to call the web service.</p>
-
-<ul>
-<li><strong>type:</strong> Can be POST or GET. Web Services do not work with &ldquo;GET&rdquo; by default, as to prevent cross-site request forgeries. (Thanks <a href="http://leedumond.com/">Lee Dumond</a> for pointing this out to me)</li>
-<li><strong>url:</strong> Name of the web service. In the above code you can see I have called the web method ‘Hello’ from the web service named ‘Service’. If you are consuming or calling other web service which is not a part of your project or solution then you need to enter the fully qualified name of the web service with method name you are going to call.</li>
-<li><strong>data:</strong> In this example the data will remain empty, as we are only calling a method which return a simple string and don’t accept any parameter. If the method has some parameters then we will pass the parameters. I will explain on passing parameters in my coming posts.</li>
-<li><strong>contentType:</strong> Should remain the same.</li>
-<li><strong>datatype:</strong> Should remain as it is.</li>
-<li><strong>success:</strong> Here I have called the OnSuccess when the call is complete successfully. If you check the OnSuccess method you will see that I have set the returned result from the web service to the label. In the OnSuccess method body you see ‘data.d’. The ‘d’ here is the short form of data.</li>
-<li><strong>Error:</strong> Same as I have done with OnSuccess. If any error occurred while retrieving the data then the OnError method is invoked.</li>
-</ul>
-
-<p>Run the project and see it in action.</p>
-
-<p><img src="/images/ajax-web-demo.png" alt="Web app demo" /></p>
-
-<p>In my coming post on calling web service in ASP.NET using Jquery I will show on how to pass parameters to a web service and get the result and on how can we interact with SQL Server to fetch data and lots of other stuff in Jquery and ASP.NET.</p>
-
-<p><strong>Download: <a href="/files/JqueryAjaxDemo.zip">JqueryAjaxDemo.zip (87.55 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/passing-parameters-and-loading-crystal-report-programmatically/">Passing Parameters and Loading Crystal Report Programmatically</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 1, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      
-      
-      
-      
-    </span>
-    <p>Reporting is an important part for every application. Crystal reports are widely used and also available in Visual Studio for reporting purposes. I personally never like designing application interfaces and working on web designs, it needs good designing skills which I lack and so I never put my hands on designing anything, but sometimes we have to. In crystal reports when you create a report using wizard or just adding a blank report to the project and then fetching data using code (after designing), the report works fine on the machine where you have designed and develop it and the problem occurs when you have to deploy or distribute your application with reports on multiple machines or clients. Of course, the connection string or you can say in simple words the server name, database name, user name and password is different than the name you used in your connection string while you test and make your application ready to be distributed. Therefore, to overcome this problem I wrote a class which will help me to achieve this in one line and also keep my code neat and clean. So this simple class will let you set the connection for your report dataset and let your reports work properly without any problems.</p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
- 
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
- 
- 
-namespace ReportExportDemo
-{
-    class Reports
-    {
-        static TableLogOnInfo crTableLogonInfo;
-        static ConnectionInfo crConnectionInfo;
-        static Tables crTables;
-        static Database crDatabase;
- 
-        public static void ReportLogin(ReportDocument crDoc, string Server, string Database, string UserID, string Password)
-        {
-            crConnectionInfo = new ConnectionInfo();
-            crConnectionInfo.ServerName = Server;
-            crConnectionInfo.DatabaseName = Database;
-            crConnectionInfo.UserID = UserID;
-            crConnectionInfo.Password = Password;
-            crDatabase = crDoc.Database;
-            crTables = crDatabase.Tables;
-            foreach (CrystalDecisions.CrystalReports.Engine.Table crTable in crTables)
-            {
-                crTableLogonInfo = crTable.LogOnInfo;
-                crTableLogonInfo.ConnectionInfo = crConnectionInfo;
-                crTable.ApplyLogOnInfo(crTableLogonInfo);
-            }
-        }
- 
-        public static void ReportLogin(ReportDocument crDoc, string Server, string Database)
-        {
-            crConnectionInfo = new ConnectionInfo();
-            crConnectionInfo.ServerName = Server;
-            crConnectionInfo.DatabaseName = Database;
-            crConnectionInfo.IntegratedSecurity = true;
-            crDatabase = crDoc.Database;
-            crTables = crDatabase.Tables;
-            foreach (CrystalDecisions.CrystalReports.Engine.Table crTable in crTables)
-            {
-                crTableLogonInfo = crTable.LogOnInfo;
-                crTableLogonInfo.ConnectionInfo = crConnectionInfo;
-                crTable.ApplyLogOnInfo(crTableLogonInfo);
-            }
-        }
-    }
-}
-</pre>
-
-<p>This class contains ReportLogIn method which is overloaded which lets you choose the type of datasourde you want to connect to. The first method in the class requires SQL Server authentication to log-on to the server and the second method is used when the server is configured on windows authentication, similar to Integrated Security = true.</p>
-
-<p>Sample usage of the Reports class is as follows. I have used AdventureWorks database for this example. If you dont have adventure works database then you can download the sample database from Microsoft&rsquo;s website or from codeplex or you can create your own report and check it with this example.</p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
- 
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
- 
- 
-namespace ReportExportDemo
-{
-    public partial class frm_main : Form
-    {
-        public frm_main()
-        {
-            InitializeComponent();
-        }
- 
-        private void btn_prvrpt_Click(object sender, EventArgs e)
-        {
-            int Cust_Id = Convert.ToInt32(txt_customerid.Text);
-            //string Cust_Id = txt_customerid.Text.Trim();
- 
-            //Initialize report document object and load the report in the report document object
-            ReportDocument crReportDocument = new ReportDocument();
-            crReportDocument.Load(Application.StartupPath+"\\Reports\\AdventureCustReport.rpt");
-             
-            //login to the server to get details from the server and populate to the report           
-            Reports.ReportLogin(crReportDocument, "MX\\SERVER", "AdventureWorks", "sa", "pass#w0rd1");
-             
-            //Pass parameter to the report object
-            crReportDocument.SetParameterValue("id", Cust_Id);
- 
-            //To create PDF from the crystal report
-            crReportDocument.ExportToDisk(ExportFormatType.PortableDocFormat, "CustomerReport" + Cust_Id + ".pdf");
-             
-            //Preview the generated PDF
-            System.Diagnostics.Process.Start(Application.StartupPath + "\\CustomerReport" + Cust_Id + ".pdf");
-        }
-    }
-}
-</pre>
-
-<p>Note the namespaces I have used in the above code and also how I have used the Reports class ReportLogin method. For more clarification of the code download the sample application with the report below.</p>
-
-<p>One important thing that you have to keep in mind while designing report is to set the parameter. After you have set the parameter and you use your report with the above code, the report will then populate the whole lot of records in the table trrespective of the parameter you pass to the report. So to avoid this and to view only the record of your choice you needs to set the formula in the crystal report. the formula goes like this:</p>
-
-<p><strong>Sample Syntax:</strong></p>
-
-<pre class="brush:plain">
-{&lt;Table's Column Name&gt;}={?&lt;Parameter Name&gt;}
-</pre>
-
-<p>In my report this formula looks something like this:</p>
-
-<pre class="brush:plain">
-{CustomerID}={?ID}
-</pre>
-
-<p><strong>Download: <a href="/files/ReportExportDemo.zip">ReportExportDemo.zip (55.76 kb)</a></strong></p>
 
   </div>
   
@@ -929,32 +963,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

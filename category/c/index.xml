@@ -6,10 +6,20 @@
     <description>Recent content in C# on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 May 2017 15:21:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 03 Jan 2023 10:34:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/category/c/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Marvel Comics Universe Graph Database</title>
+      <link>https://prashantkhandelwal.github.io/post/marvel-comics-universe-graph-db/</link>
+      <pubDate>Tue, 03 Jan 2023 10:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/marvel-comics-universe-graph-db/</guid>
+      <description>In the past decade Marvel has gathered a lot of fans following which eventually led all the fans to know more about how the Marvel comics universe characters, stories, events are mapped or linked to each other.
+In 2017 (if I am remembering it correctly), at Microsoft Build event, Microsoft announces Bot framework and did a demo with CosmosDB graph database which uses Gremlin query from Apache TinkerPop. It was a great demo, and I was really impressed by how they did it but unfortunately, I was unable to find the source code for that demo anywhere.</description>
+    </item>
     
     <item>
       <title>Single Sign-On In ASP.NET Core With Azure Active Directory</title>
@@ -167,17 +177,6 @@ private static string[] RemoveDuplicates(ArrayList arrList) { HashSet&amp;lt;str
       <guid>https://prashantkhandelwal.github.io/post/windows-7-development-working-with-task-dialog-class/</guid>
       <description>Last year, I blogged about few things related to Windows 7 development which includes Jump Lists and Glass Form. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The Windows 7 API Code Pack comes with some sample applications which exposes the power of the API.
 In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7.</description>
-    </item>
-    
-    <item>
-      <title>Autocomplete With jQuery and ASP.NET</title>
-      <link>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</link>
-      <pubDate>Sun, 19 Dec 2010 01:46:00 +0000</pubDate>
-      
-      <guid>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</guid>
-      <description>Building auto-complete feature with jQuery is easy and you can build this in no time. It&amp;rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&amp;rsquo;s begin up getting files under one hood.
-Use the below live links for jQuery auto-complete and CSS.
-&amp;lt;link rel=&#34;stylesheet&#34; href=&#34;http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css&#34; type=&#34;text/css&#34; /&amp;gt; &amp;lt;script type=&#34;</description>
     </item>
     
     <item>

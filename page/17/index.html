@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-03-16T16:35:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-04-30T02:51:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,367 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/code-snippet-remove-duplicates-from-arraylist/">Code Snippet: Remove Duplicates From ArrayList</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 30, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>Two methods to remove Duplicates from ArrayList.</p>
+
+<p><strong>Method 1:</strong></p>
+
+<pre class="brush:csharp">
+private static ArrayList RemoveDuplicates(ArrayList arrList) 
+{ 
+        ArrayList list = new ArrayList();
+        foreach (string item in arrList) 
+        { 
+             if (!list.Contains(item)) 
+            { 
+                list.Add(item); 
+            } 
+        } 
+        return list; 
+}
+</pre>
+
+<p><strong>Method 2:</strong></p>
+
+<pre class="brush:csharp">
+private static string[] RemoveDuplicates(ArrayList arrList)
+{
+        HashSet&lt;string> Hset = new HashSet&lt;string>((string[])arrList.ToArray(typeof(string)));
+        string[] Result = new string[Hset.Count];
+        Hset.CopyTo(Result);
+        return Result;
+}
+</pre>
+
+<blockquote>
+<p>Note: I found this method on the net and therefore I am sharing it as it is. Use any of the above which suites your requirement.</p>
+</blockquote>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/">Blog Analytics: Widget For BlogEngine.NET Powered By Google Analytics</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 19, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/blog-analytics-logo.png" alt="Blog Analytics Logo"/></p>
+
+<p>Finally, I got to know the way to show Google Analytics stats on my blog space. To know more about using Google Analytics API <a href="http://code.google.com/apis/analytics/docs/gdata/gdataArticlesCode.html">read their official article on using the API</a>.</p>
+
+<p>I have built a widget with the help of Analytics API to show the Google Analytics stats on my blog. The widget shows three stats at the moment (I don&rsquo;t want to make the widget look complex). Below is a screenshot for the widget in action on my blog:</p>
+
+<p><img src="/images/blog-analytics-widget.png" alt="Blog Analytics Widget" /></p>
+
+<p>The above widget shows the stats since I have started blogging. As you can see my blog is not as popular as yours or as popular comparative with other MSFT guys and other popular bloggers. As usual before you can use the widget you need to do some settings for the widget.</p>
+
+<p><img src="/images/blog-analytics-settings.png" alt="Blog Analytics widget settings" /></p>
+
+<p>You should be aware by now that this widgets uses Google Analytics API, and I hope you all have <a href="http://www.google.com/analytics">Analytics</a> account. The <code>Username</code> and <code>Password</code> will be the same as your Analytics account (<em>and without @xyz.com</em>). <code>From Date</code> and <code>To Date</code> specifies the date range which then populate the stats from Analytics service for the specified date range. I have provided an option that allows you to always use the <code>To Date</code> as the current date, you can do that by checking<code>Always use Current Date</code> (<em>checking this will override <code>To Date</code> value</em>). If you wish to show the stats ONLY for the current day then check <strong>Use From and To Date as Current Date</strong> (<em>change the widget title from what you have to <code>Today's Hit</code> or whatever you wish!</em>). I have settings as shown in the screenshot above for my blog and I am showing all my stats since I have started blogging.Last three options will allow you to toggle between the three statistics options you want to show on the widget or not.</p>
+
+<p><strong>Download: <a href="/files/BlogAnalytics - Widget.zip">BlogAnalytics - Widget.zip (107.28 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-live-theme-for-blogenginenet/">Windows Live Theme For BlogEngine.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 17, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/win-theme-blogengine.png" alt="Windows live theme for blog engine"/></p>
+
+<p>I have now been using <a href="http://blogengine.codeplex.com/">BlogEngine</a> for 2 years now and I was kinda fed up with the standard theme I have been since starting which I have modified a bit to look more prettier. I am not saying it&rsquo;s bad but it&rsquo;s too much now, I should do a makeover of my blog. Now the BlogEngine community is not as big and vast as that of the most popular blogging engine <a href="http://www.wordpress.org/">Wordpress</a> and therefore it is hard to get beautiful <a href="http://www.blogenginetheme.com/">themes for BlogEngine</a>.</p>
+
+<p>This time I made my mind and sat down to create a new theme for my blog from scratch (LOL!!) but with the help of some good looking Wordpress theme. So I began my search and what I got is the one I have been looking for in the past when I started blogging. I found a Wordpress theme which resembles Windows Live default blue skin. It looks good to me so I download and start changing the looks for my blog. I don&rsquo;t know if I have messed up, but I like it and so my blog is up with a new Windows Live theme. There are few other customizations that I have done with the theme that works for my blog like after every post you see a Google Ads (let me know if they are annoying, which I feel they are not), logos of the sites having a reference of my blog and some other internal stuff (simple HTML and server-side work). This is the case with me, for you there are no hiccups, just copy and paste the Windows Live theme folder inside Themes folder and you are done.</p>
+
+<p>This theme is based on the standard theme template for BlogEngine. If you have any suggestions to make the theme look more beautiful in some way or the other (as I am not a designer) please do share with me and all of us in the community.</p>
+
+<p><strong>Download: <a href="files/WindowsLive.zip">WindowsLive.zip (70.33 kb)</a></strong></p>
+
+<p><strong>UPDATE:</strong> There is a slight change in the style.css file. The image above is broken when a blog is viewed in a large display.</p>
+
+<p>it is now been fixed. Please download the latest style sheet from the link below.</p>
+
+<p><a href="/files/style.css">style.css (13.91 kb)</a></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/">Windows Live Theme For BlogEngine.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 17, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/bitly-logo.jpg" alt="Bit.ly logo"/></p>
+
+<p>If you have long URLs and other and want to create short URLs then <a href="http://bit.ly/">Bit.ly</a> API can help. I wrote a wrapper class which can let me create short URLs in jiffy. I was working on Bit.ly API to create my short URLs with a click of a button (that&rsquo;s for my personal use). Therefore, I ended up with a &lsquo;short&rsquo; class to create short URLs using Bit.ly API. What you need is a <code>login</code> and an <code>apikey</code>, which you can have one for yourself by signing up for a free account. You can find your apikey <a href="http://bit.ly/a/account">here</a> after login. The class gives you two ways to make short URL, one with XML and the other with plain TEXT. I haven&rsquo;t write anything for JSON as it was not required at all to me in any ways. I am using plain TEXT for this example. You can read <a href="http://code.google.com/p/bitly-api/wiki/ApiDocumentation">Bit.ly API official documentation</a> for more information.</p>
+
+<p>The below class can be used to create short URLs using Bit.ly API, reverse the short URLs and get the original URL. Also if you are not aware you can have a QR code of your short URL. Read more about QR Code <a href="http://2d-code.co.uk/goo-gl-versus-bit-ly-qr-code/">here</a>. If you are using Bit.ly or Goo.gl to shorten your URLs then you can have the QR code image by adding .qrcode in the end of the short URL (See in the code example below)</p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using System.Net;
+using System.IO;
+ 
+namespace Bitly.API
+{
+ 
+    public class BitlyData
+    {
+        #region Properties
+ 
+        public static string APIKEY { get; set; }
+        public static string LoginName { get; set; }
+ 
+        public static string StatusCode { get; set; }
+        public static string StatusDesc { get; set; }
+        public static string ShortURL { get; set; }
+        public static string LongURL { get; set; }
+        public static string HashCode { get; set; }
+        public static string GlobalCode { get; set; }
+        public static string NewHash { get; set; }
+ 
+        #endregion
+    }
+ 
+    public class Bitly
+    {
+ 
+        #region Bit.Ly Variables
+ 
+        private static string URL = "http://api.bit.ly/v3/shorten?login=";
+ 
+        private static string BitResponse = "";
+ 
+        #endregion
+ 
+        #region Enums
+ 
+        public enum Format
+        {
+            XML,
+            JSON,
+            TXT
+        }
+ 
+        #endregion
+ 
+        #region Sample Response
+        //        &lt;?xml version="1.0" encoding="utf-8"?&gt;
+        //&lt;response&gt;
+        //    &lt;status_code&gt;200&lt;/status_code&gt;
+        //    &lt;status_txt&gt;OK&lt;/status_txt&gt;
+        //    &lt;data&gt;
+        //        &lt;url&gt;http://bit.ly/ekYLee&lt;/url&gt;
+        //        &lt;hash&gt;ekYLee&lt;/hash&gt;
+        //        &lt;global_hash&gt;gBH72m&lt;/global_hash&gt;
+        //        &lt;long_url&gt;http://midnightprogrammer.net/post/Windows-7-Development-Working-With-Task-Dialog-Class.aspx&lt;/long_url&gt;
+        //        &lt;new_hash&gt;1&lt;/new_hash&gt;
+        //    &lt;/data&gt;
+        //&lt;/response&gt;
+ 
+        #endregion
+ 
+        public static string ShortURL(string LongURL, Format ReqFormat = Format.TXT)
+        {
+            string sURL = string.Empty;
+            string BitLyURL = URL + BitlyData.LoginName + "&apikey=" + BitlyData.APIKEY + "&longUrl=" + LongURL + "&format=";
+ 
+            if (ReqFormat == Format.JSON)
+            {
+                throw new NotImplementedException("This method is not implemented yet!");
+            }
+ 
+            if (ReqFormat == Format.XML)
+            {
+                BitResponse = new WebClient().DownloadString(BitLyURL + "xml");
+                string Response = BitResponse;
+ 
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(Response);
+                XmlNodeList XlistResponse = doc.GetElementsByTagName("response");
+ 
+                foreach (XmlNode XResnode in XlistResponse)
+                {
+                    XmlElement ResElm = (XmlElement)XResnode;
+ 
+                    BitlyData.StatusCode = ResElm.GetElementsByTagName("status_code")[0].InnerText;
+ 
+                    if (BitlyData.StatusCode != "200")
+                    {
+                        BitlyData.StatusDesc = ResElm.GetElementsByTagName("status_txt")[0].InnerText;
+                        return BitlyData.StatusDesc;
+                    }
+                }
+ 
+                if (BitlyData.StatusCode == "200")
+                {
+ 
+                    XmlNodeList XlistData = doc.GetElementsByTagName("data");
+ 
+                    foreach (XmlNode XDatanode in XlistData)
+                    {
+                        XmlElement DataElm = (XmlElement)XDatanode;
+ 
+                        BitlyData.ShortURL = DataElm.GetElementsByTagName("url")[0].InnerText;
+                        BitlyData.LongURL = DataElm.GetElementsByTagName("long_url")[0].InnerText;
+                        BitlyData.HashCode = DataElm.GetElementsByTagName("hash")[0].InnerText;
+                        BitlyData.GlobalCode = DataElm.GetElementsByTagName("global_hash")[0].InnerText;
+                        BitlyData.NewHash = DataElm.GetElementsByTagName("new_hash")[0].InnerText;
+                    }
+                }
+            }
+ 
+            if (ReqFormat == Format.TXT)
+            {
+                if (ReqFormat == Format.TXT)
+                {
+                    BitResponse = new WebClient().DownloadString(BitLyURL + "txt");
+                    string Response = BitResponse;
+ 
+                    BitlyData.ShortURL = Response;
+                }
+            }
+ 
+            return sURL = BitlyData.ShortURL;
+        }
+ 
+        public static string ReverseShortURL(string ShortURL)
+        {
+            HttpWebRequest Webrequest = (HttpWebRequest)HttpWebRequest.Create(ShortURL);
+            HttpWebResponse Webresponse = (HttpWebResponse)Webrequest.GetResponse();
+            Uri uri = Webresponse.ResponseUri;
+            return uri.AbsoluteUri;
+        }
+ 
+        public static string GetQRCodeURL(string ShortURL)
+        {
+            string QRCodeURL = string.Empty;
+            QRCodeURL = ShortURL + ".qrcode";
+            return QRCodeURL;
+        }
+    }
+}
+</pre>
+
+<p>In the above class you can see that the second parameter is accepting TXT by default. So, if you call the method with or without the second parameter it will still work with the default parameter TXT. The enumeration called <code>Format</code> contains all the possible format of all the formats which is accepted by Bit.ly API. <strong>The second parameter in the class above should be removed if you plan to use the above code with the lower versions of .NET i.e. 3.x/2.0.</strong></p>
+
+<p><strong>Sample Usage .NET 3.x / 2.0</strong></p>
+
+<pre class="brush:csharp">
+Bitly.API.BitlyData.LoginName = "LOGIN NAME GOES HERE";
+Bitly.API.BitlyData.APIKEY = "API KEY GOES HERE";
+Console.WriteLine("Short URL: "+Bitly.API.Bitly.ShortURL("http://midnightprogrammer.net/post/9-Promises-Should-Be-Taken-Before-Choosing-IT-Profession.aspx", Bitly.API.Bitly.Format.TXT));
+Console.WriteLine("Reverse URL: "+Bitly.API.Bitly.ReverseShortURL("http://bit.ly/eZ1kdb"));
+Console.WriteLine("QRCode Image URL " + Bitly.API.Bitly.GetQRCodeURL("http://bit.ly/eZ1kdb"));
+</pre>
+
+<p><strong>Sample usage .NET 4.0</strong></p>
+
+<pre class="brush:csharp">
+Bitly.API.BitlyData.LoginName = "LOGIN NAME GOES HERE";
+Bitly.API.BitlyData.APIKEY = "API KEY GOES HERE";
+Console.WriteLine("Short URL: "+Bitly.API.Bitly.ShortURL("http://midnightprogrammer.net/post/9-Promises-Should-Be-Taken-Before-Choosing-IT-Profession.aspx", Bitly.API.Bitly.Format.TXT));
+Console.WriteLine("Reverse URL: "+Bitly.API.Bitly.ReverseShortURL("http://bit.ly/eZ1kdb"));
+Console.WriteLine("QRCode Image URL " + Bitly.API.Bitly.GetQRCodeURL("http://bit.ly/eZ1kdb"));
+</pre>
+
+<p>I have tested my code with Console Application, but you can test it with web or Windows form application. Note that the default parameters are only accepted if you are working with .NET 4.0 and not by the lower versions of .NET. If you wish to use the second parameter in .NET 4 then also it will work, but not using it with lower version will give you error.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -220,671 +581,6 @@ public string Upload(HttpPostedFileBase fileData)
 <p>Now you can use the uploadify plugin with MVC 3 Razor and upload files in a more effective and efficient way and that too with no postback.</p>
 
 <p><strong>Download: <a href="/files/FileUploader.zip">FileUploader.zip (572.92 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/">Working With Microsoft Web Helpers In MVC 3 Razor View</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 6, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>Building applications with ASP.NET MVC 3 and that too with RAZOR is easy. I believe most of the programmers out there found MVC 3 with RAZOR view engine found it easy. The best things I found in the new RAZOR view engine is the code is pretty much tidy no traditional code behinds and moreover you can work with the server-side code with the start of the @ symbol.</p>
-
-<p><strong>What is a Helper Class?</strong></p>
-
-<p>I am not going to copy and paste the definition from somewhere but I want to write my own thoughts on the helper class. Maybe this is not the best definition but this is how I would like to describe the Helper Class.</p>
-
-<blockquote>
-<p>A class that minimize the effort incurred in the design, implementation of functionality on your application is called a helper class.</p>
-</blockquote>
-
-<p>One of the best things that Microsoft incorporated in the framework is the use of the helper classes. Although this is not a new concept, previously also all the programmers are working on their own to create helper classes for the work they are doing to minimize the effort and time spend in writing the same lines of code again and again. Microsoft Web Helpers provides some of the best helper classes that can be used in almost every web application.</p>
-
-<p><strong>How to get Microsoft Web Helpers</strong></p>
-
-<p>To use Microsoft Web Helpers in your project use the below NuGet command:</p>
-
-<p><img src="/images/webhelpers-nuget-cmd.png" alt="Web helpers nuget command" /></p>
-
-<p>If you are using Web Matrix then you can start using the helper class right away, but if you have created the application from Visual Studio then you still need the Web Matrix reference in you project. You can add the Web Matrix reference from <strong>C:\Program Files\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies</strong>. Once installed, you can now use it for majority of the complex tasks with ease and in less time. Some of the major use of this helper class is listed below:</p>
-
-<p><img src="/images/webhelpers-class.png" alt="Web helpers class description" /></p>
-
-<h4 id="using-web-helpers"><strong>Using Web Helpers</strong></h4>
-
-<p><strong>Gravatar:</strong> To show the gravatar on your web page use the <code>Gravatar</code> class <code>Gethtml()</code> and pass e-mail address as a parameter. If the e-mail id provided, has no Gravatar then the default Garavatar image will be displayed. To get the Gravatar with default Gravatar image:</p>
-
-<pre class="brush:csharp">
-@Gravatar.GetHtml("prashant@midnightrogrammer.net")
-</pre>
-
-<p><img src="/images/webhelper-gravatar.png" alt="Web helpers gravatar image" /></p>
-
-<p>You can also have your own default image to replace the default Gravatar image. To show your own default image use the <code>defaultImage</code>: attribute</p>
-
-<pre class="brush:csharp">
-@Gravatar.GetHtml("prashant@midnightrogrammer.net", defaultImage: "http://midnightprogrammer.net/pics/default.gif")
-</pre>
-
-<p><img src="/images/webhelper-gravatar-default.png" alt="Web helpers gravatar with default image" /></p>
-
-<p><strong>Twitter:</strong> Twitter helper class can be used to show your tweets using the <code>Profile</code> method. This will display the same widget that you can get for youself from the Twitter website. Moreover you can also change the apperance of the widget. To display your tweets you can use your twitter profile name as a parameter in the <code>Profile</code> method.</p>
-
-<pre class="brush:csharp">
-@Twitter.Profile("prashantmx")
-</pre>
-
-<p><img src="/images/webhelper-twitter.png" alt="Web helpers twitter widget" /></p>
-
-<p>You can also search Twitter and display all the reactions. If I have to search about Windows Phone 7 then I will use the keyword <code>#WP7</code>.</p>
-
-<pre class="brush:csharp">
-@Twitter.Search("#wp7")
-</pre>
-
-<p><img src="/images/webhelpers-twitter-search.png" alt="Web helpers twitter widget search" /></p>
-
-<p>For Twitter follow button:</p>
-
-<pre class="brush:csharp">
-@TwitterGoodies.FollowButton("prashantmx")
-</pre>
-
-<p><img src="/images/webhelper-twitter-follow.png" alt="Web helpers twitter follow button" /></p>
-
-<p><strong>Tweet Button:</strong> The tweet button will help you to tweet your website or blog content. But this time we will use the <code>TwitterGoodies</code> class <code>TweetButton</code>.</p>
-
-<pre class="brush:csharp">
-@TwitterGoodies.TweetButton(TwitterGoodies.DataCount.Horizontal, "This is RAZOR Tweet", "http://midnightprogrammer.net", TwitterGoodies.Languages.English,"prashantmx")
-</pre>
-
-<p><img src="/images/webhelpers-twitter-share.png" alt="Web helpers twitter share button" /></p>
-
-<p>You can set the align of tweet counts either vertically or horizontally or none. I have set it to horizontal.</p>
-
-<p><strong>Google/Yahoo Analytics:</strong> Insert tracking code in your website directly.</p>
-
-<pre class="brush:csharp">
-@Analytics.GetGoogleHtml("UA-9087")
-</pre>
-
-<p>Same can be done for Yahoo. Just use <code>GetYahooHtml</code> instead of <code>GetGoogleHtml</code>.</p>
-
-<p><strong>Facebook:</strong> Facebook integration is now much easier. To get the like button use:</p>
-
-<pre class="brush:csharp">
-@Facebook.LikeButton("http://midnightprogrammer.net")
-</pre>
-
-<p><img src="/images/webhelpers-fb-like.png" alt="Web helpers facebook like button" /></p>
-
-<p>To show the latest activity feed use the <code>ActivityFeed</code> method. I am going to see the latest activity from Microsoft.</p>
-
-<pre class="brush:csharp">
-@Facebook.ActivityFeed("http://www.microsoft.com")
-</pre>
-
-<p><img src="/images/webhelpers-fb-activity-widget.png" alt="Web helpers facebook recent activity widget" /></p>
-
-<p><strong>Microsoft Bing Search:</strong> If you want to have a search then the best option is to use Microsoft Bing (<strong>B</strong>ecause <strong>I</strong>t&rsquo;s <strong>N</strong>ot <strong>G</strong>oogle). There are two Bing search boxes that you can use, but the most popular is the Bing Advanced Search Box. Below are the two ways to use the Bing Search box.</p>
-
-<p><strong>Normal Search Box:</strong></p>
-
-<pre class="brush:csharp">
-@{
-    Bing.SiteTitle = "Midnight Programmer";
-    Bing.SiteUrl = "http://midnightprogrammer.net";
-}
- 
-@Bing.SearchBox()
-</pre>
-
-<p><img src="/images/webhelpers-normal-bing.png" alt="Web helpers normal bing search" /></p>
-
-<p><strong>Advanced Search Box:</strong></p>
-
-<p>The same code will be used to show the advanced search box, just use the AdvancedSearchBox method instead of SearchBox as done previously.</p>
-
-<pre class="brush:csharp">
-@{
-    Bing.SiteTitle = "Midnight Programmer";
-    Bing.SiteUrl = "http://midnightprogrammer.net";
-}
- 
-@Bing.AdvancedSearchBox()
-</pre>
-
-<p>The main advantage of using the advanced search box for Bing is that it will let you search the whole website/blog without taking you to the Bing site and display the search content in the small container with two tabs showing the search result from the website/blog and the other one from the web.</p>
-
-<p><strong>Note:</strong> Bing team at Microsoft announced that they will be shutting down <a href="http://www.bing.com/siteowner">siteowner</a> service on April 4th. This will prevent you to use the AdvancedSearchBox feature of Bing on your website/blog or web applications. Here is the quote from Bing&rsquo;s official blog:</p>
-
-<blockquote>
-<p>As of April 4th, 2011 we will discontinue support for the bing.com/siteowner functionality. If you continue to leverage the feature after this date (April 4th, 2011), users who attempt to query in the search box will be redirected to a 404 page. This means that you will need to move to the Bing API in order to continue to receive web or site search results from us. We have decided to take this step for two reasons.
-First, the tool has not been getting a lot of use and while we have some very loyal customers on it, we believe we can provide you better alternatives in the future as we free up resources.
-Second, the functionality available through bing.com/siteowner can be replicated with the Bing search API and so it feels a bit redundant.
-As has become customary, we will give you a window to migrate off and ask us any questions you may have about this change. We will also provide reminders as we get closer to April 4th. Thank you so much for your support.</p>
-</blockquote>
-
-<p><img src="/images/webhelpers-advance-bing.png" alt="Web helpers advance bing search" /></p>
-
-<p>So this is it. These are some of the helper classes in action that I have described in this post. There are lot of others and I hope that there would be other helper classes would be added in the later releases of Microsoft helper classes for web. You can read more here on web helpers from the below official Mirosoft resources.</p>
-
-<ul>
-<li><a href="http://www.asp.net/webmatrix/tutorials/asp-net-web-pages-api-reference">ASP.NET Web Matrix API Reference</a></li>
-<li><a href="http://msdn.microsoft.com/en-us/library/microsoft.web.helpers%28v=vs.99%29.aspx">Microsoft Web Helpers on MSDN</a></li>
-</ul>
-
-<p><strong>Download: <a href="/files/DBMatrix.zip">DBMatrix.zip (1.13 mb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack/">Windows 7: Create Jumplists In WPF Application Without Using Windows 7 API Code Pack</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 26, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/wpf">WPF</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>I wrote a blog post on how you can <a href="http://midnightprogrammer.net/post/Windows-7-Development-Creating-Jumplist-In-Windows-7.aspx">add a custom Jumplist</a> on your Windows form application for Windows 7 platform using the <a href="http://www.midnightprogrammer.net/post/2010/01/15/Development-in-and-with-Windows-7.aspx">Windows 7 API Code Pack</a>, but that is for Windows Form applications running on Windows 7.</p>
-
-<p>WPF makes Jumplists more simpler. You need not to add any API reference or any other reference in your project. You can just make the use of Jumplists for better navigation for your users.</p>
-
-<p>If you are using WPF then, there is a simple way to add Jumplists. I will show how you can have a pre-defined jumplists for your application. The main part of the application in which we have to focus is <code>App.xaml</code>. All work related to jumplist will be done here. For instance use the below code to add calculator to the jumplist.</p>
-
-<pre class="brush:csharp">
-&lt;JumpList.JumpList&gt;
-        &lt;JumpList ShowFrequentCategory="True" ShowRecentCategory="True"&gt;
-            &lt;JumpTask Title="Calculator"
-                      Description="Open Calculator"
-                      ApplicationPath="calc.exe"
-                      IconResourcePath="calc.exe"/&gt;
-        &lt;/JumpList&gt;
-&lt;/JumpList.JumpList&gt;
-</pre>
-
-<p>You know why there is <code>Title</code> and <code>Description</code>. The <code>ApplicationPath</code> will have the fully qualified name of the application path or just the name of the programs that can be executed with their name. <code>IconResourcePath</code> will have a fully qualified path of the icon. If your application have an icon embedded in the application, then you can just set the application exe path or name else you can have a fully qualified path of the icon file.</p>
-
-<p>To add a new Jumplist, add a new <JumpTask> tag with the above mentioned tags and for every Jumplist item you need to do the same.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/">How To Free Up Gigs of Space On Your Window 7 Machine</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 19, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>I am now using Windows 7 since its beta release and so far my experience is awesome. But as a developer the hard drive space is always been a problem for me, no matter how many external drives or other stoarge devices you have connected to your machine but the disk space on the host machine is always a primary problem. Windows 7 is more stable OS in Windows family so far (I found it more stable than Win XP) and the reason it is being more stable because everytime you install a program on your Win 7 machine, it automatically creates a snapshot of the host drive. This is because if anything goes wrong with the program or it just crashes causing problems, Windows 7 can recover automatically from that state with the snapshot created before the installation.</p>
-
-<p>But these snapshots hogs up a lot of hard drive sapce and there is no way that you can copy them and place it in a different drive or just change the location of the snapshots been taken by the OS. Therefore to maintain the balance, the OS automatically deletes the last/oldest snapshot from the hard drive resulting some free space for the user and for other processes of the system.  If you no longer require the snapshots (only if you think that your machine is running perfectly fine) execute the below command to delete all the snapshots created so far:</p>
-
-<pre class ="brush:shell">
-c:\>vssadmin delete shadows /for=c: /all
-</pre>
-
-<p>In the above command /for parameter should have the letter of your Windows OS drive. In my case it is C: (as in majority of the cases it will be <code>C:</code>)</p>
-
-<p>Just in case if you don&rsquo;t want to delete all the snapshots then instead of using the <code>/all</code> parameter use the <code>/oldest</code> parameter. This will dleete the oldest snapshot from the drive:</p>
-
-<pre class ="brush:shell">
-c:\>vssadmin delete shadows /for=c: /oldest
-</pre>
-
-<p>This will free up some GIGs of space if you are using it for the first time and if you are using it quite frequently then also you end up with MBs of free space.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/integrate-bing-maps-with-geonames-database-and-aspnet/">Integrate Bing Maps With Geonames Database And ASP.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 8, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p><img align="right" src="/images/bing-maps-logo.jpg" alt="Bing Maps logo"/></p>
-
-<p>To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&rsquo;t it be nice if you just have to query a local database?</p>
-
-<h4 id="get-the-geonames-data-dump"><strong>Get the Geonames data dump</strong></h4>
-
-<p>Apart from providing free web services and API <a href="http://www.geonames.org/">Geonames.org</a> also provides their <a href="http://download.geonames.org/export/dump/">data dumps</a> which gets updated regularly. the best things about the data dumps are that they are distributed country-wise, city-wise etc. If you wish to download the data country wise, then you can download the file(s) which are named according to the countries IATA codes. The one I am using for this example is the <code>allCountries</code> files from the dumps. Download this dump only if you want to have ALL the Geoname data.</p>
-
-<p><img src="/images/geonames-datadump.png" alt="Geonames data dump" /></p>
-
-<h4 id="import-data-in-sql-server"><strong>Import data in SQL Server</strong></h4>
-
-<p>The dump can be imported in the database using the Data import-Export wizard present in the SQL Server or you can write a custom tool to import the whole dump. The dump is in a <code>TAB</code> delimited format. Just in case if you are not aware, the file you downloaded is in UTF-8 encoding and therefore you need it to convert it to UTF-16 encoding before you actually import it into the database. There is a command line tool which will help you to convert the database dump to UTF-16 which I got from the <a href="http://forum.geonames.org/gforum/posts/list/817.page">Geoname forums</a>.</p>
-
-<p><img src="/images/geonames-data-import.png" alt="Geonames data import" /></p>
-
-<p>This tool will convert the format of the dump file from UTF-8 to UTF-16. After the successfull conversion of the file, now comes the time to import the data in the database.</p>
-
-<p>Create a database table:</p>
-
-<pre class="brush:sql">
-CREATE TABLE GeoNames( 
-geonameid int NOT NULL, 
-name nvarchar(200) NULL, 
-asciiname nvarchar(200) NULL, 
-alternatenames nvarchar(max) NULL, 
-latitude float NULL, 
-longitude float NULL, 
-feature_class char(2) NULL, 
-feature_code nvarchar(10) NULL, 
-country_code char(3) NULL, 
-cc2 char(60) NULL, 
-admin1_code nvarchar(20) NULL, 
-admin2_code nvarchar(80) NULL, 
-admin3_code nvarchar(20) NULL, 
-admin4_code nvarchar(20) NULL, 
-population bigint NULL, 
-elevation int NULL, 
-gtopo30 int NULL, 
-timezone char(31) NULL, 
-modification_date date NULL
-)
-</pre>
-
-<p>To import millions of records you can write a custom tool or you can use the SQL Server Data Import/Export Data wizard. I have wrote a custom tool to import, but you can use the T-SQL&rsquo;s BULK INSERT (because it is simple and easy) to import the dump.</p>
-
-<pre class="brush:sql">
-BULK 
-INSERT GeoNames 
-FROM 'I:\Database\Dump.txt'
-WITH( 
-DATAFILETYPE = 'widechar', 
-FIELDTERMINATOR = '\t', 
-ROWTERMINATOR = '\n'
-)
-</pre>
-
-<p>The parameters in the above SQL statement is self-explanatory and therefore I am not going to brief them. <strong>But before you can start locating places with ASP.NET make sure you have indexed the table, if not then you will receive a SQL Server timed-out error</strong>.</p>
-
-<h4 id="working-with-bing-maps"><strong>Working with Bing Maps</strong></h4>
-
-<p>Our database is now ready and now we can start locating the places on the Bing maps. We have two pages in the project, one which we will be using to get the locations and their details on the basis of city name enter by the user and the other which will show the map with a push pin.</p>
-
-<p><img src="/images/geonames-webapp.png" alt="Geonames webapp" /></p>
-
-<p><strong>Default.aspx page:</strong></p>
-
-<pre class="brush:html">
-&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BingMap._Default" EnableViewState="true" %&gt;
- 
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Bing Maps with ASP.NET and GeoNames Database&lt;/title&gt;
-    &lt;link href="Style/style.css" rel="stylesheet" type="text/css" /&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;form id="form1" runat="server" enableviewstate="true"&gt;
-    Enter Place Name:  &lt;asp:TextBox ID="txtPlaceName" runat="server" /&gt;
-    &lt;asp:Button ID="btnPlaceName" runat="server" Text="Get GeoData!" OnClick="btnPlaceName_Click" /&gt;
-     &lt;br /&gt;
-    &lt;br /&gt;
-        &lt;table id="GeoData" style="width: 55%;" enableviewstate="true"&gt;
-            &lt;tr&gt;
-                &lt;td class="tdheader"&gt;
-                      City Name
-                &lt;/td&gt;
-                &lt;td class="tdheader"&gt;
-                      Lat./Log.
-                &lt;/td&gt;
-                &lt;td class="tdheader"&gt;
-                     Country
-                &lt;/td&gt;
-                &lt;td&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;%for (int i = 0; i &lt; RecCount; i++)
-              {%&gt;
-            &lt;tr&gt;
-                &lt;td&gt;
-                      
-                    &lt;%=CityName[i]%&gt;
-                &lt;/td&gt;
-                &lt;td&gt;
-                      
-                    &lt;%=Lat[i]%&gt;
-                    /
-                    &lt;%=Log[i]%&gt;
-                &lt;/td&gt;
-                &lt;td class="country"&gt;
-                      
-                    &lt;%=Country[i]%&gt;
-                &lt;/td&gt;
-                &lt;td&gt;
-                    &lt;a href="BingMap.aspx?lat=&lt;%=Lat[i]%&gt;&log=&lt;%=Log[i]%&gt;&place=&lt;%=CityName[i]%&gt;" target="_blank"&gt;Show on Map&lt;/a&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;%}%&gt;
-        &lt;/table&gt;
-    &lt;br /&gt;
-   &lt;asp:Label ID="RecFound" Text="" runat="server" /&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;&lt;br&gt;
-</pre>
-
-<p><strong>Code Behind: Default.aspx.cs:</strong></p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BingMap.DBModel;
- 
- 
-namespace BingMap
-{
-    public partial class _Default : System.Web.UI.Page
-    {
-        WorldEntities world = new WorldEntities();
-        public List&lt;string&gt; CityName = new List&lt;string&gt;();
-        public List&lt;string&gt; Country = new List&lt;string&gt;();
-        public List&lt;string&gt; Lat = new List&lt;string&gt;();
-        public List&lt;string&gt; Log = new List&lt;string&gt;();
-        public int RecCount = 0;
- 
-        private void GetLocation(string CName)
-        {
-            try
-            {
-                var WorldLoc = from l in world.Geonames
-                               where l.name == CName
-                               select l;
- 
-                foreach (var item in WorldLoc)
-                {
-                    CityName.Add(item.name);
-                    Country.Add(item.country_code);
-                    Lat.Add(Convert.ToSingle(item.latitude));
-                    Log.Add(Convert.ToSingle(item.longitude));
-                    RecCount = RecCount + 1;
-                }
- 
-                if (RecCount == 0)
-                {
-                    RecFound.Text = "No Record(s) Found!";
-                }
- 
-                else
-                {
-                    RecFound.Text = Convert.ToString(RecCount) + " Record(s) Found!";
-                }
-            }
-            catch (Exception x)
-            {
-                Response.Write(x.ToString());
-            }
-        }
- 
-        protected void Page_Load(object sender, EventArgs e)
-        {
- 
-        }
- 
-        protected void btnPlaceName_Click(object sender, EventArgs e)
-        {
-            if (Page.IsPostBack)
-            {
-                GetLocation(txtPlaceName.Text);
-            }
-        }
-    }
-}
-</pre>
-
-<p>here could be many places with the same name in different geographical locations. For example, if you query the database with San Francisco, you&rsquo;ll find out it is not the only place on the planet in U.S. The same is with the city in India called Hyderabad, one is in India and the other is in Pakistan. But the geographical location is different and thus we can place a push pin on the maps.</p>
-
-<p>I have used a different web page for the map. From the page <code>Default.aspx</code> page I will pass the information (latitude, longitude and place name) in query string to pin the location on the map.</p>
-
-<p><strong>BingMap.aspx:</strong></p>
-
-<pre class="brush:jscript">
-&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BingMap.aspx.cs" Inherits="BingMap.BingMap" %&gt;
- 
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
- 
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head runat="server"&gt;
-    &lt;title&gt;Bing Map&lt;/title&gt;
-    &lt;script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"&gt;&lt;/script&gt;
- 
-    &lt;script type="text/javascript"&gt;
-        function LoadMap() {
-            map = new VEMap('BingMap');
-            var Latitude = '&lt;%= LocLat %&gt;';
-            var Longitude = '&lt;%= LocLog%&gt;';
-            var PlaceName = '&lt;%=Place %&gt;';
-            if (Latitude.length == 0 || Longitude.length == 0) {
-                var latlong = new VELatLong(28.63576, 77.22445);
- 
-                map.SetDashboardSize(VEDashboardSize.Large);
-                map.LoadMap(latlong, 9, VEMapStyle.Road);
- 
-                //Add pushpin
-                var pin = new VEShape(VEShapeType.Pushpin, latlong);
-                pin.SetCustomIcon(null);
-                pin.SetTitle("New Delhi");
-                pin.SetDescription("Capital City Of India");
-                map.AddShape(pin);
-                map.ShowDashboard();
-            }
-            else {
-                var latlong = new VELatLong(Latitude, Longitude);
- 
-                map.SetDashboardSize(VEDashboardSize.Large);
-                map.LoadMap(latlong, 9, VEMapStyle.Road);
- 
-                //Add pushpin
-                var pin = new VEShape(VEShapeType.Pushpin, latlong);
-                pin.SetCustomIcon(null);
-                pin.SetTitle(PlaceName);
-                pin.SetDescription("&lt;br/&gt;" + "&lt;strong&gt;Latitude:&lt;/strong&gt;" + '&lt;%=LocLat%&gt;' + "&lt;br/&gt;" + "&lt;strong&gt;Longitude:&lt;/strong&gt;" + '&lt;%=LocLog%&gt;');
-                map.AddShape(pin);
-                map.ShowDashboard();
-            }
-        }
-    &lt;/script&gt;
- 
-&lt;/head&gt;
-&lt;body onload="LoadMap();"&gt;
-    &lt;form id="BingForm" runat="server"&gt;
-    &lt;div id='BingMap' style="position: relative; width: 800px; height: 600px;"&gt;
-     
-    &lt;/div&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;&lt;br&gt;
-</pre>
-
-<p>The client-side script is used to load the map. I have used the version 6.3 of the Bing Maps but you can also use the version 7.0. Though you need some additional parameters to use the latest one like the Bing Maps developer API key. The map can be set in the script tag.</p>
-
-<pre class="brush:jscript">
-<script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
-</pre>
-
-<p>A funtion named <code>LoadMap()</code> will doing the rest of the job, like setting the latitude, longitude, adding push pin to the location on the map and customizing other details on the map.</p>
-
-<pre class="brush:jscript">
-var latlong = new VELatLong(28.63576, 77.22445);
-map.SetDashboardSize(VEDashboardSize.Large);
-map.LoadMap(latlong, 9, VEMapStyle.Road);
-</pre>
-
-<p>The first line in the above script will set the latitude and longitude. The <code>LoadMap</code> method should always be called after <code>SetDashboardSize</code>. I have set the <a href="http://msdn.microsoft.com/en-us/library/bb429578.aspx">VEDashboardSize</a> enumeration to <code>Large</code> you can also use <code>Small</code> if you want the navigation controls of the map to appear small. <code>LoadMap</code> method will take 3 parameters, the first is the reference of the latitude and longitude of the location, second is the Zoom Level, which is 9 in my case, you can adjust this value according to your requirement and the third option <a href="http://msdn.microsoft.com/en-us/library/bb412515.aspx">VEMapStyle</a> enumeration will let you set the style for the map. It can be Road, Aerial, BirdEye etc (Click on the links to know more about these enumerations). And this is it, this will load the map in the browser showing the place of your choice with specified latitude and longitude.</p>
-
-<p>To be more precise an beautify the Bing Map, we can also add a push pin at the specified location and that too can also be done with the help of the client-side script.</p>
-
-<pre class="brush:jscript">
-var pin = new VEShape(VEShapeType.Pushpin, latlong);
-pin.SetCustomIcon(null);
-pin.SetTitle(PlaceName);
-pin.SetDescription("<br/>" + "<strong>Latitude:</strong>" + '<%=LocLat%>' + "<br/>" + "<strong>Longitude:</strong>" + '<%=LocLog%>');
-map.AddShape(pin);
-</pre>
-
-<p>To add a new push pin to our location we need to use <a href="http://msdn.microsoft.com/en-us/library/bb412535.aspx">VEShape</a> class. <a href="http://msdn.microsoft.com/en-us/library/bb412425.aspx">SetCustomIcon</a> method allows to set the custom icon for your push pin. <code>SetTitle</code> method will set the description for you push pin. <code>SetDescription</code> method sets the description of the push pin, here in the description I have set the other information like location&rsquo;s latitide and longitude. To add the push pin to the location the <code>AddShape</code> method of the map class will take <code>pin</code> as a parameter and set the push pin on the map.</p>
-
-<p>For showing map I have used a different web page named BingMap.aspx which also includes the code behind (just a few lines) apart from client-side code:</p>
-
-<p><strong>BingMap.aspx.cs:</strong></p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
- 
-namespace BingMap
-{
-    public partial class BingMap : System.Web.UI.Page
-    {
-        public string LocLat = "";
-        public string LocLog = "";
-        public string Place = "";
- 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Request.QueryString.AllKeys.Length > 0)
-            {
-                LocLat = Request.QueryString["lat"].ToString();
-                LocLog = Request.QueryString["log"].ToString();
-                Place = Request.QueryString["place"].ToString();
-            }
- 
-            if (LocLat.Equals("") || LocLog.Equals(""))
-            {
- 
-            }
-        }
-    }
-}
-</pre>
-
-<p>In the code-behind I will check on page load if the count of the query string passed on to the page is greater than zero, if the condition is true then I will set the values in the public variables and set them on the client-side script which actually handles the loading, locating and adding push pin on the map. The URL on calling the BingMap.aspx page will look like this:</p>
-
-<pre class="brush:plain">
-http://localhost:5543/BingMap.aspx?lat=28.35&log=79.41667&place=Bareilly
-</pre>
-
-<p>I have shown my home town on the map. You can also see a push pin and other details in a baloon.</p>
-
-<p><img src="/images/geonames-bingmap.png" alt="Location via Geonames data on Bing Maps" /></p>
-
-<p>And this is it, I can now locate any place on the Bing Maps which is present with me in Geonames database with the help of ASP.NET. The more can be done with the help of Geonames database like postcode lookup. I hope this tutorial will get you started with Bing Maps integrated with Geonames database with the help of ASP.NET.</p>
-
-<p><strong>Download: <a href="/files/BingMap.zip">BingMap.zip (189.44 kb)</a></strong></p>
-
-<p><strong><a href="/files/Utf8ToUtf16.exe">Download the UTF8ToUTF16 conversion tool</a></strong></p>
-
-<p><strong>Related Links:</strong></p>
-
-<ul>
-<li><a href="http://jkebeck.wordpress.com/">Johannes blog on Bing Maps</a></li>
-<li><a href="http://download.geonames.org/export/dump/">Geonames Data Dump Page</a></li>
-<li><a href="http://www.bingmapsportal.com/">Bing Maps Account Centre</a></li>
-<li><a href="http://blogs.msdn.com/b/veplatform/">Bing Maps Team Blog</a></li>
-<li><a href="http://www.bing.com/community/site_blogs/b/maps/default.aspx">Bing Maps Community</a></li>
-</ul>
 
   </div>
   
@@ -1241,32 +937,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

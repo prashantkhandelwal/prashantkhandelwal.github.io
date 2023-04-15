@@ -6,10 +6,30 @@
     <description>Recent content in Web on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Apr 2017 07:39:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 14 Apr 2023 15:36:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/category/web/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How To Host Your React Application For Cheap With Azure Blob Storage</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/</link>
+      <pubDate>Fri, 14 Apr 2023 15:36:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/</guid>
+      <description>If you have a static website, blog or a react application, here is how you can host them for cheap with Azure Blob Storage. This article focuses on how you can configure Azure Blob Storage to host your static website or react application.
+Starting with create-react-app Creating a react application is simple with create-react-app and then build the optimized output of the application by running npm run build command. This will publish the optimized version of the react app in the build folder.</description>
+    </item>
+    
+    <item>
+      <title>Capture screenshot and description of a web page using Go and Chromedp</title>
+      <link>https://prashantkhandelwal.github.io/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/</link>
+      <pubDate>Wed, 05 Apr 2023 12:13:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/</guid>
+      <description>Adding or sharing a link with a snapshot of a web page is a very useful feature in Microsoft Teams or in Zoom chat. This gives a user a way to quickly look at the web page snapshot and a small description about the link.
+Go has an amazing library called chromedp which allows you to perform some amazing tasks like taking screenshot, fill out a form and submit it, send key events, device emulation, script evaluation etc.</description>
+    </item>
     
     <item>
       <title>Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</title>

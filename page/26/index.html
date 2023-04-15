@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-01-15T12:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-02-22T00:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,201 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/single-instance-of-child-forms-in-mdi-applications/">Single Instance of Child Forms in MDI Applications</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 22, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>In MDI application we can have multiple forms and can work with multiple forms i.e. MDI childs at a time but while developing applications we don&rsquo;t pay attention to the minute details of memory management. Take this as an example, when we develop application say preferably an MDI application, we have multiple child forms inside one parent form. On MDI parent form we would like to have menu strip and tab strip which in turn calls other forms which build the other parts of the application. This also makes our application looks pretty and eye-catching (not much actually). Now on a first go when a user clicks a menu item or a button on a tab strip an application initialize a new instance of a form and shows it to the user inside the MDI parent, if a user again clicks the same button the application creates another new instance for the form and presents it to the user, this will result in the un-necessary usage of the memory. Therefore, if you wish to have your application to prevent generating new instances of the forms then use the below method which will first check if the the form is visible among the list of all the child forms and then compare their types, if the form types matches with the form we are trying to initialize then the form will get activated or we can say it will be bring to front else it will be initialize and set visible to the user in the MDI parent window. The method we are using:</p>
+
+<pre class="brush:csharp">
+private bool CheckForDuplicateForm(Form newForm)
+{
+     bool bValue = false;
+     foreach (Form frm in this.MdiChildren)
+     {
+         if (frm.GetType() == newForm.GetType())
+         {
+             frm.Activate();
+             bValue = true;
+         }
+      }
+      return bValue;
+}
+</pre>
+
+<p><strong>Usage:</strong> First we need to initialize the form using the NEW keyword</p>
+
+<pre class="brush:csharp">
+ReportForm ReportForm = new ReportForm();
+</pre>
+
+<p>We can now check if there is another form present in the MDI parent. Here, we will use the above method to check the presence of the form and set the result in a bool variable as our function return bool value.</p>
+
+<pre class="brush:csharp">
+bool frmPresent = CheckForDuplicateForm(Reportfrm);
+</pre>
+
+<p>Once the above check is done then depending on the value received from the method we can set our form.</p>
+
+<pre class="brush:csharp">
+if (frmPresent)
+    return;
+else if (!frmPresent)
+{
+    Reportfrm.MdiParent = this;
+    Reportfrm.Show();
+}
+</pre>
+
+<p>In the end this is the code you will have at you menu item or tab strip click:</p>
+
+<pre class="brush:csharp">
+ReportForm Reportfrm = new ReportForm();
+bool frmPresent = CheckForDuplicateForm(Reportfrm);
+if (frmPresent)
+return;
+else if (!frmPresent)
+{
+    Reportfrm.MdiParent = this;
+    Reportfrm.Show();
+}
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-openxml-to-insert-data-in-sql-server/">using-openxml-to-insert-data-in-sql-server</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 19, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft SQL Server provides the mechanism to save XML data to the SQL table using OpenXML. We can use a stored procedure and pass a XML text as a string. It is useful when we have a large data in XML format and we want to save the whole data in different tables.</p>
+
+<p>So first start declaring the variables. The first declare the document variable and a XML document variable as <code>Varchar(8000)</code> or <code>Varchar(MAX)</code> - It&rsquo;s a same thing</p>
+
+<pre class="brush:sql">
+DECLARE @idoc int
+DECLARE @doc varchar(8000)
+</pre>
+
+<p>Now we can set the value to the <code>@doc</code> variable, the <code>@doc</code> variable will accept the XML file as a parameter. We can also have a complete XML data in the parameter only if the XML data is less.</p>
+
+<p><strong>OpenXML takes 3 parameters:</strong></p>
+
+<ul>
+<li>The handler which we have declare at the begining will holds the XML document in the memory.</li>
+<li>XPath variable to access the various elements of the XML document.</li>
+<li>The last parameter here &lsquo;2&rsquo; allows us to access XPath as elements.</li>
+</ul>
+
+<p>Here I have read a XML file in the document variable and store in the table. Here is the full SQL query to achieve this. You can also convert the below code to stored procedure and pass XML file or string as a parameter.</p>
+
+<pre class="brush:sql">
+DECLARE @idoc int
+DECLARE @doc varchar(8000)
+SET @doc ='&lt;ROOT&gt;&lt;student&gt;
+&lt;id&gt;1&lt;/id&gt;
+&lt;name&gt;Prashant&lt;/name&gt;
+&lt;age&gt;32&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;2&lt;/id&gt;
+&lt;name&gt;Swami&lt;/name&gt;
+&lt;age&gt;42&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;3&lt;/id&gt;
+&lt;name&gt;Ash&lt;/name&gt;
+&lt;age&gt;23&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;4&lt;/id&gt;
+&lt;name&gt;Kris&lt;/name&gt;
+&lt;age&gt;12&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;5&lt;/id&gt;
+&lt;name&gt;Derek&lt;/name&gt;
+&lt;age&gt;75&lt;/age&gt;
+&lt;/student&gt;
+&lt;/ROOT&gt;'
+ 
+--Create an internal representation of the XML document.
+EXEC sp_xml_preparedocument @idoc OUTPUT, @doc
+-- Execute a SELECT statement that uses the OPENXML rowset provider.
+Insert into Students SELECT id, name, age from
+OPENXML (@idoc, '/ROOT/student',2)
+WITH (id  int, name varchar(50), age int)
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/enable-intellisense-jquery-in-visual-studio-2008/">Enable intellisense Jquery in Visual Studio 2008</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 15, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft with Jquery team have added the intellisense support for VS2008. I am using Jquery for the past few months, but never thought that it would be great if there would be intellisense support for Jquery. I read <a href="http://weblogs.asp.net/scottgu">Scott Gu’s</a> post of <a href="http://weblogs.asp.net/scottgu/archive/2008/11/21/jquery-intellisense-in-vs-2008.aspx">enable intellisense support for Jquery in Visual Studio</a>. The new Visual Studio 2010 comes pre-packed with Jquery intellisense support.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -250,148 +445,6 @@ namespace ConsoleApplication1
     }
 }
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/removing-duplicates-from-a-list-in-c/">Removing Duplicates from a List in C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 24, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>For more details and detailed explaination of the code visit this <a href="http://www.kirupa.com/net/removingDuplicates2.htm">link</a>.</p>
-
-<pre class="brush:csharp">
-static List removeDuplicates(List inputList)
-{
-      Dictionary uniqueStore = new Dictionary();
-      List finalList = new List();
-      foreach (string currValue in inputList)
-      {
-          if (!uniqueStore.ContainsKey(currValue))
-          {
-              uniqueStore.Add(currValue, 0);
-              finalList.Add(currValue);
-          }
-      }
-      return finalList;
-}
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/manage-your-azure-storage-with-ease-with-azure-storage-explorer-and-cloud-storage-studio/">Manage your Azure storage with ease!</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 24, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p>If your are using Windows Azure for storing files here are the tools you should love to use to manage your Azure cloud storage.</p>
-
-<p><a href="https://azure.microsoft.com/en-in/features/storage-explorer/">Azure Storage Explorer</a></p>
-
-<p>And</p>
-
-<p><a href="https://download.cnet.com/Cloud-Storage-Studio/3000-18500_4-75939984.html">Cloud Storage Studio</a></p>
-
-<p>If you don&rsquo;t have an Azure account, then have one <a href="https://azure.com">HERE</a></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/protect-your-net-applicationslibraries-from-reflection/">Protect your .NET Applications/Libraries from &#39;Reflection&#39;</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 24, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p>As a programmer, you put a lot of effort to create an application and incorporate some unique features in your application, which in turn makes your application more feature rich and different from other applications. The question here is, how do you feel when you come to know that someone has played with your code and then make a same application with his name&hellip;You did all the hard work and some random guy on this blue planet stole your code and takes all the credit.</p>
-
-<p>Well the answer lies in Obfuscation. It is a method to prevent your application from being reverse engineered. It makes the code of your application in unreadable form when it is viewed in any reflection tool. You will find many obfuscator tool, but some of them are not free and others are not ease at use. I do some search over the net and found a totally free and reliable tool for obfuscating my applications and libraries. This free obfuscating tool can be downloaded from <a href="http://www.foss.kharkov.ua/g1/projects/eazfuscator/dotnet/Default.aspx">here</a>. The version here supports obfuscations for .NET framework 3.5 and for .NET framework 4.0, well we have to wait for the final release as it is still in beta but can be downloaded from <a href="http://www.foss.kharkov.ua/g1/projects/eazfuscator/dotnet/BetaPreview.aspx">here</a>.</p>
-
-<p>Let&rsquo;s see <a href="http://www.red-gate.com/products/reflector/">Red Gate&rsquo;s Reflector</a> and Eazfuscator.NET (actual name of the obfuscater tool) in action</p>
-
-<p>First I created a basic simple greeting application in Visual Studio 2008 (.NET Framework 3.5). The application has two buttons which greets the user and world respectively. Now take a look how the binary is diassembled by using reflector.</p>
-
-<p><img src="/images/reflector.png" alt=".NET Reflector" /></p>
-
-<p>And now we will use Eazfuscator.NET to obfuscate our application. So first download and install the obfuscator tool form the above link and then simple drag-n-drop application on the right segment. I remommend to read the whole documentation before you start obfuscating your application and assemblies and make sure you have a bacup of your original application before you proceed.</p>
-
-<p>Drag and drop your application here.</p>
-
-<p><img src="/images/eazfuscator-app.png" alt="Eazfuscator app" /></p>
-
-<p>As soon as you drop your binary here the obfuscation process will start automatically.</p>
-
-<p><img src="/images/eazfuscator-done.png" alt="Eazfuscator app in action" /></p>
-
-<p>And thats it, your code is now safe and you can distribute you applicaion without any more worries.</p>
-
-<p>Now try opening your obfuscated application in reflector&hellip;.and this is what you will see.</p>
-
-<p><img src="/images/reflector-demo.png" alt=".NET Reflector application" /></p>
 
   </div>
   
@@ -748,32 +801,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

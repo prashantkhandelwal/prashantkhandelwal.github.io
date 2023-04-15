@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-09-25T22:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-12-12T07:55:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,285 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/disable-x-close-button-on-your-windows-form-application/">Disable &#39;X&#39; Close Button On Your Windows Form Application</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 12, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>Recently, someone on MSDN forums asked this question on how to disable the &ldquo;X&rdquo; a.k.a. close button in his windows form application so the user is forced to close the application from the cancel button on the form and not from the close button. He wanted this for his application which requires registration first before a user can start using his application.</p>
+
+<p>I don&rsquo;t know the answer so I bing arond a bit and find a solution posted by someone though I don&rsquo;t have the name but it worked like a charm&hellip;.!!</p>
+
+<p>We need some interoperability to do this, therefore get the namespace System.Runtime.InteropServices
+Code:</p>
+
+<pre class="brush:csharp">
+private const int MF_BYPOSITION = 0x400;
+[DllImport("User32")]
+private static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
+[DllImport("User32")]
+private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
+[DllImport("User32")]
+private static extern int GetMenuItemCount(IntPtr hWnd);
+</pre>
+
+<p>Below code goes to the load event of your form:</p>
+
+<pre class="brush:csharp">
+IntPtr hMenu = GetSystemMenu(this.Handle, false);
+int menuItemCount = GetMenuItemCount(hMenu);
+RemoveMenu(hMenu, menuItemCount - 1, MF_BYPOSITION);
+</pre>
+
+<p>Time to press &lsquo;F5&rsquo;&hellip;.and the close button is now disabled on the form.</p>
+
+<p><img src="/images/winform-disable-close-btn.png" alt="Windows Forms application with close button disabled" /></p>
+
+<p><strong>Download: <a href="/files/CloseButton.zip">CloseButton.zip (43.08 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/crystal-reports-for-visual-studio-2010/">Crystal Reports For Visual Studio 2010</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 2, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p>Crystal reports is one of the most widely used reporting component in Visual Studio. But this time it goes missing from the final release of Visual Studio 2010. Crystal Reports for Visual Studio 2010 is now available for download to all the Visual Studio 2010 users and is for free of cost as always.</p>
+
+<p><strong>Download Links:</strong></p>
+
+<p><strong>Download Crystal Reports for Visual Studio 2010</strong></p>
+
+<ul>
+<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_13_0_1.exe">Complete Package (EXE)</a></li>
+<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_clickonce_13_0_1.zip">Click Once</a></li>
+<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_mergemodules_13_0_1.zip">Merge Modules</a></li>
+<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_redist_install_32bit_13_0_1.zip">Redist Installation (32 bit)</a></li>
+<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_redist_install_64bit_13_0_1.zip">Redist Installation (64 bit)</a></li>
+</ul>
+
+<p><strong>Getting Started with Crystal Reports for Visual Studio 2010</strong></p>
+
+<ul>
+<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/library/uuid/d01d0431-6928-2d10-1683-a2256fc6bd0d">What&rsquo;s New</a></li>
+<li><a href="http://www.sdn.sap.com/irj/scn/weblogs?blog=/pub/wlg/18826">Licensing</a></li>
+<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/library/uuid/e06b8953-a62b-2d10-38b9-ca71f747e2b1">Supported Platforms</a></li>
+<li><a href="http://www.sdn.sap.com/irj/boc/samples">Sample Applications</a></li>
+<li><a href="http://www.sdn.sap.com/irj/boc/sdklibrary">SDK Library</a></li>
+</ul>
+
+<p><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/webcontent/uuid/e05469df-cc2d-2d10-33ba-e0010723a965"><strong>Tutorials for Crystal Reports for Visual Studio 2010</strong></a></p>
+
+<ul>
+<li><a href="http://www.sdn.sap.com/irj/scn/elearn?rid=/library/uuid/4053ee51-162a-2d10-b8b0-fdd7a26d5cd2">Overview Viewlet</a></li>
+<li><a href="http://www.sdn.sap.com/irj/scn/elearn?rid=/library/uuid/504d77eb-892a-2d10-c0b9-c9b6da1e1ffa">Sorting and Filtering Viewlet</a></li>
+<li><a href="http://www.sdn.sap.com/irj/scn/elearn?rid=/library/uuid/109e0473-8c2a-2d10-d195-8eba1badf7df">Dynamic Grouping Viewlet</a></li>
+<li><a href="http://www.sdn.sap.com/irj/scn/elearn?rid=/library/uuid/20e93276-142a-2d10-cb89-ab835b221ffd">XLSX Export Viewlet</a></li>
+</ul>
+
+<p><strong>Related Areas</strong></p>
+
+<ul>
+<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports">Crystal Reports Design</a></li>
+<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-java">Crystal Reports for Eclipse</a></li>
+<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/webcontent/uuid/b0875577-f476-2b10-de9b-a8759527e1c3">.NET Articles</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/a-time-wrapper-class-in-c/">A Time Wrapper Class in C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 30, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>I was just surfing the net in search for some fundoo tutorial on WPF and by chance (I don&rsquo;t meant to visit that site), I get this class which I feel is pretty helpful. A simple wrapper class to conver time. the class allows you to convert:</p>
+
+<ol>
+<li>To Days</li>
+<li>To Hours</li>
+<li>To Minutes</li>
+<li>To Seconds</li>
+<li>To MilliSeconds</li>
+</ol>
+
+<p>This can be pretty usefull. The class is as follows:</p>
+
+<pre class="brush:csharp">
+using System;
+ 
+public static class TimeSpanUtil
+{
+    #region To days
+    public static double ConvertMillisecondsToDays(double milliseconds)
+    {
+        return TimeSpan.FromMilliseconds(milliseconds).TotalDays;
+    }
+ 
+    public static double ConvertSecondsToDays(double seconds)
+    {
+        return TimeSpan.FromSeconds(seconds).TotalDays;
+    }
+ 
+    public static double ConvertMinutesToDays(double minutes)
+    {
+        return TimeSpan.FromMinutes(minutes).TotalDays;
+    }
+ 
+    public static double ConvertHoursToDays(double hours)
+    {
+        return TimeSpan.FromHours(hours).TotalDays;
+    }
+    #endregion
+ 
+    #region To hours
+    public static double ConvertMillisecondsToHours(double milliseconds)
+    {
+        return TimeSpan.FromMilliseconds(milliseconds).TotalHours;
+    }
+ 
+    public static double ConvertSecondsToHours(double seconds)
+    {
+        return TimeSpan.FromSeconds(seconds).TotalHours;
+    }
+ 
+    public static double ConvertMinutesToHours(double minutes)
+    {
+        return TimeSpan.FromMinutes(minutes).TotalHours;
+    }
+ 
+    public static double ConvertDaysToHours(double days)
+    {
+        return TimeSpan.FromHours(days).TotalHours;
+    }
+    #endregion
+ 
+    #region To minutes
+    public static double ConvertMillisecondsToMinutes(double milliseconds)
+    {
+        return TimeSpan.FromMilliseconds(milliseconds).TotalMinutes;
+    }
+ 
+    public static double ConvertSecondsToMinutes(double seconds)
+    {
+        return TimeSpan.FromSeconds(seconds).TotalMinutes;
+    }
+ 
+    public static double ConvertHoursToMinutes(double hours)
+    {
+        return TimeSpan.FromHours(hours).TotalMinutes;
+    }
+ 
+    public static double ConvertDaysToMinutes(double days)
+    {
+        return TimeSpan.FromDays(days).TotalMinutes;
+    }
+    #endregion
+ 
+    #region To seconds
+    public static double ConvertMillisecondsToSeconds(double milliseconds)
+    {
+        return TimeSpan.FromMilliseconds(milliseconds).TotalSeconds;
+    }
+ 
+    public static double ConvertMinutesToSeconds(double minutes)
+    {
+        return TimeSpan.FromMinutes(minutes).TotalSeconds;
+    }
+ 
+    public static double ConvertHoursToSeconds(double hours)
+    {
+        return TimeSpan.FromHours(hours).TotalSeconds;
+    }
+ 
+    public static double ConvertDaysToSeconds(double days)
+    {
+        return TimeSpan.FromDays(days).TotalSeconds;
+    }
+    #endregion
+ 
+    #region To milliseconds
+    public static double ConvertSecondsToMilliseconds(double seconds)
+    {
+        return TimeSpan.FromSeconds(seconds).TotalMilliseconds;
+    }
+ 
+    public static double ConvertMinutesToMilliseconds(double minutes)
+    {
+        return TimeSpan.FromMinutes(minutes).TotalMilliseconds;
+    }
+ 
+    public static double ConvertHoursToMilliseconds(double hours)
+    {
+        return TimeSpan.FromHours(hours).TotalMilliseconds;
+    }
+ 
+    public static double ConvertDaysToMilliseconds(double days)
+    {
+        return TimeSpan.FromDays(days).TotalMilliseconds;
+    }
+    #endregion
+}
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -311,346 +590,6 @@ namespace DOTNETOAUTH
 <p><strong>NOTE: The code below I have uploaded is not written by me, I have just compiled a bunch of files under one hood to get it working.</strong></p>
 
 <p><strong>Download: <a href="/files/JqueryUploadify.zip">JqueryUploadify.zip (229.05 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/razor-view-engine-in-aspnet-mvc-3/">RAZOR: View Engine In ASP.NET MVC 3</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 6, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p>A new view engine is introduced in ASP.NET MVC 3 called RAZOR. You can <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=cb42f741-8fb1-4f43-a5fa-812096f8d1e8&amp;displaylang=en#filelist">download Preview 1</a> from Microsoft&rsquo;s download center and get it running on your machine to check the new features in MVC 3. Just in case if you are thinking that installing MVC 3 will mess your current MVC 2 installation&hellip;.No, it won&rsquo;t. I came across a <a href="http://channel9.msdn.com/shows/Web+Camps+TV/Web-Camps-TV-1-ASPNET-MVC-3-Preview-1-and-Razor-Tips-with-Phil-Haack/">Webcamp video</a> where <a href="http://haacked.com/">Phil Haack</a> with <a href="http://jamessenior.com/">James Senior</a> demonstrate this view engine. My this post is also based on the same talk.</p>
-
-<p>So when you install MVC 3 Preview 1 on your machine, jump start by creating a new project in Visual Studio 2010. You will not be able to use this view engine with .NETFX 3.5 (SP1).</p>
-
-<p><img src="/images/vs-mvc-project-template.png" alt="Visual Studio MVC project template" /></p>
-
-<p>Now when you select new project and under <code>Web</code> templates you will now see ASP.NET MVC 3 application twice. The one template with (ASPX) is using normal web forms as your view engine and the other one with (Razor) is the new view engine. This is only for preview 1, these options will not be present in the final release of the MVC 3, instead you will have an oprion to select the view engine for your application later, I am not very sure how, but it will be more likely the way you select tests.</p>
-
-<p>Time to check the <code>Solution Explorer</code>. No <code>.aspx</code> files only <code>.cshtml</code></p>
-
-<p><img src="/images/vs-mvc-files.png" alt="Visual Studio MVC project files" /></p>
-
-<p>The drawback in Preview 1 is that there is no syntax highlighting and no intellisense. Now that would have made you think &ldquo;OMG! how am I going to write the code now!?&rdquo;. But Razor is easy and more over it too light-weight, more then I thought before I used it. Check out Index.cshtml, the markup code looks like this.</p>
-
-<p><img src="/images/vs-mvc-markup.png" alt="MVC razor markup" /></p>
-
-<p>Time to take a look at Home Controller. Take a look at the <code>Index()</code> action method, the syntax is bit different with the one we have used previously.</p>
-
-<pre class="brush:csharp">
-public ActionResult Index()
-{      
-       ViewModel.Message = "Welcome to ASP.NET MVC!";
-       return View();
-}
-</pre>
-
-<p>The line <strong>ViewModel.Message = &ldquo;Welcome to ASP.NET MVC!&rdquo;;</strong> is equivalent to:</p>
-
-<pre class="brush:csharp">
-public ActionResult Index()
-{      
-       ViewData["Message"] = "Welcome to ASP.NET MVC!";
-       return View();
-}
-</pre>
-
-<p>The ViewModel basically is of type <code>dynamic</code> which means that its operations will be resolved at runtime. Hover your cursor over <code>ViewModel</code> and <code>Message</code> to know about it.</p>
-
-<p><img src="/images/vs-mvc-dynamic.png" alt="Dynamic" />
-<img src="/images/vs-mvc-dynamix-expr.png" alt="Dynamic expression" /></p>
-
-<p>If you need to show some addtional information related your current project you can set it too with ease. In the Index method you can add antoher line like this which says something about your project:</p>
-
-<p><strong>NOTE:</strong> *As ViewModel is of Dynamic type, so when you press dot (.) after writing ViewModel don&rsquo;t expect that something will come up and as said before <strong>all expressions will be resolved at runtime</strong>.*</p>
-
-<pre class="brush:csharp">
-public ActionResult Index()
-{
-      ViewModel.Message = "Welcome to ASP.NET MVC!";
-      ViewModel.AboutApp = "This is a sample ASP.NET MVC 3 Preview 1 application!";
-      return View();
-}
-</pre>
-
-<p>To show this message on the Index view you will just call it by prefixing it with <strong>&rsquo;@&rsquo;</strong> symbol. To show the value on the page you simply write below line and prefix it with @ symbol(If you say this is simple, I would rather prefer to say it effortless).</p>
-
-<pre class="brush:plain">
-@View.Message 
-@View.AboutApp
-</pre>
-
-<p>Moving further, add a new class called <code>Contacts</code> (or what ever name you like) with 3 peoperties.</p>
-
-<pre class="brush:csharp">
-public class Contacts
-{
-    public string Name{ get; set; }
-    public int Age{ get; set; }
-    public string Email { get; set; }
-}
-</pre>
-
-<p>Moving back to the <code>HomeController</code> add the below lines of code to the <code>Index</code> action method.</p>
-
-<pre class="brush:csharp">
-var ctc = new Contacts[] {
-          new Contacts{Name="Prashant", Age = 23},
-          new Contacts{Name="Arvind", Age = 24},
-          new Contacts{Name="Max", Age = 23}
-};
-</pre>
-
-<p>The view should not be empty this time. And therefore your Index action method return the <code>Contacts</code> we have just created.</p>
-
-<pre class="brush:csharp">
-
-public ActionResult Index()
-{
-    ViewModel.Message = "Welcome to ASP.NET MVC!";
-    ViewModel.AboutApp = "This is a sample ASP.NET MVC 3 Preview 1 application!";             
-    var ctc = new Contacts[] {
-          new Contacts{Name="Prashant", Age = 23},
-          new Contacts{Name="Arvind", Age = 24},
-          new Contacts{Name="Max", Age = 23}
-          return View(ctc);
-    };
-}
-</pre>
-
-<p>This time also Razor makes it simple to view the the data you returned from the controller. In the Index.cshtml you can do it pretty simply and you will still have a pretty looking markup of the view page. Create a list of contacts you have just created. As they are in a set of array, we can then enumerate the array with a foreach loop and show it on the page.</p>
-
-<pre class="brush:html">
-&lt;ul&gt;
-@foreach (var c in Model){
-&lt;li&gt; My name is @c.Name and I am @c.Age years old. &lt;/li&gt;
-}&lt;/ul&gt;
-</pre>
-
-<p>You can easily get the data in a jiffy without writing a lot of markup. No problem in concatenating the data, the @ symbol and MVC compiler is pretty intelligent and does this for us. So what if we want to add e-mail addresses also. How this view engine will handle this ambiguity? Well let see. Just add an e-mail property to the array of contacts.</p>
-
-<pre class="brush:csharp">
-var ctc = new Contacts[] {
-          new Contacts{Name = "Prashant", Age = 23, Email = "prashant@midnightprogrammer.net"
-}
-</pre>
-
-<p>And on the view page the line will be something like this</p>
-
-<pre class="brush:html">
-&lt;ul&gt;
-@foreach (var c in Model){
-&lt;li&gt; My name is @c.Name and I am @c.Age years old. You can email me at @c.Email.&lt;/li&gt;
-}&lt;/ul&gt;
-</pre>
-
-<p>Hit F5 and see it by yourself. There are lot of features described by Scott Guthrie and Phil Haack on their blog. Well I can go on writing and writing about Razor, so I think I should take a pause now and you can go to below links for more deep information about Razor view engine and to know what&rsquo;s new in the upcoming release of ASP.NET MVC 3.</p>
-
-<p><strong>Recommend Reading:</strong></p>
-
-<ul>
-<li><a href="http://weblogs.asp.net/scottgu/archive/2010/07/27/introducing-asp-net-mvc-3-preview-1.aspx">Scott Guthrie - Introducing ASP.NET MVC 3 Preview 1</a></li>
-<li><a href="http://haacked.com/archive/2010/07/27/aspnetmvc3-preview1-released.aspx">Phill Haack on MVC 3 Preview 1</a></li>
-<li><a href="http://haacked.com/archive/2010/07/03/razor-view-syntax.aspx">Phill Haack on Razor view syntax</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/efficient-use-of-windows-skydrive/">Efficient Use Of Windows SkyDrive</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 30, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      
-      
-      
-      
-    </span>
-    <p>If you are not using this free service offered by Microsoft, then stop reading and go to SkyDrive and sign in with your Live ID and get started. A whooping 25 GB of free space to put  all your stuff at one place, access anytime, and anywhere you want and just in case if you are aware, which I hope you already are, why I am mentioning about skydrive here? So, here is the case&hellip;</p>
-
-<p>I uploaded some videos on my blog a few month ago, the files were physically hosted on my blog space and hogging a lot of space. I am now using SkyDrive since it final launch in August 2007 (if I am not wrong) and just gave a quick thought on hotlinking my files from SkyDrive to my blog. There are two big benefits of using SkyDrive for file hosting:</p>
-
-<ul>
-<li><strong>Saves Web Space</strong> - In terms of any file you upload to your blog, it now get uploaded to SkyDrive and save your web space</li>
-<li><strong>Saves Bandwidth</strong> - If you have a video or MP3 file host it on SkyDrive and set the hotlink in the player on your blog. The player just plays the files, just like embedding videos from YouTube or Channel9.</li>
-</ul>
-
-<p>So how can you hotlink files from SkyDrive and use it for your purpose. Go to the folder where you have the file, it can be an image, video or a audio file. You will see something like the below. This is one of my public folder where I have 2 images (funny).</p>
-
-<p><img src="/images/skydrive-image.png" alt="Skydrive images" /></p>
-
-<p>Change the view style from <code>Thumbnail</code> to <code>Details</code>. By default for the folder having images the default view will be Thumbnails.</p>
-
-<p><img src="/images/skydrive-viewstyle.png" alt="Skydrive images" /></p>
-
-<p>Now hover the mouse to the image you want to embed or hotlink in your blog post or on a webpage. Click <code>More</code> and then right-click <code>Download</code> and select <code>Copy Link Location</code>. This will copy the download link on your clicb board and now you require some manual work on the link.</p>
-
-<p><img src="/images/skydrive-more-options.png" alt="Skydrive options" /></p>
-
-<p>Open notepad and and paste the copied text. The link look something like this.</p>
-
-<pre class="brush:plain">
-http://5mr9iq.bay.livefilestore.com/
-y1pn6wH-ZKbNE3AMAGeZry5db0ukIQqy2ksda2ZHtegsxyJeeN1ufTs4AbT
--iyG2DnYpkLUFyPw5OnTpE_t7p_duRJ5wcVOHoC_/edin.jpg?download&psid=1
-</pre>
-
-<p>Just to hotlink the file remove the text starting from <code>'?'</code> till end (remove <code>?download&amp;psid=1</code>) and that&rsquo;s it, your image hotlink is ready and the final version of link looks like this:</p>
-
-<pre class="brush:plain">
-http://5mr9iq.bay.livefilestore.com/y1pn6wH-
-ZKbNE3AMAGeZry5db0ukIQqy2ksda2ZHtegsxyJeeN1ufTs4AbT-
-iyG2DnYpkLUFyPw5OnTpE_t7p_duRJ5wcVOHoC_/edin.jpg
-</pre>
-
-<p>Below is the same image I have hotlinked from my SkyDrive account.</p>
-
-<p><img src="http://public.bay.livefilestore.com/y1pV5PYFDdysQLLmpsP5_X-TBuJqxGBQNrnkgcevwj9mbzNVNSoDxt2ZY1kdebsv2Shj-mL74CGyW7zX-R7Jq4rwA/edin.jpg" alt="Image hotlink from Skydrive" /></p>
-
-<p>The same can be done for the videos.</p>
-
-<p>Moreover, if you take a look at the status bar of your IE or the browser you are using you will see that the data transfer is from <code>livefilestore.com</code> and not from yourdomain.com. This saves your bandwidth too!!!</p>
-
-<p><img src="/images/skydrive-transfer.png" alt="Image being loaded from Skydrive" /></p>
-
-<p>This is not enough, now the question here is how can one upload files to SkyDrive, we can use the web interface provided by the SkyDrive&hellip;..!!? But how about using it as a network drive on your My Computer. You can download <a href="http://www.gladinet.com/p/download_starter_direct.htm">Gladient Cloud Desktop</a> to map the SkyDrive or any other online service you are using to store your files, like Amazon S3 or Picasaweb to share photos.</p>
-
-<p><strong>UPDATE:</strong> <a href="http://coolthingoftheday.blogspot.com/">Greg Duncan</a> share his experience with SkyDrive with me. I recommend you to read it <a href="http://midnightprogrammer.net/post/efficient-use-of-windows-skydrive#comment">here</a>.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/add-openid-login-support-in-your-aspnet-application/">Add OpenID Login Support In Your ASP.NET Application</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 29, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/oauth-logo.png" alt="OAuth logo"/></p>
-
-<p>Few days back I was looking at Scott Hanselman and friend&rsquo;s Open Source Nerddinner project, learning and grabbing some new things from there. Apart from looking some internals I looked at the OpenID implementation. This was all a week ago and now it&rsquo;s time for me to write and give some thoughts on DotNetOpenAuth. For folks who are new to OpenID I am going to demonstrate how you can implement one in your project with ease.</p>
-
-<p>To get started download the <a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a> API and extract the contents from the zip file. The download also includes some samples for you to get you started. Kickstart by creating a new ASP.NET webforms project. I am just using a default template for my application, you can use the one you like or start by creating a new page. Why I am using the default template for ASP.NET webform project? well you get to know later. So now when we are done creating a new ASP.NET webform project, time to add OpenID stuff in the project. Right click <code>References</code> and select <code>Add Reference</code>. Browse to the <code>bin</code> folder where you have extracted the contents of the downloaded zip file. Select <code>DotNetOpenAuth.dll</code> and click OK.</p>
-
-<p><strong>Changing the web.config:</strong></p>
-
-<p>A minor change in the web.config is required. Find the below lines in your web.config file:</p>
-
-<pre class="brush:xml">
-&lt;authentication mode="Forms"&gt;&lt;forms loginUrl="~/Account/Login.aspx"
-timeout="2880" /&gt;&lt;/authentication&gt;
-</pre>
-
-<p>and replace it with:</p>
-
-<pre class="brush:xml">
-&lt;authentication mode="Forms"&gt;&lt;forms defaultUrl="/default.aspx"
-loginUrl="~/Account/login.aspx"/&gt;&lt;/authentication&gt;
-</pre>
-
-<p>In the above configuration, <code>loginUrl</code> will always point towards to the login page and the <code>defaultUrl</code> will always point towards the page/URL which will be displayed when the authentication is successfull.</p>
-
-<p><strong>Implemeting OpenID support:</strong></p>
-
-<p>To implement OpenID support, open <code>login.aspx</code> page in the design view and then drag the OpenIdLogin from the toolbox on the page just after the default login implementation ends or where you want to have OpenID login. If you are not able to view the control, then you can browse the same <code>dll</code> you have add a reference in the above step.</p>
-
-<p><img src="/images/oauth-vs-toolbox.png" alt="OAuth control in VS control box" /></p>
-
-<p>If you want to implement this manually then register the control at the top of the page and then use it on the page.</p>
-
-<p><strong>Register the control:</strong></p>
-
-<pre class="brush:xml">
-&lt;%@ Register Assembly="DotNetOpenAuth" Namespace="DotNetOpenAuth.OpenId.RelyingParty"
-TagPrefix="rp" %&gt;
-</pre>
-
-<p><strong>To use the control on the page you can then simply write:</strong></p>
-
-<pre class="brush:xml">
-&lt;rp:OpenIdLogin ID="OpenIdLogin1" runat="server"&gt;&lt;/rp:OpenIdLogin&gt;
-</pre>
-
-<p>All done now and it&rsquo;s time to test our application. Hit <code>F5</code> and login with your openID. The page rendered in front of you is</p>
-
-<p><img src="/images/oauth-webapp-login.png" alt="OAuth control rendered in web app" /></p>
-
-<p>Enter your openID and click login. You will be redirected to the official OpenID login page.</p>
-
-<p><img src="/images/oauth-page.png" alt="OAuth page for authentication" /></p>
-
-<p>Enter your password for openID account and after the authentication is successfull you will be re-directed to the default page. Remember the web.config configuration we did!!? If everything goes well you can see your openID name login name on the top of the page.</p>
-
-<p><img src="/images/oauth-success.png" alt="OAuth success page" /></p>
-
-<p>This is the simplest way to implement openID. You can also implement openID on your ASP.NET MVC project to add some flexibility for you site users. Apart from this you can also download the <a href="https://www.ohloh.net/p/dotnetopenauth/download?package=DotNetOpenAuth+project+templates&amp;release=3.4.5">Visual Studio 2010 template</a>.</p>
-
-<p><strong>Download: <a href="/files/DOTNETOAUTH.zip">DOTNETOAUTH.zip (542.85 kb)</a></strong></p>
-
-<p><strong>Related Links:</strong></p>
-
-<ul>
-<li><a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a></li>
-<li><a href="http://blog.nerdbank.net">http://blog.nerdbank.net</a></li>
-<li><a href="https://www.idselector.com/">https://www.idselector.com/</a></li>
-<li><a href="http://www.hanselman.com/blog/TheWeeklySourceCode25OpenIDEdition.aspx">Scott Hanselman - Weekly Source Code 25</a></li>
-</ul>
 
   </div>
   
@@ -1007,32 +946,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

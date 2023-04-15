@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-12-26T01:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-01-29T05:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,369 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/9-promises-should-be-taken-before-choosing-it-profession/">9 Promises Should Be Taken Before Choosing IT Profession</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 29, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/fundoo">FUNDOO</a>
+      
+      
+      
+      
+    </span>
+    <p>I received an e-mail from a friend of mine who is quite upset after choosing IT as his profession becasue of the list of promises in the e-mail (listed below). Well this is because he didn&rsquo;t made any of the below listed promises to himself and after reading this e-mail he was more upset. Therefore, if you are willing to be an IT guy, then make sure you have made 9 promises as listed below.</p>
+
+<p>Personally, I will say these 9 promises or points are perfect to define an IT/Tech guy.</p>
+
+<ol>
+<li>I have already enjoyed my life in childhood.</li>
+<li>I love tension.</li>
+<li>I don&rsquo;t want to spend time with my family and friends.</li>
+<li>I love night outs.</li>
+<li>I love to work on Sundays and Holidays.</li>
+<li>I want to take revenge on myself (Perfect Reason)</li>
+<li>I don&rsquo;t want to marry before 30.</li>
+<li>I don&rsquo;t want to good salary.</li>
+<li>I want to learn until my death.</li>
+</ol>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/code-snippet-export-datagridview-to-excel-with-columns/">Code Snippet: Export DataGridView To Excel With Columns</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 25, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>This is among one of the best code snippet I have and using since long to export the datagridview to excel. The best part of this code snippet is that it just don&rsquo;t uses the excel interop, so you need not to worry about the Office version or PIAs installed at user&rsquo;s machine. What actualy is needed is just a Reflection namespace - <code>System.Reflection</code> and it will bind the data to the instance of the excel application.</p>
+
+<pre class="brush:csharp">
+private void Export2Excel(DataGridView datagridview, bool captions)
+{
+    if (datagridview.ColumnCount > 0)
+    {
+        string[] strArray = new string[datagridview.ColumnCount];
+        string[] strArray2 = new string[datagridview.ColumnCount];
+        int num = 0;
+        int index = 0;
+        int num3 = 0;
+        for (index = 0; index < datagridview.ColumnCount; index++)
+        {
+            strArray[index] = datagridview.Rows[0].Cells[index].OwningColumn.Name.ToString();
+            if ((num > 0) && ((index % num) == 0))
+            {
+                num = 0;
+            }
+            num3 = index / 0x1a;
+            if (num3 == 0)
+            {
+                num = index + 0x41;
+                strArray2[index] = Convert.ToString((char)num);
+            }
+            else
+            {
+                int num4 = num3 + 0x40;
+                num = (index % 0x1a) + 0x41;
+                strArray2[index] = Convert.ToString((char)num4) + Convert.ToString((char)num);
+            }
+        }
+        try
+        {
+            object obj7;
+            object target = Activator.CreateInstance(Type.GetTypeFromProgID("Excel.Application"));
+            object obj4 = target.GetType().InvokeMember("Workbooks", BindingFlags.GetProperty, null, target, null);
+            object obj3 = obj4.GetType().InvokeMember("Add", BindingFlags.InvokeMethod, null, obj4, null);
+            object obj5 = obj3.GetType().InvokeMember("Worksheets", BindingFlags.GetProperty, null, obj3, null);
+            object[] args = new object[] { 1 };
+            object obj6 = obj5.GetType().InvokeMember("Item", BindingFlags.GetProperty, null, obj5, args);
+            if (captions)
+            {
+                index = 0;
+                while (index < datagridview.ColumnCount)
+                {
+                    args = new object[] { strArray2[index] + "1", Missing.Value };
+                    obj7 = obj6.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, obj6, args);
+                    args = new object[] { strArray[index] };
+                    obj7.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, obj7, args);
+                    index++;
+                }
+            }
+            for (num = 0; num < datagridview.RowCount; num++)
+            {
+                for (index = 0; index < datagridview.ColumnCount; index++)
+                {
+                    args = new object[] { strArray2[index] + Convert.ToString((int)(num + 2)), Missing.Value };
+                    obj7 = obj6.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, obj6, args);
+                    args = new object[] { datagridview.Rows[num].Cells[strArray[index]].Value.ToString() };
+                    obj7.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, obj7, args);
+                }
+            }
+            args = new object[] { true };
+            target.GetType().InvokeMember("Visible", BindingFlags.SetProperty, null, target, args);
+            target.GetType().InvokeMember("UserControl", BindingFlags.SetProperty, null, target, args);
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show(("Error: " + exception.Message) + " Line: " + exception.Source, "Error");
+        }
+      }
+    }
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-7-development-working-with-task-dialog-class/">Windows 7 Development: Working With Task Dialog Class</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 24, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>Last year, I blogged about few things related to <a href="http://midnightprogrammer.net/category/Windows">Windows 7 development</a> which includes <a href="http://midnightprogrammer.net/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack">Jump Lists</a> and <a href="http://midnightprogrammer.net/post/windows-7-development-aero-effects-in-net-applications">Glass Form</a>. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows 7 API Code Pack</a> comes with some sample applications which exposes the power of the API.</p>
+
+<p>In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7. If you see the sample code and and the executable, they are working fine but when you write the same code in the code in your application, this will not turn out to be as you would have expected. You will see a runtime error as the one below.</p>
+
+<p><img src="/images/win7dev-exception.png" alt="Windows 7 API exception" /></p>
+
+<p>This problem can be resolved by adding a <code>app.manifest</code> file to your project and modifying some part of it. Move to the end of the file and un-comment the <code>&amp;lt;dependency&amp;gt;</code> section of the file.</p>
+
+<pre class="brush:xml">
+&lt;dependency&gt;
+    &lt;dependentAssembly&gt;
+      &lt;assemblyIdentity
+          type="win32"
+          name="Microsoft.Windows.Common-Controls"
+          version="6.0.0.0"
+          processorArchitecture="*"
+          publicKeyToken="6595b64144ccf1df"
+          language="*"
+        /&gt;
+    &lt;/dependentAssembly&gt;
+&lt;/dependency&gt;
+</pre>
+
+<p>Hit <code>F5</code> again and this will do the trick for you, this time you will be able to view the message box as you wanted to. The API sample contains code for all the possible / available task dialog for you to use. But the usage is bit difficult as this cannot be acaieved in a single line like we do with the MessageBox class. Therefore I suggest you to build a helper class / function to get this easy for you. As I used this in one of my projects I have two functions one for showing the information and error messages respectively. You can also have a overload method for this, but as I have used different method names instead as I will be using only two dialogs throughout my project.</p>
+
+<p><strong>For Error Messages:</strong></p>
+
+<pre class="brush:csharp">
+public static void ShowErrorMessage(string ErrorTitle, string Instruction, string ErrorMessage, string ErrorTrace)
+{
+            TaskDialog tdError;
+            tdError = new TaskDialog();
+            tdError.DetailsExpanded = false;
+            tdError.Cancelable = true;
+            tdError.Icon = TaskDialogStandardIcon.Error;
+ 
+            tdError.Caption = ErrorTitle;
+            tdError.InstructionText = Instruction;
+            tdError.Text = ErrorMessage;
+            tdError.DetailsExpandedLabel = "Hide details";
+            tdError.DetailsCollapsedLabel = "Show details";
+            tdError.DetailsExpandedText = ErrorTrace;
+ 
+            tdError.Show();
+}
+</pre>
+
+<p>All the properties in the above function is self-explainatory. The code at line:12 will have a expander in the dialog box which will contain more details of the exception.</p>
+
+<p>Function for showing information is also the same but with few things &ldquo;missing&rdquo;:</p>
+
+<pre class="brush:csharp">
+public static void ShowInfoMessage(string InfoTitle, string Information, string Message)
+{
+            TaskDialog tdInfo;
+            tdInfo = new TaskDialog();
+            tdInfo.DetailsExpanded = false;
+            tdInfo.Cancelable = true;
+            tdInfo.Icon = TaskDialogStandardIcon.Information;
+ 
+            tdInfo.Caption = InfoTitle;
+            tdInfo.InstructionText = Information;
+            tdInfo.Text = Message;
+            tdInfo.Show();
+}
+</pre>
+
+<p><strong>Sample Usage:</strong></p>
+
+<pre class="brush:csharp">
+//For Error Dialog
+ShowErrorMessage("Application Error", "There was an error in creating XML file", ex.Message, ex.StackTrace);
+ 
+//For Information Dialog
+ShowInfoMessage("Application Name", "Image more than 32x32 pixels will be rejected", "Please check the image pixel before you use choose a package icon");
+</pre>
+
+<p><strong>Error Dialog Box</strong></p>
+
+<p><img src="/images/win7-errordialog.png" alt="Windows 7 API error message dialog box" /></p>
+
+<p>Click the <code>Show Details</code> expander icon to view the complete error stack trace.</p>
+
+<p><strong>Information Dialog Box</strong></p>
+
+<p><img src="/images/win7-infodialog.png" alt="Windows 7 API information dialog box" /></p>
+
+<p>This is just the two types of dialogs I have used for my project, but there are more supported in the API. So to get started see the sample project accompanying the API Code Pack including the one you see while running programs as Administrator while UAC is turned on, a dialog box with a progress bar and lots of more to check. The samples above would get you started.</p>
+
+<p>If you are a Visual Studio 2010 user with NuGet installed, then you can add the API reference to your project with the below command.</p>
+
+<pre class="brush:shell">
+Install-Package Windows7APICodePack
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-jquery-to-get-your-tweets/">Using jQuery To Get Your Tweets</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 27, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/tweet.png" alt="Twitter bird"/></p>
+
+<p>If you are a blogger and using Twitter, then you must want to show some of your latest tweets on your blog space. I do have a custom widget for my blog which can display 3 of my latest tweets and I can customize it show more of my tweets. But the widgets cannot be used in every scenario and this is why some people find it difficult to use the widget provided by Twitter to display their tweets. What if they want to show their last tweet on the top of the page inside a DIV? A friend of mine set up his new WordPress blog and want to have a DIV on the top of the page which displays his last post and that he can customize. By customize I mean that he can set the number of tweets he wants to display, can show his profile picture and get his last tweet. The script file contains only three methods at this moment. I will add some other functions later on.</p>
+
+<p><strong>How does this work?</strong></p>
+
+<p>It is just a javascript file and there is nothing new about it. What you need to do is to have a DIV or any HTML element or ASP.NET server control with id as <code>'tweet-div'</code>. For this example I am using a DIV to show my tweets. I choose DIV because I can set it position to absolute and set on the image to show my latest tweet on an image I got from <a href="http://www.iconfinder.com/">Iconsinder</a>. It is a pretty twitter imageand there are other images also which you can use, but for non-commercial purpose only. First, take a look at the jQuery script I wrote to do all the stuff:</p>
+
+<pre class="brush:jscript">
+function GetLastTweet(UserName) {
+    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
+    $.getJSON(url, function (tweet) {
+        $("#tweet-div").html(tweet[0].text);
+    });
+}
+ 
+function GetTweets(UserName, NoOfTweets) {
+    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
+    $.getJSON(url, function (tweets) {
+        for (var i = 0; i < NoOfTweets; i++) {
+            $("#tweet-div").append(tweets[i].text + "<br/>");
+        }
+    });
+}
+ 
+function GetProfileImage(UserName) {
+    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
+    $.getJSON(url, function (image) {
+        $("#ProfileImage").attr('src', image[0].user.profile_image_url);
+    });
+}
+</pre>
+
+<p>To communicate with the Twitter API, I am using JSON. Plan to go for XML only if you are using it on the server side code. As you can see it is pretty easy to work with JSON in jQuery. The methods:</p>
+
+<ul>
+<li><strong>GetLastTweet(UserName)</strong> will get the last tweet of any user. Pass the twitter user name as a parameter.</li>
+<li><strong>GetTweets(UserName, NoOfTweets)</strong> will get the specified number of tweets for the user. the first parameter will be the twitter user name and the second parameter will be the number of tweets you want to display.</li>
+<li><strong>GetProfileImage(UserName)</strong> will get the profle image of the user.</li>
+</ul>
+
+<p>*<strong>Note:</strong> Please change the element <strong>ID</strong> in the script file according to your element id on the page.*</p>
+
+<p>And just in case if you are feeling lazy to write the the HTML markup:</p>
+
+<pre class="brush:html">
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;@prashantmx on Twitter!&lt;/title&gt;
+    &lt;script src="Scripts/jquery-1.4.1.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="Scripts/Tweet.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;link href="style/style.css" rel="stylesheet" type="text/css" /&gt;
+&lt;/head&gt;
+&lt;body onload="GetLastTweet('prashantmx');"&gt;
+&lt;img src="images/1293447412_bird_sign.png" alt="twitterbird" /&gt;
+&lt;div id ="tweet-div"&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>I am using an image of twitter bird to show my last tweet. And here is what my last tweet looks like:</p>
+
+<p>If you want to use the below image or other images like this then go to Iconfinder. There is a good collection of twitter birds images as shown below and choose which best suites your requirement.</p>
+
+<p><img src="/images/tweet-display.png" alt="Tweet displayed on page" /></p>
+
+<p><strong>Download: <a href="/files/Twitter.zip">Twitter.zip (159.92 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -232,395 +595,6 @@ protected void btn_Validate(object sender, EventArgs e)
 <p>I have build the sample project in ASP.NET 4.0, if you wanted to use the library in ASP.NET 3.x, then compile the project with lower version of ASP.NET and it will work perfectly. The below zip file contains both the projects.</p>
 
 <p><strong>Download: <a href="/files/Captcha.NET.zip">Captcha.NET.zip (377.63 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/autocomplete-with-jquery-and-aspnet/">Autocomplete With jQuery and ASP.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 19, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>Building auto-complete feature with jQuery is easy and you can build this in no time. It&rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&rsquo;s begin up getting files under one hood.</p>
-
-<p>Use the below live links for jQuery auto-complete and CSS.</p>
-
-<pre class="brush:html">
-&lt;link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css" type="text/css" /&gt;
-&lt;script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"&gt;&lt;/script&gt;
-</pre>
-
-<p>You can also download these files and use them in your project, if you are planning to run your application offline. For this demonstration, I have downloaded the files. I am using both ADO.NET and LINQ to auto-complete with jQuery auto-complete pug-in.</p>
-
-<p>Starting up with ADO.NET, as we were/are using this for so many years now and therefore there should be no problem for anyone using it. Simple page behind code to get the full list of countries in the world (I hope I have all of them) and seperate each country name with a &lsquo;|&rsquo; pipe symbol so I can split countries name and set it to the text box for auto-complete.</p>
-
-<pre class="brush:csharp">
-public partial class _Default : System.Web.UI.Page
-   {
-       SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
-       SqlCommand cmd;
-       SqlDataReader dr;
- 
-       public string Listcountries;
- 
-       private string countryName()
-       {
- 
-           StringBuilder sb = new StringBuilder();
-           cmd = new SqlCommand("Select country_name from Country order by country_name", con);
-           con.Open();
-           dr = cmd.ExecuteReader();
- 
-           while (dr.Read())
-           {
-               sb.Append(Convert.ToString(dr[0] + "|"));
-           }
- 
-           return Convert.ToString(sb);
-       }
- 
-       protected void Page_Load(object sender, EventArgs e)
-       {
-           Listcountries = countryName();
-       }
-   }
-</pre>
-
-<p>Done with code behind and now only requires few lines of client script on the page to get the auto-complete running.</p>
-
-<pre class="brush:jscript">
-&lt;script type="text/javascript"&gt;
-        $(document).ready(function () {
-            var cc = '&lt;%=Listcountries%&gt;'.split("|");
-            $("#autoText").autocomplete(cc);
-        });
-&lt;/script&gt;
-</pre>
-
-<p>The same can be done with LINQ but the jQuery script part will be the same.</p>
-
-<pre class="brush:csharp">
-public partial class AutocompleteLINQ : System.Web.UI.Page
-{
-    DeveloperDBEntities db = new DeveloperDBEntities();
-    public IQueryable countries;
-    public string Listcountries;
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        countries = from c in db.Countries select c;
-        foreach (Country cobj in countries)
-        {
-            Listcountries += cobj.Country_Name + "|";
-        }
-    }
-}
-</pre>
-
-<p>Just for your ease to use this project as it is, I have included the SQL scripts for the country table. Hope this helps you in building another great or a part of your application.</p>
-
-<p><strong>Download: <a href="/files/JqueryAutoComplete.zip">JqueryAutoComplete.zip (210.73 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/disable-x-close-button-on-your-windows-form-application/">Disable &#39;X&#39; Close Button On Your Windows Form Application</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 12, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>Recently, someone on MSDN forums asked this question on how to disable the &ldquo;X&rdquo; a.k.a. close button in his windows form application so the user is forced to close the application from the cancel button on the form and not from the close button. He wanted this for his application which requires registration first before a user can start using his application.</p>
-
-<p>I don&rsquo;t know the answer so I bing arond a bit and find a solution posted by someone though I don&rsquo;t have the name but it worked like a charm&hellip;.!!</p>
-
-<p>We need some interoperability to do this, therefore get the namespace System.Runtime.InteropServices
-Code:</p>
-
-<pre class="brush:csharp">
-private const int MF_BYPOSITION = 0x400;
-[DllImport("User32")]
-private static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
-[DllImport("User32")]
-private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
-[DllImport("User32")]
-private static extern int GetMenuItemCount(IntPtr hWnd);
-</pre>
-
-<p>Below code goes to the load event of your form:</p>
-
-<pre class="brush:csharp">
-IntPtr hMenu = GetSystemMenu(this.Handle, false);
-int menuItemCount = GetMenuItemCount(hMenu);
-RemoveMenu(hMenu, menuItemCount - 1, MF_BYPOSITION);
-</pre>
-
-<p>Time to press &lsquo;F5&rsquo;&hellip;.and the close button is now disabled on the form.</p>
-
-<p><img src="/images/winform-disable-close-btn.png" alt="Windows Forms application with close button disabled" /></p>
-
-<p><strong>Download: <a href="/files/CloseButton.zip">CloseButton.zip (43.08 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/crystal-reports-for-visual-studio-2010/">Crystal Reports For Visual Studio 2010</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 2, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p>Crystal reports is one of the most widely used reporting component in Visual Studio. But this time it goes missing from the final release of Visual Studio 2010. Crystal Reports for Visual Studio 2010 is now available for download to all the Visual Studio 2010 users and is for free of cost as always.</p>
-
-<p><strong>Download Links:</strong></p>
-
-<p><strong>Download Crystal Reports for Visual Studio 2010</strong></p>
-
-<ul>
-<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_13_0_1.exe">Complete Package (EXE)</a></li>
-<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_clickonce_13_0_1.zip">Click Once</a></li>
-<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_mergemodules_13_0_1.zip">Merge Modules</a></li>
-<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_redist_install_32bit_13_0_1.zip">Redist Installation (32 bit)</a></li>
-<li><a href="http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_redist_install_64bit_13_0_1.zip">Redist Installation (64 bit)</a></li>
-</ul>
-
-<p><strong>Getting Started with Crystal Reports for Visual Studio 2010</strong></p>
-
-<ul>
-<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/library/uuid/d01d0431-6928-2d10-1683-a2256fc6bd0d">What&rsquo;s New</a></li>
-<li><a href="http://www.sdn.sap.com/irj/scn/weblogs?blog=/pub/wlg/18826">Licensing</a></li>
-<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/library/uuid/e06b8953-a62b-2d10-38b9-ca71f747e2b1">Supported Platforms</a></li>
-<li><a href="http://www.sdn.sap.com/irj/boc/samples">Sample Applications</a></li>
-<li><a href="http://www.sdn.sap.com/irj/boc/sdklibrary">SDK Library</a></li>
-</ul>
-
-<p><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/webcontent/uuid/e05469df-cc2d-2d10-33ba-e0010723a965"><strong>Tutorials for Crystal Reports for Visual Studio 2010</strong></a></p>
-
-<ul>
-<li><a href="http://www.sdn.sap.com/irj/scn/elearn?rid=/library/uuid/4053ee51-162a-2d10-b8b0-fdd7a26d5cd2">Overview Viewlet</a></li>
-<li><a href="http://www.sdn.sap.com/irj/scn/elearn?rid=/library/uuid/504d77eb-892a-2d10-c0b9-c9b6da1e1ffa">Sorting and Filtering Viewlet</a></li>
-<li><a href="http://www.sdn.sap.com/irj/scn/elearn?rid=/library/uuid/109e0473-8c2a-2d10-d195-8eba1badf7df">Dynamic Grouping Viewlet</a></li>
-<li><a href="http://www.sdn.sap.com/irj/scn/elearn?rid=/library/uuid/20e93276-142a-2d10-cb89-ab835b221ffd">XLSX Export Viewlet</a></li>
-</ul>
-
-<p><strong>Related Areas</strong></p>
-
-<ul>
-<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports">Crystal Reports Design</a></li>
-<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-java">Crystal Reports for Eclipse</a></li>
-<li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/webcontent/uuid/b0875577-f476-2b10-de9b-a8759527e1c3">.NET Articles</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/a-time-wrapper-class-in-c/">A Time Wrapper Class in C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Nov 30, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>I was just surfing the net in search for some fundoo tutorial on WPF and by chance (I don&rsquo;t meant to visit that site), I get this class which I feel is pretty helpful. A simple wrapper class to conver time. the class allows you to convert:</p>
-
-<ol>
-<li>To Days</li>
-<li>To Hours</li>
-<li>To Minutes</li>
-<li>To Seconds</li>
-<li>To MilliSeconds</li>
-</ol>
-
-<p>This can be pretty usefull. The class is as follows:</p>
-
-<pre class="brush:csharp">
-using System;
- 
-public static class TimeSpanUtil
-{
-    #region To days
-    public static double ConvertMillisecondsToDays(double milliseconds)
-    {
-        return TimeSpan.FromMilliseconds(milliseconds).TotalDays;
-    }
- 
-    public static double ConvertSecondsToDays(double seconds)
-    {
-        return TimeSpan.FromSeconds(seconds).TotalDays;
-    }
- 
-    public static double ConvertMinutesToDays(double minutes)
-    {
-        return TimeSpan.FromMinutes(minutes).TotalDays;
-    }
- 
-    public static double ConvertHoursToDays(double hours)
-    {
-        return TimeSpan.FromHours(hours).TotalDays;
-    }
-    #endregion
- 
-    #region To hours
-    public static double ConvertMillisecondsToHours(double milliseconds)
-    {
-        return TimeSpan.FromMilliseconds(milliseconds).TotalHours;
-    }
- 
-    public static double ConvertSecondsToHours(double seconds)
-    {
-        return TimeSpan.FromSeconds(seconds).TotalHours;
-    }
- 
-    public static double ConvertMinutesToHours(double minutes)
-    {
-        return TimeSpan.FromMinutes(minutes).TotalHours;
-    }
- 
-    public static double ConvertDaysToHours(double days)
-    {
-        return TimeSpan.FromHours(days).TotalHours;
-    }
-    #endregion
- 
-    #region To minutes
-    public static double ConvertMillisecondsToMinutes(double milliseconds)
-    {
-        return TimeSpan.FromMilliseconds(milliseconds).TotalMinutes;
-    }
- 
-    public static double ConvertSecondsToMinutes(double seconds)
-    {
-        return TimeSpan.FromSeconds(seconds).TotalMinutes;
-    }
- 
-    public static double ConvertHoursToMinutes(double hours)
-    {
-        return TimeSpan.FromHours(hours).TotalMinutes;
-    }
- 
-    public static double ConvertDaysToMinutes(double days)
-    {
-        return TimeSpan.FromDays(days).TotalMinutes;
-    }
-    #endregion
- 
-    #region To seconds
-    public static double ConvertMillisecondsToSeconds(double milliseconds)
-    {
-        return TimeSpan.FromMilliseconds(milliseconds).TotalSeconds;
-    }
- 
-    public static double ConvertMinutesToSeconds(double minutes)
-    {
-        return TimeSpan.FromMinutes(minutes).TotalSeconds;
-    }
- 
-    public static double ConvertHoursToSeconds(double hours)
-    {
-        return TimeSpan.FromHours(hours).TotalSeconds;
-    }
- 
-    public static double ConvertDaysToSeconds(double days)
-    {
-        return TimeSpan.FromDays(days).TotalSeconds;
-    }
-    #endregion
- 
-    #region To milliseconds
-    public static double ConvertSecondsToMilliseconds(double seconds)
-    {
-        return TimeSpan.FromSeconds(seconds).TotalMilliseconds;
-    }
- 
-    public static double ConvertMinutesToMilliseconds(double minutes)
-    {
-        return TimeSpan.FromMinutes(minutes).TotalMilliseconds;
-    }
- 
-    public static double ConvertHoursToMilliseconds(double hours)
-    {
-        return TimeSpan.FromHours(hours).TotalMilliseconds;
-    }
- 
-    public static double ConvertDaysToMilliseconds(double days)
-    {
-        return TimeSpan.FromDays(days).TotalMilliseconds;
-    }
-    #endregion
-}
-</pre>
 
   </div>
   
@@ -977,32 +951,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

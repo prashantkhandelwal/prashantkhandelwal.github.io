@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://prashantkhandelwal.github.io/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/</loc>
+    <lastmod>2023-04-14T15:36:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://prashantkhandelwal.github.io/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/</loc>
     <lastmod>2023-04-05T12:13:00+00:00</lastmod>
   </url>
@@ -473,11 +478,6 @@
   </url>
   
   <url>
-    <loc>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</loc>
-    <lastmod>2010-12-19T01:46:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://prashantkhandelwal.github.io/post/disable-x-close-button-on-your-windows-form-application/</loc>
     <lastmod>2010-12-12T07:55:00+00:00</lastmod>
   </url>
@@ -854,7 +854,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/category/azure/</loc>
-    <lastmod>2019-01-20T05:25:00+00:00</lastmod>
+    <lastmod>2023-04-14T15:36:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1002,7 +1002,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/</loc>
-    <lastmod>2023-04-05T12:13:00+00:00</lastmod>
+    <lastmod>2023-04-14T15:36:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1032,7 +1032,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/post/</loc>
-    <lastmod>2023-04-05T12:13:00+00:00</lastmod>
+    <lastmod>2023-04-14T15:36:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1045,6 +1045,12 @@
   <url>
     <loc>https://prashantkhandelwal.github.io/category/raspberry-pi/</loc>
     <lastmod>2017-04-02T07:39:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/react/</loc>
+    <lastmod>2023-04-14T15:36:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1107,7 +1113,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/category/web/</loc>
-    <lastmod>2023-04-05T12:13:00+00:00</lastmod>
+    <lastmod>2023-04-14T15:36:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

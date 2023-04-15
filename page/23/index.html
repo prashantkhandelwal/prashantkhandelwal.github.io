@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-05-14T20:26:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-06-05T14:47:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,151 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/url-rewriting-in-blog-enginenet/">URL rewriting in Blog Engine.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 5, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
+      
+      
+      
+      
+    </span>
+    <p>was just looking for a way to get short URL’s for my blog, I used some extensions, some URLrewriter.NET but still not able to get this work. So I drop an e-mail to Scott Hanselman and was waiting for his response. If you look at Scott’s blog you will see that he has very simple URL for his blog posts which eventually get his posts higher ranks on search engine indexing. What I have found so far is that if you have a simple URL the search engine will crawl that page during indexing and your page is on the top of the search results or if it is not on the top then it must be at least on the first page. Remember search engine crawlers will avoid crawling pages that do not have a simple URL, like if your page has a query string it won’t be get crawled by the search engine crawler.</p>
+
+<p>The URLRewriter module in BlogEngine didn’t seems to be working for Posts. I want to have simple SEO friendly URLs like <a href="http://www.midnightprogrammer.net/post/Windows-7-Logon-Screen-Changer.aspx">http://www.midnightprogrammer.net/post/Windows-7-Logon-Screen-Changer.aspx</a> and not <a href="http://www.midnightprogrammer.net/post/2010/05/30/Windows-7-Logon-Screen-Changer.aspx">http://www.midnightprogrammer.net/post/2010/05/30/Windows-7-Logon-Screen-Changer.aspx</a> But there is no way to do this until I hook into BlogEngine.Core.dll.</p>
+
+<p>Open the whole solution in Visual Studio and open Post.cs file and navigate to the RelativeLink property in Post.cs file and change with the below code:</p>
+
+<pre class="brush:csharp">
+public string RelativeLink
+{
+    get
+    {
+        string slug = Utils.RemoveIllegalCharacters(Slug) + BlogSettings.Instance.FileExtension;
+        if (BlogSettings.Instance.TimeStampPostLinks)
+            return Utils.RelativeWebRoot + "post/" + slug;
+        return Utils.RelativeWebRoot + "post/" + slug;
+    }
+}
+</pre>
+
+<p>Recompile your DLL and place in bin directory in your blogengine root folder. Now you will have short URLs which do not have any date stamp. Having short URLs for all your posts doesn’t affect the posts with old URLs that most of the people have bookmarked on their blogs or on social bookmarking sites. Hope this helps.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-7-logon-screen-changer/">Windows 7 Logon Screen Changer</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 29, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/womm-logo.png" alt="Works on my machine"/></p>
+
+<p>Recently I was reading an article on some Windows 7 forums on how to change Windows Logon Background. There are manual steps which helps me to change the longon background, but its tedious if I have to do it manually everytime. So I decided to make a tool which can do it for me.</p>
+
+<p>I start up a new project in Visual Studio 2010 and create a new windows application. I am not writing about how I did it, I am just giving away this tool for use. Just Browse and click Change Logon Screen and you are done.</p>
+
+<p><img src="/images/win7-logon-screen-changer.png" alt="Windows 7 logon screen changer" /></p>
+
+<p>Press WIN+L to lock your computer and check your new logon screen. There is only one limitation, you cannot select an image which is larger than 256KB.</p>
+
+<p><strong>Download: <a href="/files/Win7 Logon ScreenChanger.zip">Win7 LogonScreenChanger.zip (49.21 kb)</a></strong></p>
+
+<p><strong>Source Code: <a href="/files/Win7LogonScreenChanger.zip">Win7LogonScreenChanger.zip (139.44 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-build-uac-compatible-application-in-net/">How To Build UAC Compatible Application In .NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 23, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>We all know about a feature called User Account Control (UAC) which introduced with the launch of Windows Vista. By default, UAC is enabled and provides users a better and safer computing experience, but most of the users find it irritating when the UAC prompts everytime they try to run a program. Disabling UAC is not recommended at all.</p>
+
+<p>With UAC enabled programmers find it difficult to access some of the locations on the local drive. Programatically you cannot write or create a file or directory in root partition, inside Program Files, System32 folder and some other locations. Recently I ran into a same problem where I have to access System32 folder, create new folders and copy files from one location on my system to this folder. With UAC disabled this is pretty easy, no security settings and no runtime errors or exceptions. Usually you cannot ask the users to disable UAC and then use the application, so therefore I made my application compatible with UAC and YES!!! you will be prompted with the confirmation box to run the application with administrator privileges. In Windows Vista and Windows 7, even if you are an administrator of your machine you do not have the complete access to resources even if you are an administrator. So in order to make your application run with full administrator rights follow the steps below. This will work the same if you run your application with &ldquo;Run as Administrator&rdquo; option which you see when you right-click the application.</p>
+
+<p>Create a new application in Visual Studio. Right-click project and add a new item.</p>
+
+<p><img src="/images/uac-vs-newitem.png" alt="Adding application.manifest file" /></p>
+
+<p>From the Add New Item box select Application Manifest File.</p>
+
+<p>In the manifest file un-comment the following line:</p>
+
+<pre class="brush:xml">
+&lt;requestedExecutionLevel level="requireAdministrator" uiAccess="false" /&gt;
+</pre>
+
+<p><img src="/images/uac-shield.png" alt="Shield icon after UAC enabled" /></p>
+
+<p>Build your applicaton&hellip;.and when the build is complete you will see the security shield icon accompanying your application icon. A dialogue box appear in front of the user to run the application with full administrative privileges.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -222,388 +367,6 @@ Console.WriteLine(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
 </pre>
 
 <p>This will print the processor architecture on the console window i.e. x86 and x64 for 32-bit and 64-bit respectively.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/using-sql-clr-stored-procedure-track-ip-address/">Using SQL CLR Stored Procedure To Track IP Address</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 24, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL&#34;</a>
-      
-      
-      
-      
-    </span>
-    <p>Recently I was asked by one of my friend how to call a web service directly from a stored procedure. He needs to track IP addresses using a stored procedures so, I suggested him two ways to call a web service using the SQL Procedure.</p>
-
-<ul>
-<li>Using SP_OACREATE with MSXML</li>
-<li>Create an assembly using SQL CLR using C#.</li>
-</ul>
-
-<p>I personally tried using the first way to call a web service but was not successful. Then I learnt about SQL CLR programming with Visual Studio and C# and get it done in a first go. As a good friend I create the whole project for my friend. And if your thinking that this is going to be a difficult, this is not so.</p>
-
-<p>To start creating a project, open Visual Studio and create a new project.</p>
-
-<p><img src="/images/sqlclr-newproject.png" alt="SQL CLR new Visual Studio project" /></p>
-
-<p>Before the project gets loaded completely, you will be asked to add database reference. Here select the database you want to build the assembly for. If you don’t want to add a database reference then just simply cancel. But if you choose the reference to add at this point then this would really be of help as this will allow you to deploy your assembly directly to the SQL Server database but if you have not then you need to write some SQL scripts.</p>
-
-<p><img src="/images/sqlclr-add-db-ref.png" alt="Add a database reference to the project" /></p>
-
-<blockquote>
-<p><strong>NOTE:</strong> If you have added a database reference then it doesn’t mean that your assembly is build specifically for that database you can still deploy your assembly in other database also.</p>
-</blockquote>
-
-<p>As I am creating a stored procedure, I then have to add a <code>New Item</code> to my project. Right-click project choose <code>Add&gt;Stored Procedure</code>. Here give a name of your choice to stored procedure. In my case it is <code>IPInfo</code>.</p>
-
-<p><img src="/images/sqlclr-add-new-item.png" alt="Add a new stored procedure" /></p>
-
-<p>Change the static method here to accept a parameter. Our parameter will be an IP address, which I have set as of string type.</p>
-
-<pre class="brush:csharp">
-public static void GetIPInfo(string IP)
-{  
-//Do something here
-}
-</pre>
-
-<p>Now the question here is from where we can the information of the IP Addresses? I do some search and found a website <a href="http://www.geobytes.com">http://www.geobytes.com</a>. It offers some rich information of the IP Address you want to track, so out of five sources I choose to go with geobytes.</p>
-
-<p>Lets take a quick look at the code. This is not a web service as you can see from the code below, I am just making a http request and then get the response in an XML form so I can easily traverse the nodes and read/save the information I received.</p>
-
-<pre class="brush:csharp">
-string XMLResponse;
-IPAddress = IP;
-byte[] XMLResults;
-string str = "http://www.geobytes.com/IpLocator.htm?GetLocation&template=xml.txt"
-+ "&IpAddress=" + IP;
-XMLResults = new WebClient().DownloadData(str.ToString());
-XMLResponse = Encoding.UTF8.GetString(XMLResults);
-</pre>
-
-<p>Note the fourth line where I have built the URL. The parameter Template should always have a value to xml.txt. If you change the name, it won’t throw any error but the data received cannot be read and saved in a database table. Convert the response to string format and then read the nodes one by one using the below code.</p>
-
-<pre class="brush:csharp">
-try
-        {
-            XmlDocument document = new XmlDocument();
-            document.LoadXml(XMLResponse);
-            XmlNode documentElement = document.DocumentElement;
-            if (documentElement.HasChildNodes)
-            {
-                for (int i = 0; i < documentElement.ChildNodes.Count; i++)
-                {
-                    if (documentElement.ChildNodes[i].NodeType == XmlNodeType.Element)
-                    {
-                        switch (documentElement.ChildNodes[i].Name)
-                        {
-                            case "locationcode":
-                                LocationCode = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "fips":
-                                FIPS104 = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "iso2":
-                                ISO2 = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "iso3":
-                                ISO3 = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "ison":
-                                ISON = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "internet":
-                                Internet = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "countryid":
-                                CountryID = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "country":
-                                Country = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "regionid":
-                                RegionID = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "region":
-                                Region = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "code":
-                                RegionCode = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "adm":
-                                Admn1Code = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "cityid":
-                                CityID = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "city":
-                                City = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "latitude":
-                                Latitude = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "longitude":
-                                Longitude = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "timezone":
-                                TimeZone = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "certainty":
-                                Certainty = documentElement.ChildNodes[i].InnerText;
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception) { }
-</pre>
-
-<p>Build you project and you will see a DLL file in your debug/release folder. But this will not work. You will still have to set some permission level to assembly and to SQL Server database.</p>
-
-<p><strong>Set Assembly Permissions</strong></p>
-
-<p>Before you build the final version of the assembly go the project properties and set the permissions as shown below.</p>
-
-<p>Under <code>Build</code> select option for <code>Generate Serialization Assembly</code> to <code>On</code>.</p>
-
-<p><img src="/images/sqlclr-assembly-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
-
-<p>Under <code>Database</code> select <code>Permission Level</code> to <code>Unsafe</code></p>
-
-<p><img src="/images/sqlclr-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
-
-<p><strong>SQL Server Permissions</strong></p>
-
-<p>If you find problems while deploying your assembly, then make sure you have CLR enabled and set the <code>Trustworthy</code> property for the database to ON.</p>
-
-<p>You can find all the scripts in the attached solution below.</p>
-
-<p><strong>Deploying your assembly</strong></p>
-
-<p>To deploy your assembly use the below SQL command:</p>
-
-<pre class="brush:sql">
-CREATE ASSEMBLY IPTracker from 'C:\IPInfo.dll' WITH PERMISSION_SET = EXTERNAL_ACCESS
-GO
-</pre>
-
-<p>To create a stored procedure whcih in trun calls the SQL method from the deployed assembly:</p>
-
-<pre class="brush:sql">
-CREATE PROC TrackIP(@IP as nvarchar(50))AS
--- [Assembly Name].[Class Name].[CLR function Name]
-EXTERNAL NAME IPTracker.StoredProcedures.GetIPInfo 
-GO
-</pre>
-
-<p>And execute the procedure to get the IP information.</p>
-
-<p><img src="/images/sqlclr-execution-output.png" alt="SQL CLR procedure output" /></p>
-
-<p><strong>Download: <a href="/files/IPInfo.zip">IPInfo.zip (19.46 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/windows-7-development-creating-jumplist-in-windows-7/">Windows 7 Development: Creating Jumplist In Windows 7</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 28, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>I am quite fascinated with Windows 7 before even I get it started using it. Actually I have just started on a fun project for my personal use which includes jump list. Why I am doing this? To navigate and get access to the application and internet addresses I need anytime. I am tired of typing addresses and navigating to the programs I frequently use. I have just started so I thought I must blog about my jump list experience with you all. You won&rsquo;t believe but I am still using Visual Studio 2008 with .NETFX 3.5. Ok, Let&rsquo;s talk about some Windows development. In my last post on Windows 7 development I explain how can you have Aero effects for your Windows applications. If you haven&rsquo;t read my post on <a href="http://midnightprogrammer.net/post/windows-7-development-aero-effects-in-net-applications">Aero effects in Windows Application</a> then you should have a look at this.</p>
-
-<p>Windows 7 API Code Pack comes packed up with some serious development stuff for Windows 7. If you don&rsquo;t have it yet then check my post for Windows 7 Development resources.</p>
-
-<p>We all know and view the new taskbar in Windows 7 and when your program got pinned in the taskbar you can simply left click to run your program or right-click to view more options associated with your program. To make it more clear I give you an example. I use Winsnap (a tool to take screenshots with dropshadows) to take screenshots and yes I use it quite frequently, so I pinned it to my taskbar.</p>
-
-<p><img src="/images/win7-jumplist.png" alt="Windows 7 jumplist" /></p>
-
-<p>That&rsquo;s the third icon from the Windows start button. When I click it normally it opens up the Winsnap application and show me the panel from where I can take and make settings for my next screenshot. but when I right-click the pinned Winsnap icon on my taskbar it show me the same basic settings which I will be using if I would have launched the application.</p>
-
-<p><img src="/images/win7-jumplist-options.png" alt="Windows 7 jumplist options" /></p>
-
-<p>Now when I have to take screenshots with my utility I just right-click Winsnap icon pinned to my taskbar and I am done. The items that you see under the heading Tasks is having all your jump list items. It is indeed possible to have some common functions from your application to be included in the jump list or can have some external links for applications like calculator, notepad, paint etc. If you don&rsquo;t know (just in case) if you can pin something on the taskbar then you can also unpin it.</p>
-
-<p>I hope now I am quite clear with jump list in Windows 7. So lets gets our hands on developing an application with jump list.</p>
-
-<p><strong>Getting Started</strong></p>
-
-<p>Start it up creating a simple windows forms application with a name of your choice. As we are delaing with Windows 7 API we need to have it added in our project references. Files you need to add to references are:</p>
-
-<ul>
-<li>Microsoft.WindowsAPICodePack.DLL</li>
-<li>Microsoft.WindowsAPICodePack.Shell.DLL</li>
-</ul>
-
-<p>You can have these API libraries once you donwlod the API code pack. After you are done adding the required references, you can switch to the code window and do the rest of the work.</p>
-
-<p><strong>Creating Jump List</strong></p>
-
-<p>Start up with adding the namespace:</p>
-
-<pre class="brush:csharp">
-using Microsoft.WindowsAPICodePack.Taskbar;
-using Microsoft.WindowsAPICodePack.Shell;
-</pre>
-
-<p>Create a jump list by calling <code>CreateJumpList</code> method, which is a part of <code>Microsoft.WindowsAPICodePack.Taskbar.JumpList</code> namespace.</p>
-
-<pre class="brush:csharp">
-JumpList list = JumpList.CreateJumpList();
-</pre>
-
-<p>If you want to show the most recent files you have used, then you can do that by using this line of code:</p>
-
-<pre class="brush:csharp">
-list.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
-</pre>
-
-<p><code>JumpListKnownCategoryType</code> is an enumeration which will let you accomplish this. You can also have some other available options.</p>
-
-<ul>
-<li><strong>Frequent:</strong> Display the frequent known category.</li>
-<li><strong>Neither:</strong> Don&rsquo;t display either known category. You must have atleast one user task and or custom category link in order to not see the default &lsquo;Recent&rsquo; known category.</li>
-<li><strong>Recent:</strong> Display the recent known category.</li>
-</ul>
-
-<p>To add some commonly used applications to the jump list then you can have it with in less than a jiffy. Create a <code>JumpListLink</code> class object and associate it with the <code>JumpList</code> class object. I use notepad a lot to note down my work, now I want to add to the jump list and I code it this way:</p>
-
-<pre class="brush:csharp">
-JumpList list = JumpList.CreateJumpList();
-string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
-"notepad.exe");
-JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
-list.AddUserTasks(JLink);
-list.Refresh();
-</pre>
-
-<p>One line of code can be used to include icon for your program. The <code>IconReference</code> property will let you add the icon the jump list item. Set the default value to &lsquo;0&rsquo;, if you want to use the default icon for the application.</p>
-
-<pre class="brush:csharp">
-JumpList list = JumpList.CreateJumpList();
-string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
-"notepad.exe");
-JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
-JLink.IconReference = new IconReference(SysPath, 0);
-list.AddUserTasks(JLink);
-</pre>
-
-<p><img src="/images/win7-customjumplist.png" alt="Windows 7 jumplist" /></p>
-
-<p>Categorizing programs is bit easy this way. I can categorize web URLs, my favourites programs and some other places/links on my computer. There is lot more you can do with Jump Lists. I hope the explaination above can let you create your own applications with jump lists.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/submit-your-site-blog-to-bing-search/">Submit Your Site To Bing Search</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 26, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      
-      
-      
-      
-    </span>
-    <p>If you want your website or blog content to be noticed or searched by Microsoft Bing search engine, then you can do this to get your work noticed. But beofre you can do this you need a Live ID a.k.a. Hotmail ID.</p>
-
-<p>Go to <a href="http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx">http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx</a></p>
-
-<p><img src="/images/bing-1.png" alt="Bing webmaster" /></p>
-
-<p>Fill up your web address and sitemap address. Though the sitemap address is optional, but I recommened to give a sitemap as it help the crawlers to crawl all the pages on your website. You can also sign up for a webmaster&rsquo;s e-mail, just in case if Bing encouters somes issues with your website. When you are done click the submit button and you are prompted with a confirmation with an authentication code.</p>
-
-<p><img src="/images/bing-2.png" alt="Bing webmaster" /></p>
-
-<p>Now when you are done it is time for authentication. When you submit a website to Bing search it asks for an authentication, just to ensure that you are the owner and so provides you with an authentication key which is used to autheticate the ownership in two different ways.</p>
-
-<ul>
-<li>You can have a XML fle with authentication code in the root of your website. Read more instructions on the screen OR</li>
-<li>You can add the authentication code within meta tag in your page head section of your default page.</li>
-</ul>
-
-<p>And this is it, your website is submitted on the Bing. Now to check it back click the <code>Return to Site List</code> button to view the site you have submitted. And yes you get it right you can submit a number of sites to Bing. Below is what a <code>Site List</code> look like:</p>
-
-<p><img src="/images/bing-3.png" alt="Bing webmaster" /></p>
-
-<p>lick on the Web Address, and you will get a detailed list of your website, if Bing crawlers didn&rsquo;t found any problems with your website.</p>
-
-<p>When you get the meta tag in your head section of your website default page or have placed the XML file in the root folder as metioned in the above step, you now need to take a nap for a while and give the search engine crawler a bit of time to crawl you webpage. I actually don&rsquo;t know when to check the site list and other information and whether the crawlers have crawl my website or not, by the way I have checked my website status on Bing after 24 hrs. So after 24 hrs you can also check and this is what you will see. You can see the last crawl date and other information of your website.</p>
-
-<p><img src="/images/bing-4.png" alt="Bing webmaster" /></p>
-
-<p>So don&rsquo;t wait&hellip;.leave no opportunity to draw more traffic to your website or blog.</p>
 
   </div>
   
@@ -960,32 +723,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

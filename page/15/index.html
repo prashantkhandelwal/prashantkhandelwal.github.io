@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-07-09T09:18:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-09-02T03:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -136,7 +136,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2019 Pashant Khandelwal
+      &copy; 2023 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -149,6 +149,380 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/">Get Twitter, Facebook And Feed Readers Count In ASP.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 2, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I am working on some web stuff these days and surfing around to look at some of the best web developer&rsquo;s work around the web. As I was surfing I came across one of the most popular and reputed web tutorials site <a href="http://net.tutsplus.com/">Nettus+</a>. I am not going talking about any tutorial or article published on this site, but one thing that attracts my attention was the way they are displaying their followers count on twitter, facebook likes and RSS readers.</p>
+
+<p><img src="/images/nettuts-social-widget.png" alt="Nettuts+ Social Widget" /></p>
+
+<p>This looks pretty cool and just out of curiosity I viewed the page source, hoping to find some script or API call which gets the count. But eventually I can&rsquo;t found anything. For Twitter and Facebook I know that there is an API and therefore I can get the twitter followers and facebook like count but don&rsquo;t know anything about the feed readers count. So I search the web get myself aware of the feedburner API. So let&rsquo;s take a look at the code.</p>
+
+<h4 id="get-twitter-followers-count"><strong>Get Twitter Followers Count</strong></h4>
+
+<p>To get your twitter followers count, I am making a REST API call. This call will return XML string and then I am going to parse the received XML using LINQ. You just need to pass your twitter user name to get the followers count.</p>
+
+<pre class="brush:csharp">
+public string GetTwitterFollowersCount(string UserName)
+{
+            XDocument xdoc = XDocument.Load("http://api.twitter.com/1/users/show.xml?screen_name=" + UserName + "&include_entities=false");
+            return (from item in xdoc.Descendants("user")
+                    select item.Element("followers_count").Value).SingleOrDefault();
+}
+</pre>
+
+<h4 id="get-facebook-likes-count"><strong>Get Facebook Likes Count</strong></h4>
+
+<p>To get total Facebook likes count you need to remember that you have to use the URL of your page for e.g. <a href="http://www.facebook.com/audi">http://www.facebook.com/audi</a> or <a href="http://www.facebook.com/nettutsplus">http://www.facebook.com/nettutsplus</a> and not just the name of your page. Check out the code:</p>
+
+<pre class="brush:csharp">
+public string GetFacebookLikes(string FaceBookURL)
+{
+         string URL = "https://api.facebook.com/method/fql.query?query=select%20%20like_count,%20total_count,%20share_count,%20click_count%20from%20link_stat%20where%20url=%22" + FaceBookURL + "%22";
+         XElement xdoc = null;
+         XElement counts = null;
+         xdoc = XElement.Load(URL);
+ 
+         IEnumerable&lt;XElement&gt; total_Like_count =
+             from elem in xdoc.Descendants()
+             where elem.Name.LocalName == "like_count"
+             select elem;
+ 
+         counts = total_Like_count.First();
+         string FBLikes = Convert.ToString(counts.Value);
+         return FBLikes;
+}
+</pre>
+
+<h4 id="get-rss-feed-readers-count"><strong>Get RSS Feed Readers Count</strong></h4>
+
+<p>To get the RSS feed readers count you need to pass the complete URL of your feed URL for e.g. <a href="http://feeds.feedburner.com/MidnightProgrammer">http://feeds.feedburner.com/MidnightProgrammer</a></p>
+
+<pre class="brush:csharp">
+public string GetFeedReadersCount(string url)
+{
+            XDocument xdoc = XDocument.Load("http://feedburner.google.com/api/awareness/1.0/GetFeedData?uri=" + url);
+            return (from item in xdoc.Descendants("entry")
+                    select item.Attribute("circulation").Value).SingleOrDefault();
+}
+</pre>
+
+<p>This is it, now it all depends on the designer or developer how to get the stats and present it in a more attractive way. I am not a designer and this is why I am not putting any effort to do something like this to show you this thing in action. At present I am working on JQuery version of the above code, so people who are willing to show stats on their blogs or website which are different platforms. Till that time, try the above code with ASP.NET and let me know of this helps you out.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/html-5-cheat-sheets/">HTML 5 Cheat Sheets</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 13, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>If you are working with HTML5, then there are some cheat sheets which you should refer for HTML5 syntax. Here are three different cheat sheets for HTML5.</p>
+
+<p><strong>HTML 5 Visual Cheat Sheet</strong></p>
+
+<p><img src="/images/html5-visual-cheatsheet.jpg" alt="HTML5 Visual Cheatsheet" /></p>
+
+<p><strong>HTML 5 Quick reference Cheat Sheet</strong></p>
+
+<p><img src="/images/html5-quickref-cheatsheet.png" alt="HTML5 Quickreference Cheatsheet" /></p>
+
+<p><strong>HTML 5 Canvas Cheat Sheet</strong></p>
+
+<p><img src="/images/html5-canvas-cheatsheet.png" alt="HTML5 Canvas Cheatsheet" /></p>
+
+<p><strong>Download: <a href="/files/HTML 5 - Cheat Sheets.zip">HTML 5 - Cheat Sheets.zip (380.58 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-recaptcha-in-aspnet-webforms-and-mvc/">Using ReCaptcha In ASP.NET WebForms And MVC</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 31, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/recaptcha-logo.jpg" alt="Re-captcha Logo"/></p>
+
+<p>ReCaptcha is now being used widely by many websites especially where there is a possibility of spamming the website, blog or a forum. Here I will show you on how you can use ReCaptcha in ASP.NET and MVC. Get a ReCaptcha Gobal Key and ASP.NET ReCaptcha DLL. Once you get the global key we are ready to go.</p>
+
+<p><strong>ReCaptcha in WebForms</strong></p>
+
+<p>Fire Visual Studio and create a new ASP.NET web forms project. First add a ReCaptcha DLL in the project and as we are talking about a user control we will have to register the control. On the top of the page use the register directive to register the ReCaptcha control.</p>
+
+<pre class="brush:csharp">
+<%@ register tagprefix="recaptcha" namespace="Recaptcha" assembly="Recaptcha" %>
+</pre>
+
+<p>Now on the page, we will use the control.</p>
+
+<pre class="brush:csharp">
+&lt;recaptcha:recaptchacontrol id="recaptcha" runat="server" publickey="public key"  privatekey="private key" />
+</pre>
+
+<p>You will get the public key and the private key when you register for the ReCaptcha global key. This will render the ReCaptcha control on the page.</p>
+
+<p><img src="/images/captcha-render.png" alt="Captcha control render" /></p>
+
+<p>Notice that I have also placed a button and the label (with no text) on the page along with the ReCaptcha control. On the submit button we will check the <a href="http://msdn.microsoft.com/en-us/library/system.web.ui.page.isvalid.aspx">Page.IsValid</a> method. If the ReCaptcha text entered by the user is correct then the Page.IsValid method will return true else it will return false. Therefore the code on the submit button will be as follows:</p>
+
+<pre class="brush:csharp">
+if (Page.IsValid)
+{
+      lblStatus.Text = "Captcha Validated!";
+}
+else
+{
+      lblStatus.Text = "Invalid Captcha!";
+}
+</pre>
+
+<p>This is it, hit F5 and try it out. We are now done implementing ReCaptcha in web forms and now we will see it in action in MVC.</p>
+
+<p><strong>ReCaptcha in MVC</strong></p>
+
+<p>Create a new MVC project in Visual Studio and I am using MVC 3 with RAZOR View Engine. To implement ReCaptcha in MVC, we will be using <code>Microsoft Web Helpers</code>. I assume you are aware of <a href="http://nuget.org/">NuGet</a>. Just in case if you are not aware of the Microsoft Web ` read my post on <a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View</a>. Microsoft web helpers allow us to use ReCaptcha in a very easy way. In WebForms we have used a DLL to render the ReCaptcha control on the page, but with Microsoft web helpers we can render the control with a single line of code. As you have used NuGet to install Microsoft Web Helpers library, make sure that you also use the correct namespace on the top of the page.</p>
+
+<pre class="brush:csharp">
+@using Microsoft.Web.Helpers;
+ 
+@using (Html.BeginForm("Submit", "Home", FormMethod.Post))
+{
+    @ReCaptcha.GetHtml(publicKey: "&lt;public key&gt;", theme: "red")
+}
+</pre>
+
+<p>I have rendered the control inside the form because when the data gets submitted after user enters the text the <code>Submit</code> method of the <code>Home</code> controller gets fired and check the captcha text entered by the user. As you know we have two keys with us, one is a public key and the other is a private key. We have used the public key to render the control on the page and we will now use the private key to validate the captcha. Also make sure that in order to use the ReCaptcha class on server side code you need to add the <code>Microsoft.Web.Helpers</code> namespace.</p>
+
+<pre class="brush:csharp">
+[HttpPost]
+public ActionResult Submit()
+{
+        if (ReCaptcha.Validate(privateKey: "&lt;private key&gt;"))
+        {
+             return Content("Valid Captcha");
+        }
+        else
+       {
+            return Content("InValid Captcha");
+       }
+}
+</pre>
+
+<p>The ReCaptcha class of the web helpers provides a method to validate the entered text by the user. The private key of the ReCaptcha is passed as a parameter in order to validate the captcha text.</p>
+
+<p>Using ReCaptcha with ASP.NET WebForms or MVC is pretty simple and easy. Here are some of the links which I feel you might find useful.</p>
+
+<ul>
+<li><a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View.</a></li>
+<li><a href="http://www.google.com/recaptcha/whyrecaptcha">Get Recaptcha.</a></li>
+<li><a href="http://mvcrecaptcha.codeplex.com/">MVC ReCaptcha - Codeplex</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/handling-text-changed-event-in-aspmvc-3-with-jquery/">Handling Text Changed Event In ASP.NET MVC 3 With JQuery</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 16, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>In my quest of learning MVC I came across many problems and here is one of them. I was trying to fire an event whenever a text changed event occurred. I am using JQuery to handle the text changed event but eventually the text changed event doesn&rsquo;t seems to be working in MVC as it is working for a text box changed event in web forms. The solution I found seems to be working fine for me as I don&rsquo;t want to fire an event on every key press.</p>
+
+<p>To get started fire Visual Studio and create a new MVC 3 application with RAZOR view engine. I have build a simple contact manager application which allows the user to create a new contact, edit and delete existing contacts. While creating a new contact, what I want is when the user enters the e-mail address of the contact I want to make an AJAX call, which then call the method in the controller and return the <a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString</a> which will then show the <a href="http://en.gravatar.com/">Gravatar</a> on the webpage.</p>
+
+<p>Here is the default view of the index view. I will ask the user to enter some very basic information like name, address, email and phone.</p>
+
+<p><img src="/images/app-add-contacts.png" alt="Adding a contact page" /></p>
+
+<p>Now, when the user enters the email address of the contact and press TAB key to move to another field or just click somewhere else on the page, the focus on the text field will be changed and the controller function then returns HtmlString to show the Gravatar image.</p>
+
+<p><strong>Here is the markup of the Create View (Create.cshtml):</strong></p>
+
+<pre class="brush:html; highlight:[32,33,34]">
+@model TextChangedMVC.Models.Contacts
+@{
+    ViewBag.Title = "Create";
+}
+&lt;h2&gt;
+    Create&lt;/h2&gt;
+&lt;script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"&gt;&lt;/script&gt;
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    &lt;fieldset&gt;
+        &lt;legend&gt;Contacts&lt;/legend&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Name)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Name)
+            @Html.ValidationMessageFor(model =&gt; model.Name)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Address)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Address)
+            @Html.ValidationMessageFor(model =&gt; model.Address)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Email)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Email)
+            &lt;div id="Gravatar"&gt;
+            &lt;/div&gt;
+            @Html.ValidationMessageFor(model =&gt; model.Email)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Phone)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Phone)
+            @Html.ValidationMessageFor(model =&gt; model.Phone)
+        &lt;/div&gt;
+        &lt;p&gt;
+            &lt;input type="submit" value="Create" /&gt;
+        &lt;/p&gt;
+    &lt;/fieldset&gt;
+}
+&lt;div&gt;
+    @Html.ActionLink("Back to List", "Index")
+&lt;/div&gt;
+</pre>
+
+<p>Check the highlighted code in the above markup where I have a DIV called <code>Gravatar</code>. This is where I will display the <code>Gravatar</code> of the person. Remember, when the user enters the email address we need to make sure that the Gravatar of the person displays without being an obstruction to the user, so an AJAX request to the controller will help in achieving this.</p>
+
+<p>Below is the Jquery which will call the controller method called <code>Avatar</code> which accepts <code>email</code> as a parameter of string type.</p>
+
+<pre class="brush:jscript; highlight:[6,8]">
+&lt;script type="text/javascript"&gt;
+    $('#Email').change(function () {
+        $('#Gravatar').html('');
+        var selection = $('#Email').val();
+        if (selection.length > 0) {
+            $.post("/Home/Avatar", { email: selection },
+        function (data) {
+            $('#Gravatar').html(data)
+        })
+        }
+    });
+&lt;/script&gt;
+</pre>
+
+<p>The above script is simple and here I am calling the controller&rsquo;s <code>Avatar</code> method which returns an <code>HtmlString</code>. At line 6, we are making a request and calling the controller&rsquo;s method. At line 8, the data (which is a HTML) returned will be set on the DIV called Gravatar (the placeholder for the Gravatar image).</p>
+
+<p><img src="/images/app-gravatar.png" alt="Gravatar being rendered on web page" /></p>
+
+<p>The controller method <code>Avatar</code> is as follows:</p>
+
+<pre class="brush:csharp">
+public HtmlString Avatar(string email)
+{
+      return Gravatar.GetHtml(email, defaultImage: "http://midnightprogrammer.net/pics/default.gif");
+}
+</pre>
+
+<p>Gravatar is a method is a part of the Microsoft Web Helpers. You can use web helpers by downloading it via <a href="http://nuget.org/">NuGet</a>. Check it out <a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">here</a> if you miss my blog post on how to use Microsoft Web Helpers in MVC.</p>
+
+<p><strong>Related Post:</strong></p>
+
+<ul>
+<li><a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString Class - MSDN</a></li>
+<li><a href="http://nuget.org/List/Packages/microsoft-web-helpers">ASP.NET Web Helpers Library</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -177,436 +551,6 @@
 <p><img src="/images/win7-angrybird-theme.png" alt="Windows 7 Angry Birds theme" /></p>
 
 <p>You can download the Angry Birds theme from the Microsoft downloads center <strong><a href="http://download.microsoft.com/download/4/8/E/48EE7950-8B46-4F4E-BAEE-072875FB2608/AngryBirds.themepack">here</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/bin-deploy-aspnet-mvc-3-application-with-sql-ce-40-entity-framework/">Bin Deploy ASP.NET MVC 3 Application With SQL CE 4.0 &amp; Entity Framework</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 4, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/net-framework">NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p>A few days back <a href="http://haacked.com/">Phil Haack</a> wrote a blog post on <a href="http://haacked.com/archive/2011/05/25/bin-deploying-asp-net-mvc-3.aspx">how to bin deploy ASP.NET MVC 3 application</a> on the web server where ASP.NET MVC 3 is not installed. Like many users I am also on shared hosting and therefore I do not have full control over IIS or the remote machine so I can install or update ASP.NET MVC 3, SQL Server CE 4.0 and other development related stuff. Phil did an excellent post but that works only if you are deploying application with SQL Server as a database. If you are planning to deploy your application with SQL CE as your application backend then here are the steps you need to perform.</p>
-
-<p>I assume that you have your ASP.NET MVC 3 application ready to be deployed with SQL CE 4.0 and EF 4.1. But make sure you have add assembly and for SQL CE 4.0 using NuGet. I recommend you to use NuGet here because it will add all the necessary configurations in Web.config file and also add the correct references to your project. If you have <a href="http://www.microsoft.com/download/en/details.aspx?id=1491">MVC 3 tools update</a> installed then there is no need to add the references for SQL CE 4.0 and for EF 4.1, the default MVC 3 template will do it for you. But there are still some changes to be done in Web.config file.</p>
-
-<p>To deploy your application with SQL CE 4.0 you need to make below changes to the web.config file:</p>
-
-<p>Comment or delete everything inside the <code>connectionStrings</code> tag. The connection string by default is pointing to your default SQL Server instance and as we are going to deploy our application with SQL CE 4.0 we need to change the value under connectionStrings tag like the one below.</p>
-
-<pre class="brush:xml">
-&lt;add name="ContactEntities" connectionString="Data Source=|DataDirectory|DB.sdf" providerName="System.Data.SqlServerCe.4.0" /&gt;
-</pre>
-
-<p>Next is to add <code>DbProviderFactories</code> under <code>System.Data</code> tag. If you run the application on your local development server then it will run without any problems, but if you deploy the web application to the hosting web server where SQL CE 4.0 is not installed then you will get the below error.</p>
-
-<p><img src="/images/bindeploy-error-in-app.png" alt="Bin deploy runtime exception in application" /></p>
-
-<p>To avoid this error you need to manually add the <code>DbProviderFactories</code> in the Web.config file. Below in the markup you need to add to your web.config file.</p>
-
-<pre class="brush:html">
-&lt;system.data&gt;
-    &lt;DbProviderFactories&gt;
-      &lt;remove invariant="System.Data.SqlServerCe.4.0" /&gt;
-      &lt;add name="Microsoft SQL Server Compact Data Provider 4.0" invariant="System.Data.SqlServerCe.4.0" description=".NET Framework Data Provider for Microsoft SQL Server Compact" type="System.Data.SqlServerCe.SqlCeProviderFactory, System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /&gt;
-    &lt;/DbProviderFactories&gt;
-&lt;/system.data&gt;
-</pre>
-
-<p>The best way to do this and to avoid any unnecessary error is to use NuGet. If you use NuGet to deploy SQL CE 4.0 then it will add all necessary configurations to the web.config file, add the correct dependent assembly to the project.</p>
-
-<p><strong>Copy all the dependencies to the BIN folder</strong></p>
-
-<p>The question here is how the one knows what are the dependencies and where to find them all so that they can be deployed with the application? To perform this step you should have <a href="http://www.microsoft.com/download/en/details.aspx?id=23691">Visual Studio 2010 Service Pack 1</a> (VS 2010 SP1) installed on your machine. After installing VS 2010 SP1 there will be an option called <code>Add Deployable Dependencies</code> added when the user right-click the project icon in the solution explorer. When you click this option a dialog box appears which allows you to select the dependencies required for the project.</p>
-
-<p><img src="/images/vs-add-deployable-dependencies.png" alt="Adding deployable assemblies in Visual Studio" /></p>
-
-<p>If you have read Phil&rsquo;s post by now, you might know the difference of all the above options. Here, as we are deploying SQL CE 4.0 database we will also check <code>SQL Server Compact</code> also. Click <code>OK</code> button to add all the required dependencies. As soon as you click OK button you will notice that a new folder named <code>_bin_deployableAssemblies</code> gets added to the solution explorer.</p>
-
-<p><img src="/images/bin-deploy-solution-explorer.png" alt="Deplyable assemblies in solution explorer" /></p>
-
-<p>After adding all the dependencies you then need to build you web application which then copies all the dependencies to the project&rsquo;s or web application&rsquo;s bin folder. While deploying the application we will place each file with similar directory structure in the BIN folder on the hosting web server where ASP.NET MVC 3, SQL CE 4.0 and EF 4.1 is not installed. Just in case if you are wondering on how to deploy EF 4.1, then there is no other thing to be done to deploy EF 4.1, a DLL named <code>EntityFramework</code> inside the bin folder will do the work for us.</p>
-
-<p><strong>Note: I have made no changes to the directory structure while placing files at the remote hosting server.</strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/getting-started-with-netmf-and-netduino/">Getting Started With NETMF And Netduino</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 25, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-micro-framework">.NET MICRO FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>My Netduino card arrived this Sunday but I was not able to play with my new development board due to some serious &ldquo;crap work&rdquo; I was doing. Today I was able to run a small piece of code which blinks the user LED on the Netduino board. The code is simple enough and just like &ldquo;hello world&rdquo; example like we have for all other programming languages.</p>
-
-<p>Here is my Netduino kit:</p>
-
-<p><img src="/images/netduino-kit.jpg" alt="Netduino Kit" /></p>
-
-<p>The best part of this development board is that it is the advanced version of the very famous Ardunio boards. Below is the detailed comparison of the three boards.</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Netduino</th>
-<th>Arduino Uno</th>
-<th>Arduino Mega 2560</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>CPU</td>
-<td>Atmel ATSAM7X</td>
-<td>Atmel ATmega328</td>
-<td>Atmel ATmega2560</td>
-</tr>
-
-<tr>
-<td>Architecture</td>
-<td>32-bit ARM7</td>
-<td>8-bit AVR</td>
-<td>8-bit AVR</td>
-</tr>
-
-<tr>
-<td>Clock</td>
-<td>48 Mhz</td>
-<td>16 Mhz</td>
-<td>16 Mhz</td>
-</tr>
-
-<tr>
-<td>MIPS / Mhz</td>
-<td>0.9</td>
-<td>1</td>
-<td>1</td>
-</tr>
-
-<tr>
-<td>MIPS</td>
-<td>43.2</td>
-<td>16</td>
-<td>16</td>
-</tr>
-
-<tr>
-<td>Code</td>
-<td>128 KB</td>
-<td>32 KB</td>
-<td>256 KB</td>
-</tr>
-
-<tr>
-<td>RAM</td>
-<td>60KB</td>
-<td>2 KB</td>
-<td>8 KB</td>
-</tr>
-
-<tr>
-<td>Flash</td>
-<td>512 KB</td>
-<td>32 KB</td>
-<td>256 KB</td>
-</tr>
-
-<tr>
-<td>SRAM</td>
-<td>128 KB</td>
-<td>2 KB</td>
-<td>8 KB</td>
-</tr>
-
-<tr>
-<td>EEPROM</td>
-<td>–</td>
-<td>1 KB</td>
-<td>4 KB</td>
-</tr>
-
-<tr>
-<td>Pins</td>
-<td>14 Dig. I/O (4 PWM)</td>
-<td>14 Dig. I/O (6 PWM)</td>
-<td>54 Dig. I/O (14 PWM)</td>
-</tr>
-
-<tr>
-<td></td>
-<td>6 analog-in or digital I/O</td>
-<td>6 analog-in</td>
-<td>16 analog-in</td>
-</tr>
-
-<tr>
-<td>UARTs</td>
-<td>2</td>
-<td>1</td>
-<td>4</td>
-</tr>
-
-<tr>
-<td>output limits</td>
-<td>8 mA / pin &amp; 16 mA / PWM</td>
-<td>40 mA per Pin</td>
-<td>40 mA per Pin</td>
-</tr>
-</tbody>
-</table>
-
-<p>As you can see from the above comparison, the Netduino board is 3x faster than the Arduino and on the top it has 30x the RAM and check the processor 32-bit ARM7 awesome!!</p>
-
-<p><strong>Getting Started</strong></p>
-
-<p>To get started, you first need to set up your machine with some SDKs from Microsoft and Netduino. Below is the list of the SDKs you need to install on your development machine:</p>
-
-<ul>
-<li><a href="http://www.netduino.com/downloads/MicroFrameworkSDK.msi">.NET Microframework SDK 4.1</a></li>
-<li><a href="http://www.netduino.com/downloads/netduinosdk_32bit.exe">Netduino SDK</a></li>
-<li><a href="http://www.netduino.com/downloads/gettingstarted.pdf">Getting started guide on Netduino</a></li>
-</ul>
-
-<p>This is it and you are good to go with your first Netduino application. Fire Visual Studio and create new project under Micro Framework and select Netduino Application.</p>
-
-<p><img src="/images/vs-netduino-project-template.png" alt="Netduino project template in Visual Studio" /></p>
-
-<p>I have named the project Blink because we are going to blink the LED on board. As you can see there are two LEDs on the board. The one near the micro-USB indicates power (white) and the one near the onboard button is user LED (blue).</p>
-
-<p>We are going to blink the user LED and for this I am going to use the code from the getting started guide form Netduino (nothing fancy here from my side) I am just re-using the code. below is the code you have to put inside you main method:</p>
-
-<pre class="brush:csharp">
-OutputPort led = new OutputPort(Pins.ONBOARD_LED, false);
-while (true)
-{
-        led.Write(true); // turn on the LED
-        Thread.Sleep(250); // sleep for 250ms
-        led.Write(false); // turn off the LED
-        Thread.Sleep(250); // sleep for 250ms
-}
-</pre>
-
-<p>Now before you hit F5 go to project properties and under <code>.NET Micro Framework</code> change the <code>Transport</code> mode from <code>Emulator</code> to <code>USB</code>. As soon as you change the <code>Transport</code> mode you will notice the <code>Device</code> has been changed from <code>Microsoft Emulator</code> to <code>Netduino_Netduino</code>. Now press F5 and the application will get deployed to your Netduino board.</p>
-
-<p><img src="/images/vs-netduino-project-properties.png" alt="Netduino project properties" /></p>
-
-<p>This is just a simple thing to do with a small but powerful development board. There are people around the globe building some amazing things with Netdunio and Arduino shields. In my next post I will show you how to erase Netduino memory for other application to deploy.</p>
-
-<p>Below are some of the resources that I think you may find useful:</p>
-
-<ul>
-<li><a href="http://10rem.net/blog/2011/01/19/10-interesting-net-micro-framework-demos-and-applications">10 Interesting .NET Micro Framework Demos and Applications - Pete Brown</a></li>
-<li><a href="http://10rem.net/blog/2010/09/24/using-a-4x20-hd44780-controlled-lcd-display-with-the-netduino">Using a 4x20 HD44780-controlled LCD Display with the Netduino - Pete Brown</a></li>
-<li><a href="http://blog.bobcravens.com/2010/09/gps-using-the-netduino/">GPS using the Netduino - Bob Cravens</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/how-to-be-a-rockstar-freelancer/">How To Be A Rockstar Freelancer</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 10, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
-      
-      
-      
-      
-    </span>
-    <p>A friend of mine who is a freelancer purchased the PDF version of this book and sends over me a copy to read today. If you are a freelancer or working from home then this is the book you should read and follow. I am bit lazy in reading non-tech related books or articles but this book is worth reading as compared to some other tech books. I am reading this book at the moment and I must said that this is the best book available for freelancers and for the people who are working from home.</p>
-
-<p>I always wanted to be a freelancer but somehow I got into the job thing. Maybe not today but in the near future I will start freelancing but part-time. It&rsquo;s the right time for me to start following to the guidelines in this book so when I start I will have a complete picture in my head about my work and time.</p>
-
-<p>Here is the quote from the publisher&rsquo;s (Rockable Press) site:</p>
-
-<blockquote>
-<p>Covering everything from getting started to expanding your business, How to Be a Rockstar Freelancer is the official <a href="http://freelanceswitch.com/">FreelanceSwitch</a> book. Written by Collis &amp; Cyan Ta’eed – the founders of the site – it’s packed with new information, advice and insights not covered on the blog.</p>
-
-<p>If you want to start your freelance career the right way, then How to Be a Rockstar Freelancer will give you everything you need to become the best freelancer in town!</p>
-</blockquote>
-
-<p>You can purchase this book online from the <a href="http://rockablepress.com/books/rockstar-freelancer/">Rockable Press website</a>. There are two versions of this book available one is in PDF and a paperback copy. And don&rsquo;t forgot to check other stuff on their website, they also have some other Rocking books.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/prepare-your-site-for-ie9-with-pinify/">Prepare Your Site For IE9 With Pinify</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 14, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/ie9ify-logo.png" alt="IE9ify Logo"/></p>
-
-<p>This is great stuff. If you own a website or a blog you should use this excellent feature of pinning fav links of your site on user&rsquo;s Windows 7 taskbar. Though this feature of IE9 was on hype since it&rsquo;s beta realease. Now it&rsquo;s time to use this feature for my blog. But before you start grab the latest stable version of the <a href="http://ie9ify.codeplex.com/">Pinify (formerly know as IE9ify) from Codeplex</a>.</p>
-
-<p><strong>About Pinify</strong></p>
-
-<p>This plugin is written in jQuery and is hosted on Codeplex. I highly recommend you to follow this project on Codeplex. This plugin is not just about pinning, but also allows the user to customize the skin of the browser, adds a jumplist of your favourite links to the taskbar, overlay icons, tasks and thumbbar buttons. This is a total different user experience for the users /readers of your blog or site.</p>
-
-<p><strong>Preparing your site for the new experience</strong></p>
-
-<p>By now you have downloaded the latest release of the pinify from Codeplex. Open your site in Visual Studio and get to the head section. Fire the below NuGet command to install the Pinify plugin.</p>
-
-<p><img src="/images/ie9ify-nuget-cmd.png" alt="IE9ify Nuget Command" /></p>
-
-<p>For the simplest implementation of this plugin, use the below script in the head section of your page.</p>
-
-<pre class ="brush:jscript">
-&lt;script src="Scripts/jquery-1.5.2.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="Scripts/jquery.pinify.js" type="text/javascript"&gt;&lt;/script&gt;
- 
-&lt;script type="text/javascript"&gt;
-$().ready(function () {
-     $('head').pinify();
-});
-&lt;/script&gt;
-</pre>
-
-<p>Hit F5 and make sure you have selected IE9 as your default browser. After you see your site home page in the browser hit F12 to get the IE9 developer window. Under HTML tab expand the <code>Head</code> tree and you will come to see few meta tags.</p>
-
-<p><img src="/images/ie9ify-html-source.png" alt="IE9ify HTML source" /></p>
-
-<p>Drag and drop the tab to your task bar. This time a new IE window will open but with a difference. Check out below, the navigation buttons has a different color, the site has an icon also.</p>
-
-<p><img src="/images/ie9ify-address-bar.png" alt="IE9ify icon in the address bar" /></p>
-
-<p>In the above screenshot you can see the default IE icon because I have not set the favicon for my site. Once I set the fav icon in the head section of my page, I will then have a new favicon to show off. Same is with the navigation buttons, here what you are seeing is the default color, you can set your own like yellow or red or some other different color which matches the theme of your site.</p>
-
-<p>Let&rsquo;s take a bit more complicate example. Now I want to do the same for my blog. For the moment I will have the following in the jumplist.</p>
-
-<ul>
-<li>Archives - Link to my blog archive.</li>
-<li>Twitter</li>
-<li>Facebook and</li>
-<li>Contact Me</li>
-</ul>
-
-<p>The icon will be the same as my current favicon. To implement pinify for my blog I do all the work in master page which is <code>site.master</code> in my case. Copy and paste the below script in the head section of your page. Change the text and links accordingly.</p>
-
-<pre class="brush:jscript">
-&lt;script src="Scripts/jquery-1.5.2.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="Scripts/jquery.pinify.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-        &dollar;().ready(function () {
-            &dollar;('head').pinify({
-                applicationName: 'Midnight Programmer',
-                tooltip: 'Programming For Fun',
-                tasks: [{
-                    'name': 'Archive',
-                    'action': 'http://midnightprogrammer.net/archive.aspx',
-                    'icon': 'favicon.ico'
-                },
-                {
-                    'name': 'Twitter',
-                    'action': 'http://twitter.com/prashantmx',
-                    'icon': 'twitter.ico'
-                },
-                {
-                    'name': 'Facebook',
-                    'action': 'http://facebook.com/khandelwal.p',
-                    'icon': 'facebook.ico'
-                },
-                {
-                    'name': 'Contact Me',
-                    'action': 'http://www.midnightprogrammer.net/contact.aspx',
-                    'icon': 'favicon.ico'
-                }]
-            });
-        });
-&lt;/script&gt;
-</pre>
-
-<p>After adding the script drag the tab to the taskbar and right-click it to view the task list.</p>
-
-<p><img src="/images/ie9ify-taskbar-options.png" alt="IE9ify Jumplist options" /></p>
-
-<p><img src="/images/ie9ify-address-bar-change.png" alt="IE9ify Address bar" /></p>
-
-<p>There are many other things which you can do with this plugin. I have just showed a simplest way to get you jump started with pinify. As you are reading this post try dragging the tab on your windows taskbar and right-click to see the task list as shown above.</p>
-
-<p>There are many things which can be done with pinify. To know more read the below links.</p>
-
-<ul>
-<li><a href="http://ie9ify.codeplex.com/">Pinify - CodePlex</a></li>
-<li><a href="http://nuget.org/List/Packages/jQuery.ie9ify">NuGet Gallery - Pinify</a></li>
-<li><a href="http://msdn.microsoft.com/en-us/library/gg131029(VS.85).aspx">Pinned Sites: Windows 7 Desktop Integration with Internet Explorer 9</a></li>
-<li><a href="http://www.userinexperience.com/post/Applify-Your-Sites-with-Pinned-Sites-and-ie9ify-the-IE9-jQuery-Plugin.aspx">Brandon Satrom post on Pinify</a></li>
-</ul>
 
   </div>
   
@@ -963,32 +907,76 @@ if (!doNotTrack) {
   crossorigin="anonymous">
 </script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css" rel="stylesheet">
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
 
 <script>
-    SyntaxHighlighter.defaults['gutter'] = true;
-    SyntaxHighlighter.defaults['smart-tabs'] = true;
-    SyntaxHighlighter.defaults['auto-links'] = true;
-    SyntaxHighlighter.defaults['collapse'] = false;
-    SyntaxHighlighter.defaults['light'] = false;
-    SyntaxHighlighter.defaults['tab-size'] = 4;
-    SyntaxHighlighter.defaults['toolbar'] = false;
-    SyntaxHighlighter.defaults['wrap-lines'] = true;
-    SyntaxHighlighter.all();
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
 </script>
+
 
     </body>
 </html>

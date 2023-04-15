@@ -6,10 +6,20 @@
     <description>Recent content on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Apr 2023 12:13:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 14 Apr 2023 15:36:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How To Host Your React Application For Cheap With Azure Blob Storage</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/</link>
+      <pubDate>Fri, 14 Apr 2023 15:36:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/</guid>
+      <description>If you have a static website, blog or a react application, here is how you can host them for cheap with Azure Blob Storage. This article focuses on how you can configure Azure Blob Storage to host your static website or react application.
+Starting with create-react-app Creating a react application is simple with create-react-app and then build the optimized output of the application by running npm run build command. This will publish the optimized version of the react app in the build folder.</description>
+    </item>
     
     <item>
       <title>Capture screenshot and description of a web page using Go and Chromedp</title>
@@ -895,17 +905,6 @@ In one of my previous projects I used the Task Dialog class to use some cool loo
       <guid>https://prashantkhandelwal.github.io/post/adding-captcha-in-aspnet-application/</guid>
       <description>Using CAPTCHA was never easy for me before I got a class from an unknown user on a community forum post. I have just re-used the class to get my work done. The class is extremely easy to use and let you incorporate the CAPTCHA into your application in just few lines of code.
 You can set the height and width of the CAPTCHA image while initializing the CAPTCHA class. The CAPTCHA image generated from the class can be set to the image control directly or it can be save to the local path and then set to the image control.</description>
-    </item>
-    
-    <item>
-      <title>Autocomplete With jQuery and ASP.NET</title>
-      <link>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</link>
-      <pubDate>Sun, 19 Dec 2010 01:46:00 +0000</pubDate>
-      
-      <guid>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</guid>
-      <description>Building auto-complete feature with jQuery is easy and you can build this in no time. It&amp;rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&amp;rsquo;s begin up getting files under one hood.
-Use the below live links for jQuery auto-complete and CSS.
-&amp;lt;link rel=&#34;stylesheet&#34; href=&#34;http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css&#34; type=&#34;text/css&#34; /&amp;gt; &amp;lt;script type=&#34;</description>
     </item>
     
     <item>

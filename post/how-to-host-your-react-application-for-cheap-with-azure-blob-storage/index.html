@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>How To Host Your React Application For Cheap With Azure Blob Storage • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="How To Host Your React Application For Cheap With Azure Blob Storage"/>
+<meta name="twitter:description" content="If you have a static website, blog or a react application, here is how you can host them for cheap with Azure Blob Storage. This article focuses on how you can configure Azure Blob Storage to host your static website or react application.
+Starting with create-react-app Creating a react application is simple with create-react-app and then build the optimized output of the application by running npm run build command. This will publish the optimized version of the react app in the build folder."/>
+
+<meta property="og:title" content="How To Host Your React Application For Cheap With Azure Blob Storage" />
+<meta property="og:description" content="If you have a static website, blog or a react application, here is how you can host them for cheap with Azure Blob Storage. This article focuses on how you can configure Azure Blob Storage to host your static website or react application.
+Starting with create-react-app Creating a react application is simple with create-react-app and then build the optimized output of the application by running npm run build command. This will publish the optimized version of the react app in the build folder." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/" /><meta property="article:published_time" content="2023-04-14T15:36:00&#43;00:00"/>
+<meta property="article:modified_time" content="2023-04-14T15:36:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2023 Pashant Khandelwal
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">How To Host Your React Application For Cheap With Azure Blob Storage</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Apr 14, 2023
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/azure">AZURE</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/react">REACT</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/web">WEB</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>If you have a static website, blog or a react application, here is how you can host them for cheap with Azure Blob Storage. This article focuses on how you can configure Azure Blob Storage to host your static website or react application.</p>
+
+<h3 id="starting-with-create-react-app"><strong>Starting with create-react-app</strong></h3>
+
+<p>Creating a react application is simple with <code>create-react-app</code> and then build the optimized output of the application by running n<code>pm run build</code> command. This will publish the optimized version of the react app in the <code>build</code> folder.</p>
+
+<blockquote>
+<p>IMPORTANT: If you are using Next.JS or any other framework which require server-side rendering then hosting your application with Azure Blob Storage will not work as server-side rendering demands a web server to deliver the content to the client.</p>
+</blockquote>
+
+<h3 id="creating-and-configuring-azure-storage-account"><strong>Creating and Configuring Azure Storage Account</strong></h3>
+
+<p>Once the build is completed successfully, it is time to configure Azure Blob Storage to host the static website. Go to <a href="https://portal.azure.com">portal.azure.com</a> and create a new resource by clicking <code>Create a resource</code> and then search for <code>Blob Storage</code>.</p>
+
+<p><img src="/images/azure-blob-storage.png" alt="New resource - Azure Blob Storage" /></p>
+
+<p>Select the resource offering which is provided by Microsoft. Click on <code>Create</code> and follow the instructions to create a new <code>Blob Storage Account</code>.</p>
+
+<p>In the <code>Basics</code> tab, fill in the details like shown below.</p>
+
+<p><img src="/images/blob-storage-basics.png" alt="New resource - Azure Blob Storage Basics Tab" /></p>
+
+<p>I have created a new resource group and named it <code>staticweb</code>. You can name it anything you want. The next is <code>Storage account name</code> which you can set what you want but the name you choose here should be unique across Azure. <code>Region</code> is the place where your resources/storage account will get created. You can select the region which is close to your geographic location for lower latencies. If your website, application or blog is very critical, then you can also opt for <code>Geo-zone-redundant-storage</code> which is for critical business applications. As our use case is very simple and our application is not critical, we can select <code>Locally-redundant storage</code>. For <code>Performance</code>, you can select <code>Standard</code>, but if you want lower latencies then you can select <code>Premium</code>.</p>
+
+<blockquote>
+<p>Check pricing with <a href="https://azure.microsoft.com/en-in/pricing/calculator/">Azure Pricing Calculator</a> before you proceed with any service in Azure. This will give you an idea of how much money you have to spend with these settings over a period of a month.</p>
+</blockquote>
+
+<p>Let’s keep all other settings as they are and click <code>Create</code> to provision a new Storage Account.</p>
+
+<p><img src="/images/blob-storage-review-create.png" alt="New resource - Azure Blob Storage review and create" /></p>
+
+<p>After the storage account is created, under <code>Data management</code>, select <code>Static website</code>.</p>
+
+<p><img src="/images/azure-storage-static-website.png" alt="Azure Blob Storage static website" /></p>
+
+<p>Static websites are disabled by default. Click on <code>Enabled</code> and you will see two fields are now visible asking for the index document name and error document path.</p>
+
+<p><img src="/images/static-website-enabled.png" alt="Static website enabled" /></p>
+
+<p>Depending on the landing, default or index page of your application, you can enter the name of the document here. In my case where I am hosting a react application, the index document name is <code>index.html</code> and error document can be <code>404.html</code> or something else. I don’t have an error document, so I am leaving it blank.</p>
+
+<p>Click <code>Save</code> to save the setting. You will now have the URL of your static website along with the name of the container where the contents of your static app should be uploaded.</p>
+
+<p><img src="/images/static-website-url.png" alt="Static website url" /></p>
+
+<p>Notice the container name is <code>$web</code> and the primary endpoint is <a href="https://myawesomewebsite.z13.web.core.windows.net/">https://myawesomewebsite.z13.web.core.windows.net/</a>.</p>
+
+<p>You can also navigate to this <code>$web</code> container by clicking <code>Containers</code> under <code>Data storage</code> section.</p>
+
+<p><img src="/images/static-website-containers.png" alt="Static website container" /></p>
+
+<h3 id="upload-static-contents-of-web-app"><strong>Upload static contents of web app</strong></h3>
+
+<p>Uploading multiple files directly from the portal is a tedious task and takes a lot of time. I would recommend making use of an open-source tool called <a href="https://azure.microsoft.com/en-us/products/storage/storage-explorer">Azure Storage Explorer</a>. Download this for your operating system and install it.</p>
+
+<p><img src="/images/azure-storage-explorer.png" alt="Azure storage explorer" /></p>
+
+<p>There are a few ways to connect to the storage account in Storage Explorer.</p>
+
+<ul>
+<li>Sign in with your Azure credentials and connect to all the storage accounts you have in your subscription.</li>
+<li>Use storage account connection string to connect to a specific storage account.</li>
+</ul>
+
+<p>Click on <code>Attach a resource</code> on the <code>Get Started</code> page or right click <code>Storage Account</code> and select <code>Connect to Azure storage…</code></p>
+
+<p><img src="/images/storage-explorer-select-resource.png" alt="Azure storage explorer - Select Resource" /></p>
+
+<p>You can also select <code>Blob container</code> and then generate the <code>SAS token</code> to connect to a container. I am connecting my storage account with storage account connection string. You can get the connection string from the Azure Portal.</p>
+
+<p><img src="/images/storage-access-keys.png" alt="Storage account access keys" /></p>
+
+<p>Under <code>Security + Networking</code>, click <code>Access Keys</code> and then click on <code>Show</code> button for <code>Key1 &gt; Connection string</code>. Click <code>Copy to clipboard</code> icon to copy the connection string.</p>
+
+<p>Back in the Storage Explorer, click on <code>Connection string (Key or SAS)</code>.</p>
+
+<p><img src="/images/storage-explorer-connection-method.png" alt="Storage explorer - connection method" /></p>
+
+<p>Enter the connection information and click <code>Next</code>.</p>
+
+<p><img src="/images/storage-explorer-connection-info.png" alt="Storage explorer - connection info" /></p>
+
+<p><img src="/images/storage-explorer-summary.png" alt="Storage explorer - summary" /></p>
+
+<p>Review the final details and click on <code>Connect</code> to connect to the storage account.</p>
+
+<p>After the connection is succeeded, you should see the list of all the containers in the storage account.</p>
+
+<p><img src="/images/storage-explorer-container-view.png" alt="Storage explorer - Container view" /></p>
+
+<p>Select the <code>$web</code> container and start uploading the files of your static web app.</p>
+
+<p><img src="/images/react-build-app.png" alt="React build app output" /></p>
+
+<p><img src="/images/storage-explorer-files-uploaded.png" alt="Storage explorer - Uploaded contents" /></p>
+
+<p>That’s all!!</p>
+
+<p>Let’s check if our react application is running through static website blob storage url or not.</p>
+
+<p>I built my react application by using the <code>npm run build</code> command and these are the files which I am going to upload to the <code>$web</code> container.</p>
+
+<p><img src="/images/static-website-final-result.png" alt="Static Website - Final Result" /></p>
+
+<p>Hooray!! Our react application is successfully hosted and served from Azure Blob Storage.</p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Capture screenshot and description of a web page using Go and Chromedp</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+ 
+
+
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
+
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
+
+<script>
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

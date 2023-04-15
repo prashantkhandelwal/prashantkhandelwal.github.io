@@ -6,19 +6,19 @@
     <description>Recent content in React on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Mar 2023 13:35:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 14 Apr 2023 15:36:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/category/react/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Autocomplete 2 million Records In React With ZincSearch And Go</title>
-      <link>https://prashantkhandelwal.github.io/post/autocomplete-2-million-records-in-react-with-zinsearch-and-go/</link>
-      <pubDate>Fri, 31 Mar 2023 13:35:00 +0000</pubDate>
+      <title>How To Host Your React Application For Cheap With Azure Blob Storage</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/</link>
+      <pubDate>Fri, 14 Apr 2023 15:36:00 +0000</pubDate>
       
-      <guid>https://prashantkhandelwal.github.io/post/autocomplete-2-million-records-in-react-with-zinsearch-and-go/</guid>
-      <description>Everyone loves fast search results.
-In 2017 (if I am remembering it correctly), at Microsoft Build event, Microsoft announces Bot framework and did a demo with CosmosDB graph database which uses Gremlin query from Apache TinkerPop. It was a great demo and I was really impressed how they did it but unfortunately I was unable to find the source code for that demo anywhere. So I thought I should atleast get the graph database for my own use and then sometime later will work on building a NLU bot.</description>
+      <guid>https://prashantkhandelwal.github.io/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/</guid>
+      <description>If you have a static website, blog or a react application, here is how you can host them for cheap with Azure Blob Storage. This article focuses on how you can configure Azure Blob Storage to host your static website or react application.
+Starting with create-react-app Creating a react application is simple with create-react-app and then build the optimized output of the application by running npm run build command. This will publish the optimized version of the react app in the build folder.</description>
     </item>
     
   </channel>
