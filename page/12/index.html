@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-04-24T13:38:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-04-28T12:53:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,134 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/infinite-scrolling-in-aspnet-with-jquery/">Infinite Scrolling In ASP.NET With jQuery</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 28, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I didn&rsquo;t create the whole solution by myself. The initial idea is from the <a href="http://code.msdn.microsoft.com/VBASPNETInfiniteLoading-10c3f379">All-In-One Code Framework sample</a>. I was just customizing my BlogEngine and for one of the module I thought it would be nice not to use paging and I should go for infinite scrolling stuff. This idea seems cool to me and without wasting any time I just do a quick web search and I came across a solution which is a part of a <a href="http://1code.codeplex.com/">All-In-One Code Framework</a>. This was not the complete solution I was looking for but I can re-use the jQuery part in the sample.</p>
+
+<h4 id="assembling-jquery-part">Assembling jQuery Part</h4>
+
+<p>I just re-use the all jQuery script as it is without any major modification. The only change I made is the name of the web method in the <code>url</code> parameter of the Ajax method I have in page code behind and change the method name to <code>InfiniteScroll</code>:</p>
+
+<pre class="brush: jscript">
+function InfiniteScroll() {
+    $('#divPostsLoader').html('<img src="images/loader.gif">');
+ 
+    //send a query to server side to present new content
+    $.ajax({
+        type: "POST",
+        url: "Default.aspx/GetData",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data != "") {
+                $('.divLoadData:last').after(data.d);
+            }
+            $('#divPostsLoader').empty();
+        }
+    })
+};
+</pre>
+
+<p>I already have 2 <code>divs</code> in the page where the data is being loaded when the user scrolls down at the bottom of the page. This is the simplest Ajax call written in jQuery and I assume you are aware of the syntax and methods and require no explanation. What I require here is to call this function when the user scrolls at the bottom of the page. So how to know when the user scrolls and reach at the bottom of the page? Here is the method which fires the <code>InfiniteScroll()</code> function:</p>
+
+<pre class="brush: jscript">
+$(window).scroll(function () {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        InfiniteScroll();
+    }
+});
+</pre>
+
+<p>Make sure you put the <code>scroll</code> function inside the <code>document.ready</code> function. Now when the user scrolls at the bottom of the page then it will call the <code>InfiniteScroll()</code> function which in turn loads new data in the divLoadData div.</p>
+
+<h4 id="the-code-behind">The Code-Behind</h4>
+
+<p>In the code-behind create a <a href="http://msdn.microsoft.com/en-us/library/byxd99hx(v=vs.90).aspx">WebMethod</a> function that returns a HTML string. For this example I am loading all my blog posts title, post date and slug from my blog engine database which is a SQL Server CE 4.0. Here is the method:</p>
+
+<pre class="brush: csharp">
+[WebMethod]
+public static string GetData()
+{
+    RecordCount = RecordCount + 10;
+    string Sql = "SELECT Title, DateCreated, Slug FROM be_Posts ORDER BY Title OFFSET " + FirstCount + " ROWS FETCH NEXT 10 ROWS ONLY";
+    FirstCount = RecordCount;
+    StringBuilder sb = new StringBuilder();
+    dt = new DataTable();
+    da = new SqlCeDataAdapter(Sql, con);
+    con.Open();
+    da.Fill(dt);
+ 
+    DataView dv = dt.DefaultView;
+ 
+    foreach (DataRowView row in dv)
+    {
+        sb.AppendFormat("&lt;p&gt;Post Title" + " &lt;strong&gt;" + row["Title"] + "&lt;/strong&gt;");
+        sb.AppendFormat("&lt;p&gt;Post Date" + " &lt;strong&gt;" + row["DateCreated"] + "&lt;/strong&gt;");
+        sb.AppendFormat("&lt;p&gt;Slug" + " &lt;strong&gt;" + row["Slug"] + "&lt;/strong&gt;");
+        sb.AppendFormat("&lt;hr/&gt;");
+    }
+ 
+    sb.AppendFormat("&lt;divstyle='height:15px;'&gt;&lt;/div&gt;");
+    con.Close();
+    return sb.ToString();
+}
+</pre>
+
+<p>Infinite scrolling is nothing but is a sort of automatic paging. Every time a user scrolls down at the bottom of the page, the query gets fired and gets the new set of data. As I am using SQL CE 4.0 the paging query is different than that of the SQL Server 2008.</p>
+
+<h4 id="query-for-sql-ce-4-0">Query for SQL CE 4.0:</h4>
+
+<pre class="brush: sql">
+SELECT Title, DateCreated, Slug FROM be_Posts ORDER BY Title OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY
+</pre>
+
+<p>Change the OFFSET and FETCH NEXT to get the next result set.</p>
+
+<h4 id="query-for-sql-server-2008">Query For SQL Server 2008</h4>
+
+<pre class="brush: sql">
+SELECT Title, DateCreated, Slug FROM ( 
+     SELECT
+          ROW_NUMBER() OVER (ORDER BY title) AS row, Title, DateCreated, Slug
+     FROM be_Posts
+) AS a WHERE row BETWEEN 1 AND 10
+</pre>
+
+<p>I have changed the query in the above code to get me the set of next results every time a user scrolls at the bottom of the page. When the user scrolls down I increment the <code>FirstCount</code> with 10 which is a value of RecordCount variable. I have attached the complete solution so you can try. I don&rsquo;t have the database included in the solution as it is my blog database. You have to create one to test it out.</p>
+
+<p><strong>Download</strong>: <a href="/files/InfiniteScroll.zip">InfiniteScroll.zip (2.28 mb)</a></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -540,59 +668,6 @@
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/bingmapjs-jquery-plugin-for-bing-maps/">BingMap.JS - Jquery Plugin For Bing Maps</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 10, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p><img align="right" src="/images/bingmap-logo.jpg" alt="Bing Maps Logo"/></p>
-
-<p><a href="http://www.bing.com/maps">Bing maps</a> are out there for a long time now and is getting mature pretty fast. I have used Bing maps myself in few of my projects and I remember as a first time user I have a hard time configuring it according to my project requirement. To get myself out of the overhead I searched the web for a jquery plugin, but I can&rsquo;t find a single jquery plugin for Bing Maps instead I found few for Google Maps. I do have some knowledge of jquery and <a href="http://www.microsoft.com/maps/developers/web.aspx">Bing map API</a>, so I decided to write a jquery plugin for Bing map in my free time that will handle all necessary configurations and all the hard work for me and more importantly save my time.</p>
-
-<h4 id="how-i-get-started-and-how-it-ended-up">How I get started and how it ended up</h4>
-
-<p>Initially I started writing a plugin to just set up the default configuration like setting the map with different modes, zoom level and other necessary configurations, but I ended up doing something more. Besides just the normal configurations of the map I was also able to incorporate Bing map API to search and pinpoint the address on the map. Now if you have an address and you want that to be located on the map then you just have to write in the address in the address parameter and do the other necessary configuration like if you want to show the pushpin on the map or not, or you can set the description on the balloon tip when the user hover the mouse on the pushpin. You can also change the view modes and can also set the zoom level. Plenty of stuff in the plugin and I will add more to make it more flexible and more productive. The API thing in the plugin was just the test from my side, I never thought of using the API in the plugin when I started writing it. But I am happy that I ended up making something useful for myself and I am sure enough that it will help other fellow developers out there also.</p>
-
-<h4 id="where-to-get-the-plugin">Where to get the plugin?</h4>
-
-<p>I have a dedicated a page for the Bing Map plugin here. There are still few changes to be made on the page so that it can have more information. In the next phase I am planning to have a demo page and provide more information on plugin.</p>
-
-<p><strong><em>Make sure to read about the plugin and the configurations before you get started with the plugin at <a href="http://midnightprogrammer.net/bingmapjs/">Bing map plugin home page</a>.</em></strong></p>
-
-<p>If you are using <a href="http://nuget.org/packages/BingMapJS">NuGet</a> then you can fire up the below command to install it into the <code>Scripts</code> folder.</p>
-
-<p><img src="/images/bingmaps-nuget.png" alt="Bingmaps Nuget Command" /></p>
-
-  </div>
-  
 </div>
 
 
@@ -910,7 +985,16 @@
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -918,7 +1002,7 @@
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

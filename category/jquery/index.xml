@@ -122,6 +122,17 @@ To get started add the two javascript files, one is the jquery file and the othe
     </item>
     
     <item>
+      <title>Autocomplete With jQuery and ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</link>
+      <pubDate>Sun, 19 Dec 2010 01:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</guid>
+      <description>Building auto-complete feature with jQuery is easy and you can build this in no time. It&amp;rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&amp;rsquo;s begin up getting files under one hood.
+Use the below live links for jQuery auto-complete and CSS.
+&amp;lt;link rel=&#34;stylesheet&#34; href=&#34;http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css&#34; type=&#34;text/css&#34; /&amp;gt; &amp;lt;script type=&#34;</description>
+    </item>
+    
+    <item>
       <title>Upload Multiple Files With jQuery &#39;Uploadify&#39;</title>
       <link>https://prashantkhandelwal.github.io/post/upload-multiple-files-with-jquery-uploadify/</link>
       <pubDate>Sun, 12 Sep 2010 11:00:00 +0000</pubDate>

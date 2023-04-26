@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2017-04-02T07:39:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2017-05-08T15:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,265 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/single-sign-on-in-aspnet-core-with-azure-active-directory/">Single Sign-On In ASP.NET Core With Azure Active Directory</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 8, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>Visual Studio has made integrating of Azure Active Directory authentication in web applications very simple. If you are creating the application and want to integrate the AD authentication then it is a pretty easy task given that you have an Active Directory in Azure. But what if you have an application and it is out there running and now you want to change the authentication medium of your application so you can have better control and security of your web application. I already have an application and I want to integrate Azure AD authentication, hence I will not be able to change the authentication just like that. I have to manually make the changes to do so. So here it is what I have done to integrate Azure Active Directory in my ASP.NET Core web application.</p>
+
+<h5 id="step-1-create-azure-active-directory">Step 1: Create Azure Active Directory</h5>
+
+<p>When provisioning a new Azure Active Directory you have to go to the old <a href="manage.windowsazure.com">portal manage.windowsazure.com</a>. At the time of writing this blog post, the product team is still in a process of migrating the complete AD feature sets from the old portal to the new portal. Therefore, to create a new AD in Azure, click the <code>Active Directory</code> in the left pane and you will be able to see all the active directories. In the below screen shot you can see that I am a part of Microsoft Active Directory as a <code>User</code>.</p>
+
+<p><img src="/images/active-directory.png" alt="Active Directory" /></p>
+
+<p>If you are planning to use any of the current Active Directory out of the one listed, you can click on it and register your application and users. Note that you have to be a <code>Global Administrator</code> to do that. If you want to create a new Active Directory, then click the <code>NEW</code> button at the bottom left corner to create a new Active Directory.</p>
+
+<p><img src="/images/create-new-ad.png" alt="Create new AD" /></p>
+
+<p>Click on <code>CUSTOM CREATE</code> and a new dialog box will appear in front of you to enter the name of your Active Directory.</p>
+
+<p><img src="/images/add-ad.png" alt="Add AD" /></p>
+
+<p>The green check box in the <code>DOMAIN NAME</code> denotes that the name you have chosen for your active directory is available. When done click the tick button or icon at the bottom right corner of the dialog box to create a new active directory.</p>
+
+<p><img src="/images/new-ad.png" alt="New AD" /></p>
+
+<h5 id="step-2-add-a-user">Step 2: Add a user</h5>
+
+<p>After the creation of active directory is successfully completed, you can see the new created active directory in the list. Notice the <code>ROLE</code> as <code>Global Administrator</code>. Click on the active directory name to view the details. First, I am going to add a new user to the directory. When inside the active directory, click the <code>USERS</code> which in the top of the page.</p>
+
+<p><img src="/images/add-user-ad.png" alt="Add new user in AD" /></p>
+
+<p>I can see a default user added to my new created active directory here which is my official Microsoft user. I cannot delete this user neither I can change much of the roles and other information of this user because it something which is being managed by Microsoft. So to add a new user, click the <code>ADD USER</code> button at the bottom of the page. This will open up a dialog box which allows you to add or create a new user to the active directory. In my case I am going to add a normal user not an administrator, I will keep the the default prompts. The whole process of adding a new user will take 3 steps to complete.</p>
+
+<p><img src="/images/about-user-info.png" alt="User Type in AD" /></p>
+
+<p>In the next screen enter the details about the user. I want to add this user as a normal user hence I am selecting <code>User</code> as a <code>ROLE</code>.</p>
+
+<p><img src="/images/user-profile.png" alt="User Profile in AD" /></p>
+
+<p>In the last step, click the <code>create</code> button to add a new user and generate a temporary password for the new user.</p>
+
+<p><img src="/images/get-temp-password.png" alt="Get temporary password for user" /></p>
+
+<p>Make a note of this password somewhere as you will need it to log in to the account. After the first login, user is prompt to change the password.</p>
+
+<h5 id="step-3-add-an-application-to-the-active-directory">Step 3: Add an application to the Active Directory</h5>
+
+<p>To add a new application, click on the <code>APPLICATION</code> link. Click the <code>ADD</code> button at the bottom of the page to add a new application and then click <code>Add an application my organization is developing</code>.</p>
+
+<p><img src="/images/add-app-ad.png" alt="Add application in AD" /></p>
+
+<p>In the next step enter the name of the application and select the type of application you are building. In my case, it is a web application.</p>
+
+<p><img src="/images/about-app-ad.png" alt="About application" /></p>
+
+<p>In the next step, you add a sign-in URL and app ID URI. The app ID URI I have added is in this format: <code>http://&lt;directoryname&gt;.onmicrosoft.com/adauth</code>. Replace the <code>directoryname</code> with your <code>directory</code> name. The <code>adauth</code> is the name of my application.</p>
+
+<p><img src="/images/add-app-properties.png" alt="Add application properties" /></p>
+
+<p>Once the adding of application is successful, click the <code>USERS</code> link. I can see the new user I have created in the user lists but it is not being assigned to the application yet. To do that, click the <code>ASSIGN</code> button at the bottom of the page and click <code>YES</code>. The <code>ASSIGNED</code> status will be changed from <code>No</code> to <code>Yes</code>.</p>
+
+<p><img src="/images/ad-user-assignment.png" alt="User assignment" /></p>
+
+<h5 id="step-4-setting-up-the-web-application">Step 4: Setting up the web application</h5>
+
+<p>The easy way to set the application up for AD authentication is to create a new &ldquo;demo&rdquo; application and select <code>Change Authentication</code> from the new project dialog box. Select <code>Work or School Accounts</code> and enter the domain name. This will create a new application with all the things set up for your domain. The reason I said &ldquo;demo&rdquo; application because I want to just get the changes that Visual Studio does it for me when I select the AD authentication. This application will now act like a sample application from where I can take the implementation and add it to my existing application.</p>
+
+<p><img src="/images/vs-app-auth-dialog.png" alt="Change auth in Visual Studio" /></p>
+
+<p>Here are the changes I have made to my existing application. As of now my existing application does not have user authentication and now as I want to implement, I will add the account controller and two views which will handle the authentication. In my case this is the account controller, you can name the controller as per your choice. Add two new views in the <code>Views</code> directory for your controller. Call them <code>AccessDenied.cshtml</code> and <code>SignedOut.cshtml</code> respectively.</p>
+
+<blockquote>
+<p>Note that all the changes I am making to my existing application are exactly the same as the sample application.</p>
+</blockquote>
+
+<p>Code for <code>AccessDenied.cshtml</code> view.</p>
+
+<pre class="brush: csharp">
+@{
+   ViewData["Title"] = "Access Denied";
+}
+
+&lt;header&gt;
+    &lt;h1 class="text-danger"&gt;Access Denied.&lt;/h1&gt;
+    &lt;p class="text-danger"&gt;You do not have access to this resource.&lt;/p&gt;
+&lt;/header&gt;
+</pre>
+
+<p>Code for <code>SignedOut.cshtml</code> view.</p>
+
+<pre class="brush: csharp">
+@{
+   ViewData["Title"] = "Sign Out";
+}
+&lt;h2&gt;@ViewData["Title"].&lt;/h2&gt;
+&lt;p class="text-success"&gt;You have successfully signed out.&lt;/p&gt;
+</pre>
+
+<p>Add below NuGet packages for AD authentication support in the application.</p>
+
+<pre class="brush: plain">
+Install-Package Microsoft.AspNetCore.Authentication
+Install-Package Microsoft.AspNetCore.Authentication.Cookies
+Install-Package Microsoft.AspNetCore.Authentication.OpenIdConnect
+</pre>
+
+<p>In the .NET Core project, you will also see a new file called <code>appsettings.json</code>. Add the below configuration to it. Your configuration will than mine.</p>
+
+<pre class="brush: plain">
+"Authentication": {
+  "AzureAd": {
+    "ClientId": "0d9h56ba-ccfd-42f2-9a75-64d8e96756e6",
+    "AadInstance": "https://login.microsoftonline.com/",
+    "CallbackPath": "/signin-oidc",
+    "Domain": "dominicdomain.onmicrosoft.com",
+    "TenantId": "d58e5363-f09c-4d65-9808-cd88396529f0"
+  }
+}
+</pre>
+
+<p>In the <code>Startup.cs</code> file, configure the request pipeline by adding the below code in the <code>Configure</code> method. I have added this code just after the <code>UseStaticFiles()</code> functions. This enables the application to use the cookie authentication and OpenId authentication.</p>
+
+<pre class="brush: csharp">
+app.UseCookieAuthentication();
+ 
+app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+{
+    ClientId = Configuration["Authentication:AzureAd:ClientId"],
+    Authority = Configuration["Authentication:AzureAd:AADInstance"] + Configuration["Authentication:AzureAd:TenantId"],
+    CallbackPath = Configuration["Authentication:AzureAd:CallbackPath"]
+});
+</pre>
+
+<p>In the <code>ConfigureServices</code> method, add the below code.</p>
+
+<pre class="brush: csharp">
+services.AddAuthentication(options =&gt; options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme);
+</pre>
+
+<p>In the <code>AccountController.cs</code>, add the below code.</p>
+
+<pre class="brush: csharp">
+[HttpGet]
+public IActionResult SignIn()
+{
+    return Challenge(
+        new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
+}
+
+[HttpGet]
+public IActionResult SignOut()
+{
+    var callbackUrl = Url.Action(nameof(SignedOut), "Account", values: null, protocol: Request.Scheme);
+    return SignOut(new AuthenticationProperties { RedirectUri = callbackUrl },
+        CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
+}
+
+[HttpGet]
+public IActionResult SignedOut()
+{
+    if (HttpContext.User.Identity.IsAuthenticated)
+    {
+        return RedirectToAction(nameof(HomeController.Index), "Home");
+    }
+
+    return View();
+}
+
+[HttpGet]
+public IActionResult AccessDenied()
+{
+    return View();
+}
+</pre>
+
+<p>Add a new partial view in the <code>Shared</code> folder and name it <code>_LoginPartial.cshtml</code> just like we have in new default scaffold project.</p>
+
+<pre class="brush: csharp">
+@using System.Security.Principal
+@using System.Security.Claims
+
+@if (User.Identity.IsAuthenticated)
+{
+    var claims = ((ClaimsIdentity)User.Identity).Claims;
+    var username = claims.FirstOrDefault(c =&gt; c.Type == "name")?.Value;
+
+    //Uncomment the below code to see the complete email address of the user.
+    @*&lt;li class="navbar-text"&gt;Hello @User.Identity.Name!&lt;/li&gt;*@
+    &lt;ul class="nav navbar-nav navbar-right"&gt;
+        &lt;li class="navbar-text"&gt;Hello @username!&lt;/li&gt;
+        &lt;li&gt;&lt;a asp-area="" asp-controller="Account" asp-action="SignOut"&gt;Sign Out&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+}
+else
+{
+    &lt;ul class="nav navbar-nav navbar-right"&gt;
+        &lt;li&gt;&lt;a asp-area="" asp-controller="Account" asp-action="Signin"&gt;Sign in&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+}
+</pre>
+
+<p>Open <code>_Layout.cshtml</code> page, add the below line of code to render this partial view so users can sign in and sign out.</p>
+
+<pre class="brush: csharp">
+@await Html.PartialAsync("_LoginPartial")
+</pre>
+
+<p>And we are done! This is a minimalistic implementation that you can get start with. Azure Active Directory also provides groups and roles which you need to work with if you are working with the enterprise scale application where security is a major concern. You also have to tweak the code for that. Let&rsquo;s try executing the application and see what happens when I try to authenticate the user for the first time.</p>
+
+<p>When you land on the home page you can see the <code>Sign in</code> link at the top right of the web page.</p>
+
+<p><img src="/images/app-bar.png" alt="App bar" /></p>
+
+<p>When you click on the sign in link, you will be redirected to the <code>login.microsoftonline.com</code> where you will be prompted for the user name and password. After the first successful login, you will be prompted to change the current password.</p>
+
+<p><img src="/images/ad-login-page.png" alt="App AD auth page" /></p>
+
+<p><img src="/images/app-password-change.png" alt="App AD password update page" /></p>
+
+<p>After the successful change of the password, you will be re-directed to the application with your user name as displayed at the top right corner.</p>
+
+<p><img src="/images/app-ad-login-success.png" alt="App AD auth page" /></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -705,208 +964,6 @@ _files = Directory.EnumerateFiles(posts);
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/">Visualizing ADXL345 Accelerometer Output In Windows Forms From Raspberry PI 2</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 26, 2016
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/raspberry-pi">RASPBERRY PI</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>I have been playing a lot with Raspberry PI and Python these days and have also started a side project to create robot car controller with a Xbox 360 wireless controller. I am planning to controller a robot car using a custom interface from my Windows machine. Initially I tried with <a href="https://riverbankcomputing.com/software/pyqt/intro">PyQt</a> but I dropped the idea for now as Python is not my primary expertise and it will take some time for me to learn the basics and get into some serious coding. Controlling something remotely or visualizing the information from your device on the UI is always better. For a proof of concept I built a Windows Forms application which will request the output from Raspberry PI over TCP and then visualize it on the UI using a wonderful chart library that I found today. There is a slight change in the Python code as I have to transmit readings from Raspberry PI over TCP so my Windows Forms application can read the output and utilize it to visualize it.</p>
-
-<p><img src="/images/azure-iot-raspberry.png" alt="RaspberryPi Azure IoT Diagram" /></p>
-
-<h4 id="raspberry-pi-python-application">Raspberry PI Python Application</h4>
-
-<p>Reading the <a href="https://www.sparkfun.com/products/9836">ADXL345</a> output is fairly simple and you can do this without any problem by using Adafruit&rsquo;s <a href="https://github.com/adafruit/Adafruit_Python_ADXL345">ADXL345 Python library</a>. This library will get you started in a jiffy and you will have your readings. I am not going into the details about the different features of the library I am using and ADXL345. The only thing you will have to do is to wire ADXL345 to your Raspberry PI and fire the example code you got from Adafruit&rsquo;s repository from Github. If you have set it up correctly this, you will see X, Y, Z values on your terminal. If the terminal displays <code>0s</code> for all the three axis then there is something wrong with the wiring (assuming you are using the example code). This is how your writing should be like.</p>
-
-<p><img src="/images/raspberrypi-fritz-sketch.png" alt="Raspberry Pi Fritzing Sketch" /></p>
-
-<p>Now I have made slight changes in the code so that I can send the data over TCP. I have created a simple TCP server which exposes Raspberry PI through IP address and a port number. This is the complete code for reading values from ADXL345.</p>
-
-<pre class="brush: python">
-import Adafruit_ADXL345
-import socket
- 
-HOST = "192.168.1.8"
-PORT = 50007
- 
-accel = Adafruit_ADXL345.ADXL345()
- 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST, PORT))
-s.listen(1)
-conn, addr = s.accept()
- 
-while 1:
-    data = conn.recv(1024)
- 
-    if data.strip() == "adxl":
-        x, y, z = accel.read()
-        data = 'X:' + str(x) + '|Y:' + str(y) + '|Z:' + str(z)
-        conn.send(data)
-</pre>
-
-<p>In the code, you can see that I am not just transmitting the readings just like that. I only transmit when there is a request from another application is there to get the readings. This is a good approach as I don&rsquo;t the PI to transmit the readings even if nobody is requesting it. I am sending a single string as a response which I am going to read at my Windows Forms application and use it.</p>
-
-<blockquote>
-<p>You need to change the IP address and port number according to your Pi&rsquo;s configuration.</p>
-</blockquote>
-
-<p>Once this is done you can then execute the script from the terminal by firing the below command</p>
-
-<pre class="brush: bash">
-sudo python adxl.py
-</pre>
-
-<p>This is it from Raspberry PI side. Let&rsquo;s take a look from the Windows side now.</p>
-
-<h4 id="windows-forms-application">Windows Forms Application</h4>
-
-<p>This will be a simple Windows Forms application which will connect to the Raspberry PI using the Pi&rsquo;s IP address and the port on which the server is running. The Windows Form application is also a TCP client which sends a request to Raspberry PI for the updated readings from ADXL345. As I mentioned above in the Python code that the readings are not just being transmitted but a client has to send a request to to get the readings.</p>
-
-<p>Let&rsquo;s get started with the visualizing part. While was searching for a perfect charting library, I came across this wonderful library called <a href="https://lvcharts.net/">Live Charts</a>. This library is open-source, easy to use, has lots of awesome charts and a <a href="https://lvcharts.net/App/examples/wpf/start">very robust documentation</a> and moreover it supports Windows Forms as well as on WPF applications. I highly recommend you to look at the examples to get the idea about this library.</p>
-
-<p>As usual, I will be using Nuget command to install the library.</p>
-
-<pre class="brush: plain">
-PM> Install-Package LiveCharts.WinForms
-</pre>
-
-<p>You also have to add the custom controls in the toolbox. You can follow the steps here to add the Live Charts control in the toolbox. In the design mode, choose the <code>Cartesian Chart</code> control from the toolbox and add it to the form. After adding the control to the form, I have dock it to the top of the form so I can utilize the lower section of the form to display the readings in numbers. Here is how my form looks like in design mode.</p>
-
-<p><img src="/images/winform-design-view.png" alt="Windows Forms design view" /></p>
-
-<p>After the designing for the form is complete, I can initialize the chart to display the readings from Raspberry PI. The chart require few things to be setup before it can start displaying the data correctly. The accelerometer I am using is a 3-axis accelerometer and therefore it is going to send me readings for 3 axis i.e X, Y and Z. This means I will be needing 3 line series to visualize the information from accelerometer. To have 3 line series display the data I have to use <code>CharValues</code> class which will let me display the readings in the line series. As I have to update my chart when I request the new readings from Raspberry PI, I have to use <code>ObservableValue</code> type. The <code>ObservableValue</code> will make sure that whenever there is a change in the value, it gets reflected in the chart and therefore keeping the chart always up to date.</p>
-
-<pre class="brush: csharp">
-public ChartValues&lt;ObservableValue&gt; Values_X { get; set; }
-public ChartValues&lt;ObservableValue&gt; Values_Y { get; set; }
-public ChartValues&lt;ObservableValue&gt; Values_Z { get; set; }
-</pre>
-
-<p>Because I am going to make request to the server running on my Raspberry PI and request for the ADXL345 readings, I have to create a TCP client in order to do so.</p>
-
-<pre class="brush: csharp">
-Socket server;
-IPEndPoint ipEndPoint;
-byte[] data;
-</pre>
-
-<p>When the application is loaded, I want to make connection to Raspberry PI by using it&rsquo;s IP address and port number on which the server is running on. To do this I will add the below code to the constructor of my application.</p>
-
-<pre class="brush: csharp">
- 
-ipEndPoint = new IPEndPoint(
-                IPAddress.Parse("192.168.1.8"), 50007);
- 
-server = new Socket(AddressFamily.InterNetwork,
-               SocketType.Stream, ProtocolType.Tcp);
- 
-try
-{
-    server.Connect(ipEndPoint);
-}
-catch (SocketException)
-{
-    MessageBox.Show("Unable to connect to server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-    return;
-}
-</pre>
-
-<p>The above code is self-explanatory as I am just connecting to Raspberry PI.</p>
-
-<p>In the form load event, I have to initialize chart values and add 3 line series to my <code>CartesianChart</code> for X, Y and Z axis respectively. In my case the name of the Cartesian Chart is <code>ADXLViz</code>.</p>
-
-<pre class="brush: csharp">
-Values_X = new ChartValues&lt;ObservableValue&gt;();
-Values_Y = new ChartValues&lt;ObservableValue&gt;();
-Values_Z = new ChartValues&lt;ObservableValue&gt;();
- 
-ADXLViz.Series.Add(new LineSeries
-{
-    Values = Values_X,
-    Title = "X",
-    StrokeThickness = 4,
-    PointGeometrySize = 0,
-    DataLabels = true
-});
- 
-ADXLViz.Series.Add(new LineSeries
-{
-    Values = Values_Y,
-    Title = "Y",
-    StrokeThickness = 4,
-    PointGeometrySize = 0,
-    DataLabels = true
-});
- 
-ADXLViz.Series.Add(new LineSeries
-{
-    Values = Values_Z,
-    Title = "Z",
-    StrokeThickness = 4,
-    PointGeometrySize = 0,
-    DataLabels = true
-});
-</pre>
-
-<p>Play around with different properties in the <code>LineSeries</code> class and set the output that suits your need or your eye. Notice the Values properties in the <code>LineSeries</code> class which holds the value which is received from Raspberry PI.</p>
-
-<p>I am requesting the readings from Raspberry PI every 500ms and to do this I am using a <code>Timer</code> class. This is easy to use and configure. Just drag and drop the <code>Timer</code> control from the toolbox. In the properties change the <code>Interval</code> property to <code>500</code> and <code>Enabled</code> to <code>True</code>. After this I set the <code>Tick</code> event which will request the new readings every 500ms.</p>
-
-<pre class="brush: csharp">
-string stringData;
-server.Send(Encoding.ASCII.GetBytes("adxl"));
-data = new byte[1024];
-int recv = server.Receive(data);
-stringData = Encoding.ASCII.GetString(data, 0, recv);
-string[] adxl = stringData.Replace(" ", "").Split('|');
- 
-Values_X.Add(new ObservableValue(Convert.ToDouble(adxl[0].Split(':')[1])));
-Values_Y.Add(new ObservableValue(Convert.ToDouble(adxl[1].Split(':')[1])));
-Values_Z.Add(new ObservableValue(Convert.ToDouble(adxl[2].Split(':')[1])));
- 
-if (Values_X.Count &gt; 10) Values_X.RemoveAt(0);
-if (Values_Y.Count &gt; 10) Values_Y.RemoveAt(0);
-if (Values_Z.Count &gt; 10) Values_Z.RemoveAt(0);
- 
-X_Label.Text = Convert.ToString(adxl[0].Split(':')[1]);
-Y_Label.Text = Convert.ToString(adxl[1].Split(':')[1]);
-Z_Label.Text = Convert.ToString(adxl[2].Split(':')[1]);
-</pre>
-
-<p>The <code>stringData</code> variable holds the response or reading which is received from Raspberry PI. If you check the Python code above you will see that the response is being sent in a single string called <code>data</code>. I am splitting the string here and extracting the values and setting it to <code>ChartValues&lt;ObservableValue&gt;</code> object. This will render all the 3 line series chart and update it with the readings received from PI. But the problem here will be that in few minutes the chart will be hard to see due to lot of data congestion in chart. In order to overcome this problem, I have removed the first value from all the 3 line series when the chart displays more than 10 values. You can change the value from 10 to whatever suits you.</p>
-
-<p><img src="/images/adxl345-viz-winform.png" alt="ADXL345 application output" /></p>
-
-<p>The overall idea of building this application is to see whether it is possible or easy to communicate from Raspberry PI apart from using frameworks like <a href="http://webiopi.trouch.com/">WebioPI</a> or <a href="http://flask.pocoo.org/">Flask</a>. The complete source code for Raspberry PI and Windows Forms application is <a href="https://github.com/prashantkhandelwal/Pi-Code/tree/master/ADXL345%20Visualizer">available on Github</a> along with Fritzing sketch file and additional instructions to install the dependencies.</p>
-
-  </div>
-  
 </div>
 
 
@@ -1218,7 +1275,16 @@ Z_Label.Text = Convert.ToString(adxl[2].Split(':')[1]);
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -1226,7 +1292,7 @@ Z_Label.Text = Convert.ToString(adxl[2].Split(':')[1]);
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-10-21T18:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-11-08T20:31:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,129 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/download-albumsimages-from-picasa/">Download albums/images from Picasa</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 8, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>Picasa is an online photo sharing portal from Google. Users from around the globe use Picasa for storing and sharing their photos online. We can view and download images from the album, but only if it is public. We cannot view private albums and also cannot download images from any of the public albums if the owner of the album has denied the access for other users to download the images.</p>
+
+<p>But there is a way from which you can download the images. We are here going to use Google API to achieve this. You can download the Google API for .NET <a href="http://code.google.com/p/google-api-for-dotnet/">here</a>.</p>
+
+<p>To get started we have to first import the namespaces.</p>
+
+<pre class="brush:csharp">
+using Google.GData.Photos;
+using Google.GData.Client;
+using System.IO;
+using System.Net;
+</pre>
+
+<p>Now here is the method which we are going to use to download the images. The methods takes in two parameters username and the album name. To get the username for the album, check the url of the user profile. For e.g.: <a href="http://picasaweb.google.com/prashantmx">http://picasaweb.google.com/prashantmx</a>. Here the username is prashantmx, so the first parameter, username will be prashantmx and the albumname will be superbikes. Point to be noted is that there cannot be a white space between the username and albumname.</p>
+
+<pre class="brush:csharp">
+private static void DownAlbum(string UserN, string AlbumN)
+{
+    string fileName;
+    Uri uriPath;
+    WebClient HttpClient = new WebClient(); 
+    PhotoQuery query = new PhotoQuery(); 
+    query.Uri = new Uri(PhotoQuery.CreatePicasaUri(UserN, AlbumN)); 
+    PicasaService service = new PicasaService("PicasaAlbumDownloader"); 
+    PicasaFeed feed = (PicasaFeed)service.Query(query); 
+    Directory.SetCurrentDirectory(Application.StartupPath+"\\Downloads"); 
+ 
+    foreach (AtomEntry aentry in feed.Entries) 
+    {
+        uriPath = new Uri(aentry.Content.Src.ToString()); 
+        fileName = uriPath.LocalPath.Substring(uriPath.LocalPath.LastIndexOf('/') + 1);
+        try
+        {
+            Console.WriteLine("Downloading: " + fileName); 
+            HttpClient.DownloadFile(aentry.Content.Src.ToString(), fileName); 
+        }
+        catch (WebException we)
+        {
+            Console.WriteLine(we.Message); 
+        }
+    }
+         
+    Console.WriteLine("Download Complete!");  
+}
+</pre>
+
+<p>Output:</p>
+
+<p><img src="/images/picasa-downloader.jpg" alt="Picasa web album downloader" /></p>
+
+<p><strong>Download: <a href="/files/PicasaAlbumDownloader_COMMAND.zip">PicasaAlbumDownloader_COMMAND.zip (128.78 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/microsoft-wmi-code-creator/">Microsoft WMI Code Creator</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 27, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>The WMI Code Creator tool generates code that uses WMI to obtain management information or perform management tasks. You can use the tool to learn how to manage computers using WMI scripting and WMI .NET. The tool generates code that runs on the local computer, a remote computer, or a group of remote computers based on your selection from the Target Computer menu on the tool. You can also execute the generated code directly from the tool.</p>
+
+<p>The tool is meant to help IT Professionals quickly create management scripts and to help developers learn WMI scripting and WMI .NET. The tool helps take the complexity out of writing code that uses WMI and helps developers and IT Professionals understand how powerful and useful WMI can be for managing computers.</p>
+
+<p>Using the tool, you can query for management information such as the name and version of an operating system, how much free disk space is on a hard drive, or the state of a service. You can also use the tool to execute a method from a WMI class to perform a management task. For example, you can create code that executes the Create method of the Win32_Process class to create a new process such as Notepad or another executable. The tool also allows you to generate code to receive event notifications using WMI. For example, you can select to receive an event every time a process is started or stopped, or when a computer shuts down.</p>
+
+<p>The tool also allows you to browse through the available WMI namespaces and classes on the local computer to find their descriptions, properties, methods, and qualifiers.</p>
+
+<p>The code that creates the tool is also included in the download. The tool was created using WMI .NET, and the code for the tool can help developers understand how WMI .NET is used to create applications and manage information. Be sure to read the end-user license agreement that is included in the download.</p>
+
+<p>The above overview and other technical details about Microsoft WMI Code Creator can be found here at Microsoft download center.</p>
+
+<p><strong>Download: <a href="/files/WMICodeCreator.zip">WMICodeCreator.zip (121.38 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -433,83 +556,6 @@ static void ReadReceipts()
  smtp.Send(mail);
 }
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/t-sql-recently-executed-query/">T-SQL: Recently Executed Query</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Oct 14, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>I am a regular reader of Pinal Dave&rsquo;s blog <a href="http://www.sqlauthority.com/">SqlAuthority</a>. I always found something new in his blog to work with SQL Server. Here is something I would like to share: Get the recent executed SQL Queries from SQL Server.</p>
-
-<pre class="brush:sql">
-SELECT deqs.last_execution_time AS [Time], dest.TEXT AS [Query]
-FROM sys.dm_exec_query_stats AS deqs CROSS APPLY sys.dm_exec_sql_text(deqs.sql_handle)
-AS destORDER BY deqs.last_execution_time DESC
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/microsoft-event-windows-mobile-65-net-framework-40/">Microsoft Event - Windows Mobile 6.5 &amp; .NET Framework 4.0</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 26, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      
-      
-      
-      
-    </span>
-    <p>I attended the Microsoft developers event at NCUI auditorium in New Delhi on Windows Mobile® 6.5 and .NET Framework 4.0. Abhishek Baxi was a key speaker on Windows Mobile® 6.5. You can read his blog <a href="http://www.baxiabhishek.info/">here</a>. He demonstrates all the new features that Win Mob provides to the end users. How do we sync our data using cloud (Windows Live Mesh), configuring Outlook (Exchange ID) and even configure your live and other IDs, access internet using IE and develops gadgets and other application using VS2008 and 2010 on your phone. He also tells us about Microsoft Marketplace and how do we developers get benefits from the marketplace.</p>
-
-<p>Resources for Windows Mobile® 6.5:</p>
-
-<ul>
-<li><a href="http://www.windowsmobile.com">http://www.windowsmobile.com</a></li>
-<li><a href="http://developer.windowsmobile.com">http://developer.windowsmobile.com</a></li>
-<li><a href="http://twitter.com/windowsmobile">http://twitter.com/windowsmobile</a></li>
-<li><a href="http://twitter.com/wmdev">http://twitter.com/wmdev</a></li>
-<li><a href="http://www.winmo.in">http://www.winmo.in</a></li>
-</ul>
-
-<p>After this we have a half-an-hour break time and then we get back in to attend Bijoy&rsquo;s Singhal&rsquo;s .NET Framework&rsquo;s session. Bijoy is a Developer Evengelist at Microsoft. You can read his blog <a href="http://blogs.msdn.com/bsinghal">here</a>. So, he started up to make all the developer&rsquo;s aware of the new features of .NET Framework 4.0 provides. He continues to talk about parallel computing and parallel computing, PLINQ, DLR, enhancements in CLR, MVC, MEF, MAF and other tons of features&hellip;which is totally outstanding.</p>
-
-<p>In the end we move to the round-table session where we all developers start with a short introduction of ourselves and end up with a feedback on Microsoft Technologies / Events / Cons / Pros and how can we make more and more people aware of the fact on how Microsoft Technologies affect their lives. Moving further we also discussed on how do we get more and more people especially students at the events so they know about the new technology and eventually this will help them as a fresher to choose a domain / technology to move on. Even personally I have seen students that they are very confused about on what they have to choose &hellip;..the technology they want to work in. They just think should I choose Java or .NET but they find it hard to decide. So it&rsquo;s better that someone from Microsoft or on behalf of Microsoft can guide them to choose what&rsquo;s best for them. All other developers also put questions regarding Microsoft certifications and the black market associated with it. Bijoy guarantees that he will be informing Microsoft regarding the same and will definitely take a serious action against this. After all this is about software giant&rsquo;s reputation.</p>
-
-<p>Finally, we decided to get connected once again and we will make our best efforts to promote Microsoft Technologies at every level as we can. I myself is a DieHard Microsoft Fan and I personally will make every possible effort to make people / students aware / beleive in the power of technology Microsoft provides.</p>
 
   </div>
   
@@ -830,7 +876,16 @@ AS destORDER BY deqs.last_execution_time DESC
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -838,7 +893,7 @@ AS destORDER BY deqs.last_execution_time DESC
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

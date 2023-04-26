@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-07-04T14:26:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-07-09T09:18:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,36 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/angry-birds-theme-for-windows-7/">Angry Birds Theme For Windows 7</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 9, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>If you love playing Angry Birds on your PC or on your phone, then you will also love Angry Birds theme for Windows 7. The sound effects are cool, just like the one you hear while you play the game and the wallpapers are cool too. I like the red angry bird to sit on my desktop as it is the best wallpaper I can choose among the 6 wallpapers that comes with the theme.</p>
+
+<p><img src="/images/win7-angrybird-theme.png" alt="Windows 7 Angry Birds theme" /></p>
+
+<p>You can download the Angry Birds theme from the Microsoft downloads center <strong><a href="http://download.microsoft.com/download/4/8/E/48EE7950-8B46-4F4E-BAEE-072875FB2608/AngryBirds.themepack">here</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -580,130 +610,6 @@ $().ready(function () {
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/syntax-highlighter-in-wpf/">Syntax Highlighter In WPF</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 9, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/wpf">WPF</a>
-      
-      
-      
-      
-    </span>
-    <p>If you are writing code for a while now then by now you must have a lot of code snippets which you will be using in your application development, and you use them because they save a lot of development time. At this moment I have now a huge collection of code snippets which includes functions, classes, <a href="http://www.extensionmethod.net/">extension methods</a> and functions that I have extracted from different open source applications.</p>
-
-<p>As I was progressing towards building an application in WPF which helps me managing all my code, a thought ran into my mind that it would be good if I could use syntax highlighting in the code. As usual I began my search to find a control in WPF which supports syntax highlighting and what I found, I was and I am at present satisfied. The control called <code>AvalonEdit</code> is a part of the free IDE called <a href="http://www.icsharpcode.net/opensource/sd/">SharpDevelop</a> for C# and VB.NET and Boo projects.</p>
-
-<p>Languages support by the control:</p>
-
-<ul>
-<li>ASP/XHTML</li>
-<li>HTML</li>
-<li>JavaScript</li>
-<li>XML</li>
-<li>XMLDoc</li>
-<li>VB.NET</li>
-<li>C#</li>
-<li>C++</li>
-<li>Coco</li>
-<li>Java</li>
-<li>PHP</li>
-<li>Patch</li>
-<li>Boo</li>
-<li>TeX</li>
-<li>Custom Highlighting</li>
-</ul>
-
-<p>I am a .NET guy so I will be using it for highlighting C# code. Fire Visual Studio and create a new WPF project. Add <code>ICSharpCode.AvalonEdit.dll</code> in the reference of your project.</p>
-
-<p><img src="/images/wpf-syntax-highlighter.png" alt="Adding syntax highlighting to WPF application" /></p>
-
-<p>After adding the reference in your project, add below XAML code on the window where you have your code window.</p>
-
-<pre class="brush:csharp; highlight:[4,7]">
-&lt;Window x:Class="SyntaxHighlighter.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-        Title="MainWindow" Height="401" Width="617" Loaded="Window_Loaded"&gt;
-    &lt;Grid&gt;
-&lt;avalonEdit:TextEditor  Name="txtCode"
-    FontFamily="Consolas"
-    FontSize="10pt"/&gt;       
-    &lt;/Grid&gt;
-&lt;/Window&gt;
-</pre>
-
-<p>At line 4, we will use custom mapping (because it is a third-party control) so we can use the control in our project. At line 7, I have used <code>TextEditor</code> class of the <code>AvalonEdit</code> namespace. The font name and size is the same as of the source code text editor in Visual Studio 2010.</p>
-
-<p>To get the control working with least configuration set some namespaces on the top, and two lines of code on window load for syntax highlighting and to show line numbers respectively.</p>
-
-<p><strong>Namespaces:</strong></p>
-
-<pre class="brush:csharp">
-using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Folding;
-using ICSharpCode.AvalonEdit.Highlighting;
-</pre>
-
-<p><strong>Window_Loaded:</strong></p>
-
-<pre class="brush:csharp">
-txtCode.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("C#");
-txtCode.ShowLineNumbers = true;
-</pre>
-
-<p>If you wish to change the language, then just change the name of the language which is passed as a parameter in the <code>GetDefinition</code> method. The code in the <code>Window_Loaded</code> method will allow you to set syntax highlighting specifically for C#, pretty simple but not very useful. Check out the other way where the text editor will load the file and by reading the file extension, it will set the syntax highlighting. Above method will be useful if the user wants to set syntax highlighting of his choice. But if you want to detect the language and get the syntax highlighting automatically, then use the below code.</p>
-
-<pre class="brush:csharp">
-txtCode.Load("d:\\Data.cs");
-txtCode.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(System.IO.Path.GetExtension("D:\\Data.cs"));
-txtCode.ShowLineNumbers = true;
-</pre>
-
-<p>The first line of code will <code>Load</code> the file and the second file will first get the extension of the file loaded, set the instance of the <code>HighlightingManager</code> class and in the end set the syntax highlighting. This is what I got in the end (I am using the second way to load the file).</p>
-
-<p><img src="/images/wpf-syntaxhighlighter-inaction.png" alt="WPF application with syntax highlighting" /></p>
-
-<blockquote>
-<p><strong>Note:</strong> To make sure that the second method work, you need to make sure that the file should have a language extension like .cs for C#, cpp for C++, xml for XML files etc. AvalonEdit is an open source code, so you can play around with it and can have your own customizations. There are lots of in-built configurations that you can do to set up your syntax highlighting control. I strongly recommend you to download the below files and take a look at the sample application.</p>
-</blockquote>
-
-<p><strong>Download: <a href="/files/AvalonEdit_Source.zip">AvalonEdit_Source.zip (861.02 kb)</a></strong></p>
-
-<p><strong>Related Links:</strong></p>
-
-<ul>
-<li><a href="http://www.icsharpcode.net/opensource/sd/">SharpDevelop</a></li>
-<li><a href="http://wiki.sharpdevelop.net/AvalonEdit.ashx">Avalon Edit</a></li>
-</ul>
-
-  </div>
-  
 </div>
 
 
@@ -1021,7 +927,16 @@ txtCode.ShowLineNumbers = true;
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -1029,7 +944,7 @@ txtCode.ShowLineNumbers = true;
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

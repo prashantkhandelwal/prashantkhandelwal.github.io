@@ -228,6 +228,17 @@ You can set the height and width of the CAPTCHA image while initializing the CAP
     </item>
     
     <item>
+      <title>Autocomplete With jQuery and ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</link>
+      <pubDate>Sun, 19 Dec 2010 01:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</guid>
+      <description>Building auto-complete feature with jQuery is easy and you can build this in no time. It&amp;rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&amp;rsquo;s begin up getting files under one hood.
+Use the below live links for jQuery auto-complete and CSS.
+&amp;lt;link rel=&#34;stylesheet&#34; href=&#34;http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css&#34; type=&#34;text/css&#34; /&amp;gt; &amp;lt;script type=&#34;</description>
+    </item>
+    
+    <item>
       <title>Extending OpenID Implementation With ASP.NET: User Information/Roles and Membership</title>
       <link>https://prashantkhandelwal.github.io/post/extending-openid-implementation-with-aspnet-user-information-roles-and-membership/</link>
       <pubDate>Sat, 25 Sep 2010 22:21:00 +0000</pubDate>

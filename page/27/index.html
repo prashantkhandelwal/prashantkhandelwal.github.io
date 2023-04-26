@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-12-24T18:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-01-15T12:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,109 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/development-in-and-with-windows-7/">Windows 7 API Development and Training Kit</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 15, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft-windows">MICROSOFT WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>I recently installed Windows 7® Ultimate on my machine and found it more soothing and reliable in terms of preformance than Windows Vista® Ultimate. As a tech enthusiast, I do some serach on the internet and found two links from Microsoft website that will allow developers to develop applications specifically for Windows 7. The Windows API code pack allows developers to develop those features which are not available with .NET Framework. So to get started visit:</p>
+
+<ul>
+<li><a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows® Code Pack API for Windows 7 &amp; Windows Vista</a></li>
+<li><a href="http://www.microsoft.com/downloads/details.aspx?familyid=1C333F06-FADB-4D93-9C80-402621C600E7&amp;displaylang=en">Windows Training Kit</a></li>
+</ul>
+
+<p>The training kit includes the demos and presentations, hand-on labs for developers. I haven&rsquo;t yet started with Windows 7 development. But as soon as I get started I will blog some demo for Windows 7.</p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-plug-in-a-dll-into-a-c-project/">How to plug-in a DLL into a C# project</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 7, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p><a href="http://social.msdn.microsoft.com/Profile/en-US/?user=JohnGrove&amp;referrer=http%3a%2f%2fsocial.msdn.microsoft.com%2fForums%2fen-US%2fcsharpgeneral%2fthread%2fc3da5226-fc87-4fff-be60-4cc5af4d6c07&amp;rh=%2fc%2fjJR1gi7bC2eWC6ntSfFwjeOOqGFqEA0pR1UaBY40%3d&amp;sp=forums">John Grove</a> share a code at <a href="http://social.msdn.microsoft.com/Forums/en-US/csharpgeneral/thread/c3da5226-fc87-4fff-be60-4cc5af4d6c07">MSDN</a> on how can we call DLLs methods dynamically using C# code.</p>
+
+<p>The below code can further be modified and a developer can easily extend the functionality of his application to create a application which accepts DLLs as plug-ins. This concept is useful when different users have different requirements in a generalized application like in the case of famous photo editing program Photoshop from Adobe. Here anyone can create a plug-in and hook it up with the host application which further inherits all the functionalities from the DLL.</p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+ 
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Assembly assembly = Assembly.LoadFrom(@"C:\Documents and Settings\john.grove\MyMath.dll");
+            Type mathUtility = assembly.GetType("MyMathUtilty");
+            Object theInstance = Activator.CreateInstance(mathUtility);
+            Int32 result = (Int32)mathUtility.InvokeMember("Add", BindingFlags.InvokeMethod, null, theInstance, new object[] { 56, 26 });
+            Console.WriteLine("Dynamically invoking MyMathUtilty Add method");
+            Console.WriteLine("56 + 26 = {0}", result);
+            Console.WriteLine("");
+ 
+            // get all public static methods of MyMathUtilty type
+            MethodInfo[] methodInfos = mathUtility.GetMethods(BindingFlags.Public | BindingFlags.Static);
+            Console.WriteLine("All public/static methods in MyMathUtilty");
+            Console.WriteLine("----------------------------------------");
+            for (Int32 i = 0; i < methodInfos.Count(); i++ )
+                Console.WriteLine("{0}.) {1}", i + 1, methodInfos[i].Name);
+            Console.ReadLine();
+        }
+    }
+}
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -289,131 +392,6 @@ static List removeDuplicates(List inputList)
 <p>Now try opening your obfuscated application in reflector&hellip;.and this is what you will see.</p>
 
 <p><img src="/images/reflector-demo.png" alt=".NET Reflector application" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/retrieve-key-from-value-in-hash-table/">Retrieve Key from Value in Hash Table</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 16, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>Working with hash tables is pretty simple but few days back I was having a problem in retrieving a key from a value in hash table. I was bit lazy to find a way myself, so I searched the net and here is what I got&hellip;.a simple piece of code which lead to me to complete my task and so I thought I should share it with everyone here.</p>
-
-<p><pre class="brush:csharp">
-public string FindKey(string Value, Hashtable HT)
-{
-       string Key = &ldquo;&rdquo;;
-       IDictionaryEnumerator e = HT.GetEnumerator();
-       while (e.MoveNext())
-       {
-            if (e.Value.ToString().Equals(Value))
-            {
-               Key = e.Key.ToString();
-            }
-       }
-       return Key;
-}
-</pre
-></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/use-sql-query-to-writecreate-a-file/">Use Sql query to write/create a file</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 11, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>This SQL stored procedure will allow you to write to the file on your file system. Note the file system will be the the same on which the SQL server is running. If you are using this with your local SQL server then it will write and create files on your local file system and if you are on the remote machine, the file system will be the remote file system.</p>
-
-<pre class="brush:sql">
-Create Procedure  [dbo].[USP_SaveFile](@text as NVarchar(Max),@Filename Varchar(200)) 
-AS
-Begin
-  
-declare @Object int,
-        @rc int, -- the return code from sp_OA procedures 
-        @FileID Int
-  
-EXEC @rc = sp_OACreate 'Scripting.FileSystemObject', @Object OUT
-EXEC @rc = sp_OAMethod  @Object , 'OpenTextFile' , @FileID OUT , @Filename , 2 , 1 
-Set  @text = Replace(Replace(Replace(@text,'&','&'),'<' ,'<'),'>','>')
-EXEC @rc = sp_OAMethod  @FileID , 'WriteLine' , Null , @text  
-Exec @rc = master.dbo.sp_OADestroy @FileID   
-  
-Declare @Append  bit
-Select  @Append = 0
-  
-If @rc <> 0
-Begin
-    Exec @rc = master.dbo.sp_OAMethod @Object, 'SaveFile',null,@text ,@Filename,@Append
-        
-End
- 
-Exec @rc = master.dbo.sp_OADestroy @Object 
-     
-End
-</pre>
-
-<p>But before you start using this procedure you need to reconfigure some advanced SQL server settings. Use the below configuration query to enable &lsquo;OLE Automation Procedures&rsquo;. If this is not enabled and you try executing the procedure you will get errors.</p>
-
-<pre class="brush:sql">
-Use master
-GO
--- To allow advanced options to be changed.
-EXEC sp_configure 'show advanced options', 1
-GO
---To enable Ole automation feature
-EXEC sp_configure 'Ole Automation Procedures', 1;
-GO
-RECONFIGURE;
-GO
-</pre>
-
-<p>The first parameter will take the text to be written to the file and the second parameter will take the complete path of the file to be created with the text in it. You can also use the same procedure to wite binary files to the file system, you just need to check and change the file extension in the second parameter. Usage:</p>
-
-<pre class="brush:sql">
-EXEC USP_SaveFile 'Microsoft SQL Server 2008', 'C:\MSSQL.txt'
-</pre>
 
   </div>
   
@@ -734,7 +712,16 @@ EXEC USP_SaveFile 'Microsoft SQL Server 2008', 'C:\MSSQL.txt'
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -742,7 +729,7 @@ EXEC USP_SaveFile 'Microsoft SQL Server 2008', 'C:\MSSQL.txt'
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

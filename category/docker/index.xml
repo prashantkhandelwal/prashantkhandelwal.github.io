@@ -6,10 +6,20 @@
     <description>Recent content in Docker on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Jan 2019 05:25:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Apr 2023 23:12:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/category/docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to Create and Push your Docker images to Azure Container Registry</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-create-and-push-your-docker-images-to-azure-container-registry/</link>
+      <pubDate>Tue, 25 Apr 2023 23:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-create-and-push-your-docker-images-to-azure-container-registry/</guid>
+      <description>Docker Hub or GitHub Container Registry also known as ghcr.io is a go to platform for most of the OSS developers and teams to host their Docker images. These platforms are free for open-source software, but you might need to upgrade from the free plan to use a paid plan so that your docker image is only available for your infrastructure use and not for public use.
+Azure provides Container Registry service where you can host your Docker images with ease and use the same docker pull and run command to pull and run the container on your machine, or you can also use these images to create containers when provisioning a new Web App which uses containers or with Azure Kubernetes Service (AKS).</description>
+    </item>
     
     <item>
       <title>Hosting Draw.IO In Azure Web App Containers</title>

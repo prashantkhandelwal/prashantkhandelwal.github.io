@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-06-26T15:37:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-07-20T00:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,120 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/c-method-encrypting-a-string-using-md5-algorithm/">C# Method: Encrypting a string using MD5 algorithm</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 20, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>Encrypting a string using the MD5 algorithm</p>
+
+<p>This C# method will encrypt any string using MD5 algorithm. It generates the same hash as the PHP MD5() function.</p>
+
+<pre class="brush:csharp">
+using System;using System.Collections.Generic;
+using System.Linq;using System.Text;
+using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+namespace EncryptString
+{
+    class Program
+    {
+        public static string EncodePassword(string originalPassword)
+        {
+            Byte[] originalBytes;
+            Byte[] encodedBytes;
+            MD5 md5;
+            md5 = new MD5CryptoServiceProvider();
+            originalBytes = ASCIIEncoding.Default.GetBytes(originalPassword);
+            encodedBytes = md5.ComputeHash(originalBytes);
+            return Regex.Replace(BitConverter.ToString(encodedBytes), "-", "").ToLower();
+         }
+         static void Main(string[] args)
+         {
+            Console.WriteLine("Enter a string to Encrypt");
+            string strEnc = Console.ReadLine();
+            Console.WriteLine(EncodePassword(strEnc));
+            Console.ReadLine();
+         }
+    }
+}
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/insert-binary-files-to-sql-server-using-bulk-operation/">Insert binary files to SQL server using BULK operation</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 11, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>Performing BULK operations with SQL can be useful when you are trying to insert any type of file. Don&rsquo;t mess up with the complex code, just use a simple SQL query to insert any file type in SQL table.</p>
+
+<p>To perform this operation first you need to have a column with datatype as <code>varbinary(max)</code>. See below example:</p>
+
+<p>Create a table with an ID and Data as columns with <code>INT</code> and <code>VARBINARY(MAX)</code> as their Datatypes respectively.</p>
+
+<pre class="brush:sql">
+Create table tblData
+(
+FileId int,
+FileData varbinary(max)
+)
+</pre>
+
+<p>Perform INSERT to Save a file. Here just change the location of the file you want to insert.</p>
+
+<pre class="brush:sql">
+Insert into tblData
+(FileId, FileData)
+SELECT 1, BulkColumn
+FROM OPENROWSET(BULK N'D:\Software\siw.exe', SINGLE_BLOB) AS Document
+</pre>
+
+<p>Display table data after INSERT</p>
+
+<pre class="brush:sql">
+Select * from tblData
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -287,85 +401,6 @@ private static extern bool SetDefaultPrinter(string printerName);
 <pre class="brush:csharp">
 //Set the default printer. I have set it as my Adobe PDF printer
 SetDefaultPrinter("Adobe PDF");
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/eject-and-pop-in-your-cd-dvd-with-a-hotkey/">Eject and Pop-in your CD / DVD with a hotkey</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 13, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p>If you are annoyed with the malfunctioning of your CD/DVD ROM. This small utility will help you to eject and and again pop-in inside the ROM. Just press CTRL + Q to toggle. Place it anywhere you like on your system, I recommend to create a folder and then place a this utility inside it as it will installs on the first time you run the application and start-up with your windows the next time you boot in.</p>
-
-<p><strong>Download Link: <a href="/files/CDAX.zip">CDAX.zip (113.18 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/shoutdownlogoffhibernatestand-by-use-code-to-do-em-all/">Shoutdown/Logoff/Hibernate/Stand By - Use CODE to do &#39;em all</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 12, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p><strong>Step 1:</strong> Add the following line to use the namespace. This is necessary as we need to use the <code>User32.dll</code> with <code>DLLImport</code> attribute.</p>
-
-<pre class="brush:csharp">
-using System.Runtime.InteropServices;
-</pre>
-
-<p><strong>Step 2:</strong> Now add the below line to your code to use the methods from the User32.dll.</p>
-
-<pre class="brush:csharp">
-[DllImport("user32.dll")]
-public static extern void LockWorkStation();
-[DllImport("user32.dll")]
-public static extern int ExitWindowsEx(int uFlags, int dwReason);
-</pre>
-
-<p><strong>Step 3:</strong> Once you complete the above two steps, you can now call the methods on button click or after some or with some particular event or the way you like.</p>
-
-<pre class="brush:csharp">
-LockWorkStation(); //Locks the workstation, Equivalent to WIN+L
-ExitWindowsEx(0, 0)//Shutdowns the machine 
-Application.SetSuspendState(PowerState.Suspend, true, true)  //Put the machine in stand-by mode
-Application.SetSuspendState(PowerState.Hibernate, true, true); // Hibernates the system
 </pre>
 
   </div>
@@ -686,12 +721,23 @@ Application.SetSuspendState(PowerState.Hibernate, true, true); // Hibernates the
     <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
     
     
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
     <li class="page-item">
     <a href="/page/32/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

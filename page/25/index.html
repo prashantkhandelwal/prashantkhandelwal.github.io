@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-03-05T18:35:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-03-24T01:15:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,84 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/visual-studio-theme-generator/">Visual Studio Theme Generator</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 24, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p>I just Got bored looking at the same code editor in Visual Studio. Same old white background and same syntax colour highlighting. So I give it a go and jump to Visual Studio options and start playing around with the option available to change the look and feel of the code editor. After trying for a while and working around with some customizations, I gave a second go and do a quick bing search in a hope that I will find some theme for my Visual Studio and Voila! I got one, not a theme but a tool indeed which allows me to customize theme as I want and the name is <a href="http://frickinsweet.com/tools/Theme.mvc.aspx">Visual Studio Theme Generator</a>. It&rsquo;s an online free tool with some simple controls on the page which helps you in customizing your code editor by changing the main colour, background colour, foreground colour and also set he contrast. The tool also gives you the option to choose from a variety of colours. You can see the screenshot of this online tool below.</p>
+
+<p><img src="/images/vs-theme-1.png" alt="Visual Studio Theme" /></p>
+
+<p>Make some customizations and click the <code>Refresh</code> button on the top right corner of the page to reflect the changes. Once you are finish with the customizations you can then hit the <code>Create</code> button to save you Visual Studio theme settings, save it to your local disk and import it using <code>Import/Export settings</code> wizard in Visual Studio.</p>
+
+<p>I have downloaded the default theme from the page and here is how my Visual Studio code editor looks like now:</p>
+
+<p><img src="/images/vs-theme-2.png" alt="Visual Studio Theme" /></p>
+
+<p><strong>NOTE:</strong> <em>You can read the detailed step on the website to import the settings. But before you can import the settings it is recommended that you first take the backup of your current/original Visual Studio settings. This tool is a work of javascript so before you hit it make sure you have javascript enabled for you browser.</em></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/calling-aspnet-web-service-using-jquery-part-iii-fetch-data-from-sql-server/">Calling ASP.NET Web Service Using Jquery - Part III - Fetch Data From SQL Server</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 11, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>My previous two posts on using Jquery for calling ASP.NET web service takes you to the basics of calling a web service using Jquery AJAX. In this last post of the series I will show hot to fetch data from the SQL Server through a web service.</p>
+
+<p>In this example I am going to show on how we can fetch data from SQL Server. I am using pretty well known Adventure Works database for this example. I am using Person.Contact table for this example. I will show on how to fetch data i.e. first name, last name and e-mail address on the basis of the ContactID.
+So first, as usual create a normal ASP.NET project and add the required files. Create a new web service, I have named my web service “AdvService.asmx”. You can name your web service as you like. This time we are fetching data from the SQL Server by passing a parameter to the web service method. I am using the very same, basic way of fetching record from the SQL Server. You can also use LINQ here to fetch data.</p>
+
+<p>I have used a delay of few seconds to how the animation, rest in the code is self explanatory. Just passing a parameter and fetching the details of the person from the Adventure Works database.Below are the screenshots for the sample application.</p>
+
+<p><img src="/images/ajax-jquery-1.png" alt="AJAX call in ASP.NET app via JQuery" />
+<img src="/images/ajax-jquery-2.png" alt="AJAX call in ASP.NET app via JQuery" /></p>
+
+<p><strong>Download: <a href="JqueryAjaxSQLDemo.zip">JqueryAjaxSQLDemo.zip (97.86 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -498,87 +576,6 @@ namespace ReportExportDemo
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/windows-7-development-aero-effects-in-net-applications/">Windows 7 Development: Aero Effects in .NET Applications</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 28, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>With the launch of Windows Vista, Microsoft introduces brand new UI, eye-catching aero effects (glass effects) for their new Operating System. I have seen a lot of programmers who are much concerned about the looks of their applications. So this time with the launch of Windows 7, Microsoft provides the Windows 7 API Code Pack. The Windows 7 API Code Pack not only just allows incorporating the aero glass effect, but many other features which will let you to work more conveniently with Windows 7. I will cover more of the features of Windows 7 API in my later posts. So, I am starting with a first tutorial on how to enable aero effects for the applications running on Windows 7. Create a new windows form application in Visual Studio. Design the form as normally you do as per your requirements. Now to give your form aero glass effect, we first need to add reference for the Windows API. Windows API provides a class called <code>GlassForm</code> which we are going to use in this example. When you add a new form to your project you see the following line in your code window:</p>
-
-<pre class="brush:csharp">
-public partial class AeroForm : Form
-</pre>
-
-<p>When you execute the code you will see a normal windows form which is obviously not we wanted. Here the <code>GlassForm</code> class comes into play. As we know we have all are forms are partial class, we have to inherit it with Form class which in turn completes our form. Now instead of using Form class use the “GlassForm” and you will see the Aero Glass Effects on your form.</p>
-
-<pre class="brush:csharp">
-public partial class AeroForm : GlassForm
-</pre>
-
-<p>This is how you normal Windows form looks like:</p>
-
-<p><img src="/images/aero-winform.png" alt="Windows Form" /></p>
-
-<p>And your Aero form look like this:</p>
-
-<p><img src="/images/aero-form.png" alt="Aero Form" /></p>
-
-<p><strong>Download: <a href="/files/WindowsAero.zip">WindowsAero.zip (790.00 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/sql-server-performance-and-nocount/">SQL Server performance and NOCOUNT</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 25, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>Performance of SQL server matters while working with large enterprise applications and where performance really bothers the business workflow. When NOCOUNT is ON, the count of rows by the execution of the query (T-SQL statements) is not returned. You must have noticed that when you perform operations by executing INSERT, UPDATE, DELETE or SELECT statements, the server returns the number of rows. The count of rows is necessary while debugging your queries, when you are done with debugging you can turn NOCOUNT ON. To view the number of rows affected use the command SET NOCOUNT OFF. You can try writing a normal select query with NOCOUNT as OFF, when NOCOUNT is OFF you can see the number of rows affected, but when you set NOCOUNT ON, you will not see any message related to the count of rows which are affected when you execute select statement or T-SQL statement.</p>
-
-  </div>
-  
 </div>
 
 
@@ -896,7 +893,16 @@ public partial class AeroForm : GlassForm
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -904,7 +910,7 @@ public partial class AeroForm : GlassForm
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

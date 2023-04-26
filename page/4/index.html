@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2016-05-21T18:45:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2016-09-26T21:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,208 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/visualizing-adxl345-accelerometer-output-in-windows-forms-from-raspberry-pi-2/">Visualizing ADXL345 Accelerometer Output In Windows Forms From Raspberry PI 2</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 26, 2016
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/raspberry-pi">RASPBERRY PI</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I have been playing a lot with Raspberry PI and Python these days and have also started a side project to create robot car controller with a Xbox 360 wireless controller. I am planning to controller a robot car using a custom interface from my Windows machine. Initially I tried with <a href="https://riverbankcomputing.com/software/pyqt/intro">PyQt</a> but I dropped the idea for now as Python is not my primary expertise and it will take some time for me to learn the basics and get into some serious coding. Controlling something remotely or visualizing the information from your device on the UI is always better. For a proof of concept I built a Windows Forms application which will request the output from Raspberry PI over TCP and then visualize it on the UI using a wonderful chart library that I found today. There is a slight change in the Python code as I have to transmit readings from Raspberry PI over TCP so my Windows Forms application can read the output and utilize it to visualize it.</p>
+
+<p><img src="/images/azure-iot-raspberry.png" alt="RaspberryPi Azure IoT Diagram" /></p>
+
+<h4 id="raspberry-pi-python-application">Raspberry PI Python Application</h4>
+
+<p>Reading the <a href="https://www.sparkfun.com/products/9836">ADXL345</a> output is fairly simple and you can do this without any problem by using Adafruit&rsquo;s <a href="https://github.com/adafruit/Adafruit_Python_ADXL345">ADXL345 Python library</a>. This library will get you started in a jiffy and you will have your readings. I am not going into the details about the different features of the library I am using and ADXL345. The only thing you will have to do is to wire ADXL345 to your Raspberry PI and fire the example code you got from Adafruit&rsquo;s repository from Github. If you have set it up correctly this, you will see X, Y, Z values on your terminal. If the terminal displays <code>0s</code> for all the three axis then there is something wrong with the wiring (assuming you are using the example code). This is how your writing should be like.</p>
+
+<p><img src="/images/raspberrypi-fritz-sketch.png" alt="Raspberry Pi Fritzing Sketch" /></p>
+
+<p>Now I have made slight changes in the code so that I can send the data over TCP. I have created a simple TCP server which exposes Raspberry PI through IP address and a port number. This is the complete code for reading values from ADXL345.</p>
+
+<pre class="brush: python">
+import Adafruit_ADXL345
+import socket
+ 
+HOST = "192.168.1.8"
+PORT = 50007
+ 
+accel = Adafruit_ADXL345.ADXL345()
+ 
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((HOST, PORT))
+s.listen(1)
+conn, addr = s.accept()
+ 
+while 1:
+    data = conn.recv(1024)
+ 
+    if data.strip() == "adxl":
+        x, y, z = accel.read()
+        data = 'X:' + str(x) + '|Y:' + str(y) + '|Z:' + str(z)
+        conn.send(data)
+</pre>
+
+<p>In the code, you can see that I am not just transmitting the readings just like that. I only transmit when there is a request from another application is there to get the readings. This is a good approach as I don&rsquo;t the PI to transmit the readings even if nobody is requesting it. I am sending a single string as a response which I am going to read at my Windows Forms application and use it.</p>
+
+<blockquote>
+<p>You need to change the IP address and port number according to your Pi&rsquo;s configuration.</p>
+</blockquote>
+
+<p>Once this is done you can then execute the script from the terminal by firing the below command</p>
+
+<pre class="brush: bash">
+sudo python adxl.py
+</pre>
+
+<p>This is it from Raspberry PI side. Let&rsquo;s take a look from the Windows side now.</p>
+
+<h4 id="windows-forms-application">Windows Forms Application</h4>
+
+<p>This will be a simple Windows Forms application which will connect to the Raspberry PI using the Pi&rsquo;s IP address and the port on which the server is running. The Windows Form application is also a TCP client which sends a request to Raspberry PI for the updated readings from ADXL345. As I mentioned above in the Python code that the readings are not just being transmitted but a client has to send a request to to get the readings.</p>
+
+<p>Let&rsquo;s get started with the visualizing part. While was searching for a perfect charting library, I came across this wonderful library called <a href="https://lvcharts.net/">Live Charts</a>. This library is open-source, easy to use, has lots of awesome charts and a <a href="https://lvcharts.net/App/examples/wpf/start">very robust documentation</a> and moreover it supports Windows Forms as well as on WPF applications. I highly recommend you to look at the examples to get the idea about this library.</p>
+
+<p>As usual, I will be using Nuget command to install the library.</p>
+
+<pre class="brush: plain">
+PM> Install-Package LiveCharts.WinForms
+</pre>
+
+<p>You also have to add the custom controls in the toolbox. You can follow the steps here to add the Live Charts control in the toolbox. In the design mode, choose the <code>Cartesian Chart</code> control from the toolbox and add it to the form. After adding the control to the form, I have dock it to the top of the form so I can utilize the lower section of the form to display the readings in numbers. Here is how my form looks like in design mode.</p>
+
+<p><img src="/images/winform-design-view.png" alt="Windows Forms design view" /></p>
+
+<p>After the designing for the form is complete, I can initialize the chart to display the readings from Raspberry PI. The chart require few things to be setup before it can start displaying the data correctly. The accelerometer I am using is a 3-axis accelerometer and therefore it is going to send me readings for 3 axis i.e X, Y and Z. This means I will be needing 3 line series to visualize the information from accelerometer. To have 3 line series display the data I have to use <code>CharValues</code> class which will let me display the readings in the line series. As I have to update my chart when I request the new readings from Raspberry PI, I have to use <code>ObservableValue</code> type. The <code>ObservableValue</code> will make sure that whenever there is a change in the value, it gets reflected in the chart and therefore keeping the chart always up to date.</p>
+
+<pre class="brush: csharp">
+public ChartValues&lt;ObservableValue&gt; Values_X { get; set; }
+public ChartValues&lt;ObservableValue&gt; Values_Y { get; set; }
+public ChartValues&lt;ObservableValue&gt; Values_Z { get; set; }
+</pre>
+
+<p>Because I am going to make request to the server running on my Raspberry PI and request for the ADXL345 readings, I have to create a TCP client in order to do so.</p>
+
+<pre class="brush: csharp">
+Socket server;
+IPEndPoint ipEndPoint;
+byte[] data;
+</pre>
+
+<p>When the application is loaded, I want to make connection to Raspberry PI by using it&rsquo;s IP address and port number on which the server is running on. To do this I will add the below code to the constructor of my application.</p>
+
+<pre class="brush: csharp">
+ 
+ipEndPoint = new IPEndPoint(
+                IPAddress.Parse("192.168.1.8"), 50007);
+ 
+server = new Socket(AddressFamily.InterNetwork,
+               SocketType.Stream, ProtocolType.Tcp);
+ 
+try
+{
+    server.Connect(ipEndPoint);
+}
+catch (SocketException)
+{
+    MessageBox.Show("Unable to connect to server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    return;
+}
+</pre>
+
+<p>The above code is self-explanatory as I am just connecting to Raspberry PI.</p>
+
+<p>In the form load event, I have to initialize chart values and add 3 line series to my <code>CartesianChart</code> for X, Y and Z axis respectively. In my case the name of the Cartesian Chart is <code>ADXLViz</code>.</p>
+
+<pre class="brush: csharp">
+Values_X = new ChartValues&lt;ObservableValue&gt;();
+Values_Y = new ChartValues&lt;ObservableValue&gt;();
+Values_Z = new ChartValues&lt;ObservableValue&gt;();
+ 
+ADXLViz.Series.Add(new LineSeries
+{
+    Values = Values_X,
+    Title = "X",
+    StrokeThickness = 4,
+    PointGeometrySize = 0,
+    DataLabels = true
+});
+ 
+ADXLViz.Series.Add(new LineSeries
+{
+    Values = Values_Y,
+    Title = "Y",
+    StrokeThickness = 4,
+    PointGeometrySize = 0,
+    DataLabels = true
+});
+ 
+ADXLViz.Series.Add(new LineSeries
+{
+    Values = Values_Z,
+    Title = "Z",
+    StrokeThickness = 4,
+    PointGeometrySize = 0,
+    DataLabels = true
+});
+</pre>
+
+<p>Play around with different properties in the <code>LineSeries</code> class and set the output that suits your need or your eye. Notice the Values properties in the <code>LineSeries</code> class which holds the value which is received from Raspberry PI.</p>
+
+<p>I am requesting the readings from Raspberry PI every 500ms and to do this I am using a <code>Timer</code> class. This is easy to use and configure. Just drag and drop the <code>Timer</code> control from the toolbox. In the properties change the <code>Interval</code> property to <code>500</code> and <code>Enabled</code> to <code>True</code>. After this I set the <code>Tick</code> event which will request the new readings every 500ms.</p>
+
+<pre class="brush: csharp">
+string stringData;
+server.Send(Encoding.ASCII.GetBytes("adxl"));
+data = new byte[1024];
+int recv = server.Receive(data);
+stringData = Encoding.ASCII.GetString(data, 0, recv);
+string[] adxl = stringData.Replace(" ", "").Split('|');
+ 
+Values_X.Add(new ObservableValue(Convert.ToDouble(adxl[0].Split(':')[1])));
+Values_Y.Add(new ObservableValue(Convert.ToDouble(adxl[1].Split(':')[1])));
+Values_Z.Add(new ObservableValue(Convert.ToDouble(adxl[2].Split(':')[1])));
+ 
+if (Values_X.Count &gt; 10) Values_X.RemoveAt(0);
+if (Values_Y.Count &gt; 10) Values_Y.RemoveAt(0);
+if (Values_Z.Count &gt; 10) Values_Z.RemoveAt(0);
+ 
+X_Label.Text = Convert.ToString(adxl[0].Split(':')[1]);
+Y_Label.Text = Convert.ToString(adxl[1].Split(':')[1]);
+Z_Label.Text = Convert.ToString(adxl[2].Split(':')[1]);
+</pre>
+
+<p>The <code>stringData</code> variable holds the response or reading which is received from Raspberry PI. If you check the Python code above you will see that the response is being sent in a single string called <code>data</code>. I am splitting the string here and extracting the values and setting it to <code>ChartValues&lt;ObservableValue&gt;</code> object. This will render all the 3 line series chart and update it with the readings received from PI. But the problem here will be that in few minutes the chart will be hard to see due to lot of data congestion in chart. In order to overcome this problem, I have removed the first value from all the 3 line series when the chart displays more than 10 values. You can change the value from 10 to whatever suits you.</p>
+
+<p><img src="/images/adxl345-viz-winform.png" alt="ADXL345 application output" /></p>
+
+<p>The overall idea of building this application is to see whether it is possible or easy to communicate from Raspberry PI apart from using frameworks like <a href="http://webiopi.trouch.com/">WebioPI</a> or <a href="http://flask.pocoo.org/">Flask</a>. The complete source code for Raspberry PI and Windows Forms application is <a href="https://github.com/prashantkhandelwal/Pi-Code/tree/master/ADXL345%20Visualizer">available on Github</a> along with Fritzing sketch file and additional instructions to install the dependencies.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -634,114 +836,6 @@ namespace WebApplication1.TagHelpers
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/controlling-16x2-lcd-with-raspberry-pi-2-using-adafruit-library/">Controlling 16x2 LCD With Raspberry PI 2 Using Adafruit Library</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 20, 2015
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/raspberry-pi">RASPBERRY PI</a>
-      
-      
-      
-      
-    </span>
-    <p>As an enthusiast, I started working with embedded with <a href="http://www.netduino.com/">Netduino</a>. It was fun but at the same time Netduino was not offering that much things that I can do now. For a person like me who has no knowledge of electronics and C/C++, this was a gift. Now here I am using Raspberry PI&rsquo;s latest version and I have everything I ever wanted on a single piece of hardware.</p>
-
-<p>To get started with Python and Raspberry PI, I looked into the &ldquo;Hello World&rdquo; sort of LED blinking example. Using the LCD is the second thing I would like to test and so here it is. Before you start, here are the things you will need.</p>
-
-<ol>
-<li><p>1 x Raspberry PI 2</p></li>
-
-<li><p>LCD with 16x2 display - HD44780</p></li>
-
-<li><p>8 x Male-Female jumper wires</p></li>
-
-<li><p>5 x Male-Male jumper wires</p></li>
-</ol>
-
-<p>Here is the simple wiring to connect LCD with your Raspberry PI 2</p>
-
-<p><img src="/images/fritz-sketch-lcd.png" alt="Fritzing sketch for connecting LCD with Raspberry PI" /></p>
-
-<p>As you can see from the wiring diagram, the LCD will take up around 6 GPIO pins on your Raspberry PI. If you have some modules plugged in or you are planning to then there are chances that you will fall short of the GPIO pins. To save GPIO pins on your board, you can use MCP23008 or MCP23017 . To keep it simple, I am not using any port expanders for now.</p>
-
-<p>Now comes the code, I have a very little knowledge of Python at the moment. So I am going to stick with what I have read and tested. For controlling the LCD, I am going to use Adafruit&rsquo;s LCD library which you can get it from Github <a href="https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code">here</a>. I am going to use <code>Adafruit_CharLCD.py</code> to control my LCD. The thing to keep in mind is that you cannot use this library out of the box. You have to make a change to set the correct GPIO pins in the <code>__init__</code> function. Open the file using the below command.</p>
-
-<pre class="brush: bash">
-$ sudo nano Adafruit_CharLCD.py
-</pre>
-
-<p>If you are using the same wiring as I am, then change the <code>__init__</code> function like this</p>
-
-<pre class="brush: python">
-def __init__init(self, pin_rs=26, pin_e=19, pins_db=[13, 6, 5, 11], GPIO=None):
-</pre>
-
-<p>Save the changes and we are good to go. To check if the wiring and the code changes are done properly, execute the below command in the same directory.</p>
-
-<pre class="brush: bash">
-$ sudo ./Adafruit_CharLCD_IPclock_example.py
-</pre>
-
-<p><img src="/images/lcd-running.jpg" alt="LCD in action" /></p>
-
-<p>Let&rsquo;s try displaying some custom messages to the display with this simple program.</p>
-
-<pre class="brush: python">
-from Adafruit_CharLCD import Adafruit_CharLCD
- 
-lcd = Adafruit_CharLCD()
-lcd.message("Raspberry PI 2\nLCD Demo")
-</pre>
-
-<p><img src="/images/lcd-text-display.jpg" alt="LCD display text" /></p>
-
-<p>Here is one more. The program will ask you to enter the string to display.</p>
-
-<pre class="brush: python">
-from Adafruit_CharLCD import Adafruit_CharLCD
- 
-lcd = Adafruit_CharLCD()
- 
-#Getting input from user
-msg = raw_input("Enter message to display\n")
- 
-#Display it on the LCD
-lcd.message(str(msg))
-</pre>
-
-<p>The reason I am using Adafruit library to control the display is because it has other useful functions to control LCD. Here is the list of functions that you can try.</p>
-
-<p><code>clear()</code> - Clears the LCD and remove text from the memory.</p>
-
-<p><code>display()/noDisplay()</code> - Toggle the text visibility on the LCD. Text remains in the memory.</p>
-
-<p><code>cursor()/noCursor</code> - Toggle cursor visibility.</p>
-
-<p><code>blink()/noBlink()</code> - Toggle cursor blink.</p>
-
-<p><code>home()</code> - Take the cursor to the 0,0 position i.e. first column of first row.</p>
-
-<p><code>setCursor(col, row)</code> - Set the cursor to the specific position. Use <code>lcd.begin(col, rows)</code> to set the number of columns and rows your display has.</p>
-
-<p>I hope this will be useful to the people who are just getting started with Raspberry Pi. You can also download the complete source code from Github <a href="https://github.com/prashantkhandelwal/Pi-LCD">here</a>.</p>
-
-  </div>
-  
 </div>
 
 
@@ -1055,7 +1149,16 @@ lcd.message(str(msg))
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -1063,7 +1166,7 @@ lcd.message(str(msg))
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

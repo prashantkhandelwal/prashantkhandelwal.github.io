@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-09-04T02:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-12-31T23:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,34 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/happy-new-year-to-all/">Happy New Year To All</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 31, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
+      
+      
+      
+      
+    </span>
+    <p>A blog post to wish all the readers of my blog a very happy new year!? Not my style but still….</p>
+
+<p>Wish you and your family a very happy and prosperous new year!! I hope this new year bring lot of happiness to you, family and friends.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -427,102 +455,6 @@ http://domain.com/App/Greet/Prashant
     <p>Microsoft made it available a free e-book for developers to understand UX Guidelines for Metro styled apps for Windows 8 and that too for both PC and tablets. This is an awesome resource which will let you know the basics and fundamentals while designing applications for PC annd tablets. As we all know that Windows 8 is the new OS with new UI design (metro) and it is necessary for every developer to know the basics before he starts developing the application for PC or for tablets. The e-book has it all from planning a metro app to making a stylish metro app.</p>
 
 <p><strong><a href="http://go.microsoft.com/fwlink/?LinkId=258743">Download</a></strong> your copy today.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/aspnet-postback-issue-with-colorbox-jquery-plugin/">ASP.NET Postback Issue with Colorbox jQuery Plugin</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 19, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>Yesterday, while working on a project I came across a weird problem while working with Colorbox jquery plugin and ASP.NET. The problem is not only with <a href="http://www.jacklmoore.com/colorbox">Colorbox</a> but also with another famous plugin called <a href="http://fancybox.net/">Fancybox</a>. If you plan to use the plugine just to show dialog boxes, then this plugin works perfectly fine. Integrating the plugin with ASP.NET works fine but prevents post back if you have server controls on the colorbox dialog box (which is actually an invisible div on the page). ASP.NET developers can consider this as a bug but actually it&rsquo;s not a bug, but a scenario missed in the plugin.</p>
-
-<p><img src="/images/aspnet-postback-issue.png" alt="ASP.NET page postback issue" /></p>
-
-<p>I have a button click for button labelled <code>Yes</code> which redirects me to the about page. Now when you try to click the button there will be no post back event. This is because Colorbox renders the <code>div</code> outside the <code>form</code> tag which hinders the post back event.</p>
-
-<p>Now to overcome this problem, you need to jump inside the Colorbox plugin code. The main function that add the content to the DOM or on the page is called <code>appendHTML</code>.</p>
-
-<pre class="brush: jscript">
-function appendHTML() {
-    if (!$box && document.body) {
-        init = false;
- 
-        $window = $(window);
-        $box = $tag(div).attr({ id: colorbox, 'class': isIE ? prefix + (isIE6 ? 'IE6' : 'IE') : '' }).hide();
-        $overlay = $tag(div, "Overlay", isIE6 ? 'position:absolute' : '').hide();
-        $wrap = $tag(div, "Wrapper");
-        $content = $tag(div, "Content").append(
-            $loaded = $tag(div, "LoadedContent", 'width:0; height:0; overflow:hidden'),
-            $loadingOverlay = $tag(div, "LoadingOverlay").add($tag(div, "LoadingGraphic")),
-            $title = $tag(div, "Title"),
-            $current = $tag(div, "Current"),
-            $next = $tag(div, "Next"),
-            $prev = $tag(div, "Previous"),
-            $slideshow = $tag(div, "Slideshow").bind(event_open, slideshow),
-            $close = $tag(div, "Close")
-        );
- 
-        $wrap.append( // The -1x3 Grid that makes up ColorBox
-            $tag(div).append(
-                $tag(div, "TopLeft"),
-                $topBorder = $tag(div, "TopCenter"),
-                $tag(div, "TopRight")
-            ),
-            $tag(div, false, 'clear:left').append(
-                $leftBorder = $tag(div, "MiddleLeft"),
-                $content,
-                $rightBorder = $tag(div, "MiddleRight")
-            ),
-            $tag(div, false, 'clear:left').append(
-                $tag(div, "BottomLeft"),
-                $bottomBorder = $tag(div, "BottomCenter"),
-                $tag(div, "BottomRight")
-            )
-        ).find('div div').css({ 'float': 'left' });
- 
-        $loadingBay = $tag(div, false, 'position:absolute; width:9999px; visibility:hidden; display:none');
- 
-        $groupControls = $next.add($prev).add($current).add($slideshow);
- 
-        $(document.body).append($overlay, $box.append($wrap, $loadingBay));
-    }
-}
-</pre>
-
-<p>In the above method (which is an extract from the plugin), notice that the plugin is focusing on <code>document.body</code> whereas in order to get it working with the post back events we need to change the above highlighted lines with the one below:</p>
-
-<pre class="brush: jscript">
-if (!$box && document.forms[0]) {
-</pre>
-
-<p>And</p>
-
-<pre class="brush: jscript">
-$(document.forms[0]).append($overlay, $box.append($wrap, $loadingBay));
-</pre>
-
-<p>After the changes have been made, it&rsquo;s time to check again. Try clicking the button and check again. This time you will be redirected to the about page. Although, this seems to be simple problem, but there will be few fellow programmers who will scratch their head if they stuck in this sort of a problem. Hope this helps someone out there.</p>
 
   </div>
   
@@ -843,7 +775,16 @@ $(document.forms[0]).append($overlay, $box.append($wrap, $loadingBay));
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -851,7 +792,7 @@ $(document.forms[0]).append($overlay, $box.append($wrap, $loadingBay));
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

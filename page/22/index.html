@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-08-10T18:03:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-08-17T04:28:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -149,6 +149,66 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/what-your-e-mail-address-says-about-your-computer-skills/">What Your e-mail Address Says About Your Computer Skills</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 17, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/fundoo">FUNDOO</a>
+      
+      
+      
+      
+    </span>
+    <p>Just stumble upon this pic. Check, what it has to say about your computer skills!</p>
+
+<p><img src="/images/email-skills.png" alt="Email skills" /></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/diagnostic-check-for-aspmvc-applications-problems/">Diagnostic Check For ASP.NET MVC Application&#39;s Problems</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 12, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      
+      
+      
+      
+    </span>
+    <p>Diagnosing problems in your ASP.NET MVC application is now more easy by using a single file which is included in the MVCFutures package. Download this package from CodePlex and just drag and drop a file called <code>MVCDiagnostics.aspx</code> in the root of your MVC application and thats it.</p>
+
+<p><img src="/images/mvc-diag-page.png" alt="MVC diagnostic page" /></p>
+
+<p>Press F5 and set the URL pointing to the file diagnostics file and you will be able to see a detailed information about your currently running MVC application. The page you see should look something like this.</p>
+
+<p><img src="/images/mvc-diag-page-result.png" alt="MVC diagnostic page result" /></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -394,149 +454,6 @@ type="text/javascript"&gt;&lt;/script&gt;
 </pre>
 
 <p>Now try setting the theme of the page in one click using the Theme Roller.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/url-routing-with-aspnet-4-web-forms/">URL Routing With ASP.NET 4 - Web Forms</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 26, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>URL Routing was first introduced in .NET framework 3.5 SP1 but MVC has built-in and works pretty decently to create SEO friendly URL and prevents URL hacking. ASP.NET 4.0 is now introduced with a new feature called URL routing with web forms. URL routing help developers to create short and friendly URLs which enhance search engine page ranking. There are few other ways to create short friendly URLs like <a href="http://urlrewriter.net/">URLrewriter.net</a> extension or if you have a physical access to IIS you can have installed URL Rewriter extension for IIS 7 to create short friendly URLs. Hey! not everyone has access to IIS!! So if you don&rsquo;t have the access then also you can re-write the URLs using this new feature in ASP.NET 4.0.</p>
-
-<p>One thing I would like to mention is that when you create a new ASP.NET web application in Visual Studio 2010, it won&rsquo;t show up with a blank page, but instead build a full applicaton with sample pages with a pretty good design. As you see below I haven&rsquo;t design this page..actually this is a default template when you create a new ASP.NET web application. What I have done here is just put a text box to enter contact ID and a button to get the details from the <a href="http://msftdbprodsamples.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=34032">Adventure Works sample database</a>.</p>
-
-<p><img src="/images/url-aspnet-app.png" alt="ASP.NET sample application" /></p>
-
-<p>This is a pretty simple interface and now we take a look at some internal work of this web application. My primary focus is on having simple URLs for my application for better search engine optimizations. This application has two main pages apart from the about and other pages that added to the project through the template. The <code>Default.aspx</code> is the main page where we have a field which allow the user to enter the contact ID for the person he want to search. The other page which handles the request and show the details of the contact person is called <code>View.aspx</code>. But this is a really tricky part from a user&rsquo;s perspective as a user will never see this page on the browser address bar while navigating a website. Check the <code>View.aspx</code> design code and check the <code>&amp;lt;asp:SqlDatasource&amp;gt;</code> tags and notice the <code>SelectParameter</code> tag. As I am using a select query with a parameter to populate the grid, the <code>SelectParameter</code> tag further uses <code>&amp;lt;asp:RouteParameter&amp;gt;</code> with route name and route key.</p>
-
-<pre class="brush:xml">
-&lt;asp:SqlDataSource ID="SqlDataSource1" runat="server"
-        ConnectionString="&lt;%$ ConnectionStrings:AdventureWorksConnectionString %&gt;" 
-        SelectCommand="select Title,FirstName,MiddleName,LastName, EmailAddress from Person.Contact where ContactID=@id"&gt;
-        &lt;SelectParameters&gt;
-            &lt;asp:RouteParameter Name="id" RouteKey="id" /&gt;
-        &lt;/SelectParameters&gt;
-    &lt;/asp:SqlDataSource&gt;
-</pre>
-
-<p>OK! Let&rsquo;s start up what we have on the <code>Default.aspx</code> page. This is the default page and a user will see this page first. Write the below code on the button to redirect the request to route handler. Here I have used a Regex expression to validate if the user enters a numeric ID and not any alphanumeric or alphabet. This check is just a workaround, I recommend you to use a better validation technique.</p>
-
-<pre class="brush:csharp">
-if((Regex.IsMatch(txt_pid.Text.Trim(), @"\d+")) == true)
-{
-          Response.RedirectToRoute("Persons-Details",
-          new { id = txt_pid.Text });
-}
-</pre>
-
-<p>So does this URL make any sense? Not at this moment but surely it will after if you have registered your routes in the <code>Global.asax</code> file. My Global.asax file has a method called <code>void RegisterRoutes(RouteCollection Route)</code>.</p>
-
-<pre class="brush:csharp">
-void RegisterRoutes(RouteCollection routes)
-{
-       RouteTable.Routes.MapPageRoute("Persons-Details",
-         "Person/{id}", 
-         "~/View.aspx");
-}
-</pre>
-
-<p>The method <code>MapPageRoute</code> accepts some parameters. The first parameter - <strong>&ldquo;Person-Details&rdquo;</strong> you see is the name of the Route which can be any thing you like. The second parameter - <strong>&ldquo;Person/{id}&rdquo;</strong> is the URL which we have generated. In short this is the URL which is visible to the user and outside world, what is happening internally only a developer knows!. The third parameter - <strong>&ldquo;~/View.aspx&rdquo;</strong> is the physical file which actually process the request and return it to the second parameter. The second parameter is the route URL and you can name it what you like except the parameter you are passing, just make sure you use the same parameter name everywhere. In the method <code>void RegisterRoutes(RouteCollection Route)</code> you can register number of route handlers in a single go under void <code>Application_Start</code> method in the <code>Global.asax</code> file.</p>
-
-<pre class="brush:csharp">
-void Application_Start(object sender, EventArgs e){
-// Code that runs on application startup
-RegisterRoutes(RouteTable.Routes);
-}
-</pre>
-
-<p>Once you registered the routes in the Global.asax file, you are done. Time to press F5 and see the action. On the default page enter the ID and hit the Get Details button. The page rendered in front of you / user will be having a clean tidy URL.</p>
-
-<p><img src="/images/url-rewrite-aspnet-app.png" alt="URL rewrite in ASP.NET application" /></p>
-
-<p><strong>Download: <a href="/files/ASP.NET4URLRouting.zip">ASP.NET4URLRouting.zip (175.58 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/build-e2809cout-of-browsere2809d-applications-with-silverlight/">Build “Out of Browser” Applications with Silverlight</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 20, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/silverlight">SILVERLIGHT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p>If you think that Silverlight applications are only intended to be run on web browsers, then you are wrong! Silverlight is now widely used to build Rich Internet Application (RIA) allowing users to work more efficiently and make a working session more interactive and attractive. As we all know a customer will always seek for a short-cut method, he will never listen to your comments or suggestions and wants everything to be done in few mouse clicks. A lazy customer! You build an application with a lot of effort and upload it to the user or customer’s website. Now the customer wants the same application for his desktop - he doesn’t want to open browser and work. Writing the same application again for his desktop won’t help and will also waste a lot of development time, why can’t we make the same Silverlight application to run from his machine?</p>
-
-<p>Silverlight gives you an option to install the Silverlight application from the browser to your desktop called “Out of Browser” application support. Consider if you have built a game on Silverlight and upload it to your blog/website allowing you reader or visitors to play the game. It’s not just the case with games but same can be done with applications or with some general web utility like URL shortening service using Bit.ly API.</p>
-
-<p>To get started create a new Silverlight application in Visual Studio 2010.</p>
-
-<p><img src="/images/outofbrowser-silverlightapp.png" alt="Creating a new silverlight app in Visual Studio" /></p>
-
-<p>Give the name to your application and click OK.</p>
-
-<p><img src="/images/outofbrowser-newapp.png" alt="Create new silverlight app" /></p>
-
-<p>Design your application put the business logic in (if any). Once you are done designing and building the application go to the project properties. Click Project &gt; <strong>APPNAME</strong> <strong>Properties</strong>. <strong>APPNAME</strong> represents the name of your application. In the project properties check the <strong>“Enable running application out of browser”</strong>.</p>
-
-<p><img src="/images/outofbrowser-enable.png" alt="Enable out of browser support for the application" /></p>
-
-<p>Out-of-Browser Settings button will get enabled which will let you choose out of browser application settings.</p>
-
-<p><img src="/images/outofbrowser-appsettings.png" alt="Out of browser app settings" /></p>
-
-<p>The settings dialogue box is quite self-explanatory. You can set the name of the application which you want to put on the window when it runs out of the browser. You can also set the icon for you application in different sizes. Click OK to save settings.</p>
-
-<p>Now, run you application. You will see your Silverlight application running inside your browser. If you want the application to run out of the browser then right-click anywhere in the browser and click <strong>“Install <APPNAME> onto this computer”</strong>.</p>
-
-<p><img src="/images/outofbrowser-app.png" alt="Out of brower application" /></p>
-
-<p>This will prompt you to install the application and place the application icons on your desktop or on your start menu or both. It will give your application the default application install icon. If you have set your own in the Out of Browser Settings then you will see your icon.</p>
-
-<p><img src="/images/outofbrowser-installapp.png" alt="Installing out of briwser application" /></p>
-
-<p>Now your Silverlight application is on your system and can be executed at user’s desktop.</p>
 
   </div>
   
@@ -857,7 +774,16 @@ RegisterRoutes(RouteTable.Routes);
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/32/">32</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
     
     
     <li class="page-item">
@@ -865,7 +791,7 @@ RegisterRoutes(RouteTable.Routes);
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

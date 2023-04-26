@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-05-30T15:46:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-06-13T16:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -152,6 +152,85 @@
   
   <div class="post-list__item">
     <span class="item__title--big">
+      <a href="/post/eject-and-pop-in-your-cd-dvd-with-a-hotkey/">Eject and Pop-in your CD / DVD with a hotkey</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 13, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>If you are annoyed with the malfunctioning of your CD/DVD ROM. This small utility will help you to eject and and again pop-in inside the ROM. Just press CTRL + Q to toggle. Place it anywhere you like on your system, I recommend to create a folder and then place a this utility inside it as it will installs on the first time you run the application and start-up with your windows the next time you boot in.</p>
+
+<p><strong>Download Link: <a href="/files/CDAX.zip">CDAX.zip (113.18 kb)</a></strong></p>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/shoutdownlogoffhibernatestand-by-use-code-to-do-em-all/">Shoutdown/Logoff/Hibernate/Stand By - Use CODE to do &#39;em all</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 12, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p><strong>Step 1:</strong> Add the following line to use the namespace. This is necessary as we need to use the <code>User32.dll</code> with <code>DLLImport</code> attribute.</p>
+
+<pre class="brush:csharp">
+using System.Runtime.InteropServices;
+</pre>
+
+<p><strong>Step 2:</strong> Now add the below line to your code to use the methods from the User32.dll.</p>
+
+<pre class="brush:csharp">
+[DllImport("user32.dll")]
+public static extern void LockWorkStation();
+[DllImport("user32.dll")]
+public static extern int ExitWindowsEx(int uFlags, int dwReason);
+</pre>
+
+<p><strong>Step 3:</strong> Once you complete the above two steps, you can now call the methods on button click or after some or with some particular event or the way you like.</p>
+
+<pre class="brush:csharp">
+LockWorkStation(); //Locks the workstation, Equivalent to WIN+L
+ExitWindowsEx(0, 0)//Shutdowns the machine 
+Application.SetSuspendState(PowerState.Suspend, true, true)  //Put the machine in stand-by mode
+Application.SetSuspendState(PowerState.Hibernate, true, true); // Hibernates the system
+</pre>
+
+  </div>
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
       <a href="/post/convert-ascii-values-from-hex-to-characters/">Convert ASCII values from hex to characters</a>
       
     </span>
@@ -260,89 +339,6 @@ MessageBox.Show(StrValue);
 <p>Click the below link to download the full application.</p>
 
 <p><strong>Download: <a href="/files/DBBackup.zip">DBBackup.zip (290.99 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/import-csv-file-into-sql-server-using-bulk-insert/">Import CSV File Into SQL Server Using Bulk Insert</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 25, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>You have large data to import to SQL Server, and you have all the data in a CSV File (Comma Seperated Value file). Are you going to map the field one by one?</p>
-
-<p>OR just use a small function od SQL to import everything in the table. But before you proceed with this you need to map each column of CSV with the one with your table column. Look at the below quick example on how to use the BULK INSERT to import CSV file data into SQL Server.</p>
-
-<p><strong>Step 1:</strong> Create a CSV file.</p>
-
-<p><img src="/images/sql-bulkinsert-csv.jpg" alt="CSV file to bulk insert" /></p>
-
-<p><strong>Step 2:</strong> Create a table and map the fields accordingly: (Check below screenshot)</p>
-
-<p>Here is the CODE:</p>
-
-<pre class="brush:sql">
-BULK INSERT TestTable
-FROM 'c:\TestData.csv'  -- Full path of the CSV file
-WITH
-(
-FIELDTERMINATOR = ',', --CSV field delimiter
-ROWTERMINATOR = '\n'   --Use to shift the control to next row
-)
-</pre>
-
-<p><img src="/images/sql-bulkinsert-output.jpg" alt="SQL bulk insert ouput" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/convert-numbers-to-words-in-c/">Convert Numbers to Words in C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 24, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>Use the below code to convert numbers to words and currency to word programatically (Check the code below). Instead you can create a DLL and use it or whatever the way you like.</p>
-
-<p><strong>Usage:</strong></p>
-
-<p><img src="/images/num-curr.jpg" alt="Number to word conversion" /></p>
-
-<p><strong>Download: <a href="/files/Num2Wrd.cs">Num2Wrd.cs (8.30 kb)</a></strong></p>
 
   </div>
   
@@ -660,12 +656,23 @@ ROWTERMINATOR = '\n'   --Use to shift the control to next row
     <li class="page-item active"><a class="page-link" href="/page/32/">32</a></li>
     
     
-    <li class="page-item disabled">
-    <a href="" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/33/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
     </li>
     
     <li class="page-item">
-        <a href="/page/32/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

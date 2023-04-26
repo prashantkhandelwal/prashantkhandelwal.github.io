@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Apr 2023 15:36:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Apr 2023 23:12:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to Create and Push your Docker images to Azure Container Registry</title>
+      <link>https://prashantkhandelwal.github.io/post/how-to-create-and-push-your-docker-images-to-azure-container-registry/</link>
+      <pubDate>Tue, 25 Apr 2023 23:12:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/how-to-create-and-push-your-docker-images-to-azure-container-registry/</guid>
+      <description>Docker Hub or GitHub Container Registry also known as ghcr.io is a go to platform for most of the OSS developers and teams to host their Docker images. These platforms are free for open-source software, but you might need to upgrade from the free plan to use a paid plan so that your docker image is only available for your infrastructure use and not for public use.
+Azure provides Container Registry service where you can host your Docker images with ease and use the same docker pull and run command to pull and run the container on your machine, or you can also use these images to create containers when provisioning a new Web App which uses containers or with Azure Kubernetes Service (AKS).</description>
+    </item>
     
     <item>
       <title>How To Host Your React Application For Cheap With Azure Blob Storage</title>
@@ -905,6 +915,17 @@ In one of my previous projects I used the Task Dialog class to use some cool loo
       <guid>https://prashantkhandelwal.github.io/post/adding-captcha-in-aspnet-application/</guid>
       <description>Using CAPTCHA was never easy for me before I got a class from an unknown user on a community forum post. I have just re-used the class to get my work done. The class is extremely easy to use and let you incorporate the CAPTCHA into your application in just few lines of code.
 You can set the height and width of the CAPTCHA image while initializing the CAPTCHA class. The CAPTCHA image generated from the class can be set to the image control directly or it can be save to the local path and then set to the image control.</description>
+    </item>
+    
+    <item>
+      <title>Autocomplete With jQuery and ASP.NET</title>
+      <link>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</link>
+      <pubDate>Sun, 19 Dec 2010 01:46:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/autocomplete-with-jquery-and-aspnet/</guid>
+      <description>Building auto-complete feature with jQuery is easy and you can build this in no time. It&amp;rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&amp;rsquo;s begin up getting files under one hood.
+Use the below live links for jQuery auto-complete and CSS.
+&amp;lt;link rel=&#34;stylesheet&#34; href=&#34;http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css&#34; type=&#34;text/css&#34; /&amp;gt; &amp;lt;script type=&#34;</description>
     </item>
     
     <item>
