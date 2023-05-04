@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-05-14T20:26:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-05-23T21:01:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,59 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-build-uac-compatible-application-in-net/">How To Build UAC Compatible Application In .NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 23, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>We all know about a feature called User Account Control (UAC) which introduced with the launch of Windows Vista. By default, UAC is enabled and provides users a better and safer computing experience, but most of the users find it irritating when the UAC prompts everytime they try to run a program. Disabling UAC is not recommended at all.</p>
+
+<p>With UAC enabled programmers find it difficult to access some of the locations on the local drive. Programatically you cannot write or create a file or directory in root partition, inside Program Files, System32 folder and some other locations. Recently I ran into a same problem where I have to access System32 folder, create new folders and copy files from one location on my system to this folder. With UAC disabled this is pretty easy, no security settings and no runtime errors or exceptions. Usually you cannot ask the users to disable UAC and then use the application, so therefore I made my application compatible with UAC and YES!!! you will be prompted with the confirmation box to run the application with administrator privileges. In Windows Vista and Windows 7, even if you are an administrator of your machine you do not have the complete access to resources even if you are an administrator. So in order to make your application run with full administrator rights follow the steps below. This will work the same if you run your application with &ldquo;Run as Administrator&rdquo; option which you see when you right-click the application.</p>
+
+<p>Create a new application in Visual Studio. Right-click project and add a new item.</p>
+
+<p><img src="/images/uac-vs-newitem.png" alt="Adding application.manifest file" /></p>
+
+<p>From the Add New Item box select Application Manifest File.</p>
+
+<p>In the manifest file un-comment the following line:</p>
+
+<pre class="brush:xml">
+&lt;requestedExecutionLevel level="requireAdministrator" uiAccess="false" /&gt;
+</pre>
+
+<p><img src="/images/uac-shield.png" alt="Shield icon after UAC enabled" /></p>
+
+<p>Build your applicaton&hellip;.and when the build is complete you will see the security shield icon accompanying your application icon. A dialogue box appear in front of the user to run the application with full administrative privileges.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -553,59 +606,6 @@ list.AddUserTasks(JLink);
 <p><img src="/images/win7-customjumplist.png" alt="Windows 7 jumplist" /></p>
 
 <p>Categorizing programs is bit easy this way. I can categorize web URLs, my favourites programs and some other places/links on my computer. There is lot more you can do with Jump Lists. I hope the explaination above can let you create your own applications with jump lists.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/submit-your-site-blog-to-bing-search/">Submit Your Site To Bing Search</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 26, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      
-      
-      
-      
-    </span>
-    <p>If you want your website or blog content to be noticed or searched by Microsoft Bing search engine, then you can do this to get your work noticed. But beofre you can do this you need a Live ID a.k.a. Hotmail ID.</p>
-
-<p>Go to <a href="http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx">http://www.bing.com/webmaster/WebmasterAddSitesPage.aspx</a></p>
-
-<p><img src="/images/bing-1.png" alt="Bing webmaster" /></p>
-
-<p>Fill up your web address and sitemap address. Though the sitemap address is optional, but I recommened to give a sitemap as it help the crawlers to crawl all the pages on your website. You can also sign up for a webmaster&rsquo;s e-mail, just in case if Bing encouters somes issues with your website. When you are done click the submit button and you are prompted with a confirmation with an authentication code.</p>
-
-<p><img src="/images/bing-2.png" alt="Bing webmaster" /></p>
-
-<p>Now when you are done it is time for authentication. When you submit a website to Bing search it asks for an authentication, just to ensure that you are the owner and so provides you with an authentication key which is used to autheticate the ownership in two different ways.</p>
-
-<ul>
-<li>You can have a XML fle with authentication code in the root of your website. Read more instructions on the screen OR</li>
-<li>You can add the authentication code within meta tag in your page head section of your default page.</li>
-</ul>
-
-<p>And this is it, your website is submitted on the Bing. Now to check it back click the <code>Return to Site List</code> button to view the site you have submitted. And yes you get it right you can submit a number of sites to Bing. Below is what a <code>Site List</code> look like:</p>
-
-<p><img src="/images/bing-3.png" alt="Bing webmaster" /></p>
-
-<p>lick on the Web Address, and you will get a detailed list of your website, if Bing crawlers didn&rsquo;t found any problems with your website.</p>
-
-<p>When you get the meta tag in your head section of your website default page or have placed the XML file in the root folder as metioned in the above step, you now need to take a nap for a while and give the search engine crawler a bit of time to crawl you webpage. I actually don&rsquo;t know when to check the site list and other information and whether the crawlers have crawl my website or not, by the way I have checked my website status on Bing after 24 hrs. So after 24 hrs you can also check and this is what you will see. You can see the last crawl date and other information of your website.</p>
-
-<p><img src="/images/bing-4.png" alt="Bing webmaster" /></p>
-
-<p>So don&rsquo;t wait&hellip;.leave no opportunity to draw more traffic to your website or blog.</p>
 
   </div>
   

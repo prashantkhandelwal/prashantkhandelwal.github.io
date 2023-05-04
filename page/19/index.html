@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-02-02T02:58:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-02-08T03:11:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,395 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/integrate-bing-maps-with-geonames-database-and-aspnet/">Integrate Bing Maps With Geonames Database And ASP.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 8, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p><img align="right" src="/images/bing-maps-logo.jpg" alt="Bing Maps logo"/></p>
+
+<p>To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&rsquo;t it be nice if you just have to query a local database?</p>
+
+<h4 id="get-the-geonames-data-dump"><strong>Get the Geonames data dump</strong></h4>
+
+<p>Apart from providing free web services and API <a href="http://www.geonames.org/">Geonames.org</a> also provides their <a href="http://download.geonames.org/export/dump/">data dumps</a> which gets updated regularly. the best things about the data dumps are that they are distributed country-wise, city-wise etc. If you wish to download the data country wise, then you can download the file(s) which are named according to the countries IATA codes. The one I am using for this example is the <code>allCountries</code> files from the dumps. Download this dump only if you want to have ALL the Geoname data.</p>
+
+<p><img src="/images/geonames-datadump.png" alt="Geonames data dump" /></p>
+
+<h4 id="import-data-in-sql-server"><strong>Import data in SQL Server</strong></h4>
+
+<p>The dump can be imported in the database using the Data import-Export wizard present in the SQL Server or you can write a custom tool to import the whole dump. The dump is in a <code>TAB</code> delimited format. Just in case if you are not aware, the file you downloaded is in UTF-8 encoding and therefore you need it to convert it to UTF-16 encoding before you actually import it into the database. There is a command line tool which will help you to convert the database dump to UTF-16 which I got from the <a href="http://forum.geonames.org/gforum/posts/list/817.page">Geoname forums</a>.</p>
+
+<p><img src="/images/geonames-data-import.png" alt="Geonames data import" /></p>
+
+<p>This tool will convert the format of the dump file from UTF-8 to UTF-16. After the successfull conversion of the file, now comes the time to import the data in the database.</p>
+
+<p>Create a database table:</p>
+
+<pre class="brush:sql">
+CREATE TABLE GeoNames( 
+geonameid int NOT NULL, 
+name nvarchar(200) NULL, 
+asciiname nvarchar(200) NULL, 
+alternatenames nvarchar(max) NULL, 
+latitude float NULL, 
+longitude float NULL, 
+feature_class char(2) NULL, 
+feature_code nvarchar(10) NULL, 
+country_code char(3) NULL, 
+cc2 char(60) NULL, 
+admin1_code nvarchar(20) NULL, 
+admin2_code nvarchar(80) NULL, 
+admin3_code nvarchar(20) NULL, 
+admin4_code nvarchar(20) NULL, 
+population bigint NULL, 
+elevation int NULL, 
+gtopo30 int NULL, 
+timezone char(31) NULL, 
+modification_date date NULL
+)
+</pre>
+
+<p>To import millions of records you can write a custom tool or you can use the SQL Server Data Import/Export Data wizard. I have wrote a custom tool to import, but you can use the T-SQL&rsquo;s BULK INSERT (because it is simple and easy) to import the dump.</p>
+
+<pre class="brush:sql">
+BULK 
+INSERT GeoNames 
+FROM 'I:\Database\Dump.txt'
+WITH( 
+DATAFILETYPE = 'widechar', 
+FIELDTERMINATOR = '\t', 
+ROWTERMINATOR = '\n'
+)
+</pre>
+
+<p>The parameters in the above SQL statement is self-explanatory and therefore I am not going to brief them. <strong>But before you can start locating places with ASP.NET make sure you have indexed the table, if not then you will receive a SQL Server timed-out error</strong>.</p>
+
+<h4 id="working-with-bing-maps"><strong>Working with Bing Maps</strong></h4>
+
+<p>Our database is now ready and now we can start locating the places on the Bing maps. We have two pages in the project, one which we will be using to get the locations and their details on the basis of city name enter by the user and the other which will show the map with a push pin.</p>
+
+<p><img src="/images/geonames-webapp.png" alt="Geonames webapp" /></p>
+
+<p><strong>Default.aspx page:</strong></p>
+
+<pre class="brush:html">
+&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BingMap._Default" EnableViewState="true" %&gt;
+ 
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Bing Maps with ASP.NET and GeoNames Database&lt;/title&gt;
+    &lt;link href="Style/style.css" rel="stylesheet" type="text/css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form id="form1" runat="server" enableviewstate="true"&gt;
+    Enter Place Name:  &lt;asp:TextBox ID="txtPlaceName" runat="server" /&gt;
+    &lt;asp:Button ID="btnPlaceName" runat="server" Text="Get GeoData!" OnClick="btnPlaceName_Click" /&gt;
+     &lt;br /&gt;
+    &lt;br /&gt;
+        &lt;table id="GeoData" style="width: 55%;" enableviewstate="true"&gt;
+            &lt;tr&gt;
+                &lt;td class="tdheader"&gt;
+                      City Name
+                &lt;/td&gt;
+                &lt;td class="tdheader"&gt;
+                      Lat./Log.
+                &lt;/td&gt;
+                &lt;td class="tdheader"&gt;
+                     Country
+                &lt;/td&gt;
+                &lt;td&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;%for (int i = 0; i &lt; RecCount; i++)
+              {%&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                      
+                    &lt;%=CityName[i]%&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                      
+                    &lt;%=Lat[i]%&gt;
+                    /
+                    &lt;%=Log[i]%&gt;
+                &lt;/td&gt;
+                &lt;td class="country"&gt;
+                      
+                    &lt;%=Country[i]%&gt;
+                &lt;/td&gt;
+                &lt;td&gt;
+                    &lt;a href="BingMap.aspx?lat=&lt;%=Lat[i]%&gt;&log=&lt;%=Log[i]%&gt;&place=&lt;%=CityName[i]%&gt;" target="_blank"&gt;Show on Map&lt;/a&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;%}%&gt;
+        &lt;/table&gt;
+    &lt;br /&gt;
+   &lt;asp:Label ID="RecFound" Text="" runat="server" /&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;br&gt;
+</pre>
+
+<p><strong>Code Behind: Default.aspx.cs:</strong></p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using BingMap.DBModel;
+ 
+ 
+namespace BingMap
+{
+    public partial class _Default : System.Web.UI.Page
+    {
+        WorldEntities world = new WorldEntities();
+        public List&lt;string&gt; CityName = new List&lt;string&gt;();
+        public List&lt;string&gt; Country = new List&lt;string&gt;();
+        public List&lt;string&gt; Lat = new List&lt;string&gt;();
+        public List&lt;string&gt; Log = new List&lt;string&gt;();
+        public int RecCount = 0;
+ 
+        private void GetLocation(string CName)
+        {
+            try
+            {
+                var WorldLoc = from l in world.Geonames
+                               where l.name == CName
+                               select l;
+ 
+                foreach (var item in WorldLoc)
+                {
+                    CityName.Add(item.name);
+                    Country.Add(item.country_code);
+                    Lat.Add(Convert.ToSingle(item.latitude));
+                    Log.Add(Convert.ToSingle(item.longitude));
+                    RecCount = RecCount + 1;
+                }
+ 
+                if (RecCount == 0)
+                {
+                    RecFound.Text = "No Record(s) Found!";
+                }
+ 
+                else
+                {
+                    RecFound.Text = Convert.ToString(RecCount) + " Record(s) Found!";
+                }
+            }
+            catch (Exception x)
+            {
+                Response.Write(x.ToString());
+            }
+        }
+ 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+ 
+        }
+ 
+        protected void btnPlaceName_Click(object sender, EventArgs e)
+        {
+            if (Page.IsPostBack)
+            {
+                GetLocation(txtPlaceName.Text);
+            }
+        }
+    }
+}
+</pre>
+
+<p>here could be many places with the same name in different geographical locations. For example, if you query the database with San Francisco, you&rsquo;ll find out it is not the only place on the planet in U.S. The same is with the city in India called Hyderabad, one is in India and the other is in Pakistan. But the geographical location is different and thus we can place a push pin on the maps.</p>
+
+<p>I have used a different web page for the map. From the page <code>Default.aspx</code> page I will pass the information (latitude, longitude and place name) in query string to pin the location on the map.</p>
+
+<p><strong>BingMap.aspx:</strong></p>
+
+<pre class="brush:jscript">
+&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BingMap.aspx.cs" Inherits="BingMap.BingMap" %&gt;
+ 
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+ 
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head runat="server"&gt;
+    &lt;title&gt;Bing Map&lt;/title&gt;
+    &lt;script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"&gt;&lt;/script&gt;
+ 
+    &lt;script type="text/javascript"&gt;
+        function LoadMap() {
+            map = new VEMap('BingMap');
+            var Latitude = '&lt;%= LocLat %&gt;';
+            var Longitude = '&lt;%= LocLog%&gt;';
+            var PlaceName = '&lt;%=Place %&gt;';
+            if (Latitude.length == 0 || Longitude.length == 0) {
+                var latlong = new VELatLong(28.63576, 77.22445);
+ 
+                map.SetDashboardSize(VEDashboardSize.Large);
+                map.LoadMap(latlong, 9, VEMapStyle.Road);
+ 
+                //Add pushpin
+                var pin = new VEShape(VEShapeType.Pushpin, latlong);
+                pin.SetCustomIcon(null);
+                pin.SetTitle("New Delhi");
+                pin.SetDescription("Capital City Of India");
+                map.AddShape(pin);
+                map.ShowDashboard();
+            }
+            else {
+                var latlong = new VELatLong(Latitude, Longitude);
+ 
+                map.SetDashboardSize(VEDashboardSize.Large);
+                map.LoadMap(latlong, 9, VEMapStyle.Road);
+ 
+                //Add pushpin
+                var pin = new VEShape(VEShapeType.Pushpin, latlong);
+                pin.SetCustomIcon(null);
+                pin.SetTitle(PlaceName);
+                pin.SetDescription("&lt;br/&gt;" + "&lt;strong&gt;Latitude:&lt;/strong&gt;" + '&lt;%=LocLat%&gt;' + "&lt;br/&gt;" + "&lt;strong&gt;Longitude:&lt;/strong&gt;" + '&lt;%=LocLog%&gt;');
+                map.AddShape(pin);
+                map.ShowDashboard();
+            }
+        }
+    &lt;/script&gt;
+ 
+&lt;/head&gt;
+&lt;body onload="LoadMap();"&gt;
+    &lt;form id="BingForm" runat="server"&gt;
+    &lt;div id='BingMap' style="position: relative; width: 800px; height: 600px;"&gt;
+     
+    &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;br&gt;
+</pre>
+
+<p>The client-side script is used to load the map. I have used the version 6.3 of the Bing Maps but you can also use the version 7.0. Though you need some additional parameters to use the latest one like the Bing Maps developer API key. The map can be set in the script tag.</p>
+
+<pre class="brush:jscript">
+<script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
+</pre>
+
+<p>A funtion named <code>LoadMap()</code> will doing the rest of the job, like setting the latitude, longitude, adding push pin to the location on the map and customizing other details on the map.</p>
+
+<pre class="brush:jscript">
+var latlong = new VELatLong(28.63576, 77.22445);
+map.SetDashboardSize(VEDashboardSize.Large);
+map.LoadMap(latlong, 9, VEMapStyle.Road);
+</pre>
+
+<p>The first line in the above script will set the latitude and longitude. The <code>LoadMap</code> method should always be called after <code>SetDashboardSize</code>. I have set the <a href="http://msdn.microsoft.com/en-us/library/bb429578.aspx">VEDashboardSize</a> enumeration to <code>Large</code> you can also use <code>Small</code> if you want the navigation controls of the map to appear small. <code>LoadMap</code> method will take 3 parameters, the first is the reference of the latitude and longitude of the location, second is the Zoom Level, which is 9 in my case, you can adjust this value according to your requirement and the third option <a href="http://msdn.microsoft.com/en-us/library/bb412515.aspx">VEMapStyle</a> enumeration will let you set the style for the map. It can be Road, Aerial, BirdEye etc (Click on the links to know more about these enumerations). And this is it, this will load the map in the browser showing the place of your choice with specified latitude and longitude.</p>
+
+<p>To be more precise an beautify the Bing Map, we can also add a push pin at the specified location and that too can also be done with the help of the client-side script.</p>
+
+<pre class="brush:jscript">
+var pin = new VEShape(VEShapeType.Pushpin, latlong);
+pin.SetCustomIcon(null);
+pin.SetTitle(PlaceName);
+pin.SetDescription("<br/>" + "<strong>Latitude:</strong>" + '<%=LocLat%>' + "<br/>" + "<strong>Longitude:</strong>" + '<%=LocLog%>');
+map.AddShape(pin);
+</pre>
+
+<p>To add a new push pin to our location we need to use <a href="http://msdn.microsoft.com/en-us/library/bb412535.aspx">VEShape</a> class. <a href="http://msdn.microsoft.com/en-us/library/bb412425.aspx">SetCustomIcon</a> method allows to set the custom icon for your push pin. <code>SetTitle</code> method will set the description for you push pin. <code>SetDescription</code> method sets the description of the push pin, here in the description I have set the other information like location&rsquo;s latitide and longitude. To add the push pin to the location the <code>AddShape</code> method of the map class will take <code>pin</code> as a parameter and set the push pin on the map.</p>
+
+<p>For showing map I have used a different web page named BingMap.aspx which also includes the code behind (just a few lines) apart from client-side code:</p>
+
+<p><strong>BingMap.aspx.cs:</strong></p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+ 
+namespace BingMap
+{
+    public partial class BingMap : System.Web.UI.Page
+    {
+        public string LocLat = "";
+        public string LocLog = "";
+        public string Place = "";
+ 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Request.QueryString.AllKeys.Length > 0)
+            {
+                LocLat = Request.QueryString["lat"].ToString();
+                LocLog = Request.QueryString["log"].ToString();
+                Place = Request.QueryString["place"].ToString();
+            }
+ 
+            if (LocLat.Equals("") || LocLog.Equals(""))
+            {
+ 
+            }
+        }
+    }
+}
+</pre>
+
+<p>In the code-behind I will check on page load if the count of the query string passed on to the page is greater than zero, if the condition is true then I will set the values in the public variables and set them on the client-side script which actually handles the loading, locating and adding push pin on the map. The URL on calling the BingMap.aspx page will look like this:</p>
+
+<pre class="brush:plain">
+http://localhost:5543/BingMap.aspx?lat=28.35&log=79.41667&place=Bareilly
+</pre>
+
+<p>I have shown my home town on the map. You can also see a push pin and other details in a baloon.</p>
+
+<p><img src="/images/geonames-bingmap.png" alt="Location via Geonames data on Bing Maps" /></p>
+
+<p>And this is it, I can now locate any place on the Bing Maps which is present with me in Geonames database with the help of ASP.NET. The more can be done with the help of Geonames database like postcode lookup. I hope this tutorial will get you started with Bing Maps integrated with Geonames database with the help of ASP.NET.</p>
+
+<p><strong>Download: <a href="/files/BingMap.zip">BingMap.zip (189.44 kb)</a></strong></p>
+
+<p><strong><a href="/files/Utf8ToUtf16.exe">Download the UTF8ToUTF16 conversion tool</a></strong></p>
+
+<p><strong>Related Links:</strong></p>
+
+<ul>
+<li><a href="http://jkebeck.wordpress.com/">Johannes blog on Bing Maps</a></li>
+<li><a href="http://download.geonames.org/export/dump/">Geonames Data Dump Page</a></li>
+<li><a href="http://www.bingmapsportal.com/">Bing Maps Account Centre</a></li>
+<li><a href="http://blogs.msdn.com/b/veplatform/">Bing Maps Team Blog</a></li>
+<li><a href="http://www.bing.com/community/site_blogs/b/maps/default.aspx">Bing Maps Community</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -463,102 +852,6 @@ ShowInfoMessage("Application Name", "Image more than 32x32 pixels will be reject
 <pre class="brush:shell">
 Install-Package Windows7APICodePack
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/using-jquery-to-get-your-tweets/">Using jQuery To Get Your Tweets</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 27, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/tweet.png" alt="Twitter bird"/></p>
-
-<p>If you are a blogger and using Twitter, then you must want to show some of your latest tweets on your blog space. I do have a custom widget for my blog which can display 3 of my latest tweets and I can customize it show more of my tweets. But the widgets cannot be used in every scenario and this is why some people find it difficult to use the widget provided by Twitter to display their tweets. What if they want to show their last tweet on the top of the page inside a DIV? A friend of mine set up his new WordPress blog and want to have a DIV on the top of the page which displays his last post and that he can customize. By customize I mean that he can set the number of tweets he wants to display, can show his profile picture and get his last tweet. The script file contains only three methods at this moment. I will add some other functions later on.</p>
-
-<p><strong>How does this work?</strong></p>
-
-<p>It is just a javascript file and there is nothing new about it. What you need to do is to have a DIV or any HTML element or ASP.NET server control with id as <code>'tweet-div'</code>. For this example I am using a DIV to show my tweets. I choose DIV because I can set it position to absolute and set on the image to show my latest tweet on an image I got from <a href="http://www.iconfinder.com/">Iconsinder</a>. It is a pretty twitter imageand there are other images also which you can use, but for non-commercial purpose only. First, take a look at the jQuery script I wrote to do all the stuff:</p>
-
-<pre class="brush:jscript">
-function GetLastTweet(UserName) {
-    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
-    $.getJSON(url, function (tweet) {
-        $("#tweet-div").html(tweet[0].text);
-    });
-}
- 
-function GetTweets(UserName, NoOfTweets) {
-    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
-    $.getJSON(url, function (tweets) {
-        for (var i = 0; i < NoOfTweets; i++) {
-            $("#tweet-div").append(tweets[i].text + "<br/>");
-        }
-    });
-}
- 
-function GetProfileImage(UserName) {
-    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
-    $.getJSON(url, function (image) {
-        $("#ProfileImage").attr('src', image[0].user.profile_image_url);
-    });
-}
-</pre>
-
-<p>To communicate with the Twitter API, I am using JSON. Plan to go for XML only if you are using it on the server side code. As you can see it is pretty easy to work with JSON in jQuery. The methods:</p>
-
-<ul>
-<li><strong>GetLastTweet(UserName)</strong> will get the last tweet of any user. Pass the twitter user name as a parameter.</li>
-<li><strong>GetTweets(UserName, NoOfTweets)</strong> will get the specified number of tweets for the user. the first parameter will be the twitter user name and the second parameter will be the number of tweets you want to display.</li>
-<li><strong>GetProfileImage(UserName)</strong> will get the profle image of the user.</li>
-</ul>
-
-<p>*<strong>Note:</strong> Please change the element <strong>ID</strong> in the script file according to your element id on the page.*</p>
-
-<p>And just in case if you are feeling lazy to write the the HTML markup:</p>
-
-<pre class="brush:html">
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-    &lt;title&gt;@prashantmx on Twitter!&lt;/title&gt;
-    &lt;script src="Scripts/jquery-1.4.1.js" type="text/javascript"&gt;&lt;/script&gt;
-    &lt;script src="Scripts/Tweet.js" type="text/javascript"&gt;&lt;/script&gt;
-    &lt;link href="style/style.css" rel="stylesheet" type="text/css" /&gt;
-&lt;/head&gt;
-&lt;body onload="GetLastTweet('prashantmx');"&gt;
-&lt;img src="images/1293447412_bird_sign.png" alt="twitterbird" /&gt;
-&lt;div id ="tweet-div"&gt;
-&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</pre>
-
-<p>I am using an image of twitter bird to show my last tweet. And here is what my last tweet looks like:</p>
-
-<p>If you want to use the below image or other images like this then go to Iconfinder. There is a good collection of twitter birds images as shown below and choose which best suites your requirement.</p>
-
-<p><img src="/images/tweet-display.png" alt="Tweet displayed on page" /></p>
-
-<p><strong>Download: <a href="/files/Twitter.zip">Twitter.zip (159.92 kb)</a></strong></p>
 
   </div>
   

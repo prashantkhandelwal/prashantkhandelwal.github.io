@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-03-10T16:39:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-04-15T03:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,212 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/minify-your-css-javascript-with-squishit/">Minify Your CSS &amp; Javascript With SquishIt</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 15, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>No one likes if their favourite site is loading up slow. Using CSS sprites instead of using individual images and minify javascript and css files is a way to minimize the request send to the server and also saves you few KBs or may be even MBs. If your site is high on using javacript and CSS then you should minimize them.</p>
+
+<p>I recently used <a href="http://nuget.org/packages/SquishIt">SquishIt</a> to combine/minimize my CSS and javascript files. I found 2 major benefits, first, I am able to combine all of my CSS files into one and minimize it, and second it reduces the request sent to the server to load several .css and .js files. In a typical web application I can have one style sheet and one javascript or jQuery file, but if I am planning to use some plugins then there might be more than one style sheet and javascript files which will get loaded on every page request. Here is an example of a sample web forms application loading two css and javascript files which includes the plugin code.</p>
+
+<p><img src="/images/console-network-tab.png" alt="Loading time of static assets in browser console" /></p>
+
+<p>Here you can see that there are 4 requests in total to load site CSS and Javascript files. Though in this case the size of the file is less but when you have really large files then it can really affect your site performance and also save MBs in a long run. So, what happens when I use SquishIt? Install the package by firing the below command at <a href="http://nuget.org/">NuGet</a> console.</p>
+
+<p><img src="/images/nuget-squishit.png" alt="Nuget SquishIt Command" /></p>
+
+<p>SquishIt is not an independent package, it has dependencies which is doing all the work of minifying and compressing CSS and JS files behind the scenes.</p>
+
+<p><img src="/images/nuget-dependencies.png" alt="Nuget dependencies" /></p>
+
+<p>After the package is installed successfully, time to squish the files. Open the web page or the master page where you are loading CSS and JS files (in my case it is <code>site.master</code>) and add a reference to the SquishIt assembly on the top of that page.</p>
+
+<pre class="brush: csharp">
+<%@ Import Namespace="SquishIt.Framework" %>
+</pre>
+
+<p>In the head section of your page we can then combine all the CSS and JS files and then render them into ONE single file. There are two different methods to minimize CSS and JS files i.e. <code>Bundle.Css()</code> for CSS files and <code>Bundle.JavaScript()</code> for JS files. Here is an example:</p>
+
+<p><strong>To bundle CSS:</strong></p>
+
+<pre class="brush: csharp">
+<%= Bundle.Css()
+       .Add("Styles/adipoli.css")
+       .Add("Styles/Site.css")
+       .Render("Styles/squishstyle#.css")
+%>
+</pre>
+
+<p><strong>To bundle JavaScript:</strong></p>
+
+<pre class="brush: csharp">
+<%= Bundle.JavaScript()
+       .Add("Scripts/jquery-1.7.1.min.js")
+       .Add("Scripts/jquery.adipoli.min.js")
+       .Render("Scripts/squishjs#.js")
+%>
+</pre>
+
+<p>You can go on adding all the css and javascript files using the <code>Add()</code> method. After all the files has been added call the <code>Render()</code> method. You can say that the <code>Add()</code> method just keep all the files in a stack and the <code>Render()</code> method will combine and minimize the files. If you look closely in the <code>Render()</code> method has a new file name with a (hash) <code>#</code>. The hash symbol is just generates a new unique id of the bundled script.</p>
+
+<p>When you run the application and check the network call stack in your browser, you&rsquo;ll find that the files are not combined. The page is still loading 4 files!? To overcome this set the <code>debug</code> mode to <code>false</code> in the <code>web.config</code> file.</p>
+
+<pre class="brush: xml">
+&lt;compilation debug="false" targetFramework="4.0" /&gt;
+</pre>
+
+<p>Now if you look in the network call stack, you will find the files have been squished and minimised and compressed!!</p>
+
+<p><img src="/images/console-loading-time.png" alt="Console log for asset loading time after the use of SquishIT" /></p>
+
+<p>And here are my saving statistics:</p>
+
+<p><strong>Without SquishIt:</strong></p>
+
+<p>Four requests in total!!</p>
+
+<table>
+<thead>
+<tr>
+<th>Name/Path</th>
+<th>Type</th>
+<th>Size Content</th>
+<th>Time Latency</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>adipoli.cs</td>
+<td>text/css</td>
+<td>683B</td>
+<td>62ms</td>
+</tr>
+
+<tr>
+<td>/Styles</td>
+<td>text/css</td>
+<td>441B</td>
+<td>55ms</td>
+</tr>
+
+<tr>
+<td>Site.css</td>
+<td>text/css</td>
+<td>4.40KB</td>
+<td>68ms</td>
+</tr>
+
+<tr>
+<td>/Styles</td>
+<td>text/css</td>
+<td>4.16KB</td>
+<td>61ms</td>
+</tr>
+
+<tr>
+<td>jquery-1.7.1.min.js</td>
+<td>application/x-javascript</td>
+<td>109.91KB</td>
+<td>80ms</td>
+</tr>
+
+<tr>
+<td>/Scripts</td>
+<td>application/x-javascript</td>
+<td>109.65KB</td>
+<td>67ms</td>
+</tr>
+
+<tr>
+<td>jquery.adipoli.min.js</td>
+<td>application/x-javascript</td>
+<td>7.57KB</td>
+<td>242ms</td>
+</tr>
+
+<tr>
+<td>/Scripts</td>
+<td>application/x-javascript</td>
+<td>7.32KB</td>
+<td>163ms</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>The Squish effect:</strong></p>
+
+<p>Two requests in total. Check out the file size and content being loaded.</p>
+
+<table>
+<thead>
+<tr>
+<th>Name/Path</th>
+<th>Type</th>
+<th>Size Content</th>
+<th>Time Latency</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>squishstyle6788C36F832FE70161B88F2D08193F3E.css</td>
+<td>text/css</td>
+<td>2.95KB</td>
+<td>80ms</td>
+</tr>
+
+<tr>
+<td>/Styles</td>
+<td>text/css</td>
+<td>2.71KB</td>
+<td>72ms</td>
+</tr>
+
+<tr>
+<td>squishjs0F44BB5917C6332E4D49DFCDA5F3556D.js</td>
+<td>application/x-javascript</td>
+<td>98.29KB</td>
+<td>91ms</td>
+</tr>
+
+<tr>
+<td>/Scripts</td>
+<td>text/css</td>
+<td>98.03KB</td>
+<td>76ms</td>
+</tr>
+</tbody>
+</table>
+
+<p>The same can be done in MVC with this <a href="http://nuget.org/packages/SquishIt.Mvc">NuGet package</a>.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -596,88 +802,6 @@ Response.End();
 <p>This is it, if you have followed the steps above then try uploading some file. And if you haven&rsquo;t and lazy to put all the pieces together then download the code from the below and try it.</p>
 
 <p><strong>Download: <a href="/files/HTML5DragNDrpFileUpload.zip">HTML5DragNDrpFileUpload.zip (58.15 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/introducing-visual-studio-achievements-bringing-some-game-to-the-code/">Introducing Visual Studio Achievements - Bringing Some Game To The Code</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 22, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p><img align="right" src="/images/vs-achievement-logo.png" alt="Visual Studio Achievement Logo"/></p>
-
-<p>Another awesome stuff for developers from Microsoft! This past Wednesday Microsoftie <a href="http://rhizohm.net/irhetoric/">Karsten Januszewski</a> announced the <a href="http://channel9.msdn.com/Blogs/C9Team/Announcing-Visual-Studio-Achievements">Visual Studio Achievement Beta at Channel9</a>. Guess what? as a developer, you are writing hundred lines of code every day without even getting noticed by the community!!? Well, you will get noticed now. Here is an extract from the official post from Channel9:</p>
-
-<blockquote>
-<p><strong>Bring Some Game To Your Code!</strong></p>
-
-<p>A software engineer&rsquo;s glory so often goes unnoticed. Attention seems to come either when there are bugs or when the final project ships. But rarely is a developer appreciated for all the nuances and subtleties of a piece of code&ndash;and all the heroics it took to write it. With Visual Studio Achievements Beta, your talents are recognized as you perform various coding feats, unlock achievements and earn badges.</p>
-
-<p><strong>Learn More About Visual Studio</strong></p>
-
-<p>Visual Studio is a powerful tool with tons of features, many of which you may not know about. Earning some of the badges may result in learning about features you didn’t even know existed!</p>
-
-<p><strong>How It Works</strong></p>
-
-<p>With the Visual Studio Achievements Extension, achievements are unlocked based on your activity. Your code is analyzed on a background thread each time you compile. In addition, the extension listens for certain events and actions that you may perform in Visual Studio, reporting progress on these events to the server.</p>
-</blockquote>
-
-<h4 id="get-the-visual-studio-extension"><strong>Get the Visual Studio Extension</strong></h4>
-
-<p>Download the <a href="http://visualstudiogallery.msdn.microsoft.com/bc7a433b-b594-48d4-bba2-a2f24774d02f">Visual Studio Achievement Extension</a> from Visual Studio Gallery. Install the extension and fire Visual Studio, sign in with your LiveID and straight away you will achieve <code>5 points</code> for installing Visual Studio Achievement Extension. Every time you achieve, a pop-up in will be shown inside Visual Studio IDE.</p>
-
-<h4 id="show-off-your-achievements"><strong>Show off your achievements</strong></h4>
-
-<p>Now you are earning some achievements huh!? Why not show it off on your blog. <a href="http://channel9.msdn.com/Blogs/C9Team/Visual-Studio-Achievements-Widget">Grab the script</a> to show off your Visual Studio Achievements. You can see my achievements widget on the right hand side of my blog. Just in case you don&rsquo;t like the widget, then you can customize the look and feel using <a href="http://channel9.msdn.com/Blogs/C9Team/Visual-Studio-Achievements-Widget#widgetCSS">CSS</a> and providing <a href="http://channel9.msdn.com/Blogs/C9Team/Visual-Studio-Achievements-Widget#widgetQueryStringParameters">additional parameters</a>. You can see more widget <a href="http://channel9.msdn.com/Blogs/C9Team/Visual-Studio-Achievements-Widget#widgetExamples">examples</a> here and customize it as you like. Apart from this you can also see the leading achievers at the <a href="http://channel9.msdn.com/achievements/visualstudio/leaderboard">Leaderboard</a>.</p>
-
-<p><img src="/images/vs-achievements-leaderboard.png" alt="Visual Studio achievements leaderboard" /></p>
-
-<h4 id="the-achievement-api"><strong>The Achievement API</strong></h4>
-
-<p>Introducing the Achievement and that too with API is super awesome. I haven&rsquo;t gone through the <a href="http://channel9.msdn.com/Blogs/C9Team/Visual-Studio-Achievements-API">Achievement API</a> yet, but if you are planning to write a custom tool then mash it up and share with the community.</p>
-
-<h4 id="visual-studio-achievements-legend"><strong>Visual Studio Achievements Legend</strong></h4>
-
-<p>So, what are the achievements that we are going to get? There are 6 different badges at the moment and we are going to see more badges in future. Here is a snap of the 6 badges:</p>
-
-<p><img src="/images/vs-achievements-categories.png" alt="Visual Studio achievements categories" /></p>
-
-<p>Need to know more in detail about these badges then read about them <a href="http://channel9.msdn.com/achievements/visualstudio">here</a>. Let&rsquo;s get started people, bring some game to the code you write from now on!!</p>
-
-<h4 id="related-links"><strong>Related Links:</strong></h4>
-
-<ul>
-<li><a href="http://channel9.msdn.com/achievements/visualstudio">Visual Studio Achievements - Channel9</a></li>
-<li><a href="http://channel9.msdn.com/Blogs/C9Team/Announcing-Visual-Studio-Achievements">Visual Studio Achievements - The Announcement</a></li>
-<li><a href="http://channel9.msdn.com/Blogs/C9Team/Visual-Studio-Achievements-Widget">Visual Studio Achievements - Widget</a></li>
-<li><a href="http://channel9.msdn.com/Blogs/C9Team/Visual-Studio-Achievements-API">Visual Studio Achievements - API</a></li>
-<li><a href="http://rhizohm.net/irhetoric/">Karsten&rsquo;s Blog</a></li>
-</ul>
 
   </div>
   

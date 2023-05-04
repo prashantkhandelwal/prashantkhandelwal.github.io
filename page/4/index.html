@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2016-09-26T21:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2016-10-03T22:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,62 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/get-the-correct-file-paths-in-net-core/">Get The Correct File Paths In .NET Core</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 3, 2016
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC&#34;</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>I run a custom blog engine I wrote myself on MVC 4 and as you would have thought it is on Windows hosting. I am re-writing my blog engine in .NET Core so that I can get it running on a Linux hosting as well. I am using Windows machine and Visual Studio Community Edition to write it and using a Ubuntu VM box to test it. My current blog uses SQL Server as a back-end but Linux does not support SQL Server and therefore I have to move to MySQL or any other No-SQL database available for Linux distros. For now I will be saving everything on the disk in JSON format.</p>
+
+<p>The problem comes when I switch from database to file system. Both Windows and Linux file systems are different, so when working I hard-coded the data folder which holds all the posts for my blog. I publish the solution and deploy it to Ubuntu VM. I started the server and it ended up showing me this error in the console.</p>
+
+<p><img src="/images/dotnet-prod.png" alt="Dotnet production command" /></p>
+
+<p>Notice the path of the data folder in the above screenshot. The path I am referring in the code ends up with backward slash which is not a UNIX format. Also a thing to note here is that UNIX follows a strict naming convention unlike Windows. For example, in Windows Data and data are same, but in UNIX they are not. Because I have hard-coded the path in my application while developing, it will end up in an error on UNIX machine.</p>
+
+<p>To make the paths consistent in your application, I have to make use of the <a href="https://docs.microsoft.com/en-us/dotnet/core/api/system.io">System.IO</a> namespace <a href="https://docs.microsoft.com/en-us/dotnet/core/api/system.io.path">Path</a> class&rsquo;s <a href="https://docs.microsoft.com/en-us/dotnet/core/api/system.io.path#System_IO_Path_Combine_System_String_System_String_">Combine</a> method. <code>Combine</code> method is an overloaded method. If you are hearing this method for the first time then make sure you read the documentation. This method renders the correct path based on the platform my code is executing. So instead of doing something like this.</p>
+
+<pre class="brush: csharp">
+var _posts = Directory.EnumerateFiles("Data\\Posts");
+</pre>
+
+<p>I have done something like this.</p>
+
+<pre class="brush: csharp">
+string posts = Path.Combine("Data", "Posts");
+_files = Directory.EnumerateFiles(posts);
+</pre>
+
+<p>In short, if you are developing a .NET Core application targeting Windows along with UNIX and OSX, then make sure that you follow this approach to get the correct paths or else you will end up with an exception and your website inaccessible.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -794,47 +850,6 @@ namespace WebApplication1.TagHelpers
 </pre>
 
 <p>I found the full TagHelper feature in MVC 6 a lot more convenient and powerful. I hope you like it as well.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/free-e-book-52-tips-tricks-to-boost-net-performance-from-redgate/">Free E-Book: 52 Tips &amp; Tricks to Boost .NET Performance from Redgate</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Nov 26, 2015
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p><img src="/images/redgate-book.png" alt="Redgate Free e-book" style="float: right;"/></p>
-
-<p>A super awesome free e-book from our friends at RedGate.</p>
-
-<ul>
-<li>52 tips from the .NET community for boosting performance in your applications.</li>
-<li>Learn the secrets of your fellow developers and read advice from MVPs and other experts.</li>
-<li>Covers .NET and ASP.NET, database access, memory usage, and more&hellip;</li>
-</ul>
-
-<h3 id="download-now-http-www-red-gate-com-products-dotnet-development-ants-performance-profiler-entrypage-52-net-performance-tips"><a href="http://www.red-gate.com/products/dotnet-development/ants-performance-profiler/entrypage/52-net-performance-tips">Download Now</a></h3>
 
   </div>
   

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Automation on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/automation/</link>
+    <description>Recent content in Automation on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 May 2023 11:27:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/automation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Create Azure Resources Programmatically By Executing Terraform Commands in Go</title>
+      <link>https://prashantkhandelwal.github.io/post/create-azure-resources-programmatically-by-executing-terraform-commands-in-go/</link>
+      <pubDate>Thu, 04 May 2023 11:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/create-azure-resources-programmatically-by-executing-terraform-commands-in-go/</guid>
+      <description>Terraform is my go-to IAC tool for building my infrastructure in Azure. I usually use Azure DevOps pipeline to execute my terraform plan, but it would be nice to know if I can execute it programmatically or on request basis. Even on request basis you can trigger a CI/CD pipeline to provision the infrastructure but maybe it is too much for a simple project to have.
+One of the biggest pain points has been the authentication in command line tooling.</description>
+    </item>
+    
+  </channel>
+</rss>

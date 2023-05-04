@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2023-04-25T23:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2023-05-04T11:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,474 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/create-azure-resources-programmatically-by-executing-terraform-commands-in-go/">Create Azure Resources Programmatically By Executing Terraform Commands in Go</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 4, 2023
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/automation">AUTOMATION</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/devops">DEVOPS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/go">GO</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/terraform">TERRAFORM</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p><a href="https://www.terraform.io/">Terraform</a> is my go-to IAC tool for building my infrastructure in Azure. I usually use Azure DevOps pipeline to execute my terraform plan, but it would be nice to know if I can execute it programmatically or on request basis. Even on request basis you can trigger a CI/CD pipeline to provision the infrastructure but maybe it is too much for a simple project to have.</p>
+
+<p>One of the biggest pain points has been the authentication in command line tooling. I can execute my terraform plan if I have <code>az cli login</code> done on the shell/terminal I am using. I can also perform the same operation programmatically, but it will still open up a web browser and ask me for authentication. I don’t want user intervention when performing this operation. So, the way I can achieve this is by using <code>Service Principal</code>.</p>
+
+<blockquote>
+<p>You can also make use of Managed Service Identity or MSI but not all Azure resources support this. You can check the list of the resources <a href="https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/managed-identities-status">here</a>.</p>
+</blockquote>
+
+<p>The service principal I am planning to use will let me create any Azure resource. This is equivalent to <code>az login cli</code> command.</p>
+
+<h3 id="setting-up-azure"><strong>Setting up Azure</strong></h3>
+
+<p>Add a new <code>App registration</code> in Azure Active Directory. Give a name to your application and then select <code>Redirect URI</code> to be web and <code>URL</code> can be left blank. Click <code>Register</code> to create an application.</p>
+
+<p><img src="/images/az-ad-appreg.png" alt="Azure AD app registration" /></p>
+
+<p>In the Overview section, copy the <code>client id</code> and <code>tenant id</code>. You also need to have a <code>subscription id</code> which you can find in your Active Directory or in your subscription resource in the portal.</p>
+
+<p><img src="/images/az-ad-appoverview.png" alt="Azure AD app overview" /></p>
+
+<p>Click on <code>Certificates &amp; secrets</code>, and then click <code>+ New client secret</code>. Follow the instructions to create a new secret and once done, you should be presented with a secret which you should copy and save somewhere safe (preferably in Azure KeyVault) as this is the only time it will be visible to you.</p>
+
+<p><img src="/images/az-ad-appids.png" alt="Azure app client secret" /></p>
+
+<p>In the end you should have these values with you:</p>
+
+<ul>
+<li>Client Id</li>
+<li>Client Secret</li>
+<li>Subscription Id</li>
+<li>Tenant Id</li>
+</ul>
+
+<p>Now if you try creating a new resource using Terraform, it will fail as the service principal does not have permissions to manage resources in your subscription. To grant permissions, go to <code>Subscriptions</code> in Azure portal and click <code>Access control (IAM)</code>.</p>
+
+<p><img src="/images/az-subscription-iam.png" alt="Azure subscription IAM" /></p>
+
+<p>Click on <code>Add role assignment</code> and then click <code>Privileged administrator roles</code>.</p>
+
+<p><img src="/images/az-sub-iam-role.png" alt="Azure subscription IAM role" /></p>
+
+<p>You can ignore the warning shown at the bottom, we need this option for adding <code>contributor</code> access to the subscription we want to manage.</p>
+
+<p><img src="/images/az-sub-iam-role-assign.png" alt="Azure subscription IAM role assignment" /></p>
+
+<p>Select <code>Contributor</code> from the list and click <code>Next</code>.</p>
+
+<p><img src="/images/az-sub-iam-members.png" alt="Azure subscription IAM members" /></p>
+
+<p>Select <code>User, group or service principal</code> and click <code>+ Select members</code>.</p>
+
+<p><img src="/images/az-sub-iam-selectmem.png" alt="Azure subscription IAM select members" /></p>
+
+<p>Search your application by name, select it and then click <code>Select</code>. Verify the details in the last step and click <code>Review + assign</code>.</p>
+
+<p><img src="/images/az-sub-iam-review.png" alt="Azure subscription IAM review" /></p>
+
+<p>Back to the <code>Access controls (IAM)</code> blade, you can see the role assignment to the subscription.</p>
+
+<p><img src="/images/az-sub-iam-roles.png" alt="Azure subscription review roles" /></p>
+
+<h3 id="setting-up-go-project"><strong>Setting up Go project</strong></h3>
+
+<p>Let’s see with a very basic example of getting this done programmatically. Setup a new go project and import these packages.</p>
+
+<pre class="brush:ruby">
+import (
+    "fmt"
+    "log"
+    "os"
+
+    "github.com/hashicorp/go-version"
+    "github.com/hashicorp/hc-install/product"
+    "github.com/hashicorp/hc-install/releases"
+)
+</pre>
+
+<p>In the <code>main</code> function, add the below code:</p>
+
+<pre class="brush:ruby">
+os.Setenv("ARM_CLIENT_ID", "")
+os.Setenv("ARM_CLIENT_SECRET", "")
+os.Setenv("ARM_TENANT_ID", "")
+os.Setenv("ARM_SUBSCRIPTION_ID", "")
+
+//az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID
+cmd := exec.Command("az", "login", "--service-principal", "-u", os.Getenv("ARM_CLIENT_ID"), "-p", os.Getenv("ARM_CLIENT_SECRET"), "--tenant", os.Getenv("ARM_TENANT_ID"))
+var stdoutBuf, stderrBuf bytes.Buffer
+cmd.Stdout = io.MultiWriter(os.Stdout, &stdoutBuf)
+cmd.Stderr = io.MultiWriter(os.Stderr, &stderrBuf)
+err := cmd.Run()
+if err != nil {
+    log.Fatalf("cmd.Run() failed with %s\n", err)
+}
+
+outStr := string(stdoutBuf.Bytes())
+fmt.Println(outStr)
+</pre>
+
+<p>The first thing we did was to set environment variables.</p>
+
+<blockquote>
+<p>Name the environment variables as shown in the above example. These are the same names which are internally used by Terraform.</p>
+</blockquote>
+
+<p>Normally I would use a service principal like this:</p>
+
+<pre class="brush:bash">
+$ az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID 
+</pre>
+
+<p>As we are automating this process, we can use the exec.Command to execute this command with parameters like this:</p>
+
+<pre class="brush:ruby">
+cmd := exec.Command("az", "login", "--service-principal", "-u", os.Getenv("ARM_CLIENT_ID"), "-p", os.Getenv("ARM_CLIENT_SECRET"), "--tenant", os.Getenv("ARM_TENANT_ID")) 
+</pre>
+
+<p>This will get the service principal and assign it to the terminal where this application will be running.</p>
+
+<p><img src="/images/tf-command-test.png" alt="az cli output" /></p>
+
+<p>Moving ahead you can remove or comment out the above code and leave the environment variables as is in the code file.</p>
+
+<p>As a next step you can also take the terraform binary from the environment variable and automate the execution just like above. But there is an efficient way of doing this and for that we must make slight changes to our code.</p>
+
+<p>First, we need to check if terraform is installed on the machine or not. On my machine I have Terraform installed and added to the environment with the name <code>terraform</code>. In Go, I can get this path with the help of <code>os.Getenv</code> and pass in the name of the environment variable <code>terraform</code>.</p>
+
+<p>If the path exists, then I will use that path and if not then I can install a specific version of Terraform. Here is the is the complete code for the above explanation:</p>
+
+<pre class="brush:ruby">
+package main
+
+import (
+    "context"
+    "log"
+    "os"
+
+    "github.com/hashicorp/go-version"
+    "github.com/hashicorp/hc-install/product"
+    "github.com/hashicorp/hc-install/releases"
+)
+
+func main() {
+
+    var execPath string
+    var tfInstallDir string
+    var err error
+    tfBin := os.Getenv("terraform")
+
+    if len(tfBin) > 0 {
+        log.Printf("Found Terraform: %s", tfBin)
+        execPath = filepath.Join(tfBin, "terraform.exe")
+    } else {
+        log.Print("Terraform not found....installing")
+        installer := &releases.ExactVersion{
+            Product: product.Terraform,
+            Version: version.Must(version.NewVersion("1.4.6")),
+        }
+
+        wd, _ := os.Getwd()
+        tfInstallDir = filepath.Join(wd, "tf")
+        if _, err := os.Stat(tfInstallDir); err != nil {
+            log.Printf("Installation directory not found...creating")
+            if err = os.MkdirAll(tfInstallDir, os.ModePerm); err != nil {
+                log.Fatalf("ERROR: Cannot create \"%s\" directory - %v", tfInstallDir, err.Error())
+                panic(err)
+            }
+
+            installer.InstallDir = tfInstallDir
+
+            log.Printf("Installing version: %s", installer.Version.String())
+
+            execPath, err = installer.Install(context.Background())
+            if err != nil {
+                log.Fatalf("Error installing Terraform: %s", err)
+            }
+
+            execPath = filepath.Join(installer.InstallDir, "terraform.exe")
+            log.Printf("Installed Terraform %s at %s", installer.Version.String(), execPath)
+        } else {
+            execPath = filepath.Join(tfInstallDir, "terraform.exe")
+            log.Printf("Terraform %s found at %s", installer.Version.String(), execPath)
+        }
+    }
+}
+</pre>
+
+<p>The above program first looks for the <code>terraform</code> environment variable and tries to get the value for it. If the value exists, <code>execPath</code> variable will hold its value. If not meaning that Terraform is not installed on this machine and requires installation. The two packages that will help us installing the right version of Terraform are:</p>
+
+<ul>
+<li>github.com/hashicorp/hc-install/product</li>
+<li>github.com/hashicorp/hc-install/releases</li>
+</ul>
+
+<p>We first prepare the <code>installer</code> by providing the details of the product we want to install, in our case, it is <code>Terraform</code>. You can provide a specific version based on your requirements. If you want to install any specific version like <code>1.0.6</code> etc. You can provide the version number and it will be installed.</p>
+
+<p>The <code>installer.Install</code> function will take in the <code>context</code> which will run in the <code>background</code> and perform the installation for us. Once the installation is completed, you can see the path of the Terraform binary.</p>
+
+<p>Note that if I have not provided an installation path or a directory, the installation will be done in a temp location of your machine. If you don’t want the installation to be done in a temporary location and also want to speed up the execution, then set the <code>InstallDir</code> property to set the path for installation.</p>
+
+<blockquote>
+<p>Check the GitHub gist below for <code>InstallDir</code> implementation.</p>
+</blockquote>
+
+<p>Next, we set up the working directory where our Terraform code is. We need to import a new package called <code>tfexec</code>:</p>
+
+<pre class="brush:bash">
+"github.com/hashicorp/terraform-exec/tfexec"
+</pre>
+
+<p>and the code:</p>
+
+<pre class="brush:ruby">
+workingDir := "iac" 
+tf, err := tfexec.NewTerraform(workingDir, execPath) 
+if err != nil { 
+  log.Fatalf("Error running NewTerraform: %s", err) 
+} 
+</pre>
+
+<p>The <code>NewTerrafrom</code> function takes in two parameters. First is the <code>working directory</code> where you have kept your <code>.tf</code> files and the second one is the <code>execPath</code>, which is the executable path of the Terraform binary.</p>
+
+<p>After this we can perform terraform <code>init</code> and <code>apply</code> like this:</p>
+
+<pre class="brush:ruby">
+log.Print("Start executing TF Init")
+err = tf.Init(context.Background(), tfexec.Upgrade(true))
+if err != nil {
+    log.Fatalf("Error running Init: %s", err)
+}
+
+log.Print("Finished running TF Init")
+
+log.Print("Start running TF Apply")
+err = tf.Apply(context.Background())
+if err != nil {
+    log.Fatalf("Error running Apply: %s", err)
+}
+
+log.Print("Finished running TF Apply")
+</pre>
+
+<p>Both <code>init</code> and <code>apply</code> code are simple to understand. The last one is the <code>show</code> command. If you have worked with terraform cli, you also want to show the <code>output</code> after <code>terraform apply</code> has been successful. The <code>output</code> variables defined in your <code>.tf</code> files will return values like IP address of the virtual machine or the DNS name which you can save or use somewhere else.</p>
+
+<p>These are the contents of my <code>output.tf</code> file:</p>
+
+<pre class="brush:bash">
+output "public_ip_address" {
+  value = azurerm_linux_virtual_machine.popcorndbvm.public_ip_address
+}
+
+output "tls_private_key" {
+  value     = tls_private_key.popcornssh.private_key_openssh
+  sensitive = true
+}
+</pre>
+
+<p>We can also check if the output is marked as <code>sensitive</code> or not. You can see here that I have marked <code>tls_private_key</code> as <code>sensitive</code>. When you traverse the output variables, you can check the <code>Sensitive</code> property and prevent the value to be displayed in your terminal. Below is the code that does the same thing:</p>
+
+<pre class="brush:ruby">
+state, err := tf.Show(context.Background())
+if err != nil {
+    log.Fatalf("Error running Show: %s", err)
+}
+
+for s, i := range state.Values.Outputs {
+    val := i.Value
+    if s == "tls_private_key" && i.Sensitive {
+        data := val.(string)
+        err := ioutil.WriteFile("propcornvm_key.key", []byte(data), 0)
+        if err != nil {
+            log.Fatalf("Cannot save private key to the local machine. - %s", err.Error())
+        } else {
+            fmt.Printf("Private Key saved: %s\n", "propcornvm_key.key")
+        }
+    } else {
+        fmt.Printf("%s : %s", s, val)
+        fmt.Println()
+    }
+}
+</pre>
+
+<p>The <code>state</code> variable is a pointer to <code>*tfjson.State</code> and once it runs successfully the output will be stored in a <code>map[string]*tfjson</code>.<code>StateOutput</code>, which we can iterate over to get the values of the <code>output</code> variables.</p>
+
+<p>? NOTE: You can use my terraform files to create a web app, app service plan, Linux virtual machine etc. You can view these files <a href="https://github.com/prashantkhandelwal/Popcorn/tree/main/Deployment/Azure">here</a>.</p>
+
+<p>Here is the complete code. You need to update the environment variables and replace them with the variables you have obtained from Azure portal. Set <code>workingDir</code> variable with the name of the path where your <code>tf</code> files are.</p>
+
+<pre class="brush:ruby">
+package main
+
+import (
+    "context"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "os"
+    "path/filepath"
+
+    "github.com/hashicorp/go-version"
+    "github.com/hashicorp/hc-install/product"
+    "github.com/hashicorp/hc-install/releases"
+    "github.com/hashicorp/terraform-exec/tfexec"
+)
+
+func main() {
+
+    // Update these environment variables with yours.
+    os.Setenv("ARM_CLIENT_ID", "")
+    os.Setenv("ARM_CLIENT_SECRET", "")
+    os.Setenv("ARM_TENANT_ID", "")
+    os.Setenv("ARM_SUBSCRIPTION_ID", "")
+
+    //az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID
+    // cmd := exec.Command("az", "login", "--service-principal", "-u", os.Getenv("ARM_CLIENT_ID"), "-p", os.Getenv("ARM_CLIENT_SECRET"), "--tenant", os.Getenv("ARM_TENANT_ID"))
+    // var stdoutBuf, stderrBuf bytes.Buffer
+    // cmd.Stdout = io.MultiWriter(os.Stdout, &stdoutBuf)
+    // cmd.Stderr = io.MultiWriter(os.Stderr, &stderrBuf)
+    // err := cmd.Run()
+    // if err != nil {
+    //  log.Fatalf("cmd.Run() failed with %s\n", err)
+    // }
+
+    // outStr := string(stdoutBuf.Bytes())
+    // fmt.Println(outStr)
+
+    var execPath string
+    var tfInstallDir string
+    var err error
+    tfBin := os.Getenv("terraform1")
+
+    if len(tfBin) > 0 {
+        log.Printf("Found Terraform: %s", tfBin)
+        execPath = filepath.Join(tfBin, "terraform.exe")
+    } else {
+        log.Print("Terraform not found....installing")
+        installer := &releases.ExactVersion{
+            Product: product.Terraform,
+            Version: version.Must(version.NewVersion("1.4.6")),
+        }
+
+        wd, _ := os.Getwd()
+        tfInstallDir = filepath.Join(wd, "tf")
+        if _, err := os.Stat(tfInstallDir); err != nil {
+            log.Printf("Installation directory not found...creating")
+            if err = os.MkdirAll(tfInstallDir, os.ModePerm); err != nil {
+                log.Fatalf("ERROR: Cannot create \"%s\" directory - %v", tfInstallDir, err.Error())
+                panic(err)
+            }
+
+            installer.InstallDir = tfInstallDir
+
+            log.Printf("Installing version: %s", installer.Version.String())
+
+            execPath, err = installer.Install(context.Background())
+            if err != nil {
+                log.Fatalf("Error installing Terraform: %s", err)
+            }
+
+            execPath = filepath.Join(installer.InstallDir, "terraform.exe")
+            log.Printf("Installed Terraform %s at %s", installer.Version.String(), execPath)
+        } else {
+            execPath = filepath.Join(tfInstallDir, "terraform.exe")
+            log.Printf("Terraform %s found at %s", installer.Version.String(), execPath)
+        }
+    }
+
+    workingDir := "iac"
+    tf, err := tfexec.NewTerraform(workingDir, execPath)
+    if err != nil {
+        log.Fatalf("Error running NewTerraform: %s", err)
+    }
+
+    log.Print("Start executing TF Init")
+    err = tf.Init(context.Background(), tfexec.Upgrade(true))
+    if err != nil {
+        log.Fatalf("Error running Init: %s", err)
+    }
+
+    log.Print("Finished running TF Init")
+
+    log.Print("Start running TF Apply")
+    err = tf.Apply(context.Background())
+    if err != nil {
+        log.Fatalf("Error running Apply: %s", err)
+    }
+
+    log.Print("Finished running TF Apply")
+
+    state, err := tf.Show(context.Background())
+    if err != nil {
+        log.Fatalf("Error running Show: %s", err)
+    }
+
+    for s, i := range state.Values.Outputs {
+        val := i.Value
+        if s == "tls_private_key" && i.Sensitive {
+            data := val.(string)
+            err := ioutil.WriteFile("propcornvm_key.key", []byte(data), 0)
+            if err != nil {
+                log.Fatalf("Cannot save private key to the local machine. - %s", err.Error())
+            } else {
+                fmt.Printf("Private Key saved: %s\n", "propcornvm_key.key")
+            }
+        } else {
+            fmt.Printf("%s : %s", s, val)
+            fmt.Println()
+        }
+    }
+}
+</pre>
+
+<p><code>terraform-exec</code> module is used to construct the terraform commands. <a href="https://github.com/hashicorp/terraform-exec/">Take a look at its repository</a>.</p>
+
+<p>Before you plan to use this module in your production environment, consider the below excerpt from the repository readme file:</p>
+
+<blockquote>
+<p>While terraform-exec is already widely used, please note that this module is not yet at v1.0.0, and that therefore breaking changes may occur in minor releases.</p>
+</blockquote>
+
+<p>Here is the output of the above example, when I run it with my Azure service principal.</p>
+
+<p><img src="/images/az-tf-go-output.png" alt="Terraform automation output" /></p>
+
+<p>You can see 1 output variable <code>public_ip_address</code> and because we have marked the other output variable as sensitive, it is not shown here in the terminal, instead its output is stored in a file named <code>popcornvm_key.key</code>.</p>
+
+<p>We see all our resources are successfully created in Azure portal.</p>
+
+<p><img src="/images/az-tf-result.png" alt="Azure resources created via automation" /></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -987,227 +1455,6 @@ g.V().has('hero', 'id', "CAPTAIN AMERICA").outE("knows").inV()
 <li><a href="https://kelvinlawrence.net/book/Gremlin-Graph-Guide.html">Kelvin Lawrence Book - Practical Gremlin</a></li>
 <li><a href="https://tinkerpop.apache.org/docs/current/tutorials/getting-started/">Apache TinkerPop - Getting Started</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/installing-openfaas-on-k3s-single-node/">Installing OpenFaaS On k3s (Single Node)</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 4, 2021
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/linux">LINUX</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/open-source">OPEN SOURCE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/k3s">K3S</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>If you have ever got your hands on Azure Function or on AWS Lambda, then you might be familiar with the concept of serverless computing. So in order to test the concept of a function (serverless function), we have to have an Azure or an AWS account. The SDK from both the platforms allow you to build, develop and test the functions on your local development machine, but when it comes to production environment, you again have to turn yourself to Azure or AWS for hosting it. <a href="https://www.openfaas.com/">OpenFaaS</a> is an open-source product developed by <a href="https://github.com/alexellis">Alex Ellis</a> which help developers to deploy event-driven functions, time triggered and microservices to Kubernetes without repetitive, boiler-plate coding. Let&rsquo;s see how we can deploy OpenFaas on Ubuntu 20.04 LTS using <a href="https://k3s.io">k3s</a>. You can also make use of another Kubernetes flavour which suites your needs.</p>
-
-<h3 id="installing-k3s"><strong>Installing k3s</strong></h3>
-
-<p>I am making use of Lightweight Kubernetes also known as k3s. This is a certified Kubernetes distribution built for IoT and Edge computing.</p>
-
-<pre class="brush:shell">
-$ curl -sfL https://get.k3s.io | sh -
-</pre>
-
-<p><img src="/images/installing-k3s.png" alt="Installing k3s" /></p>
-
-<p>After the installation is completed, you can check if the k3s service is running by executing the below command.</p>
-
-<pre class="brush:shell">
-$ sudo systemctl status k3s
-</pre>
-
-<p><img src="/images/k3s-service-status.png" alt="Check k3s service status" /></p>
-
-<h3 id="install-faas-cli"><strong>Install faas-cli</strong></h3>
-
-<p><code>faas-cli</code> is a command line utility which let you work with OpenFaaS.</p>
-
-<pre class="brush:shell">
-$ curl -sL https://cli.openfaas.com | sudo sh
-</pre>
-
-<p><img src="/images/installing-openfaas-cli.png" alt="Installing OpenFaaS CLI" /></p>
-
-<h3 id="installing-arkade"><strong>Installing arkade</strong></h3>
-
-<p><a href="https://github.com/alexellis/arkade">Arkade</a> is a Kubernetes app installer. It allows you to install apps and charts to your cluster in one command. The official documentation of OpenFaaS states that using <code>arkade</code> is the fastest option. If you wish you can also make use of <code>Helm</code> to install but as I am installing it on a single node machine, I will stick with <code>arkade</code> option.</p>
-
-<p>Run the below command to download and install it.
-<pre class="brush:shell">
-$ curl -SLsf <a href="https://dl.get-arkade.dev/">https://dl.get-arkade.dev/</a> | sudo sh
-</pre></p>
-
-<p><img src="/images/installing-arkade.png" alt="Installing Arkade" /></p>
-
-<h3 id="installing-openfaas"><strong>Installing OpenFaaS</strong></h3>
-
-<p>Installing OpenFaaS with <code>arkade</code> is extremely simple and you can get the installation done by executing this command:</p>
-
-<pre class="brush:shell">
-$ arkade install openfaas
-</pre>
-
-<p>This should install OpenFaaS but unfortunately on my machine this results into an error. Below are the two screenshots that I took when I got this error. The first screenshot says there is a permission error in <code>/etc/rancher/k3s/k3.yaml</code>. For the resolution of this error, I changed the permission on the file to <code>744</code> and the error goes away.</p>
-
-<p><img src="/images/installing-openfaas-using-arkade-error1.png" alt="Installing Arkade - Error 1" /></p>
-
-<p>If you scroll down to the end of the command you will notice that there is another error which states that <code>Kubernetes cluster unreachable</code>.</p>
-
-<p><img src="/images/installing-openfaas-using-arkade-error2.png" alt="Installing Arkade - Error 2" /></p>
-
-<p>Even knowing that <code>k3s</code> service is up and running I was not able to figure out what could be a problem. So I searched the web and found <a href="https://github.com/k3s-io/k3s/issues/1126">this issue thread on Github</a> in which one of the <a href="https://github.com/k3s-io/k3s/issues/1126#issuecomment-560504204">commenters</a> were able to fix this error by running the below command.</p>
-
-<pre class="brush:shell">
-$ kubectl config view --raw > ~/.kube/config
-</pre>
-
-<blockquote>
-<p>I tried this installation on Raspberry PI 4 running Raspbian buster x64 and there as well I saw these error messages.</p>
-</blockquote>
-
-<p>After this, you can run the installation of OpenFaaS using <code>arkade</code> again and this time it should be successfull. Here is the output on my system after the installation was successfull.</p>
-
-<pre class="brush:plain">
-prashant@ubuntu:~$ arkade install openfaas
-Using Kubeconfig: /etc/rancher/k3s/k3s.yaml
-Using kubeconfig: 
-Node architecture: "amd64"
-Client: "x86_64", "Linux"
-2021/01/04 08:34:42 User dir established as: /home/prashant/.arkade/
-Using Kubeconfig: 
-[Warning] unable to create secret basic-auth, may already exist: Error from server (AlreadyExists): secrets "basic-auth" already exists
-"openfaas" has been added to your repositories
-
-VALUES values.yaml
-Command: /home/prashant/.arkade/bin/helm [upgrade --install openfaas openfaas/openfaas --namespace openfaas --values /tmp/charts/openfaas/values.yaml --set clusterRole=false --set operator.create=false --set gateway.replicas=1 --set queueWorker.replicas=1 --set basic_auth=true --set serviceType=NodePort --set gateway.directFunctions=true --set openfaasImagePullPolicy=IfNotPresent --set faasnetes.imagePullPolicy=Always --set basicAuthPlugin.replicas=1 --set ingressOperator.create=false --set queueWorker.maxInflight=1]
-Release "openfaas" does not exist. Installing it now.
-NAME: openfaas
-LAST DEPLOYED: Mon Jan  4 08:34:45 2021
-NAMESPACE: openfaas
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-NOTES:
-To verify that openfaas has started, run:
-
-  kubectl -n openfaas get deployments -l "release=openfaas, app=openfaas"
-=======================================================================
-= OpenFaaS has been installed.                                        =
-=======================================================================
-
-# Get the faas-cli
-curl -SLsf https://cli.openfaas.com | sudo sh
-
-# Forward the gateway to your machine
-kubectl rollout status -n openfaas deploy/gateway
-kubectl port-forward -n openfaas svc/gateway 8080:8080 &
-
-# If basic auth is enabled, you can now log into your gateway:
-PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
-echo -n $PASSWORD | faas-cli login --username admin --password-stdin
-
-faas-cli store deploy figlet
-faas-cli list
-
-# For Raspberry Pi
-faas-cli store list \
- --platform armhf
-
-faas-cli store deploy figlet \
- --platform armhf
-
-# Find out more at:
-# https://github.com/openfaas/faas
-
-Thanks for using arkade!
-</pre>
-
-<p>The output contains important information which we need to get started with <code>faas-cli</code> and <code>OpenFaaS</code>. As we have already install <code>faas-cli</code>, we will now need to forward the gateway to the machine.</p>
-
-<p>First we will check the rollout status of the <code>gateway</code> by issuing the below command:</p>
-
-<pre class="brush:shell">
-$ kubectl rollout status -n openfaas deploy/gateway
-</pre>
-
-<p><img src="/images/checking-rollout-status-of-gateway-deployment.png" alt="Checking roolout status of gateway deployment" /></p>
-
-<p>The above command should state that it is successfull. After this we can forward the gateway to the machine.</p>
-
-<pre class="brush:shell">
-$ kubectl port-forward -n openfaas svc/gateway 8080:8080 &
-</pre>
-
-<p><img src="/images/port-forwarding.png" alt="Port Forwarding" /></p>
-
-<p>The <code>&amp;</code> sign in the end of the command will execute it in the background. You can type in <code>jobs</code> to check the status of the job.</p>
-
-<p>We also need to check if the deployment is in ready state or not. To check the deployment state execute the command:</p>
-
-<pre class="brush:shell">
-$ kubectl get deployments -n openfaas -l "release=openfaas, app=openfaas"
-</pre>
-
-<p><img src="/images/post-installation-openfaas-check-deployments.png" alt="Post installation openfaas - check deployment" /></p>
-
-<p>If any of the app deployed is not ready, you should be able to see it now. Check the <strong><code>READY</code></strong> column in the command output and you should see something <strong><code>0/1</code></strong>. This would mean that the deployment is not ready and you should check back in sometime. Once you have the output like the one in the screenshot above, you are good to go.</p>
-
-<p>Now the last step is to acquire the password for OpenFaaS UI which we will use to manage OpenFaaS. To do that execute the below command:</p>
-
-<pre class="brush:shell">
-$ PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
-echo -n $PASSWORD | faas-cli login --username admin --password-stdin
-</pre>
-
-<p><img src="/images/get-password-for-openfaas-ui.png" alt="Get password for OpenFaaS UI" /></p>
-
-<p>You can then view the password by printing the value of the <code>PASSWORD</code> variable using the <code>echo</code> command.</p>
-
-<pre class="brush:shell">
-$ echo PASSWORD
-</pre>
-
-<p>Copy and save the password securely.</p>
-
-<p>Now let&rsquo;s try accessing the OpenFaaS UI (OpenFaaS Portal) by navigating to the <code>http://localhost:31112/ui</code> or by using the IP address of machine instead of localhost if you are accessign it from another machine on your network.</p>
-
-<p><img src="/images/openfaas-portal-login.png" alt="Login prompt for OpenFaaS Portal" /></p>
-
-<p><code>Username</code> is set to <code>admin</code> by default and the password is the one which you saved in the above step.</p>
-
-<p>Click on the <code>Deploy New Function</code> link located at the center of the home page or at the left side bar. You will be able to see the list of the different functions which you can deploy by just selecting the function from the list and then clicking the <code>Deploy</code> button at the bottom of the dialog.</p>
-
-<blockquote>
-<p>Note that the list of functions that you see in the <code>Deploy new Function</code> dialog will be different on Raspberry PI as OpenFaaS will only list the functions which are available for the platform on which it is running.</p>
-</blockquote>
 
   </div>
   

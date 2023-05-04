@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-07-09T09:18:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-07-16T13:00:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,141 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/handling-text-changed-event-in-aspmvc-3-with-jquery/">Handling Text Changed Event In ASP.NET MVC 3 With JQuery</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 16, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>In my quest of learning MVC I came across many problems and here is one of them. I was trying to fire an event whenever a text changed event occurred. I am using JQuery to handle the text changed event but eventually the text changed event doesn&rsquo;t seems to be working in MVC as it is working for a text box changed event in web forms. The solution I found seems to be working fine for me as I don&rsquo;t want to fire an event on every key press.</p>
+
+<p>To get started fire Visual Studio and create a new MVC 3 application with RAZOR view engine. I have build a simple contact manager application which allows the user to create a new contact, edit and delete existing contacts. While creating a new contact, what I want is when the user enters the e-mail address of the contact I want to make an AJAX call, which then call the method in the controller and return the <a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString</a> which will then show the <a href="http://en.gravatar.com/">Gravatar</a> on the webpage.</p>
+
+<p>Here is the default view of the index view. I will ask the user to enter some very basic information like name, address, email and phone.</p>
+
+<p><img src="/images/app-add-contacts.png" alt="Adding a contact page" /></p>
+
+<p>Now, when the user enters the email address of the contact and press TAB key to move to another field or just click somewhere else on the page, the focus on the text field will be changed and the controller function then returns HtmlString to show the Gravatar image.</p>
+
+<p><strong>Here is the markup of the Create View (Create.cshtml):</strong></p>
+
+<pre class="brush:html; highlight:[32,33,34]">
+@model TextChangedMVC.Models.Contacts
+@{
+    ViewBag.Title = "Create";
+}
+&lt;h2&gt;
+    Create&lt;/h2&gt;
+&lt;script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"&gt;&lt;/script&gt;
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    &lt;fieldset&gt;
+        &lt;legend&gt;Contacts&lt;/legend&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Name)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Name)
+            @Html.ValidationMessageFor(model =&gt; model.Name)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Address)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Address)
+            @Html.ValidationMessageFor(model =&gt; model.Address)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Email)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Email)
+            &lt;div id="Gravatar"&gt;
+            &lt;/div&gt;
+            @Html.ValidationMessageFor(model =&gt; model.Email)
+        &lt;/div&gt;
+        &lt;div class="editor-label"&gt;
+            @Html.LabelFor(model =&gt; model.Phone)
+        &lt;/div&gt;
+        &lt;div class="editor-field"&gt;
+            @Html.EditorFor(model =&gt; model.Phone)
+            @Html.ValidationMessageFor(model =&gt; model.Phone)
+        &lt;/div&gt;
+        &lt;p&gt;
+            &lt;input type="submit" value="Create" /&gt;
+        &lt;/p&gt;
+    &lt;/fieldset&gt;
+}
+&lt;div&gt;
+    @Html.ActionLink("Back to List", "Index")
+&lt;/div&gt;
+</pre>
+
+<p>Check the highlighted code in the above markup where I have a DIV called <code>Gravatar</code>. This is where I will display the <code>Gravatar</code> of the person. Remember, when the user enters the email address we need to make sure that the Gravatar of the person displays without being an obstruction to the user, so an AJAX request to the controller will help in achieving this.</p>
+
+<p>Below is the Jquery which will call the controller method called <code>Avatar</code> which accepts <code>email</code> as a parameter of string type.</p>
+
+<pre class="brush:jscript; highlight:[6,8]">
+&lt;script type="text/javascript"&gt;
+    $('#Email').change(function () {
+        $('#Gravatar').html('');
+        var selection = $('#Email').val();
+        if (selection.length > 0) {
+            $.post("/Home/Avatar", { email: selection },
+        function (data) {
+            $('#Gravatar').html(data)
+        })
+        }
+    });
+&lt;/script&gt;
+</pre>
+
+<p>The above script is simple and here I am calling the controller&rsquo;s <code>Avatar</code> method which returns an <code>HtmlString</code>. At line 6, we are making a request and calling the controller&rsquo;s method. At line 8, the data (which is a HTML) returned will be set on the DIV called Gravatar (the placeholder for the Gravatar image).</p>
+
+<p><img src="/images/app-gravatar.png" alt="Gravatar being rendered on web page" /></p>
+
+<p>The controller method <code>Avatar</code> is as follows:</p>
+
+<pre class="brush:csharp">
+public HtmlString Avatar(string email)
+{
+      return Gravatar.GetHtml(email, defaultImage: "http://midnightprogrammer.net/pics/default.gif");
+}
+</pre>
+
+<p>Gravatar is a method is a part of the Microsoft Web Helpers. You can use web helpers by downloading it via <a href="http://nuget.org/">NuGet</a>. Check it out <a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">here</a> if you miss my blog post on how to use Microsoft Web Helpers in MVC.</p>
+
+<p><strong>Related Post:</strong></p>
+
+<ul>
+<li><a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString Class - MSDN</a></li>
+<li><a href="http://nuget.org/List/Packages/microsoft-web-helpers">ASP.NET Web Helpers Library</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -481,134 +616,6 @@ while (true)
 </blockquote>
 
 <p>You can purchase this book online from the <a href="http://rockablepress.com/books/rockstar-freelancer/">Rockable Press website</a>. There are two versions of this book available one is in PDF and a paperback copy. And don&rsquo;t forgot to check other stuff on their website, they also have some other Rocking books.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/prepare-your-site-for-ie9-with-pinify/">Prepare Your Site For IE9 With Pinify</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 14, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/ie9ify-logo.png" alt="IE9ify Logo"/></p>
-
-<p>This is great stuff. If you own a website or a blog you should use this excellent feature of pinning fav links of your site on user&rsquo;s Windows 7 taskbar. Though this feature of IE9 was on hype since it&rsquo;s beta realease. Now it&rsquo;s time to use this feature for my blog. But before you start grab the latest stable version of the <a href="http://ie9ify.codeplex.com/">Pinify (formerly know as IE9ify) from Codeplex</a>.</p>
-
-<p><strong>About Pinify</strong></p>
-
-<p>This plugin is written in jQuery and is hosted on Codeplex. I highly recommend you to follow this project on Codeplex. This plugin is not just about pinning, but also allows the user to customize the skin of the browser, adds a jumplist of your favourite links to the taskbar, overlay icons, tasks and thumbbar buttons. This is a total different user experience for the users /readers of your blog or site.</p>
-
-<p><strong>Preparing your site for the new experience</strong></p>
-
-<p>By now you have downloaded the latest release of the pinify from Codeplex. Open your site in Visual Studio and get to the head section. Fire the below NuGet command to install the Pinify plugin.</p>
-
-<p><img src="/images/ie9ify-nuget-cmd.png" alt="IE9ify Nuget Command" /></p>
-
-<p>For the simplest implementation of this plugin, use the below script in the head section of your page.</p>
-
-<pre class ="brush:jscript">
-&lt;script src="Scripts/jquery-1.5.2.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="Scripts/jquery.pinify.js" type="text/javascript"&gt;&lt;/script&gt;
- 
-&lt;script type="text/javascript"&gt;
-$().ready(function () {
-     $('head').pinify();
-});
-&lt;/script&gt;
-</pre>
-
-<p>Hit F5 and make sure you have selected IE9 as your default browser. After you see your site home page in the browser hit F12 to get the IE9 developer window. Under HTML tab expand the <code>Head</code> tree and you will come to see few meta tags.</p>
-
-<p><img src="/images/ie9ify-html-source.png" alt="IE9ify HTML source" /></p>
-
-<p>Drag and drop the tab to your task bar. This time a new IE window will open but with a difference. Check out below, the navigation buttons has a different color, the site has an icon also.</p>
-
-<p><img src="/images/ie9ify-address-bar.png" alt="IE9ify icon in the address bar" /></p>
-
-<p>In the above screenshot you can see the default IE icon because I have not set the favicon for my site. Once I set the fav icon in the head section of my page, I will then have a new favicon to show off. Same is with the navigation buttons, here what you are seeing is the default color, you can set your own like yellow or red or some other different color which matches the theme of your site.</p>
-
-<p>Let&rsquo;s take a bit more complicate example. Now I want to do the same for my blog. For the moment I will have the following in the jumplist.</p>
-
-<ul>
-<li>Archives - Link to my blog archive.</li>
-<li>Twitter</li>
-<li>Facebook and</li>
-<li>Contact Me</li>
-</ul>
-
-<p>The icon will be the same as my current favicon. To implement pinify for my blog I do all the work in master page which is <code>site.master</code> in my case. Copy and paste the below script in the head section of your page. Change the text and links accordingly.</p>
-
-<pre class="brush:jscript">
-&lt;script src="Scripts/jquery-1.5.2.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="Scripts/jquery.pinify.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-        &dollar;().ready(function () {
-            &dollar;('head').pinify({
-                applicationName: 'Midnight Programmer',
-                tooltip: 'Programming For Fun',
-                tasks: [{
-                    'name': 'Archive',
-                    'action': 'http://midnightprogrammer.net/archive.aspx',
-                    'icon': 'favicon.ico'
-                },
-                {
-                    'name': 'Twitter',
-                    'action': 'http://twitter.com/prashantmx',
-                    'icon': 'twitter.ico'
-                },
-                {
-                    'name': 'Facebook',
-                    'action': 'http://facebook.com/khandelwal.p',
-                    'icon': 'facebook.ico'
-                },
-                {
-                    'name': 'Contact Me',
-                    'action': 'http://www.midnightprogrammer.net/contact.aspx',
-                    'icon': 'favicon.ico'
-                }]
-            });
-        });
-&lt;/script&gt;
-</pre>
-
-<p>After adding the script drag the tab to the taskbar and right-click it to view the task list.</p>
-
-<p><img src="/images/ie9ify-taskbar-options.png" alt="IE9ify Jumplist options" /></p>
-
-<p><img src="/images/ie9ify-address-bar-change.png" alt="IE9ify Address bar" /></p>
-
-<p>There are many other things which you can do with this plugin. I have just showed a simplest way to get you jump started with pinify. As you are reading this post try dragging the tab on your windows taskbar and right-click to see the task list as shown above.</p>
-
-<p>There are many things which can be done with pinify. To know more read the below links.</p>
-
-<ul>
-<li><a href="http://ie9ify.codeplex.com/">Pinify - CodePlex</a></li>
-<li><a href="http://nuget.org/List/Packages/jQuery.ie9ify">NuGet Gallery - Pinify</a></li>
-<li><a href="http://msdn.microsoft.com/en-us/library/gg131029(VS.85).aspx">Pinned Sites: Windows 7 Desktop Integration with Internet Explorer 9</a></li>
-<li><a href="http://www.userinexperience.com/post/Applify-Your-Sites-with-Pinned-Sites-and-ie9ify-the-IE9-jQuery-Plugin.aspx">Brandon Satrom post on Pinify</a></li>
-</ul>
 
   </div>
   

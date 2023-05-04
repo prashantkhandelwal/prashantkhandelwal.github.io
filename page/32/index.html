@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-06-13T16:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-06-16T15:17:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,53 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/set-the-default-printer-for-printing-programatically/">Set the default printer for printing programatically</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 16, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>You need to print the document but you don&rsquo;t want to go to control panel or printer and faxes options and just want to get it changed automatically. You can even set the shared local network printer with this code.</p>
+
+<p>Just with the code you can override the system settings and change the default printer for your system.</p>
+
+<p>You need to use the namespace so in order to use the <code>DLLImport</code> attribute.</p>
+
+<pre class="brush:csharp">
+using System.Runtime.Interopservices;
+//Set default printer to the one available with your system or network.
+[DllImport("Winspool.drv")]
+private static extern bool SetDefaultPrinter(string printerName);
+</pre>
+
+<p>Now on button click or on form load just change the printer you want to use while printing and then change it back to the one before.</p>
+
+<pre class="brush:csharp">
+//Set the default printer. I have set it as my Adobe PDF printer
+SetDefaultPrinter("Adobe PDF");
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -304,43 +351,6 @@ MessageBox.Show(StrValue);
 <p>Download the code and don&rsquo;t forget to look at the comments.</p>
 
 <p><strong>Download: <a href="/filesdocprntpdf.zip">docprntpdf.zip (645.83 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/populating-restore-and-backup-sql-database-using-c/">Populating, Restore and Backup SQL Database using C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 27, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>You want to add a functionality in your C# application to allow user to select the database to restore and taking backups of the database. C# provides the classes to allow a programmer to achieve this in the application.</p>
-
-<p>Before you go and implement this feature in your application, make sure you have added the references of the following namespaces:</p>
-
-<ol>
-<li>Microsoft.SqlServer.Smo</li>
-<li>Microsoft.SqlServer.ConnectionInfo</li>
-</ol>
-
-<p>Click the below link to download the full application.</p>
-
-<p><strong>Download: <a href="/files/DBBackup.zip">DBBackup.zip (290.99 kb)</a></strong></p>
 
   </div>
   

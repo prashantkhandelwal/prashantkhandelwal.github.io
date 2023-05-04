@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-06-26T18:38:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-07-04T12:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,163 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/change-page-themes-dynamically-using-jquery-theme-roller/">Change Page Themes Dynamically Using JQuery Theme Roller</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 4, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>If you are using JQuery controls like date picker, accordion, progress bar, slider, tabs, dialog etc. You can set the theme of your choice or you can also allow the user to set the theme of their choice. For those folks who don’t know about the <a href="http://jqueryui.com/themeroller/">JQuery Theme Roller</a>, then take a look at official Jquery site demonstrating the Jquery Theme Roller. The best part is when you select the theme from the theme roller control all the JQuery controls on the page will automatically inherit the color scheme of the theme.</p>
+
+<p>To incorporate Theme Roller in your page, build a simple page and link some CSS and some JavaScript</p>
+
+<pre class="brush:jscript">
+&lt;link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" /&gt;
+&lt;link rel="stylesheet"
+href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css"
+type="text/css" media="all" /&gt;
+&lt;link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css"
+type="text/css" media="all" /&gt;
+&lt;script type="text/javascript" src="http://jqueryui.com/js/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"
+type="text/javascript"&gt;&lt;/script&gt;
+</pre>
+
+<p>Now under the head section we will have the JQuery Theme Roller control.</p>
+
+<pre class="brush:jscript">
+&dollar;(document).ready(function () {
+    &dollar;('#ThemeRoller').themeswitcher();
+});
+</pre>
+
+<p>Notice the <code>ThemeRoller</code> id of the control passed in the JQuery code to initialize the Theme Roller/Switcher. Now in the Body tag of your page set a div with id as ThemeRoller or whatever the name you want to give, but make sure you use the same name as your control id.</p>
+
+<pre class="brush:jscript">
+&lt;script type="text/javascript"
+  src="http://jqueryui.com/themeroller/themeswitchertool/"&gt;
+&lt;/script&gt;
+&lt;div id="ThemeRoller"&gt;&lt;/div&gt;
+</pre>
+
+<p>I have set the theme roller on the body of the page and therefore all the controls on the page will automatically change the theme accordingly set by the user using the theme roller on the page. You can also set a <strong>DIV</strong> or a form on your page instead of setting it for the complete page. Set some other controls on the page like date picker, progress bar, dialog etc. Html code for the controls.</p>
+
+<p>Set some other controls on the page like date picker, progress bar, dialog etc.</p>
+
+<pre class="brush:jscript">
+&lt;p&gt;Date: &lt;input id="datepicker" type="text" /&gt;
+&lt;/p&gt;
+     
+&lt;div id="dialog" title="Basic dialog"&gt;
+    &lt;p&gt;
+    This is a Demo Dialog box using JQuery!!&lt;br /&gt;
+    Change theme to see this Dialog in different theme.
+    &lt;/p&gt;
+&lt;/div&gt;
+    &lt;div id="progressbar" style="width:200px;"&gt;
+ 
+    &lt;/div&gt;
+</pre>
+
+<p>Placing HTML code isn’t enough. You also need to set the JQuery code in the head section of the page to get the controls working. When you set all the JQuery code for the controls you body and head section of the page looks something like this.</p>
+
+<p><strong>Body</strong> section of the page:</p>
+
+<pre class="brush:jscript">
+&lt;body style="font-size:62.5%;"&gt;
+   
+&lt;script type="text/javascript"
+  src="http://jqueryui.com/themeroller/themeswitchertool/"&gt;
+&lt;/script&gt;
+&lt;div id="ThemeRoller"&gt;&lt;/div&gt;
+ 
+&lt;p&gt;Date: &lt;input id="datepicker" type="text" /&gt;
+&lt;/p&gt;
+     
+&lt;div id="dialog" title="Basic dialog"&gt;
+    &lt;p&gt;
+    This is a Demo Dialog box using JQuery!!&lt;br /&gt;
+    Change theme to see this Dialog in different theme.
+    &lt;/p&gt;
+&lt;/div&gt;
+    &lt;div id="progressbar" style="width:200px;"&gt;
+ 
+    &lt;/div&gt;
+&lt;/body&gt;
+</pre>
+
+<p><strong>Head</strong> section of the page:</p>
+
+<pre class="brush:jscript">
+&lt;head&gt;
+&lt;title&gt;JQuery Theme Roller&lt;/title&gt;
+&lt;link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" /&gt;
+&lt;link rel="stylesheet"
+ 
+href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css"
+ 
+type="text/css" media="all" /&gt;
+&lt;link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css"
+ 
+type="text/css" media="all" /&gt;
+&lt;script type="text/javascript" src="http://jqueryui.com/js/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+ 
+type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"
+ 
+type="text/javascript"&gt;&lt;/script&gt;
+ 
+ 
+&lt;script type="text/javascript"&gt;
+//Set theme roller 
+    &dollar;(document).ready(function () {
+        &dollar;('#ThemeRoller').themeswitcher();
+    });
+ 
+//Show date time picker control
+    &dollar;(function () {
+        &dollar;("#datepicker").datepicker();
+});
+ 
+//Show Dialog
+    &dollar;(function () {
+        &dollar;("#dialog").dialog();
+    });
+ 
+//Progress Bar
+    &dollar;(function () {
+        &dollar;("#progressbar").progressbar({
+            value: 50
+        });
+    });
+ 
+&lt;/script&gt;
+&lt;/head&gt;
+</pre>
+
+<p>Now try setting the theme of the page in one click using the Theme Roller.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -384,59 +541,6 @@ public string RelativeLink
 <p><strong>Download: <a href="/files/Win7 Logon ScreenChanger.zip">Win7 LogonScreenChanger.zip (49.21 kb)</a></strong></p>
 
 <p><strong>Source Code: <a href="/files/Win7LogonScreenChanger.zip">Win7LogonScreenChanger.zip (139.44 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/how-to-build-uac-compatible-application-in-net/">How To Build UAC Compatible Application In .NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 23, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>We all know about a feature called User Account Control (UAC) which introduced with the launch of Windows Vista. By default, UAC is enabled and provides users a better and safer computing experience, but most of the users find it irritating when the UAC prompts everytime they try to run a program. Disabling UAC is not recommended at all.</p>
-
-<p>With UAC enabled programmers find it difficult to access some of the locations on the local drive. Programatically you cannot write or create a file or directory in root partition, inside Program Files, System32 folder and some other locations. Recently I ran into a same problem where I have to access System32 folder, create new folders and copy files from one location on my system to this folder. With UAC disabled this is pretty easy, no security settings and no runtime errors or exceptions. Usually you cannot ask the users to disable UAC and then use the application, so therefore I made my application compatible with UAC and YES!!! you will be prompted with the confirmation box to run the application with administrator privileges. In Windows Vista and Windows 7, even if you are an administrator of your machine you do not have the complete access to resources even if you are an administrator. So in order to make your application run with full administrator rights follow the steps below. This will work the same if you run your application with &ldquo;Run as Administrator&rdquo; option which you see when you right-click the application.</p>
-
-<p>Create a new application in Visual Studio. Right-click project and add a new item.</p>
-
-<p><img src="/images/uac-vs-newitem.png" alt="Adding application.manifest file" /></p>
-
-<p>From the Add New Item box select Application Manifest File.</p>
-
-<p>In the manifest file un-comment the following line:</p>
-
-<pre class="brush:xml">
-&lt;requestedExecutionLevel level="requireAdministrator" uiAccess="false" /&gt;
-</pre>
-
-<p><img src="/images/uac-shield.png" alt="Shield icon after UAC enabled" /></p>
-
-<p>Build your applicaton&hellip;.and when the build is complete you will see the security shield icon accompanying your application icon. A dialogue box appear in front of the user to run the application with full administrative privileges.</p>
 
   </div>
   

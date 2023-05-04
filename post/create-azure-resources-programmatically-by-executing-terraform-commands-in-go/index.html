@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Create Azure Resources Programmatically By Executing Terraform Commands in Go • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Create Azure Resources Programmatically By Executing Terraform Commands in Go"/>
+<meta name="twitter:description" content="Terraform is my go-to IAC tool for building my infrastructure in Azure. I usually use Azure DevOps pipeline to execute my terraform plan, but it would be nice to know if I can execute it programmatically or on request basis. Even on request basis you can trigger a CI/CD pipeline to provision the infrastructure but maybe it is too much for a simple project to have.
+One of the biggest pain points has been the authentication in command line tooling."/>
+
+<meta property="og:title" content="Create Azure Resources Programmatically By Executing Terraform Commands in Go" />
+<meta property="og:description" content="Terraform is my go-to IAC tool for building my infrastructure in Azure. I usually use Azure DevOps pipeline to execute my terraform plan, but it would be nice to know if I can execute it programmatically or on request basis. Even on request basis you can trigger a CI/CD pipeline to provision the infrastructure but maybe it is too much for a simple project to have.
+One of the biggest pain points has been the authentication in command line tooling." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/create-azure-resources-programmatically-by-executing-terraform-commands-in-go/" /><meta property="article:published_time" content="2023-05-04T11:27:00&#43;00:00"/>
+<meta property="article:modified_time" content="2023-05-04T11:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://medium.com/@prashantkhandelwal" rel="me"><i class="fab fa-medium fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2023 Pashant Khandelwal
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Create Azure Resources Programmatically By Executing Terraform Commands in Go</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> May 4, 2023
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/automation">AUTOMATION</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/azure">AZURE</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/devops">DEVOPS</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/go">GO</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/terraform">TERRAFORM</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p><a href="https://www.terraform.io/">Terraform</a> is my go-to IAC tool for building my infrastructure in Azure. I usually use Azure DevOps pipeline to execute my terraform plan, but it would be nice to know if I can execute it programmatically or on request basis. Even on request basis you can trigger a CI/CD pipeline to provision the infrastructure but maybe it is too much for a simple project to have.</p>
+
+<p>One of the biggest pain points has been the authentication in command line tooling. I can execute my terraform plan if I have <code>az cli login</code> done on the shell/terminal I am using. I can also perform the same operation programmatically, but it will still open up a web browser and ask me for authentication. I don’t want user intervention when performing this operation. So, the way I can achieve this is by using <code>Service Principal</code>.</p>
+
+<blockquote>
+<p>You can also make use of Managed Service Identity or MSI but not all Azure resources support this. You can check the list of the resources <a href="https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/managed-identities-status">here</a>.</p>
+</blockquote>
+
+<p>The service principal I am planning to use will let me create any Azure resource. This is equivalent to <code>az login cli</code> command.</p>
+
+<h3 id="setting-up-azure"><strong>Setting up Azure</strong></h3>
+
+<p>Add a new <code>App registration</code> in Azure Active Directory. Give a name to your application and then select <code>Redirect URI</code> to be web and <code>URL</code> can be left blank. Click <code>Register</code> to create an application.</p>
+
+<p><img src="/images/az-ad-appreg.png" alt="Azure AD app registration" /></p>
+
+<p>In the Overview section, copy the <code>client id</code> and <code>tenant id</code>. You also need to have a <code>subscription id</code> which you can find in your Active Directory or in your subscription resource in the portal.</p>
+
+<p><img src="/images/az-ad-appoverview.png" alt="Azure AD app overview" /></p>
+
+<p>Click on <code>Certificates &amp; secrets</code>, and then click <code>+ New client secret</code>. Follow the instructions to create a new secret and once done, you should be presented with a secret which you should copy and save somewhere safe (preferably in Azure KeyVault) as this is the only time it will be visible to you.</p>
+
+<p><img src="/images/az-ad-appids.png" alt="Azure app client secret" /></p>
+
+<p>In the end you should have these values with you:</p>
+
+<ul>
+<li>Client Id</li>
+<li>Client Secret</li>
+<li>Subscription Id</li>
+<li>Tenant Id</li>
+</ul>
+
+<p>Now if you try creating a new resource using Terraform, it will fail as the service principal does not have permissions to manage resources in your subscription. To grant permissions, go to <code>Subscriptions</code> in Azure portal and click <code>Access control (IAM)</code>.</p>
+
+<p><img src="/images/az-subscription-iam.png" alt="Azure subscription IAM" /></p>
+
+<p>Click on <code>Add role assignment</code> and then click <code>Privileged administrator roles</code>.</p>
+
+<p><img src="/images/az-sub-iam-role.png" alt="Azure subscription IAM role" /></p>
+
+<p>You can ignore the warning shown at the bottom, we need this option for adding <code>contributor</code> access to the subscription we want to manage.</p>
+
+<p><img src="/images/az-sub-iam-role-assign.png" alt="Azure subscription IAM role assignment" /></p>
+
+<p>Select <code>Contributor</code> from the list and click <code>Next</code>.</p>
+
+<p><img src="/images/az-sub-iam-members.png" alt="Azure subscription IAM members" /></p>
+
+<p>Select <code>User, group or service principal</code> and click <code>+ Select members</code>.</p>
+
+<p><img src="/images/az-sub-iam-selectmem.png" alt="Azure subscription IAM select members" /></p>
+
+<p>Search your application by name, select it and then click <code>Select</code>. Verify the details in the last step and click <code>Review + assign</code>.</p>
+
+<p><img src="/images/az-sub-iam-review.png" alt="Azure subscription IAM review" /></p>
+
+<p>Back to the <code>Access controls (IAM)</code> blade, you can see the role assignment to the subscription.</p>
+
+<p><img src="/images/az-sub-iam-roles.png" alt="Azure subscription review roles" /></p>
+
+<h3 id="setting-up-go-project"><strong>Setting up Go project</strong></h3>
+
+<p>Let’s see with a very basic example of getting this done programmatically. Setup a new go project and import these packages.</p>
+
+<pre class="brush:ruby">
+import (
+    "fmt"
+    "log"
+    "os"
+
+    "github.com/hashicorp/go-version"
+    "github.com/hashicorp/hc-install/product"
+    "github.com/hashicorp/hc-install/releases"
+)
+</pre>
+
+<p>In the <code>main</code> function, add the below code:</p>
+
+<pre class="brush:ruby">
+os.Setenv("ARM_CLIENT_ID", "")
+os.Setenv("ARM_CLIENT_SECRET", "")
+os.Setenv("ARM_TENANT_ID", "")
+os.Setenv("ARM_SUBSCRIPTION_ID", "")
+
+//az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID
+cmd := exec.Command("az", "login", "--service-principal", "-u", os.Getenv("ARM_CLIENT_ID"), "-p", os.Getenv("ARM_CLIENT_SECRET"), "--tenant", os.Getenv("ARM_TENANT_ID"))
+var stdoutBuf, stderrBuf bytes.Buffer
+cmd.Stdout = io.MultiWriter(os.Stdout, &stdoutBuf)
+cmd.Stderr = io.MultiWriter(os.Stderr, &stderrBuf)
+err := cmd.Run()
+if err != nil {
+    log.Fatalf("cmd.Run() failed with %s\n", err)
+}
+
+outStr := string(stdoutBuf.Bytes())
+fmt.Println(outStr)
+</pre>
+
+<p>The first thing we did was to set environment variables.</p>
+
+<blockquote>
+<p>Name the environment variables as shown in the above example. These are the same names which are internally used by Terraform.</p>
+</blockquote>
+
+<p>Normally I would use a service principal like this:</p>
+
+<pre class="brush:bash">
+$ az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID 
+</pre>
+
+<p>As we are automating this process, we can use the exec.Command to execute this command with parameters like this:</p>
+
+<pre class="brush:ruby">
+cmd := exec.Command("az", "login", "--service-principal", "-u", os.Getenv("ARM_CLIENT_ID"), "-p", os.Getenv("ARM_CLIENT_SECRET"), "--tenant", os.Getenv("ARM_TENANT_ID")) 
+</pre>
+
+<p>This will get the service principal and assign it to the terminal where this application will be running.</p>
+
+<p><img src="/images/tf-command-test.png" alt="az cli output" /></p>
+
+<p>Moving ahead you can remove or comment out the above code and leave the environment variables as is in the code file.</p>
+
+<p>As a next step you can also take the terraform binary from the environment variable and automate the execution just like above. But there is an efficient way of doing this and for that we must make slight changes to our code.</p>
+
+<p>First, we need to check if terraform is installed on the machine or not. On my machine I have Terraform installed and added to the environment with the name <code>terraform</code>. In Go, I can get this path with the help of <code>os.Getenv</code> and pass in the name of the environment variable <code>terraform</code>.</p>
+
+<p>If the path exists, then I will use that path and if not then I can install a specific version of Terraform. Here is the is the complete code for the above explanation:</p>
+
+<pre class="brush:ruby">
+package main
+
+import (
+    "context"
+    "log"
+    "os"
+
+    "github.com/hashicorp/go-version"
+    "github.com/hashicorp/hc-install/product"
+    "github.com/hashicorp/hc-install/releases"
+)
+
+func main() {
+
+    var execPath string
+    var tfInstallDir string
+    var err error
+    tfBin := os.Getenv("terraform")
+
+    if len(tfBin) > 0 {
+        log.Printf("Found Terraform: %s", tfBin)
+        execPath = filepath.Join(tfBin, "terraform.exe")
+    } else {
+        log.Print("Terraform not found....installing")
+        installer := &releases.ExactVersion{
+            Product: product.Terraform,
+            Version: version.Must(version.NewVersion("1.4.6")),
+        }
+
+        wd, _ := os.Getwd()
+        tfInstallDir = filepath.Join(wd, "tf")
+        if _, err := os.Stat(tfInstallDir); err != nil {
+            log.Printf("Installation directory not found...creating")
+            if err = os.MkdirAll(tfInstallDir, os.ModePerm); err != nil {
+                log.Fatalf("ERROR: Cannot create \"%s\" directory - %v", tfInstallDir, err.Error())
+                panic(err)
+            }
+
+            installer.InstallDir = tfInstallDir
+
+            log.Printf("Installing version: %s", installer.Version.String())
+
+            execPath, err = installer.Install(context.Background())
+            if err != nil {
+                log.Fatalf("Error installing Terraform: %s", err)
+            }
+
+            execPath = filepath.Join(installer.InstallDir, "terraform.exe")
+            log.Printf("Installed Terraform %s at %s", installer.Version.String(), execPath)
+        } else {
+            execPath = filepath.Join(tfInstallDir, "terraform.exe")
+            log.Printf("Terraform %s found at %s", installer.Version.String(), execPath)
+        }
+    }
+}
+</pre>
+
+<p>The above program first looks for the <code>terraform</code> environment variable and tries to get the value for it. If the value exists, <code>execPath</code> variable will hold its value. If not meaning that Terraform is not installed on this machine and requires installation. The two packages that will help us installing the right version of Terraform are:</p>
+
+<ul>
+<li>github.com/hashicorp/hc-install/product</li>
+<li>github.com/hashicorp/hc-install/releases</li>
+</ul>
+
+<p>We first prepare the <code>installer</code> by providing the details of the product we want to install, in our case, it is <code>Terraform</code>. You can provide a specific version based on your requirements. If you want to install any specific version like <code>1.0.6</code> etc. You can provide the version number and it will be installed.</p>
+
+<p>The <code>installer.Install</code> function will take in the <code>context</code> which will run in the <code>background</code> and perform the installation for us. Once the installation is completed, you can see the path of the Terraform binary.</p>
+
+<p>Note that if I have not provided an installation path or a directory, the installation will be done in a temp location of your machine. If you don’t want the installation to be done in a temporary location and also want to speed up the execution, then set the <code>InstallDir</code> property to set the path for installation.</p>
+
+<blockquote>
+<p>Check the GitHub gist below for <code>InstallDir</code> implementation.</p>
+</blockquote>
+
+<p>Next, we set up the working directory where our Terraform code is. We need to import a new package called <code>tfexec</code>:</p>
+
+<pre class="brush:bash">
+"github.com/hashicorp/terraform-exec/tfexec"
+</pre>
+
+<p>and the code:</p>
+
+<pre class="brush:ruby">
+workingDir := "iac" 
+tf, err := tfexec.NewTerraform(workingDir, execPath) 
+if err != nil { 
+  log.Fatalf("Error running NewTerraform: %s", err) 
+} 
+</pre>
+
+<p>The <code>NewTerrafrom</code> function takes in two parameters. First is the <code>working directory</code> where you have kept your <code>.tf</code> files and the second one is the <code>execPath</code>, which is the executable path of the Terraform binary.</p>
+
+<p>After this we can perform terraform <code>init</code> and <code>apply</code> like this:</p>
+
+<pre class="brush:ruby">
+log.Print("Start executing TF Init")
+err = tf.Init(context.Background(), tfexec.Upgrade(true))
+if err != nil {
+    log.Fatalf("Error running Init: %s", err)
+}
+
+log.Print("Finished running TF Init")
+
+log.Print("Start running TF Apply")
+err = tf.Apply(context.Background())
+if err != nil {
+    log.Fatalf("Error running Apply: %s", err)
+}
+
+log.Print("Finished running TF Apply")
+</pre>
+
+<p>Both <code>init</code> and <code>apply</code> code are simple to understand. The last one is the <code>show</code> command. If you have worked with terraform cli, you also want to show the <code>output</code> after <code>terraform apply</code> has been successful. The <code>output</code> variables defined in your <code>.tf</code> files will return values like IP address of the virtual machine or the DNS name which you can save or use somewhere else.</p>
+
+<p>These are the contents of my <code>output.tf</code> file:</p>
+
+<pre class="brush:bash">
+output "public_ip_address" {
+  value = azurerm_linux_virtual_machine.popcorndbvm.public_ip_address
+}
+
+output "tls_private_key" {
+  value     = tls_private_key.popcornssh.private_key_openssh
+  sensitive = true
+}
+</pre>
+
+<p>We can also check if the output is marked as <code>sensitive</code> or not. You can see here that I have marked <code>tls_private_key</code> as <code>sensitive</code>. When you traverse the output variables, you can check the <code>Sensitive</code> property and prevent the value to be displayed in your terminal. Below is the code that does the same thing:</p>
+
+<pre class="brush:ruby">
+state, err := tf.Show(context.Background())
+if err != nil {
+    log.Fatalf("Error running Show: %s", err)
+}
+
+for s, i := range state.Values.Outputs {
+    val := i.Value
+    if s == "tls_private_key" && i.Sensitive {
+        data := val.(string)
+        err := ioutil.WriteFile("propcornvm_key.key", []byte(data), 0)
+        if err != nil {
+            log.Fatalf("Cannot save private key to the local machine. - %s", err.Error())
+        } else {
+            fmt.Printf("Private Key saved: %s\n", "propcornvm_key.key")
+        }
+    } else {
+        fmt.Printf("%s : %s", s, val)
+        fmt.Println()
+    }
+}
+</pre>
+
+<p>The <code>state</code> variable is a pointer to <code>*tfjson.State</code> and once it runs successfully the output will be stored in a <code>map[string]*tfjson</code>.<code>StateOutput</code>, which we can iterate over to get the values of the <code>output</code> variables.</p>
+
+<p>? NOTE: You can use my terraform files to create a web app, app service plan, Linux virtual machine etc. You can view these files <a href="https://github.com/prashantkhandelwal/Popcorn/tree/main/Deployment/Azure">here</a>.</p>
+
+<p>Here is the complete code. You need to update the environment variables and replace them with the variables you have obtained from Azure portal. Set <code>workingDir</code> variable with the name of the path where your <code>tf</code> files are.</p>
+
+<pre class="brush:ruby">
+package main
+
+import (
+    "context"
+    "fmt"
+    "io/ioutil"
+    "log"
+    "os"
+    "path/filepath"
+
+    "github.com/hashicorp/go-version"
+    "github.com/hashicorp/hc-install/product"
+    "github.com/hashicorp/hc-install/releases"
+    "github.com/hashicorp/terraform-exec/tfexec"
+)
+
+func main() {
+
+    // Update these environment variables with yours.
+    os.Setenv("ARM_CLIENT_ID", "")
+    os.Setenv("ARM_CLIENT_SECRET", "")
+    os.Setenv("ARM_TENANT_ID", "")
+    os.Setenv("ARM_SUBSCRIPTION_ID", "")
+
+    //az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID
+    // cmd := exec.Command("az", "login", "--service-principal", "-u", os.Getenv("ARM_CLIENT_ID"), "-p", os.Getenv("ARM_CLIENT_SECRET"), "--tenant", os.Getenv("ARM_TENANT_ID"))
+    // var stdoutBuf, stderrBuf bytes.Buffer
+    // cmd.Stdout = io.MultiWriter(os.Stdout, &stdoutBuf)
+    // cmd.Stderr = io.MultiWriter(os.Stderr, &stderrBuf)
+    // err := cmd.Run()
+    // if err != nil {
+    //  log.Fatalf("cmd.Run() failed with %s\n", err)
+    // }
+
+    // outStr := string(stdoutBuf.Bytes())
+    // fmt.Println(outStr)
+
+    var execPath string
+    var tfInstallDir string
+    var err error
+    tfBin := os.Getenv("terraform1")
+
+    if len(tfBin) > 0 {
+        log.Printf("Found Terraform: %s", tfBin)
+        execPath = filepath.Join(tfBin, "terraform.exe")
+    } else {
+        log.Print("Terraform not found....installing")
+        installer := &releases.ExactVersion{
+            Product: product.Terraform,
+            Version: version.Must(version.NewVersion("1.4.6")),
+        }
+
+        wd, _ := os.Getwd()
+        tfInstallDir = filepath.Join(wd, "tf")
+        if _, err := os.Stat(tfInstallDir); err != nil {
+            log.Printf("Installation directory not found...creating")
+            if err = os.MkdirAll(tfInstallDir, os.ModePerm); err != nil {
+                log.Fatalf("ERROR: Cannot create \"%s\" directory - %v", tfInstallDir, err.Error())
+                panic(err)
+            }
+
+            installer.InstallDir = tfInstallDir
+
+            log.Printf("Installing version: %s", installer.Version.String())
+
+            execPath, err = installer.Install(context.Background())
+            if err != nil {
+                log.Fatalf("Error installing Terraform: %s", err)
+            }
+
+            execPath = filepath.Join(installer.InstallDir, "terraform.exe")
+            log.Printf("Installed Terraform %s at %s", installer.Version.String(), execPath)
+        } else {
+            execPath = filepath.Join(tfInstallDir, "terraform.exe")
+            log.Printf("Terraform %s found at %s", installer.Version.String(), execPath)
+        }
+    }
+
+    workingDir := "iac"
+    tf, err := tfexec.NewTerraform(workingDir, execPath)
+    if err != nil {
+        log.Fatalf("Error running NewTerraform: %s", err)
+    }
+
+    log.Print("Start executing TF Init")
+    err = tf.Init(context.Background(), tfexec.Upgrade(true))
+    if err != nil {
+        log.Fatalf("Error running Init: %s", err)
+    }
+
+    log.Print("Finished running TF Init")
+
+    log.Print("Start running TF Apply")
+    err = tf.Apply(context.Background())
+    if err != nil {
+        log.Fatalf("Error running Apply: %s", err)
+    }
+
+    log.Print("Finished running TF Apply")
+
+    state, err := tf.Show(context.Background())
+    if err != nil {
+        log.Fatalf("Error running Show: %s", err)
+    }
+
+    for s, i := range state.Values.Outputs {
+        val := i.Value
+        if s == "tls_private_key" && i.Sensitive {
+            data := val.(string)
+            err := ioutil.WriteFile("propcornvm_key.key", []byte(data), 0)
+            if err != nil {
+                log.Fatalf("Cannot save private key to the local machine. - %s", err.Error())
+            } else {
+                fmt.Printf("Private Key saved: %s\n", "propcornvm_key.key")
+            }
+        } else {
+            fmt.Printf("%s : %s", s, val)
+            fmt.Println()
+        }
+    }
+}
+</pre>
+
+<p><code>terraform-exec</code> module is used to construct the terraform commands. <a href="https://github.com/hashicorp/terraform-exec/">Take a look at its repository</a>.</p>
+
+<p>Before you plan to use this module in your production environment, consider the below excerpt from the repository readme file:</p>
+
+<blockquote>
+<p>While terraform-exec is already widely used, please note that this module is not yet at v1.0.0, and that therefore breaking changes may occur in minor releases.</p>
+</blockquote>
+
+<p>Here is the output of the above example, when I run it with my Azure service principal.</p>
+
+<p><img src="/images/az-tf-go-output.png" alt="Terraform automation output" /></p>
+
+<p>You can see 1 output variable <code>public_ip_address</code> and because we have marked the other output variable as sensitive, it is not shown here in the terminal, instead its output is stored in a file named <code>popcornvm_key.key</code>.</p>
+
+<p>We see all our resources are successfully created in Azure portal.</p>
+
+<p><img src="/images/az-tf-result.png" alt="Azure resources created via automation" /></p>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/how-to-create-and-push-your-docker-images-to-azure-container-registry/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">How to Create and Push your Docker images to Azure Container Registry</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+ 
+
+
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-8994557-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
+
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
+
+<script>
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

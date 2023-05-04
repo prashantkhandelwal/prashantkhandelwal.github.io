@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-08-17T04:28:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-08-29T14:50:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,106 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/add-openid-login-support-in-your-aspnet-application/">Add OpenID Login Support In Your ASP.NET Application</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 29, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/oauth-logo.png" alt="OAuth logo"/></p>
+
+<p>Few days back I was looking at Scott Hanselman and friend&rsquo;s Open Source Nerddinner project, learning and grabbing some new things from there. Apart from looking some internals I looked at the OpenID implementation. This was all a week ago and now it&rsquo;s time for me to write and give some thoughts on DotNetOpenAuth. For folks who are new to OpenID I am going to demonstrate how you can implement one in your project with ease.</p>
+
+<p>To get started download the <a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a> API and extract the contents from the zip file. The download also includes some samples for you to get you started. Kickstart by creating a new ASP.NET webforms project. I am just using a default template for my application, you can use the one you like or start by creating a new page. Why I am using the default template for ASP.NET webform project? well you get to know later. So now when we are done creating a new ASP.NET webform project, time to add OpenID stuff in the project. Right click <code>References</code> and select <code>Add Reference</code>. Browse to the <code>bin</code> folder where you have extracted the contents of the downloaded zip file. Select <code>DotNetOpenAuth.dll</code> and click OK.</p>
+
+<p><strong>Changing the web.config:</strong></p>
+
+<p>A minor change in the web.config is required. Find the below lines in your web.config file:</p>
+
+<pre class="brush:xml">
+&lt;authentication mode="Forms"&gt;&lt;forms loginUrl="~/Account/Login.aspx"
+timeout="2880" /&gt;&lt;/authentication&gt;
+</pre>
+
+<p>and replace it with:</p>
+
+<pre class="brush:xml">
+&lt;authentication mode="Forms"&gt;&lt;forms defaultUrl="/default.aspx"
+loginUrl="~/Account/login.aspx"/&gt;&lt;/authentication&gt;
+</pre>
+
+<p>In the above configuration, <code>loginUrl</code> will always point towards to the login page and the <code>defaultUrl</code> will always point towards the page/URL which will be displayed when the authentication is successfull.</p>
+
+<p><strong>Implemeting OpenID support:</strong></p>
+
+<p>To implement OpenID support, open <code>login.aspx</code> page in the design view and then drag the OpenIdLogin from the toolbox on the page just after the default login implementation ends or where you want to have OpenID login. If you are not able to view the control, then you can browse the same <code>dll</code> you have add a reference in the above step.</p>
+
+<p><img src="/images/oauth-vs-toolbox.png" alt="OAuth control in VS control box" /></p>
+
+<p>If you want to implement this manually then register the control at the top of the page and then use it on the page.</p>
+
+<p><strong>Register the control:</strong></p>
+
+<pre class="brush:xml">
+&lt;%@ Register Assembly="DotNetOpenAuth" Namespace="DotNetOpenAuth.OpenId.RelyingParty"
+TagPrefix="rp" %&gt;
+</pre>
+
+<p><strong>To use the control on the page you can then simply write:</strong></p>
+
+<pre class="brush:xml">
+&lt;rp:OpenIdLogin ID="OpenIdLogin1" runat="server"&gt;&lt;/rp:OpenIdLogin&gt;
+</pre>
+
+<p>All done now and it&rsquo;s time to test our application. Hit <code>F5</code> and login with your openID. The page rendered in front of you is</p>
+
+<p><img src="/images/oauth-webapp-login.png" alt="OAuth control rendered in web app" /></p>
+
+<p>Enter your openID and click login. You will be redirected to the official OpenID login page.</p>
+
+<p><img src="/images/oauth-page.png" alt="OAuth page for authentication" /></p>
+
+<p>Enter your password for openID account and after the authentication is successfull you will be re-directed to the default page. Remember the web.config configuration we did!!? If everything goes well you can see your openID name login name on the top of the page.</p>
+
+<p><img src="/images/oauth-success.png" alt="OAuth success page" /></p>
+
+<p>This is the simplest way to implement openID. You can also implement openID on your ASP.NET MVC project to add some flexibility for you site users. Apart from this you can also download the <a href="https://www.ohloh.net/p/dotnetopenauth/download?package=DotNetOpenAuth+project+templates&amp;release=3.4.5">Visual Studio 2010 template</a>.</p>
+
+<p><strong>Download: <a href="/files/DOTNETOAUTH.zip">DOTNETOAUTH.zip (542.85 kb)</a></strong></p>
+
+<p><strong>Related Links:</strong></p>
+
+<ul>
+<li><a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a></li>
+<li><a href="http://blog.nerdbank.net">http://blog.nerdbank.net</a></li>
+<li><a href="https://www.idselector.com/">https://www.idselector.com/</a></li>
+<li><a href="http://www.hanselman.com/blog/TheWeeklySourceCode25OpenIDEdition.aspx">Scott Hanselman - Weekly Source Code 25</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -299,163 +399,6 @@ DISKPART –s  "Path of the <.s file> created in the above step"
 <li><a href="http://msdn.microsoft.com/en-au/library/ee461503">Obsolete Types in the .NET Framework 4</a></li>
 <li><a href="http://msdn.microsoft.com/en-au/library/ee471421">Obsolete Members in the .NET Framework 4</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/change-page-themes-dynamically-using-jquery-theme-roller/">Change Page Themes Dynamically Using JQuery Theme Roller</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 4, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>If you are using JQuery controls like date picker, accordion, progress bar, slider, tabs, dialog etc. You can set the theme of your choice or you can also allow the user to set the theme of their choice. For those folks who don’t know about the <a href="http://jqueryui.com/themeroller/">JQuery Theme Roller</a>, then take a look at official Jquery site demonstrating the Jquery Theme Roller. The best part is when you select the theme from the theme roller control all the JQuery controls on the page will automatically inherit the color scheme of the theme.</p>
-
-<p>To incorporate Theme Roller in your page, build a simple page and link some CSS and some JavaScript</p>
-
-<pre class="brush:jscript">
-&lt;link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" /&gt;
-&lt;link rel="stylesheet"
-href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css"
-type="text/css" media="all" /&gt;
-&lt;link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css"
-type="text/css" media="all" /&gt;
-&lt;script type="text/javascript" src="http://jqueryui.com/js/jquery.js"&gt;&lt;/script&gt;
-&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
-type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"
-type="text/javascript"&gt;&lt;/script&gt;
-</pre>
-
-<p>Now under the head section we will have the JQuery Theme Roller control.</p>
-
-<pre class="brush:jscript">
-&dollar;(document).ready(function () {
-    &dollar;('#ThemeRoller').themeswitcher();
-});
-</pre>
-
-<p>Notice the <code>ThemeRoller</code> id of the control passed in the JQuery code to initialize the Theme Roller/Switcher. Now in the Body tag of your page set a div with id as ThemeRoller or whatever the name you want to give, but make sure you use the same name as your control id.</p>
-
-<pre class="brush:jscript">
-&lt;script type="text/javascript"
-  src="http://jqueryui.com/themeroller/themeswitchertool/"&gt;
-&lt;/script&gt;
-&lt;div id="ThemeRoller"&gt;&lt;/div&gt;
-</pre>
-
-<p>I have set the theme roller on the body of the page and therefore all the controls on the page will automatically change the theme accordingly set by the user using the theme roller on the page. You can also set a <strong>DIV</strong> or a form on your page instead of setting it for the complete page. Set some other controls on the page like date picker, progress bar, dialog etc. Html code for the controls.</p>
-
-<p>Set some other controls on the page like date picker, progress bar, dialog etc.</p>
-
-<pre class="brush:jscript">
-&lt;p&gt;Date: &lt;input id="datepicker" type="text" /&gt;
-&lt;/p&gt;
-     
-&lt;div id="dialog" title="Basic dialog"&gt;
-    &lt;p&gt;
-    This is a Demo Dialog box using JQuery!!&lt;br /&gt;
-    Change theme to see this Dialog in different theme.
-    &lt;/p&gt;
-&lt;/div&gt;
-    &lt;div id="progressbar" style="width:200px;"&gt;
- 
-    &lt;/div&gt;
-</pre>
-
-<p>Placing HTML code isn’t enough. You also need to set the JQuery code in the head section of the page to get the controls working. When you set all the JQuery code for the controls you body and head section of the page looks something like this.</p>
-
-<p><strong>Body</strong> section of the page:</p>
-
-<pre class="brush:jscript">
-&lt;body style="font-size:62.5%;"&gt;
-   
-&lt;script type="text/javascript"
-  src="http://jqueryui.com/themeroller/themeswitchertool/"&gt;
-&lt;/script&gt;
-&lt;div id="ThemeRoller"&gt;&lt;/div&gt;
- 
-&lt;p&gt;Date: &lt;input id="datepicker" type="text" /&gt;
-&lt;/p&gt;
-     
-&lt;div id="dialog" title="Basic dialog"&gt;
-    &lt;p&gt;
-    This is a Demo Dialog box using JQuery!!&lt;br /&gt;
-    Change theme to see this Dialog in different theme.
-    &lt;/p&gt;
-&lt;/div&gt;
-    &lt;div id="progressbar" style="width:200px;"&gt;
- 
-    &lt;/div&gt;
-&lt;/body&gt;
-</pre>
-
-<p><strong>Head</strong> section of the page:</p>
-
-<pre class="brush:jscript">
-&lt;head&gt;
-&lt;title&gt;JQuery Theme Roller&lt;/title&gt;
-&lt;link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/ui.all.css" /&gt;
-&lt;link rel="stylesheet"
- 
-href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css"
- 
-type="text/css" media="all" /&gt;
-&lt;link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css"
- 
-type="text/css" media="all" /&gt;
-&lt;script type="text/javascript" src="http://jqueryui.com/js/jquery.js"&gt;&lt;/script&gt;
-&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
- 
-type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"
- 
-type="text/javascript"&gt;&lt;/script&gt;
- 
- 
-&lt;script type="text/javascript"&gt;
-//Set theme roller 
-    &dollar;(document).ready(function () {
-        &dollar;('#ThemeRoller').themeswitcher();
-    });
- 
-//Show date time picker control
-    &dollar;(function () {
-        &dollar;("#datepicker").datepicker();
-});
- 
-//Show Dialog
-    &dollar;(function () {
-        &dollar;("#dialog").dialog();
-    });
- 
-//Progress Bar
-    &dollar;(function () {
-        &dollar;("#progressbar").progressbar({
-            value: 50
-        });
-    });
- 
-&lt;/script&gt;
-&lt;/head&gt;
-</pre>
-
-<p>Now try setting the theme of the page in one click using the Theme Roller.</p>
 
   </div>
   

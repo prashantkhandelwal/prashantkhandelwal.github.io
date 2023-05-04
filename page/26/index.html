@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-02-28T13:22:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-03-01T11:55:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,160 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/passing-parameters-and-loading-crystal-report-programmatically/">Passing Parameters and Loading Crystal Report Programmatically</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 1, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      
+      
+      
+      
+    </span>
+    <p>Reporting is an important part for every application. Crystal reports are widely used and also available in Visual Studio for reporting purposes. I personally never like designing application interfaces and working on web designs, it needs good designing skills which I lack and so I never put my hands on designing anything, but sometimes we have to. In crystal reports when you create a report using wizard or just adding a blank report to the project and then fetching data using code (after designing), the report works fine on the machine where you have designed and develop it and the problem occurs when you have to deploy or distribute your application with reports on multiple machines or clients. Of course, the connection string or you can say in simple words the server name, database name, user name and password is different than the name you used in your connection string while you test and make your application ready to be distributed. Therefore, to overcome this problem I wrote a class which will help me to achieve this in one line and also keep my code neat and clean. So this simple class will let you set the connection for your report dataset and let your reports work properly without any problems.</p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+ 
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+ 
+ 
+namespace ReportExportDemo
+{
+    class Reports
+    {
+        static TableLogOnInfo crTableLogonInfo;
+        static ConnectionInfo crConnectionInfo;
+        static Tables crTables;
+        static Database crDatabase;
+ 
+        public static void ReportLogin(ReportDocument crDoc, string Server, string Database, string UserID, string Password)
+        {
+            crConnectionInfo = new ConnectionInfo();
+            crConnectionInfo.ServerName = Server;
+            crConnectionInfo.DatabaseName = Database;
+            crConnectionInfo.UserID = UserID;
+            crConnectionInfo.Password = Password;
+            crDatabase = crDoc.Database;
+            crTables = crDatabase.Tables;
+            foreach (CrystalDecisions.CrystalReports.Engine.Table crTable in crTables)
+            {
+                crTableLogonInfo = crTable.LogOnInfo;
+                crTableLogonInfo.ConnectionInfo = crConnectionInfo;
+                crTable.ApplyLogOnInfo(crTableLogonInfo);
+            }
+        }
+ 
+        public static void ReportLogin(ReportDocument crDoc, string Server, string Database)
+        {
+            crConnectionInfo = new ConnectionInfo();
+            crConnectionInfo.ServerName = Server;
+            crConnectionInfo.DatabaseName = Database;
+            crConnectionInfo.IntegratedSecurity = true;
+            crDatabase = crDoc.Database;
+            crTables = crDatabase.Tables;
+            foreach (CrystalDecisions.CrystalReports.Engine.Table crTable in crTables)
+            {
+                crTableLogonInfo = crTable.LogOnInfo;
+                crTableLogonInfo.ConnectionInfo = crConnectionInfo;
+                crTable.ApplyLogOnInfo(crTableLogonInfo);
+            }
+        }
+    }
+}
+</pre>
+
+<p>This class contains ReportLogIn method which is overloaded which lets you choose the type of datasourde you want to connect to. The first method in the class requires SQL Server authentication to log-on to the server and the second method is used when the server is configured on windows authentication, similar to Integrated Security = true.</p>
+
+<p>Sample usage of the Reports class is as follows. I have used AdventureWorks database for this example. If you dont have adventure works database then you can download the sample database from Microsoft&rsquo;s website or from codeplex or you can create your own report and check it with this example.</p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+ 
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+ 
+ 
+namespace ReportExportDemo
+{
+    public partial class frm_main : Form
+    {
+        public frm_main()
+        {
+            InitializeComponent();
+        }
+ 
+        private void btn_prvrpt_Click(object sender, EventArgs e)
+        {
+            int Cust_Id = Convert.ToInt32(txt_customerid.Text);
+            //string Cust_Id = txt_customerid.Text.Trim();
+ 
+            //Initialize report document object and load the report in the report document object
+            ReportDocument crReportDocument = new ReportDocument();
+            crReportDocument.Load(Application.StartupPath+"\\Reports\\AdventureCustReport.rpt");
+             
+            //login to the server to get details from the server and populate to the report           
+            Reports.ReportLogin(crReportDocument, "MX\\SERVER", "AdventureWorks", "sa", "pass#w0rd1");
+             
+            //Pass parameter to the report object
+            crReportDocument.SetParameterValue("id", Cust_Id);
+ 
+            //To create PDF from the crystal report
+            crReportDocument.ExportToDisk(ExportFormatType.PortableDocFormat, "CustomerReport" + Cust_Id + ".pdf");
+             
+            //Preview the generated PDF
+            System.Diagnostics.Process.Start(Application.StartupPath + "\\CustomerReport" + Cust_Id + ".pdf");
+        }
+    }
+}
+</pre>
+
+<p>Note the namespaces I have used in the above code and also how I have used the Reports class ReportLogin method. For more clarification of the code download the sample application with the report below.</p>
+
+<p>One important thing that you have to keep in mind while designing report is to set the parameter. After you have set the parameter and you use your report with the above code, the report will then populate the whole lot of records in the table trrespective of the parameter you pass to the report. So to avoid this and to view only the record of your choice you needs to set the formula in the crystal report. the formula goes like this:</p>
+
+<p><strong>Sample Syntax:</strong></p>
+
+<pre class="brush:plain">
+{&lt;Table's Column Name&gt;}={?&lt;Parameter Name&gt;}
+</pre>
+
+<p>In my report this formula looks something like this:</p>
+
+<pre class="brush:plain">
+{CustomerID}={?ID}
+</pre>
+
+<p><strong>Download: <a href="/files/ReportExportDemo.zip">ReportExportDemo.zip (55.76 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -396,35 +550,6 @@ Insert into Students SELECT id, name, age from
 OPENXML (@idoc, '/ROOT/student',2)
 WITH (id  int, name varchar(50), age int)
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/enable-intellisense-jquery-in-visual-studio-2008/">Enable intellisense Jquery in Visual Studio 2008</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 15, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p>Microsoft with Jquery team have added the intellisense support for VS2008. I am using Jquery for the past few months, but never thought that it would be great if there would be intellisense support for Jquery. I read <a href="http://weblogs.asp.net/scottgu">Scott Gu’s</a> post of <a href="http://weblogs.asp.net/scottgu/archive/2008/11/21/jquery-intellisense-in-vs-2008.aspx">enable intellisense support for Jquery in Visual Studio</a>. The new Visual Studio 2010 comes pre-packed with Jquery intellisense support.</p>
 
   </div>
   

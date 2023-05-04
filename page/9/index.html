@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2013-04-26T20:17:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2013-04-28T21:52:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,158 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-skydrive-rest-api/">Using Skydrive REST API</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 28, 2013
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>I have created a wrapper class to simplify my work with REST API. I assume that you will be using a web application. First step is to create an application at <a href="http://dev.live.com/">dev.live.com</a>. Once the application is created you will have the <code>ClientID</code>, <code>Client Secret</code> and <code>Redirect domain</code>. We will be using a <code>ClientID</code> and <code>Redirect domain</code>. Remember that the <code>Redirect domain</code> value cannot have localhost. You must provide a correct domain name as after successful authentication you, the user will be redirected to the domain along with the access token.</p>
+
+<p>In the response you will get the access token which will be available to you for the next 3600 seconds. The access token will be in the returning URL of your domain. In my case it is <code>http://midnightprogrammer.net/#access_token=EwBIA….</code> I will then retrieve the access token and pass it to my wrapper which will do the work for me.</p>
+
+<p>Time to look and understand the code a bit. I have been using SkyDrive a lot for backup and sharing files and I also access SkyDrive from a web application I have built. But the code is pretty messy and needs revision. So I created a wrapper around the API.</p>
+
+<p>First I need to authenticate the user with his/her live credentials with correct scopes. If scopes are wrong you will not be able to perform actions to the SkyDrive. To learn more about scopes read <a href="http://msdn.microsoft.com/en-us/library/live/hh243646.aspx">here</a>. As I am working with SkyDrive I am using 2 scopes <code>wl.signin</code> and <code>wl.skydrive_update</code>. <code>wl.skydrive_update</code> is necessary if you want to have write access to SkyDrive. The SkyDriveAPI wrapper class has the <code>Authenticate</code> method which will redirect you to authentication screen of live service. Once you enter your credentials you will then be redirected to the domain (the domain you provided while you created the application) along with the access token. Here is the sample code:</p>
+
+<pre class="brush: csharp">
+public void Authenticate()
+{
+    string authorizeUri = AuthUri;
+    authorizeUri = authorizeUri + String.Format("?client_id={0}&", _ClientId);
+    authorizeUri = authorizeUri + String.Format("scope={0}&", "wl.signin,wl.skydrive_update");
+    authorizeUri = authorizeUri + String.Format("response_type={0}&", "token");
+    authorizeUri = authorizeUri + String.Format("redirect_uri={0}", HttpUtility.UrlEncode(_SiteURL));
+    this.AuthURI = authorizeUri;
+}
+</pre>
+
+<p>This is an insight of the wrapper class. In the actual scenario you will never be using it this way:</p>
+
+<pre class="brush: csharp">
+SkyDrive drive = new SkyDrive(ClientID, Site URL);
+drive.Authenticate();
+Response.Redirect(drive.AuthURI);
+</pre>
+
+<p>In the constructor of the SkyDrive class, the first parameter will be your <code>ClientID</code> and the second one will be the <code>Site URL</code> or the redirect domain. After this the SkyDrive class object drive (whatever the name you give) will call the <code>Authenticate</code> method to generate the URL with all the required parameters and store the URL in the public variable called <code>AuthURI</code>, which I used to redirect the user to authenticate using his credentials.</p>
+
+<p>Now Once the user is authenticated you will be provided with the access token in the URL. It depends on you how you are going to fetch it. Once you fetch the access token you then need to keep it safe. To make sure that the access token remains with your API calls, save it like this:</p>
+
+<pre class="brush: plain">
+drive.AccessToken = "EwBIA.....";
+</pre>
+
+<p>Once you have the access token, you are all good to make your first call to SkyDrive. For the simplicity, I am making a request to call get the basic user information.</p>
+
+<pre class="brush: csharp">
+User usr = drive.GetUserInfo();
+</pre>
+
+<p><img src="/images/skydrive-userinfo.png" alt="User info from SkyDrive API" /></p>
+
+<p>Moreover you can also list all the folders in your SkyDriver with this simple call.</p>
+
+<pre class="brush: csharp">
+Folder driveFolders = new Folder();
+foreach (var folder in driveFolders)
+{
+    Response.Write(folder.Value + " " + folder.Key +"&lt;br/&gt;");
+}
+</pre>
+
+<p>The above code returns a <code>Dictionary</code> which contains the name of the folder and id of the folder. You’ll need the folder id in order to list down all the files in the folder. To list down all the files in a folder use the below code.</p>
+
+<pre class="brush: csharp">
+FolderContent content = drive.ListFolderContent("folder.77e33dba68367a16.77E33GBA68467A16!2189");
+for (int i = 0; i < content.Files.Count; i++)
+{
+    Response.Write(content.Files[i].name);
+}
+</pre>
+
+<p>It is not just the name of the files you get but you get the complete properties of the file. So you can play around with that too.</p>
+
+<p>Coming to the most searched feature of SkyDriver REST API is to how to upload a file using REST API. The MSDN states that you can upload the files to SkyDriver by making HTTP POST or HTTP PUT requests. Here is how I am doing it inside my wrapper class.</p>
+
+<pre class="brush: csharp">
+public bool UploadFile(string FolderID, string FilePath)
+{
+    bool Uploaded = false;
+    try
+    {
+        byte[] fileBytes = System.IO.File.ReadAllBytes(FilePath);
+        string UploadURI = BaseURI + FolderID + "/files/" + Path.GetFileName(FilePath) + "?access_token=" + AccessToken;
+  
+        var request = (HttpWebRequest)HttpWebRequest.Create(UploadURI);
+        request.Method = "PUT";
+        request.ContentLength = fileBytes.Length;
+  
+        using (var dataStream = request.GetRequestStream())
+        {
+            dataStream.Write(fileBytes, 0, fileBytes.Length);
+        }
+  
+        string status = (((HttpWebResponse)request.GetResponse()).StatusDescription);
+  
+        if (status.ToLower() == "created")
+        {
+            Uploaded = true;
+        }
+  
+        return Uploaded;
+    }
+    catch (Exception)
+    {
+        return false;
+    }
+}
+</pre>
+
+<p>I am using a PUT method to upload files to SkyDrive. At this moment I have not implemented the POST method. But in near future I will. If you are using my wrapper class then the just use a single line of code to upload a file to a particular folder.</p>
+
+<pre class="brush: csharp">
+bool uploaded = drive.UploadFile("folder.77e33dba68367a16.77E33DUA68567A16!104", "D:\\walls\\flowers_442.jpg");
+</pre>
+
+<p>Calling the <code>UploadFile</code> method will upload a file to the folder. The first parameter in the above method is the <code>folder id</code> where you want to upload the folder and the second one is the <code>local file path</code>.</p>
+
+<p>I am currently working and trying to understand the REST API and its features. I will include other functions as more and more I learn about them.</p>
+
+<p>The <a href="https://github.com/prashantkhandelwal/SkyDriveAPIWrapper">SkyDrive API Wrapper</a> is hosted on GitHub. Fork it, change it, customize it as you wish. And if you have or found something good, then please do let me know.</p>
+
+<p>I want to give the credit to <a href="http://cgeers.com/">Christophe Geers</a> for his <a href="http://cgeers.com/2012/05/01/skydrive-listing-folders-and-files/">post</a> which gives me an insight of the API.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -319,84 +471,6 @@
 <p><img src="/images/dzone-tshirt.png" alt="DZone Programmer's T-Shirt" /></p>
 
 <p>I would like to thank DZone’s Community Relations Manager – Kelly Reiser and CEO – Rick Ross and all DZone team and all the community members across the globe for this awesome goodie box. This gesture is highly appreciated and keep bloggers like me motivated.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/creating-a-live-tile-application-in-windows-8/">Creating A Live Tile Application In Windows 8</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 1, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>Developing application for Windows 8 is fun. I love the UI and the idea of having a live tile for my application. So I try building a live tile application, but unfortunately I can’t find a simple written article or a blog post. I even found MSDN to be a bit difficult for the newbies to get the grasp in first go. There are lot of things to understand and to worked on for creating a live tile in Windows 8. For this post I am just covering the main points. First, create a new Windows store application.</p>
-
-<p><img src="/images/windows-vs-new-app.png" alt="Windows 8 new app in Visual Studio" /></p>
-
-<p>Now to implement in the live tile, there are 2 different ways. For this post I am showing one way using the built-in classes and another way using the <a href="http://msdn.microsoft.com/en-in/library/windows/apps/hh969156.aspx">NotificationExtensions</a> library from Microsoft. For the tile color, application splash screen, logo and other properties in the <code>package.appxmanifest</code> file. I am not making any changes to this file and using the default values.</p>
-
-<p>For the simplest implementation I have added a button and the code to change image on my tile. There are different types of tiles that you can select with using <a href="http://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.notifications.tiletemplatetype">TileTemplateType</a> enumeration. To keep it simple I am using <code>TileSquareImage</code> which will just show an image in a square tile. Here is the simplest way of using it: Add the below namespaces:</p>
-
-<pre class="brush: csharp">
-using Windows.UI.Notifications;
-using Windows.Data.Xml.Dom;
-</pre>
-
-<p>Add the below code on the click of the button:</p>
-
-<pre class="brush: csharp">
-XmlDocument xmltile = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquareImage);
-XmlNodeList imgNode = xmltile.GetElementsByTagName("image");
-imgNode[0].Attributes[1].NodeValue = "ms-appx:///Assets/pic.png";
-TileNotification tileNotify = new TileNotification(xmltile);
-TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotify);
-</pre>
-
-<p>At line number 1, I have used the enumeration <code>TileTemplateType</code> to select the tile type. After you choose the tile type the first line of code above will return the XML that will render the live tile. Depending on the type of tile you have selected the XML is generated and you need to supply the text and images to it to render it properly. You will face problem if you are not aware of the XML for the type of tile you have selected. I came up with a simple solution to overcome this. I declare a temporary string variable and then store the XML from the xmltile object using the <code>GetXML()</code> method. It look something like this:</p>
-
-<pre class="brush: csharp">
-string tempXml = xmltile.GetXml();
-</pre>
-
-<p>Put a breakpoint and get the XML. In my case where I am using <code>TileSquareImage</code>, therefore my XML looks something like this:</p>
-
-<pre class="brush: html">
-&lt;tile&gt;
-&lt;visual&gt;
-&lt;binding template="TileSquareImage"&gt;
-&lt;image id="1" src=""/&gt;
-&lt;/binding&gt;
-&lt;/visual&gt;
-&lt;/tile&gt;
-</pre>
-
-<p>The code at line 2 and 3 will first get the node and set the image to be displayed on the tile. If you look in the solution explorer, you will see a folder labelled <code>Assets</code>. You can place the image file for the tile in this folder and then set the path of the image in the above code. After setting the XML for the tile, it now time to update the tile. I will now use <a href="http://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.notifications.tilenotification">TileNotification</a> class and then pass XmlDocument object  (xmltile) as a parameter and then finally call the <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br208624.aspx">TileUpdateManager</a> class to update the tile. Below is my live tile in action:</p>
-
-<p><img src="/images/windows8-tile-app.png" alt="Windows 8 app with tile display" /></p>
-
-<p>If you right click the tile, notice the option turn live tile off. This means that the tile is a live tile and you can turn off the live notifications if you wish.</p>
-
-<p><img src="/images/windows8-tile-app-properties.png" alt="Windows 8 app with tile display properties" /></p>
-
-<p>For this post, this is it. In the next post I will show how to update the live tile using Notification Extension library and how to animate a tile. I hope this post helps you to understand and gets you started in building a live tile application.</p>
 
   </div>
   

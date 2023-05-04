@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-12-31T23:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2013-01-01T11:20:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,84 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/creating-a-live-tile-application-in-windows-8/">Creating A Live Tile Application In Windows 8</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 1, 2013
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>Developing application for Windows 8 is fun. I love the UI and the idea of having a live tile for my application. So I try building a live tile application, but unfortunately I can’t find a simple written article or a blog post. I even found MSDN to be a bit difficult for the newbies to get the grasp in first go. There are lot of things to understand and to worked on for creating a live tile in Windows 8. For this post I am just covering the main points. First, create a new Windows store application.</p>
+
+<p><img src="/images/windows-vs-new-app.png" alt="Windows 8 new app in Visual Studio" /></p>
+
+<p>Now to implement in the live tile, there are 2 different ways. For this post I am showing one way using the built-in classes and another way using the <a href="http://msdn.microsoft.com/en-in/library/windows/apps/hh969156.aspx">NotificationExtensions</a> library from Microsoft. For the tile color, application splash screen, logo and other properties in the <code>package.appxmanifest</code> file. I am not making any changes to this file and using the default values.</p>
+
+<p>For the simplest implementation I have added a button and the code to change image on my tile. There are different types of tiles that you can select with using <a href="http://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.notifications.tiletemplatetype">TileTemplateType</a> enumeration. To keep it simple I am using <code>TileSquareImage</code> which will just show an image in a square tile. Here is the simplest way of using it: Add the below namespaces:</p>
+
+<pre class="brush: csharp">
+using Windows.UI.Notifications;
+using Windows.Data.Xml.Dom;
+</pre>
+
+<p>Add the below code on the click of the button:</p>
+
+<pre class="brush: csharp">
+XmlDocument xmltile = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquareImage);
+XmlNodeList imgNode = xmltile.GetElementsByTagName("image");
+imgNode[0].Attributes[1].NodeValue = "ms-appx:///Assets/pic.png";
+TileNotification tileNotify = new TileNotification(xmltile);
+TileUpdateManager.CreateTileUpdaterForApplication().Update(tileNotify);
+</pre>
+
+<p>At line number 1, I have used the enumeration <code>TileTemplateType</code> to select the tile type. After you choose the tile type the first line of code above will return the XML that will render the live tile. Depending on the type of tile you have selected the XML is generated and you need to supply the text and images to it to render it properly. You will face problem if you are not aware of the XML for the type of tile you have selected. I came up with a simple solution to overcome this. I declare a temporary string variable and then store the XML from the xmltile object using the <code>GetXML()</code> method. It look something like this:</p>
+
+<pre class="brush: csharp">
+string tempXml = xmltile.GetXml();
+</pre>
+
+<p>Put a breakpoint and get the XML. In my case where I am using <code>TileSquareImage</code>, therefore my XML looks something like this:</p>
+
+<pre class="brush: html">
+&lt;tile&gt;
+&lt;visual&gt;
+&lt;binding template="TileSquareImage"&gt;
+&lt;image id="1" src=""/&gt;
+&lt;/binding&gt;
+&lt;/visual&gt;
+&lt;/tile&gt;
+</pre>
+
+<p>The code at line 2 and 3 will first get the node and set the image to be displayed on the tile. If you look in the solution explorer, you will see a folder labelled <code>Assets</code>. You can place the image file for the tile in this folder and then set the path of the image in the above code. After setting the XML for the tile, it now time to update the tile. I will now use <a href="http://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.notifications.tilenotification">TileNotification</a> class and then pass XmlDocument object  (xmltile) as a parameter and then finally call the <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br208624.aspx">TileUpdateManager</a> class to update the tile. Below is my live tile in action:</p>
+
+<p><img src="/images/windows8-tile-app.png" alt="Windows 8 app with tile display" /></p>
+
+<p>If you right click the tile, notice the option turn live tile off. This means that the tile is a live tile and you can turn off the live notifications if you wish.</p>
+
+<p><img src="/images/windows8-tile-app-properties.png" alt="Windows 8 app with tile display properties" /></p>
+
+<p>For this post, this is it. In the next post I will show how to update the live tile using Notification Extension library and how to animate a tile. I hope this post helps you to understand and gets you started in building a live tile application.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -426,37 +504,6 @@ http://domain.com/App/Greet/Prashant
 <p><a href="http://markup.io/">Markup.io</a>: Discuss site design more specifically without sharing your screen. Mark it up on the page and share it with others.</p>
 
 <p>There can be more of them and it all depends on the user and the way they are working. My list ends here, but if I found something useful, I&rsquo;ll share it here. Feel free to leave comments and share any other tool/utils/service you are using.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/free-e-book-ux-guidelines-for-metro-style-apps-for-windows-8/">Free e-Book: UX Guidelines For Metro Style Apps For Windows 8</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 23, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>Microsoft made it available a free e-book for developers to understand UX Guidelines for Metro styled apps for Windows 8 and that too for both PC and tablets. This is an awesome resource which will let you know the basics and fundamentals while designing applications for PC annd tablets. As we all know that Windows 8 is the new OS with new UI design (metro) and it is necessary for every developer to know the basics before he starts developing the application for PC or for tablets. The e-book has it all from planning a metro app to making a stylish metro app.</p>
-
-<p><strong><a href="http://go.microsoft.com/fwlink/?LinkId=258743">Download</a></strong> your copy today.</p>
 
   </div>
   

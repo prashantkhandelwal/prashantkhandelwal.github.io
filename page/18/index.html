@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-03-16T16:35:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-03-17T16:03:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -151,6 +151,219 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/bitly-api-shorten-urls-reverse-long-urls-get-qr-code-image/">Windows Live Theme For BlogEngine.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 17, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/bitly-logo.jpg" alt="Bit.ly logo"/></p>
+
+<p>If you have long URLs and other and want to create short URLs then <a href="http://bit.ly/">Bit.ly</a> API can help. I wrote a wrapper class which can let me create short URLs in jiffy. I was working on Bit.ly API to create my short URLs with a click of a button (that&rsquo;s for my personal use). Therefore, I ended up with a &lsquo;short&rsquo; class to create short URLs using Bit.ly API. What you need is a <code>login</code> and an <code>apikey</code>, which you can have one for yourself by signing up for a free account. You can find your apikey <a href="http://bit.ly/a/account">here</a> after login. The class gives you two ways to make short URL, one with XML and the other with plain TEXT. I haven&rsquo;t write anything for JSON as it was not required at all to me in any ways. I am using plain TEXT for this example. You can read <a href="http://code.google.com/p/bitly-api/wiki/ApiDocumentation">Bit.ly API official documentation</a> for more information.</p>
+
+<p>The below class can be used to create short URLs using Bit.ly API, reverse the short URLs and get the original URL. Also if you are not aware you can have a QR code of your short URL. Read more about QR Code <a href="http://2d-code.co.uk/goo-gl-versus-bit-ly-qr-code/">here</a>. If you are using Bit.ly or Goo.gl to shorten your URLs then you can have the QR code image by adding .qrcode in the end of the short URL (See in the code example below)</p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml;
+using System.Net;
+using System.IO;
+ 
+namespace Bitly.API
+{
+ 
+    public class BitlyData
+    {
+        #region Properties
+ 
+        public static string APIKEY { get; set; }
+        public static string LoginName { get; set; }
+ 
+        public static string StatusCode { get; set; }
+        public static string StatusDesc { get; set; }
+        public static string ShortURL { get; set; }
+        public static string LongURL { get; set; }
+        public static string HashCode { get; set; }
+        public static string GlobalCode { get; set; }
+        public static string NewHash { get; set; }
+ 
+        #endregion
+    }
+ 
+    public class Bitly
+    {
+ 
+        #region Bit.Ly Variables
+ 
+        private static string URL = "http://api.bit.ly/v3/shorten?login=";
+ 
+        private static string BitResponse = "";
+ 
+        #endregion
+ 
+        #region Enums
+ 
+        public enum Format
+        {
+            XML,
+            JSON,
+            TXT
+        }
+ 
+        #endregion
+ 
+        #region Sample Response
+        //        &lt;?xml version="1.0" encoding="utf-8"?&gt;
+        //&lt;response&gt;
+        //    &lt;status_code&gt;200&lt;/status_code&gt;
+        //    &lt;status_txt&gt;OK&lt;/status_txt&gt;
+        //    &lt;data&gt;
+        //        &lt;url&gt;http://bit.ly/ekYLee&lt;/url&gt;
+        //        &lt;hash&gt;ekYLee&lt;/hash&gt;
+        //        &lt;global_hash&gt;gBH72m&lt;/global_hash&gt;
+        //        &lt;long_url&gt;http://midnightprogrammer.net/post/Windows-7-Development-Working-With-Task-Dialog-Class.aspx&lt;/long_url&gt;
+        //        &lt;new_hash&gt;1&lt;/new_hash&gt;
+        //    &lt;/data&gt;
+        //&lt;/response&gt;
+ 
+        #endregion
+ 
+        public static string ShortURL(string LongURL, Format ReqFormat = Format.TXT)
+        {
+            string sURL = string.Empty;
+            string BitLyURL = URL + BitlyData.LoginName + "&apikey=" + BitlyData.APIKEY + "&longUrl=" + LongURL + "&format=";
+ 
+            if (ReqFormat == Format.JSON)
+            {
+                throw new NotImplementedException("This method is not implemented yet!");
+            }
+ 
+            if (ReqFormat == Format.XML)
+            {
+                BitResponse = new WebClient().DownloadString(BitLyURL + "xml");
+                string Response = BitResponse;
+ 
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(Response);
+                XmlNodeList XlistResponse = doc.GetElementsByTagName("response");
+ 
+                foreach (XmlNode XResnode in XlistResponse)
+                {
+                    XmlElement ResElm = (XmlElement)XResnode;
+ 
+                    BitlyData.StatusCode = ResElm.GetElementsByTagName("status_code")[0].InnerText;
+ 
+                    if (BitlyData.StatusCode != "200")
+                    {
+                        BitlyData.StatusDesc = ResElm.GetElementsByTagName("status_txt")[0].InnerText;
+                        return BitlyData.StatusDesc;
+                    }
+                }
+ 
+                if (BitlyData.StatusCode == "200")
+                {
+ 
+                    XmlNodeList XlistData = doc.GetElementsByTagName("data");
+ 
+                    foreach (XmlNode XDatanode in XlistData)
+                    {
+                        XmlElement DataElm = (XmlElement)XDatanode;
+ 
+                        BitlyData.ShortURL = DataElm.GetElementsByTagName("url")[0].InnerText;
+                        BitlyData.LongURL = DataElm.GetElementsByTagName("long_url")[0].InnerText;
+                        BitlyData.HashCode = DataElm.GetElementsByTagName("hash")[0].InnerText;
+                        BitlyData.GlobalCode = DataElm.GetElementsByTagName("global_hash")[0].InnerText;
+                        BitlyData.NewHash = DataElm.GetElementsByTagName("new_hash")[0].InnerText;
+                    }
+                }
+            }
+ 
+            if (ReqFormat == Format.TXT)
+            {
+                if (ReqFormat == Format.TXT)
+                {
+                    BitResponse = new WebClient().DownloadString(BitLyURL + "txt");
+                    string Response = BitResponse;
+ 
+                    BitlyData.ShortURL = Response;
+                }
+            }
+ 
+            return sURL = BitlyData.ShortURL;
+        }
+ 
+        public static string ReverseShortURL(string ShortURL)
+        {
+            HttpWebRequest Webrequest = (HttpWebRequest)HttpWebRequest.Create(ShortURL);
+            HttpWebResponse Webresponse = (HttpWebResponse)Webrequest.GetResponse();
+            Uri uri = Webresponse.ResponseUri;
+            return uri.AbsoluteUri;
+        }
+ 
+        public static string GetQRCodeURL(string ShortURL)
+        {
+            string QRCodeURL = string.Empty;
+            QRCodeURL = ShortURL + ".qrcode";
+            return QRCodeURL;
+        }
+    }
+}
+</pre>
+
+<p>In the above class you can see that the second parameter is accepting TXT by default. So, if you call the method with or without the second parameter it will still work with the default parameter TXT. The enumeration called <code>Format</code> contains all the possible format of all the formats which is accepted by Bit.ly API. <strong>The second parameter in the class above should be removed if you plan to use the above code with the lower versions of .NET i.e. 3.x/2.0.</strong></p>
+
+<p><strong>Sample Usage .NET 3.x / 2.0</strong></p>
+
+<pre class="brush:csharp">
+Bitly.API.BitlyData.LoginName = "LOGIN NAME GOES HERE";
+Bitly.API.BitlyData.APIKEY = "API KEY GOES HERE";
+Console.WriteLine("Short URL: "+Bitly.API.Bitly.ShortURL("http://midnightprogrammer.net/post/9-Promises-Should-Be-Taken-Before-Choosing-IT-Profession.aspx", Bitly.API.Bitly.Format.TXT));
+Console.WriteLine("Reverse URL: "+Bitly.API.Bitly.ReverseShortURL("http://bit.ly/eZ1kdb"));
+Console.WriteLine("QRCode Image URL " + Bitly.API.Bitly.GetQRCodeURL("http://bit.ly/eZ1kdb"));
+</pre>
+
+<p><strong>Sample usage .NET 4.0</strong></p>
+
+<pre class="brush:csharp">
+Bitly.API.BitlyData.LoginName = "LOGIN NAME GOES HERE";
+Bitly.API.BitlyData.APIKEY = "API KEY GOES HERE";
+Console.WriteLine("Short URL: "+Bitly.API.Bitly.ShortURL("http://midnightprogrammer.net/post/9-Promises-Should-Be-Taken-Before-Choosing-IT-Profession.aspx", Bitly.API.Bitly.Format.TXT));
+Console.WriteLine("Reverse URL: "+Bitly.API.Bitly.ReverseShortURL("http://bit.ly/eZ1kdb"));
+Console.WriteLine("QRCode Image URL " + Bitly.API.Bitly.GetQRCodeURL("http://bit.ly/eZ1kdb"));
+</pre>
+
+<p>I have tested my code with Console Application, but you can test it with web or Windows form application. Note that the default parameters are only accepted if you are working with .NET 4.0 and not by the lower versions of .NET. If you wish to use the second parameter in .NET 4 then also it will work, but not using it with lower version will give you error.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -498,395 +711,6 @@ c:\>vssadmin delete shadows /for=c: /oldest
 </pre>
 
 <p>This will free up some GIGs of space if you are using it for the first time and if you are using it quite frequently then also you end up with MBs of free space.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/integrate-bing-maps-with-geonames-database-and-aspnet/">Integrate Bing Maps With Geonames Database And ASP.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 8, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p><img align="right" src="/images/bing-maps-logo.jpg" alt="Bing Maps logo"/></p>
-
-<p>To locate a place on maps (Bing or Google), the best thing is to get the latitude and longitude of the location, this ensures that the place we are pinning on the map is accurate. But the big question is to where to get the latitude and longitude of the location. There might be a web service for getting the latitude and longitude of a location, but wouldn&rsquo;t it be nice if you just have to query a local database?</p>
-
-<h4 id="get-the-geonames-data-dump"><strong>Get the Geonames data dump</strong></h4>
-
-<p>Apart from providing free web services and API <a href="http://www.geonames.org/">Geonames.org</a> also provides their <a href="http://download.geonames.org/export/dump/">data dumps</a> which gets updated regularly. the best things about the data dumps are that they are distributed country-wise, city-wise etc. If you wish to download the data country wise, then you can download the file(s) which are named according to the countries IATA codes. The one I am using for this example is the <code>allCountries</code> files from the dumps. Download this dump only if you want to have ALL the Geoname data.</p>
-
-<p><img src="/images/geonames-datadump.png" alt="Geonames data dump" /></p>
-
-<h4 id="import-data-in-sql-server"><strong>Import data in SQL Server</strong></h4>
-
-<p>The dump can be imported in the database using the Data import-Export wizard present in the SQL Server or you can write a custom tool to import the whole dump. The dump is in a <code>TAB</code> delimited format. Just in case if you are not aware, the file you downloaded is in UTF-8 encoding and therefore you need it to convert it to UTF-16 encoding before you actually import it into the database. There is a command line tool which will help you to convert the database dump to UTF-16 which I got from the <a href="http://forum.geonames.org/gforum/posts/list/817.page">Geoname forums</a>.</p>
-
-<p><img src="/images/geonames-data-import.png" alt="Geonames data import" /></p>
-
-<p>This tool will convert the format of the dump file from UTF-8 to UTF-16. After the successfull conversion of the file, now comes the time to import the data in the database.</p>
-
-<p>Create a database table:</p>
-
-<pre class="brush:sql">
-CREATE TABLE GeoNames( 
-geonameid int NOT NULL, 
-name nvarchar(200) NULL, 
-asciiname nvarchar(200) NULL, 
-alternatenames nvarchar(max) NULL, 
-latitude float NULL, 
-longitude float NULL, 
-feature_class char(2) NULL, 
-feature_code nvarchar(10) NULL, 
-country_code char(3) NULL, 
-cc2 char(60) NULL, 
-admin1_code nvarchar(20) NULL, 
-admin2_code nvarchar(80) NULL, 
-admin3_code nvarchar(20) NULL, 
-admin4_code nvarchar(20) NULL, 
-population bigint NULL, 
-elevation int NULL, 
-gtopo30 int NULL, 
-timezone char(31) NULL, 
-modification_date date NULL
-)
-</pre>
-
-<p>To import millions of records you can write a custom tool or you can use the SQL Server Data Import/Export Data wizard. I have wrote a custom tool to import, but you can use the T-SQL&rsquo;s BULK INSERT (because it is simple and easy) to import the dump.</p>
-
-<pre class="brush:sql">
-BULK 
-INSERT GeoNames 
-FROM 'I:\Database\Dump.txt'
-WITH( 
-DATAFILETYPE = 'widechar', 
-FIELDTERMINATOR = '\t', 
-ROWTERMINATOR = '\n'
-)
-</pre>
-
-<p>The parameters in the above SQL statement is self-explanatory and therefore I am not going to brief them. <strong>But before you can start locating places with ASP.NET make sure you have indexed the table, if not then you will receive a SQL Server timed-out error</strong>.</p>
-
-<h4 id="working-with-bing-maps"><strong>Working with Bing Maps</strong></h4>
-
-<p>Our database is now ready and now we can start locating the places on the Bing maps. We have two pages in the project, one which we will be using to get the locations and their details on the basis of city name enter by the user and the other which will show the map with a push pin.</p>
-
-<p><img src="/images/geonames-webapp.png" alt="Geonames webapp" /></p>
-
-<p><strong>Default.aspx page:</strong></p>
-
-<pre class="brush:html">
-&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BingMap._Default" EnableViewState="true" %&gt;
- 
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Bing Maps with ASP.NET and GeoNames Database&lt;/title&gt;
-    &lt;link href="Style/style.css" rel="stylesheet" type="text/css" /&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;form id="form1" runat="server" enableviewstate="true"&gt;
-    Enter Place Name:  &lt;asp:TextBox ID="txtPlaceName" runat="server" /&gt;
-    &lt;asp:Button ID="btnPlaceName" runat="server" Text="Get GeoData!" OnClick="btnPlaceName_Click" /&gt;
-     &lt;br /&gt;
-    &lt;br /&gt;
-        &lt;table id="GeoData" style="width: 55%;" enableviewstate="true"&gt;
-            &lt;tr&gt;
-                &lt;td class="tdheader"&gt;
-                      City Name
-                &lt;/td&gt;
-                &lt;td class="tdheader"&gt;
-                      Lat./Log.
-                &lt;/td&gt;
-                &lt;td class="tdheader"&gt;
-                     Country
-                &lt;/td&gt;
-                &lt;td&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;%for (int i = 0; i &lt; RecCount; i++)
-              {%&gt;
-            &lt;tr&gt;
-                &lt;td&gt;
-                      
-                    &lt;%=CityName[i]%&gt;
-                &lt;/td&gt;
-                &lt;td&gt;
-                      
-                    &lt;%=Lat[i]%&gt;
-                    /
-                    &lt;%=Log[i]%&gt;
-                &lt;/td&gt;
-                &lt;td class="country"&gt;
-                      
-                    &lt;%=Country[i]%&gt;
-                &lt;/td&gt;
-                &lt;td&gt;
-                    &lt;a href="BingMap.aspx?lat=&lt;%=Lat[i]%&gt;&log=&lt;%=Log[i]%&gt;&place=&lt;%=CityName[i]%&gt;" target="_blank"&gt;Show on Map&lt;/a&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;%}%&gt;
-        &lt;/table&gt;
-    &lt;br /&gt;
-   &lt;asp:Label ID="RecFound" Text="" runat="server" /&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;&lt;br&gt;
-</pre>
-
-<p><strong>Code Behind: Default.aspx.cs:</strong></p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using BingMap.DBModel;
- 
- 
-namespace BingMap
-{
-    public partial class _Default : System.Web.UI.Page
-    {
-        WorldEntities world = new WorldEntities();
-        public List&lt;string&gt; CityName = new List&lt;string&gt;();
-        public List&lt;string&gt; Country = new List&lt;string&gt;();
-        public List&lt;string&gt; Lat = new List&lt;string&gt;();
-        public List&lt;string&gt; Log = new List&lt;string&gt;();
-        public int RecCount = 0;
- 
-        private void GetLocation(string CName)
-        {
-            try
-            {
-                var WorldLoc = from l in world.Geonames
-                               where l.name == CName
-                               select l;
- 
-                foreach (var item in WorldLoc)
-                {
-                    CityName.Add(item.name);
-                    Country.Add(item.country_code);
-                    Lat.Add(Convert.ToSingle(item.latitude));
-                    Log.Add(Convert.ToSingle(item.longitude));
-                    RecCount = RecCount + 1;
-                }
- 
-                if (RecCount == 0)
-                {
-                    RecFound.Text = "No Record(s) Found!";
-                }
- 
-                else
-                {
-                    RecFound.Text = Convert.ToString(RecCount) + " Record(s) Found!";
-                }
-            }
-            catch (Exception x)
-            {
-                Response.Write(x.ToString());
-            }
-        }
- 
-        protected void Page_Load(object sender, EventArgs e)
-        {
- 
-        }
- 
-        protected void btnPlaceName_Click(object sender, EventArgs e)
-        {
-            if (Page.IsPostBack)
-            {
-                GetLocation(txtPlaceName.Text);
-            }
-        }
-    }
-}
-</pre>
-
-<p>here could be many places with the same name in different geographical locations. For example, if you query the database with San Francisco, you&rsquo;ll find out it is not the only place on the planet in U.S. The same is with the city in India called Hyderabad, one is in India and the other is in Pakistan. But the geographical location is different and thus we can place a push pin on the maps.</p>
-
-<p>I have used a different web page for the map. From the page <code>Default.aspx</code> page I will pass the information (latitude, longitude and place name) in query string to pin the location on the map.</p>
-
-<p><strong>BingMap.aspx:</strong></p>
-
-<pre class="brush:jscript">
-&lt;%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BingMap.aspx.cs" Inherits="BingMap.BingMap" %&gt;
- 
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
- 
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head runat="server"&gt;
-    &lt;title&gt;Bing Map&lt;/title&gt;
-    &lt;script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"&gt;&lt;/script&gt;
- 
-    &lt;script type="text/javascript"&gt;
-        function LoadMap() {
-            map = new VEMap('BingMap');
-            var Latitude = '&lt;%= LocLat %&gt;';
-            var Longitude = '&lt;%= LocLog%&gt;';
-            var PlaceName = '&lt;%=Place %&gt;';
-            if (Latitude.length == 0 || Longitude.length == 0) {
-                var latlong = new VELatLong(28.63576, 77.22445);
- 
-                map.SetDashboardSize(VEDashboardSize.Large);
-                map.LoadMap(latlong, 9, VEMapStyle.Road);
- 
-                //Add pushpin
-                var pin = new VEShape(VEShapeType.Pushpin, latlong);
-                pin.SetCustomIcon(null);
-                pin.SetTitle("New Delhi");
-                pin.SetDescription("Capital City Of India");
-                map.AddShape(pin);
-                map.ShowDashboard();
-            }
-            else {
-                var latlong = new VELatLong(Latitude, Longitude);
- 
-                map.SetDashboardSize(VEDashboardSize.Large);
-                map.LoadMap(latlong, 9, VEMapStyle.Road);
- 
-                //Add pushpin
-                var pin = new VEShape(VEShapeType.Pushpin, latlong);
-                pin.SetCustomIcon(null);
-                pin.SetTitle(PlaceName);
-                pin.SetDescription("&lt;br/&gt;" + "&lt;strong&gt;Latitude:&lt;/strong&gt;" + '&lt;%=LocLat%&gt;' + "&lt;br/&gt;" + "&lt;strong&gt;Longitude:&lt;/strong&gt;" + '&lt;%=LocLog%&gt;');
-                map.AddShape(pin);
-                map.ShowDashboard();
-            }
-        }
-    &lt;/script&gt;
- 
-&lt;/head&gt;
-&lt;body onload="LoadMap();"&gt;
-    &lt;form id="BingForm" runat="server"&gt;
-    &lt;div id='BingMap' style="position: relative; width: 800px; height: 600px;"&gt;
-     
-    &lt;/div&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;&lt;br&gt;
-</pre>
-
-<p>The client-side script is used to load the map. I have used the version 6.3 of the Bing Maps but you can also use the version 7.0. Though you need some additional parameters to use the latest one like the Bing Maps developer API key. The map can be set in the script tag.</p>
-
-<pre class="brush:jscript">
-<script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3"></script>
-</pre>
-
-<p>A funtion named <code>LoadMap()</code> will doing the rest of the job, like setting the latitude, longitude, adding push pin to the location on the map and customizing other details on the map.</p>
-
-<pre class="brush:jscript">
-var latlong = new VELatLong(28.63576, 77.22445);
-map.SetDashboardSize(VEDashboardSize.Large);
-map.LoadMap(latlong, 9, VEMapStyle.Road);
-</pre>
-
-<p>The first line in the above script will set the latitude and longitude. The <code>LoadMap</code> method should always be called after <code>SetDashboardSize</code>. I have set the <a href="http://msdn.microsoft.com/en-us/library/bb429578.aspx">VEDashboardSize</a> enumeration to <code>Large</code> you can also use <code>Small</code> if you want the navigation controls of the map to appear small. <code>LoadMap</code> method will take 3 parameters, the first is the reference of the latitude and longitude of the location, second is the Zoom Level, which is 9 in my case, you can adjust this value according to your requirement and the third option <a href="http://msdn.microsoft.com/en-us/library/bb412515.aspx">VEMapStyle</a> enumeration will let you set the style for the map. It can be Road, Aerial, BirdEye etc (Click on the links to know more about these enumerations). And this is it, this will load the map in the browser showing the place of your choice with specified latitude and longitude.</p>
-
-<p>To be more precise an beautify the Bing Map, we can also add a push pin at the specified location and that too can also be done with the help of the client-side script.</p>
-
-<pre class="brush:jscript">
-var pin = new VEShape(VEShapeType.Pushpin, latlong);
-pin.SetCustomIcon(null);
-pin.SetTitle(PlaceName);
-pin.SetDescription("<br/>" + "<strong>Latitude:</strong>" + '<%=LocLat%>' + "<br/>" + "<strong>Longitude:</strong>" + '<%=LocLog%>');
-map.AddShape(pin);
-</pre>
-
-<p>To add a new push pin to our location we need to use <a href="http://msdn.microsoft.com/en-us/library/bb412535.aspx">VEShape</a> class. <a href="http://msdn.microsoft.com/en-us/library/bb412425.aspx">SetCustomIcon</a> method allows to set the custom icon for your push pin. <code>SetTitle</code> method will set the description for you push pin. <code>SetDescription</code> method sets the description of the push pin, here in the description I have set the other information like location&rsquo;s latitide and longitude. To add the push pin to the location the <code>AddShape</code> method of the map class will take <code>pin</code> as a parameter and set the push pin on the map.</p>
-
-<p>For showing map I have used a different web page named BingMap.aspx which also includes the code behind (just a few lines) apart from client-side code:</p>
-
-<p><strong>BingMap.aspx.cs:</strong></p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
- 
-namespace BingMap
-{
-    public partial class BingMap : System.Web.UI.Page
-    {
-        public string LocLat = "";
-        public string LocLog = "";
-        public string Place = "";
- 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Request.QueryString.AllKeys.Length > 0)
-            {
-                LocLat = Request.QueryString["lat"].ToString();
-                LocLog = Request.QueryString["log"].ToString();
-                Place = Request.QueryString["place"].ToString();
-            }
- 
-            if (LocLat.Equals("") || LocLog.Equals(""))
-            {
- 
-            }
-        }
-    }
-}
-</pre>
-
-<p>In the code-behind I will check on page load if the count of the query string passed on to the page is greater than zero, if the condition is true then I will set the values in the public variables and set them on the client-side script which actually handles the loading, locating and adding push pin on the map. The URL on calling the BingMap.aspx page will look like this:</p>
-
-<pre class="brush:plain">
-http://localhost:5543/BingMap.aspx?lat=28.35&log=79.41667&place=Bareilly
-</pre>
-
-<p>I have shown my home town on the map. You can also see a push pin and other details in a baloon.</p>
-
-<p><img src="/images/geonames-bingmap.png" alt="Location via Geonames data on Bing Maps" /></p>
-
-<p>And this is it, I can now locate any place on the Bing Maps which is present with me in Geonames database with the help of ASP.NET. The more can be done with the help of Geonames database like postcode lookup. I hope this tutorial will get you started with Bing Maps integrated with Geonames database with the help of ASP.NET.</p>
-
-<p><strong>Download: <a href="/files/BingMap.zip">BingMap.zip (189.44 kb)</a></strong></p>
-
-<p><strong><a href="/files/Utf8ToUtf16.exe">Download the UTF8ToUTF16 conversion tool</a></strong></p>
-
-<p><strong>Related Links:</strong></p>
-
-<ul>
-<li><a href="http://jkebeck.wordpress.com/">Johannes blog on Bing Maps</a></li>
-<li><a href="http://download.geonames.org/export/dump/">Geonames Data Dump Page</a></li>
-<li><a href="http://www.bingmapsportal.com/">Bing Maps Account Centre</a></li>
-<li><a href="http://blogs.msdn.com/b/veplatform/">Bing Maps Team Blog</a></li>
-<li><a href="http://www.bing.com/community/site_blogs/b/maps/default.aspx">Bing Maps Community</a></li>
-</ul>
 
   </div>
   
