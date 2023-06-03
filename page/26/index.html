@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-03-01T11:55:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-03-05T01:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,116 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/calling-aspnet-web-service-using-jquery-part-i/">Calling ASP.NET Web Service Using Jquery - Part I</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 5, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>Jquery is now one of the most favorite JavaScript frameworks to play around. It offers some more advance feature to the developers and UI designers to accomplish their task easily and more conveniently. Take an example of AJAX and think where you can face the problems when you have to deal with different browsers who support XMLHTTP request and the one who don’t. I remember, I use to initialize the AJAX’s XMLHTTP object keeping in mind what will be my client’s browser. So, on the first go I have to detect the client’s browser and then set the XMLHTTP object and then process requests.</p>
+
+<p>But Jquery gives us a tons of features to be happy and so as with handling data. In Jquery we have not to worry about what will our client’s browser and what will be the request object. Jquery handles all this for us and makes its pretty easy to use.</p>
+
+<p>So start up with creating a new ASP.NET website project.</p>
+
+<p><img src="/images/ajax-new-proj.png" alt="Create new project" /></p>
+
+<p>When you create a new project a new page named Default.aspx is added by default. I am going to use the same page in this example. If you wish you can change the name of the page. Add a button on the page and a label to show text.</p>
+
+<p><img src="/images/ajax-markup.png" alt="Markup" /></p>
+
+<p>Right-Click the project and add choose New Item. Add a new Web Service.</p>
+
+<p><img src="/images/ajax-websrv.png" alt="Add web service" /></p>
+
+<p>After this add the below code to the web service code behind file. But before you do that there are some things we need to keep in mind. Let’s talk about a normal web service which we are going to consume in a normal way i.e. using the server-side code. But this is not the case I am explaining here. What we are going to do is to consume the web service on the client-side using Jquery.</p>
+
+<p>Now the changes that you have to made in the code-behind file to allow the web service to be consumed by the client-side script is as follows:</p>
+
+<p>First you have to add or un-comment the attribute above of the web service class. This attribute allows the web service to be called from the client-side script (Jquery or other client-side scripts).</p>
+
+<pre class="brush:plain">
+[System.Web.Script.Services.ScriptService]
+</pre>
+
+<p>After this you can write your method the same way you use to write with attribute [WebMethod]. I am just writing a simple method which will return a string.</p>
+
+<pre class="brush:csharp">
+[WebMethod]
+Public string Hello()
+{
+    Return “Welcome to ASP.NET Web Services and Jquery”;
+}
+</pre>
+
+<p>We have our web service ready and now we have to write client-side script to consume this webservice. The method in our web service will return only a plain simple string to the client. First I have added a button and a label to the page. On button click I have called the method (Jquery method) which will call the web service. The response of the web service is then shown on the label. On the page from where we are calling the web service, add the following Jquery script to call the web service.</p>
+
+<pre class="brush:jscript">
+function CallService()
+{
+      &dollar;.ajax({
+          type: "POST",
+          url: "Service.asmx/Hello",
+          data: "{}",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: OnSuccess,
+          error: OnError
+      });
+}
+
+function OnSuccess(data, status) 
+{
+      &dollar;("#lblResult").html(data.d);
+}
+ 
+function OnError(request, status, error)
+{
+      &dollar;("#lblResult").html(request.statusText);
+}
+</pre>
+
+<p>In the above code I have created a method and named it CallService(). Inside this method there are several parameters that we have to set to call the web service.</p>
+
+<ul>
+<li><strong>type:</strong> Can be POST or GET. Web Services do not work with &ldquo;GET&rdquo; by default, as to prevent cross-site request forgeries. (Thanks <a href="http://leedumond.com/">Lee Dumond</a> for pointing this out to me)</li>
+<li><strong>url:</strong> Name of the web service. In the above code you can see I have called the web method ‘Hello’ from the web service named ‘Service’. If you are consuming or calling other web service which is not a part of your project or solution then you need to enter the fully qualified name of the web service with method name you are going to call.</li>
+<li><strong>data:</strong> In this example the data will remain empty, as we are only calling a method which return a simple string and don’t accept any parameter. If the method has some parameters then we will pass the parameters. I will explain on passing parameters in my coming posts.</li>
+<li><strong>contentType:</strong> Should remain the same.</li>
+<li><strong>datatype:</strong> Should remain as it is.</li>
+<li><strong>success:</strong> Here I have called the OnSuccess when the call is complete successfully. If you check the OnSuccess method you will see that I have set the returned result from the web service to the label. In the OnSuccess method body you see ‘data.d’. The ‘d’ here is the short form of data.</li>
+<li><strong>Error:</strong> Same as I have done with OnSuccess. If any error occurred while retrieving the data then the OnError method is invoked.</li>
+</ul>
+
+<p>Run the project and see it in action.</p>
+
+<p><img src="/images/ajax-web-demo.png" alt="Web app demo" /></p>
+
+<p>In my coming post on calling web service in ASP.NET using Jquery I will show on how to pass parameters to a web service and get the result and on how can we interact with SQL Server to fetch data and lots of other stuff in Jquery and ASP.NET.</p>
+
+<p><strong>Download: <a href="/files/JqueryAjaxDemo.zip">JqueryAjaxDemo.zip (87.55 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -466,92 +576,6 @@ else if (!frmPresent)
     Reportfrm.MdiParent = this;
     Reportfrm.Show();
 }
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/using-openxml-to-insert-data-in-sql-server/">using-openxml-to-insert-data-in-sql-server</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 19, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>Microsoft SQL Server provides the mechanism to save XML data to the SQL table using OpenXML. We can use a stored procedure and pass a XML text as a string. It is useful when we have a large data in XML format and we want to save the whole data in different tables.</p>
-
-<p>So first start declaring the variables. The first declare the document variable and a XML document variable as <code>Varchar(8000)</code> or <code>Varchar(MAX)</code> - It&rsquo;s a same thing</p>
-
-<pre class="brush:sql">
-DECLARE @idoc int
-DECLARE @doc varchar(8000)
-</pre>
-
-<p>Now we can set the value to the <code>@doc</code> variable, the <code>@doc</code> variable will accept the XML file as a parameter. We can also have a complete XML data in the parameter only if the XML data is less.</p>
-
-<p><strong>OpenXML takes 3 parameters:</strong></p>
-
-<ul>
-<li>The handler which we have declare at the begining will holds the XML document in the memory.</li>
-<li>XPath variable to access the various elements of the XML document.</li>
-<li>The last parameter here &lsquo;2&rsquo; allows us to access XPath as elements.</li>
-</ul>
-
-<p>Here I have read a XML file in the document variable and store in the table. Here is the full SQL query to achieve this. You can also convert the below code to stored procedure and pass XML file or string as a parameter.</p>
-
-<pre class="brush:sql">
-DECLARE @idoc int
-DECLARE @doc varchar(8000)
-SET @doc ='&lt;ROOT&gt;&lt;student&gt;
-&lt;id&gt;1&lt;/id&gt;
-&lt;name&gt;Prashant&lt;/name&gt;
-&lt;age&gt;32&lt;/age&gt;
-&lt;/student&gt;
-&lt;student&gt;
-&lt;id&gt;2&lt;/id&gt;
-&lt;name&gt;Swami&lt;/name&gt;
-&lt;age&gt;42&lt;/age&gt;
-&lt;/student&gt;
-&lt;student&gt;
-&lt;id&gt;3&lt;/id&gt;
-&lt;name&gt;Ash&lt;/name&gt;
-&lt;age&gt;23&lt;/age&gt;
-&lt;/student&gt;
-&lt;student&gt;
-&lt;id&gt;4&lt;/id&gt;
-&lt;name&gt;Kris&lt;/name&gt;
-&lt;age&gt;12&lt;/age&gt;
-&lt;/student&gt;
-&lt;student&gt;
-&lt;id&gt;5&lt;/id&gt;
-&lt;name&gt;Derek&lt;/name&gt;
-&lt;age&gt;75&lt;/age&gt;
-&lt;/student&gt;
-&lt;/ROOT&gt;'
- 
---Create an internal representation of the XML document.
-EXEC sp_xml_preparedocument @idoc OUTPUT, @doc
--- Execute a SELECT statement that uses the OPENXML rowset provider.
-Insert into Students SELECT id, name, age from
-OPENXML (@idoc, '/ROOT/student',2)
-WITH (id  int, name varchar(50), age int)
 </pre>
 
   </div>

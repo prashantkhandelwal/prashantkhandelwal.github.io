@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2014-04-03T15:10:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2014-05-03T13:51:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,181 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/json-based-document-storage-using-biggy-in-aspnet-mvc/">JSON Based Document Storage Using Biggy In ASP.NET MVC</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 3, 2014
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>While working with a small web based project many developers will take advantage of web.config and XML files to read settings for the application. Using web.config is a good way but you cannot change the settings from within the application and when done manually it causes the website to restart. XML is good but many of us has a problem when it comes to update the details in XML. <a href="https://github.com/robconery/biggy">Biggy</a> is an awesome library developed by <a href="http://www.wekeroad.com/">Rob Conery</a> to work with document storage. It does a lot well more than you can think of if you are not following the project closely on Github. For now I am just going to show you how you can use Biggy to save your application data in JSON based document storage.</p>
+
+<p>The library is not available on <a href="http://nuget.org/">NuGet</a>, so you have to download or fork the whole solution from Github and then build it. Create a new MVC application and add the reference of the Biggy assemblies you just build.</p>
+
+<blockquote>
+<p>Remove Newtonsoft.Json assembly that is added in your project by default when it is created by Visual Studio. The version of assembly seems to be incompatible with Biggy. Instead use the one which accompanies Biggy.</p>
+</blockquote>
+
+<p>Add a new model in your application and name it <code>settings</code>. The settings may depend on your application, as I am using it for my blog I have settings like blog name, blog description, posts per page and disable comments after &lsquo;x&rsquo; days.</p>
+
+<pre class="brush: csharp">
+public class Settings
+{
+    public string BlogName { get; set; }
+    public string BlogDescription { get; set; }
+    public string PostsPerPage { get; set; }
+    public string CommentDays { get; set; }
+}
+</pre>
+
+<p>I am manually building my view but you can use scaffolding if you wish to save your time. On submit of the form, the details will be sent to the server where my controller method will save the settings in the JSON file. Here is my view and controller code.</p>
+
+<pre class="brush: html">
+@model BiggyJSONDataStore.Models.Settings
+@{
+    ViewBag.Title = "Settings Page";
+   }
+ 
+&lt;div class="row"&gt;
+    @using (Html.BeginForm("Settings", "Home", FormMethod.Post))
+    {
+        &lt;label&gt;Blog Name&lt;/label&gt;
+        @Html.TextBoxFor(m =&gt; m.BlogName, new { @id = "blogname" })
+        &lt;br /&gt;
+        &lt;label&gt;Blog Description&lt;/label&gt;
+        @Html.TextBoxFor(m =&gt; m.BlogDescription, new { @id = "blogdesc" })
+        &lt;br /&gt;
+        &lt;label&gt;Posts per Page&lt;/label&gt;
+        @Html.TextBoxFor(m =&gt; m.PostsPerPage, new { @id = "postsperpage" })
+        &lt;br /&gt;
+        &lt;label&gt;Disable comments after&lt;/label&gt;
+        @Html.TextBoxFor(m =&gt; m.CommentDays, new { @id = "commentdays" })
+        &lt;label&gt;days&lt;/label&gt;&lt;br /&gt;
+        &lt;input id="btnSave" type="submit" value="Save Settings" /&gt;
+    }
+&lt;/div&gt;
+</pre>
+
+<p><img src="/images/biggy-ui.png" alt="App to save info using Biggy" /></p>
+
+<p>When the first time the page is loaded I want to check if there are settings in the file or not. If settings are there then render my view with settings. So the default <code>GET</code> view will look like this.</p>
+
+<pre class="brush: csharp">
+IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
+try
+{
+    var data = settingStore.Load().Single();
+    return View(data);
+}
+catch { }
+ 
+return View();
+</pre>
+
+<p>The settingStore object is being created and creates a new file in the <code>Data</code> folder in the application root. the <code>dbPath</code> parameter specifies where the file (JSON file in this case) is saved, which is the web root. The <code>Load()</code> method of the <code>settingStore</code> will load all the data in the JSON file. In this case I have only single set of setting so I will use the <code>Single()</code> method to get the single setting record and not <code>IEnumerable&lt;Settings&gt;</code>.</p>
+
+<pre class="brush: csharp">
+IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
+ 
+var store = new BiggyList&lt;Settings&gt;(settingStore);
+ 
+var newSettings = new Settings();
+ 
+newSettings.BlogName = setting.BlogName;
+newSettings.BlogDescription = setting.BlogDescription;
+newSettings.PostsPerPage = setting.PostsPerPage;
+newSettings.CommentDays = setting.CommentDays;
+ 
+store.Add(newSettings);
+store.Update(setting);
+ 
+return View();
+</pre>
+
+<p>The above code will add a new settings to the JSON file.</p>
+
+<pre class="brush: plain">
+{"BlogName":"Midnight Programmer","BlogDescription":"Programming For Fun","PostsPerPage":"10","CommentDays":"90"}
+</pre>
+
+<p>At this point if you keep pressing save button by entering different values a new entry will be added to the JSON file. To avoid this you have to update the details instead of adding it over and over again in the JSON file.</p>
+
+<pre class="brush: csharp">
+IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
+ 
+var store = new BiggyList&lt;Settings&gt;(settingStore);
+ 
+var newSettings = new Settings();
+ 
+Settings data = null;
+try
+{
+    data = settingStore.Load().Single();
+}
+catch { }
+ 
+ 
+if (data != null)
+{
+    data.BlogName = setting.BlogName;
+    data.BlogDescription = setting.BlogDescription;
+    data.PostsPerPage = setting.PostsPerPage;
+    data.CommentDays = setting.CommentDays;
+    store.Update(data);
+}
+else
+{
+    newSettings.BlogName = setting.BlogName;
+    newSettings.BlogDescription = setting.BlogDescription;
+    newSettings.PostsPerPage = setting.PostsPerPage;
+    newSettings.CommentDays = setting.CommentDays;
+    store.Add(newSettings);
+    store.Update(setting);
+}
+ 
+return View();
+</pre>
+
+<p>As you can see that the store object <code>Add</code> method is not called but only the <code>Update</code> method is called in case if the data object is not null.</p>
+
+<p><img src="/images/biggy-ui-2.png" alt="App to save info using Biggy" /></p>
+
+<p>If you plan to save multiple records in the file, then make sure you use identifier in order to get the required details.</p>
+
+<h4 id="references">References</h4>
+
+<ul>
+<li><a href="https://github.com/robconery/biggy">Biggy - Github</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -467,96 +642,6 @@ codediv.InnerHtml = finalCode;
 
 <ul>
 <li><a href="https://colorcode.codeplex.com/">ColorCode - Codeplex</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/getting-started-with-glimpse-in-aspnet-mvc/">Getting Started With Glimpse In ASP.NET MVC</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 25, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>When I heard about Glimpse, I thought it like to be another MiniProfiler like stuff or a combination of MiniProfiler and this. But it seems to be more robust diagnostic tool for developers. Here is my experience with <a href="http://midnightprogrammer.net/post/diagnostic-check-for-asp-net-mvc-applications-problems/">this</a> awesome diagnostic tool.</p>
-
-<h3 id="what-is-glimpse">What is Glimpse?</h3>
-
-<p>Glimpse is a diagnostic tool for ASP.NET applications which let you see detailed diagnostic information of your web application. Glimpse knows everything your server is doing and displays it straight away to you in your browser. Currently Glimpse is supported for ASP.NET – Web Forms and MVC and PHP and other languages are in queue as well. If you want to contribute to the project as it is open-source, you can contact the project developers <a href="http://groups.google.com/forum/?fromgroups#!forum/getglimpse-dev">here</a>. The Glimpse project is still under development and there are more that 70 bugs reported at Github.</p>
-
-<h3 id="getting-glimpse-getting-started">Getting Glimpse &amp; Getting Started</h3>
-
-<p>I have used MiniProfile in the past and the major difference between the two tools I noticed is that in MiniProfile you have to make changes in the code to profile or view the diagnostic information. On the other hand Glimpse is just simply plug and play library. If you are going to give Glimpse a try make sure that you use NuGet to get the library. Glimpse comes with lots of configurations and setting them out manually in the application will be a pain just like <a href="https://code.google.com/p/elmah/">ELMAH</a>. As we are now living in post-NuGet era, we must use the power of NuGet to do all the hard work and configuration for us. You can get Glimpse depending on the type of project you have. To add Glimpse in MVC application fire the below NuGet command.</p>
-
-<pre class="brush: shell">
-PM> Install-Package Glimpse.MVC
-</pre>
-
-<p>For Web Forms</p>
-
-<pre class="brush: shell">
-PM> Install-Package Glimpse.ASP
-</pre>
-
-<p>After the command gets completed, take a look at the web.config file where you can see all the configurations. Without paying more attention to the configs, run the application to see Glimpse in action. Unlike MiniProfiler, there were no changes in the code. Before you can actually see Glimpse in action you have to turn it on, and to turn Glimpse on navigate to the URL <strong><a href="http://localhost:XXXX/glimpse.axd">http://localhost:XXXX/glimpse.axd</a></strong></p>
-
-<p><img src="/images/glimpse-ui.png" alt="Glimpse UI" /></p>
-
-<p>A cookie is set when Glimpse is turned on. This cookie tells the server to send the diagnostic data to the application. Here is how it looks on my home page.</p>
-
-<p><img src="/images/glimpse-infobar.png" alt="Glimpse UI Bar" /></p>
-
-<p>The above screenshot gives you a summarized information of what your application and server is doing. The summary part is distributed in three parts i.e. HTTP, HOST and AJAX. The HTTP segment shows the summary of the diagnostic information that flows over HTTP. In the HOST segment you can also see the name of the controller and action name. AJAX segment shows zero count as there are no AJAX call yet in my application which communicates with the server. This is just a summary which is visible at the bottom right hand corner of the web page. To view more detailed diagnostic information hover the mouse over any of these segments and you get one level more information.</p>
-
-<p><img src="/images/glimpse-ui-infobar.png" alt="Glimpse UI information bar" /></p>
-
-<p>If this is not enough for you then click on the big g icon at the bottom right corner.</p>
-
-<p><img src="/images/glimpse-ui-report.png" alt="Glimpse UI information report" /></p>
-
-<p>The screenshot above just covering one tab out of 12 tabs which have complete diagnostic information about the application.</p>
-
-<h3 id="what-else-it-can-do">What else it can do?</h3>
-
-<p>Glimpse has extensions that will let you get information about EF, nHibernate, Ninject and many more. You can view the complete list of extensions here which you can use to see what these libraries are doing behind the scenes. Check out the complete list of extensions <a href="http://getglimpse.com/Packages">here</a>.</p>
-
-<h3 id="moving-to-production">Moving to production</h3>
-
-<p>Glimpse is a diagnostic tool and is very powerful from a developer’s perspective. When moving the website or web application to the production servers, no developer would want to leave Glimpse working on the landing page of your site. So before you move to production you have to turn Glimpse off. To turn off Glimpse you can navigate to the same URL which you have used earlier to turn it on. This is the easy option available, but anyone with the Glimpse handler URL can easily turn it on!? The best approach is to change the setting in the web.config file, so even if the third person has the URL of the Glimpse handler he will never be able to turn it on. To turn off Glimpse permanently set <code>defaultRuntimePolicy</code> to <code>Off</code>. The line in your web.config after the change will look like this.</p>
-
-<pre class="brush: xml">
-<glimpse defaultRuntimePolicy="Off" endpointBaseUri="~/Glimpse.axd">
-</pre>
-
-<p>Once this property is set to <code>Off</code>, there is no way a user can turn Glimpse on without changing its value back to <code>On</code>. Glimpse has a lot more options to explore which I can’t cover in single blog post. I am looking forward on using some extensions now for Ninject and Entity Framework.</p>
-
-<h3 id="references">References:</h3>
-
-<ul>
-<li><a href="http://getglimpse.com/Packages">Glimpse – Project site</a></li>
-<li><a href="https://github.com/Glimpse">Glimpse – Github</a></li>
-<li><a href="https://github.com/Glimpse/Glimpse/wiki/Configuration">Glimpse Configuration Wiki</a></li>
-<li><a href="http://getglimpse.com/Packages">Glimpse Extensions</a></li>
 </ul>
 
   </div>

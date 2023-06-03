@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-11-11T19:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-11-27T15:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,170 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-background-worker-in-c/">Using Background Worker in C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 27, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>Performance of an application matters a lot for a developer. None of the developer wants his application freezes or crashes. But what are measures a developer should takes to keep it all good going. When I used to develop application I saw whenever I try to perform some heavy or bulky task like uploading files, copying files from place to other and other DB related but heavy task which includes CPU as well as hard drive.</p>
+
+<p>Most of our application that we develop today require simultaneous functions to perform but with performance. We guarantee our client…yes the application can handle all the functions but on the stake of performance. The major fallback of any application is limiting a user to perform one task at a time. So how do we deal with application freezing and crashing?</p>
+
+<p>Working with Microsoft .NET framework we have worked with threads through which we can handle all the tasks simultaneously under one main application thread. You can perform smaller operations with the help of Threading class, instead I prefer using Background Worker class to implement to perform all my heavy duty operations.
+Background worker class is introduced in .NET framework 2.0 and using this class makes it easy to execute long running operations on a separate thread, support cancellation, progress reporting and marshalling results back to the UI thread.</p>
+
+<p>Below image which provides an overview of background worker class which found <a href="http://www.danielmoth.com/">here</a>.</p>
+
+<p><img src="/images/background-worker-class.png" alt="BackgroundWorker class diagram" /></p>
+
+<p>Now we will see how to use background worker class to perform heavy operations.</p>
+
+<p>First create a new windows application as shown below.</p>
+
+<p><img src="/images/bgw-win-app.jpg" alt="BackgroundWorker windows form app" /></p>
+
+<p>Get to the design mode and drag &amp; drop the background worker component.</p>
+
+<p><img src="/images/bgw-control.jpg" alt="BackgroundWorker control" /></p>
+
+<p>Set the properties of the background worker:</p>
+
+<p>Set <code>GenerateMember</code> and <code>Modifiers</code> as it is. In the sample application we have a progress bar which reports the percentage of the task completed so we need to set the <code>WorkerReportsProgress</code> to <code>true</code> and similarly if we want the user to cancel the running operation then set the <code>WorkerSupportsCancellation</code> to <code>true</code>.</p>
+
+<p><img src="/images/bgw-properties.jpg" alt="BackgroundWorker properties" /></p>
+
+<p>Now the next step is to create 3 methods:</p>
+
+<ol>
+<li>DoWork: This is the main method which is responsible to handle the large operation. The code here is not different than the usual code.</li>
+<li>ProgressChanged: This method reports the change in the progress of the operation performed by the background worker DoWork method.</li>
+<li>RunWorkerCompleted: This method checks the RunWorkerCompletedEventArgs and perform action accordingly.</li>
+</ol>
+
+<p><img src="/images/bgw-events.jpg" alt="BackgroundWorker events" /></p>
+
+<p>So how do we code these methods? It’s easy and not a complex task as it sounds, so let’s have a look at these methods….</p>
+
+<p>To carry on with this example, I am using an AventureWorks database I have query the table Person.Contact as it has a large number of records, around 19K. Now here, to set the progress bar you first need to set the maximum property of the progress bar so we can show the progress completed.</p>
+
+<p>Starting with the Start button:</p>
+
+<pre class="brush:csharp">
+private void btn_start_Click(object sender, EventArgs e)
+{
+//Starts the backgroundworker process asynchronously
+bgw.RunWorkerAsync(); 
+btn_start.Enabled = false;
+}
+</pre>
+
+<p>The DoWork method:</p>
+
+<pre class="brush:csharp">
+//Background worker DoWork method. Here we will perform our heavy duty tasks.
+//I have used a simple datareader object to traverse all the rows in the table. 
+//The table has around 19K rows.
+private void bgw_DoWork(object sender, DoWorkEventArgs e)
+{
+  try
+  {
+    int i = 0;
+    cmd = new SqlCommand("SELECT * FROM Person.Contact", con);
+    con.Open();
+    dr = cmd.ExecuteReader();
+    while(dr.Read())
+    {
+        i = i + 1;
+        //report to the backgroungworker progreechanged event of the background worker class
+        bgw.ReportProgress(i);
+        Thread.Sleep(1);
+        //Called and check if the cancellation of the operation is pending. If returned true
+        //DoWorkEventArgs object cancels the operation.
+        if (bgw.CancellationPending)
+        {
+            e.Cancel = true;
+            return;
+        }
+    }
+   }
+   catch (Exception x)
+   {
+    MessageBox.Show("An error occured while performing operation" + x);
+   }
+   finally
+   {
+    con.Close();
+   }
+}
+</pre>
+
+<p>The RunWorkerCompleted Method:</p>
+
+<pre class="brush:csharp">
+private void bgw_RunWorkerCompleted(object sender,RunWorkerCompletedEventArgs e)
+{
+    if (e.Cancelled)
+    {
+        MessageBox.Show("Operation Cancelled");
+        btn_start.Enabled = true;
+    }
+    else
+    {
+        MessageBox.Show("Operation Completed");
+        btn_start.Enabled = true;
+    }
+}
+</pre>
+
+<p>The ProgressChanged Method:</p>
+
+<pre class="brush:csharp">
+private void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+{
+    //Report porogress bar change
+    progress.Value = e.ProgressPercentage;
+}
+</pre>
+
+<p>Ending up with the cancel button:</p>
+
+<pre class="brush:csharp">
+//To cancel async operation
+private void btn_cancel_Click(object sender, EventArgs e)
+{
+     //To cancel the asynchronous operation
+     bgw.CancelAsync();
+     progress.Value = 0;
+     btn_start.Enabled = true;
+}
+</pre>
+
+<p>So when your application is traversing the records and suddenly you think that you should quit the job and work on other part of the application, just hit the cancel button and the large operation will get cancelled withoud any freezing and hanging of your application.</p>
+
+<p><strong>Download: <a href="/files/BackgroundWorkerDemo.zip">BackgroundWorkerDemo.zip (43.69 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -507,78 +671,6 @@ Console.WriteLine("The Value is:" +inif.Read("Database", "Devs"));
 <p>I have just displayed the value after reading from the file after the write operation is completed. You can set a local variable to preserve the value and then take a required action.</p>
 
 <p><img src="/images/ini-demo.jpg" alt="Output after reading the INI file" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/passing-parameters-to-crystal-reports/">Passing Parameters to Crystal Reports</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Oct 20, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>I found many tutorials on the internet that shows how to pass the parameters (Discreet Parameters) to crystal reports, I tried all of them, but unfortunately I didn&rsquo;t get anyone of it to work. Therefore I though to give a trial on my code and eventually I got it running. I assume that you have a report ready with a parameter.</p>
-
-<p>Firstly to get it running we have to use the below namespaces:</p>
-
-<pre class="brush:csharp">
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
-</pre>
-
-<p>After you added a namespace now we have to pass a value to the report parameter, Here is the code to do this: Step 1: Create a ReportDocument object and initialize it</p>
-
-<pre class="brush:csharp">
-ReportDocument crReportDocument = new ReportDocument();
-</pre>
-
-<p><strong>Step 2:</strong> Use the Load method of the ReportDocument object to load the report in the memory and use it.</p>
-
-<pre class="brush:csharp">
-crReportDocument.Load("C:\\report.rpt");
-</pre>
-
-<p><strong>Step 3:</strong> After loading the report in the ReportDocument object, we can now set the value to the report parameter using SetParameterValue method. This is an overloaded method which we can use according to the requirement. I have used the parameter name and parmeter value which are of string and object type respectively.</p>
-
-<pre class="brush:csharp">
-crReportDocument.SetParameterValue("id", 115);
-</pre>
-
-<p><strong>Step 4:</strong> As the data in the report is being populated from the database according to the parameter provided in the previous step. So to populate the data from the database we also have to set the database credentials to log in to the database and populate the report data.</p>
-
-<pre class="brush:csharp">
-crReportDocument.SetDatabaseLogon("sa", "pass#word1", "MX", "AdventureWorks");
-</pre>
-
-<p><strong>Step 5:</strong> After the credentials have been set up for he database, the last step is to set the ReportSource property of the Crystal Report Viewer.</p>
-
-<pre class="brush:csharp">
-crystalReportViewer1.ReportSource = crReportDocument;
-</pre>
-
-<p>Here is the complete code:</p>
-
-<pre class="brush:csharp">
-ReportDocument crReportDocument = new ReportDocument();
-crReportDocument.Load("C:\\report.rpt");
-crReportDocument.SetParameterValue("id", 115);
-crReportDocument.SetDatabaseLogon("sa", "pass#word1", "MX", "AdventureWorks"); crystalReportViewer1.ReportSource = crReportDocument;
-</pre>
 
   </div>
   

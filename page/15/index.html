@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-09-03T18:02:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-09-11T14:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,119 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/upload-and-show-image-without-post-back-with-jquery/">Upload and Show Image Without Post Back With Jquery</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 11, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>Previously in a lot of hurry I wrote a post on <a href="http://midnightprogrammer.net/post/Upload-Files-In-RAZOR-With-jQuery-Uploadify-Plugin.aspx">how to upload files in MVC3 with the help of Uploadify</a>, a famous jQuery plugin to upload files. If you have not heard about it yet, then it is time for you to check and find out what this plugin can do for you. Appending my last post about <a href="http://www.uploadify.com/">this plugin</a> (which was not very well written) I tried one more thing with it today. This time I am trying to upload an image and then show it inside a DIV without a post back. If you have the source code from the previous post, then it will be good as you need not to start from the scratch.</p>
+
+<p>I assume that you are a good designer as I am not. I am saying this because I really got a blank head in designing. Therefore it is up to you how you are going to show off the images on the page, I am just telling you a way to do that. I am using MVC3 for this example but it will work for both web forms and MVC. The only difference in MVC and web forms is in the server side code which is responsible to upload the file. If you are using MVC3 then your method to upload the file in the controller will be something like this:</p>
+
+<pre class="brush:csharp">
+public string Upload(HttpPostedFileBase fileData)
+{
+        var fileName = this.Server.MapPath("~/uploads/" + System.IO.Path.GetFileName(fileData.FileName));
+        fileData.SaveAs(fileName);
+        return "OK";
+}
+</pre>
+
+<p>As we are using <code>Uploadify</code>, we now have to make changes in some of the parameters of the plugin. The <code>Upload</code> method is inside home controller, so the <code>script</code> parameter of the plugin will be <code>/Home/Upload</code>. For my convenience I have changed the <code>multi</code> and <code>auto</code> parameter to <code>false</code> and <code>true</code> respectively. By now this is the jQuery code I have:</p>
+
+<pre class="brush:jscript">
+<script type="text/javascript">
+$(window).load(
+function () {
+    $("#fileuploader").fileUpload({
+        'uploader': '/Scripts/uploader.swf',
+        'cancelImg': '/Images/cancel.png',
+        'buttonText': 'Select Image',
+        'script': 'Home/Upload',
+        'folder': '/uploads',
+        'fileDesc': 'Image Files',
+        'fileExt': '*.jpg;*.jpeg;*.gif;*.png',
+        'multi': false,
+        'auto': true
+    });
+}
+);
+</script>
+</pre>
+
+<p>In the end I append one more parameter <code>onComplete</code> which gets fired when the plugin finish uploading the file. To get the uploaded path of the image I am using <code>fileObj.filePath</code> and <code>response</code> to check if the file has been uploaded successfully or not. If the <code>response</code> I received after the uploading of the file is completed is <code>ok</code> then I will set the html to show the image in another DIV. Below is the complete configuration of the plugin.</p>
+
+<pre class="brush:jscript">
+<script type="text/javascript">
+$(window).load(
+function () {
+    $("#fileuploader").fileUpload({
+        'uploader': '/Scripts/uploader.swf',
+        'cancelImg': '/Images/cancel.png',
+        'buttonText': 'Select Image',
+        'script': 'Home/Upload',
+        'folder': '/uploads',
+        'fileDesc': 'Image Files',
+        'fileExt': '*.jpg;*.jpeg;*.gif;*.png',
+        'multi': false,
+        'auto': true,
+        'onComplete': function (event, ID, fileObj, response) {
+            if (response == "OK") {
+                $("#uImg").addClass("loading");
+                var htmlString = "<img src=\"" + fileObj.filePath + "\" alt=\"" + fileObj.name + "\" />";
+                $("#uImg").html(htmlString);
+                $("#uImg").removeClass("loading");
+            }
+        }
+    });
+}
+);
+</script>
+</pre>
+
+<p><img src="/images/image-without-postback-js.png" alt="ASP.NET app to upload the image" /></p>
+
+<p>Just to demonstrate I have placed an alert message box with the <code>response</code> which got fired on the <code>onComplete</code> event after the image has been uploaded successfully. After this I have created a html string which is actually a html img tag with <code>src</code> and <code>alt</code> tags. I have then set the same html string to another DIV which acts as a holder of the image being uploaded. Here is an output after the image is uploaded. Just to remind you, it is all done without post back.</p>
+
+<p><img src="/images/image-without-postback-output.png" alt="Image displayed without postback" /></p>
+
+<p>This is it, try it yourself and I recommend you to check out the <a href="http://www.uploadify.com/documentation/">documentation</a> of the plugin I used. Check out the other links below and one more thing that I would like you to do is to set the <code>multi</code> property of the plugin to <code>true</code> and the try uploading multiple images. If you end up making something awesome then do share with me/us.</p>
+
+<p><strong>Related Links:</strong></p>
+
+<ul>
+<li><a href="http://midnightprogrammer.net/post/Upload-Files-In-RAZOR-With-jQuery-Uploadify-Plugin.aspx">Upload File in RAZOR With jQuery Uploadify Plugin</a></li>
+<li><a href="http://www.uploadify.com/documentation/">Uploadify Plugin Documentation</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -411,113 +524,6 @@ public string GetFeedReadersCount(string url)
 <p><img src="/images/html5-canvas-cheatsheet.png" alt="HTML5 Canvas Cheatsheet" /></p>
 
 <p><strong>Download: <a href="/files/HTML 5 - Cheat Sheets.zip">HTML 5 - Cheat Sheets.zip (380.58 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/using-recaptcha-in-aspnet-webforms-and-mvc/">Using ReCaptcha In ASP.NET WebForms And MVC</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 31, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/recaptcha-logo.jpg" alt="Re-captcha Logo"/></p>
-
-<p>ReCaptcha is now being used widely by many websites especially where there is a possibility of spamming the website, blog or a forum. Here I will show you on how you can use ReCaptcha in ASP.NET and MVC. Get a ReCaptcha Gobal Key and ASP.NET ReCaptcha DLL. Once you get the global key we are ready to go.</p>
-
-<p><strong>ReCaptcha in WebForms</strong></p>
-
-<p>Fire Visual Studio and create a new ASP.NET web forms project. First add a ReCaptcha DLL in the project and as we are talking about a user control we will have to register the control. On the top of the page use the register directive to register the ReCaptcha control.</p>
-
-<pre class="brush:csharp">
-<%@ register tagprefix="recaptcha" namespace="Recaptcha" assembly="Recaptcha" %>
-</pre>
-
-<p>Now on the page, we will use the control.</p>
-
-<pre class="brush:csharp">
-&lt;recaptcha:recaptchacontrol id="recaptcha" runat="server" publickey="public key"  privatekey="private key" />
-</pre>
-
-<p>You will get the public key and the private key when you register for the ReCaptcha global key. This will render the ReCaptcha control on the page.</p>
-
-<p><img src="/images/captcha-render.png" alt="Captcha control render" /></p>
-
-<p>Notice that I have also placed a button and the label (with no text) on the page along with the ReCaptcha control. On the submit button we will check the <a href="http://msdn.microsoft.com/en-us/library/system.web.ui.page.isvalid.aspx">Page.IsValid</a> method. If the ReCaptcha text entered by the user is correct then the Page.IsValid method will return true else it will return false. Therefore the code on the submit button will be as follows:</p>
-
-<pre class="brush:csharp">
-if (Page.IsValid)
-{
-      lblStatus.Text = "Captcha Validated!";
-}
-else
-{
-      lblStatus.Text = "Invalid Captcha!";
-}
-</pre>
-
-<p>This is it, hit F5 and try it out. We are now done implementing ReCaptcha in web forms and now we will see it in action in MVC.</p>
-
-<p><strong>ReCaptcha in MVC</strong></p>
-
-<p>Create a new MVC project in Visual Studio and I am using MVC 3 with RAZOR View Engine. To implement ReCaptcha in MVC, we will be using <code>Microsoft Web Helpers</code>. I assume you are aware of <a href="http://nuget.org/">NuGet</a>. Just in case if you are not aware of the Microsoft Web ` read my post on <a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View</a>. Microsoft web helpers allow us to use ReCaptcha in a very easy way. In WebForms we have used a DLL to render the ReCaptcha control on the page, but with Microsoft web helpers we can render the control with a single line of code. As you have used NuGet to install Microsoft Web Helpers library, make sure that you also use the correct namespace on the top of the page.</p>
-
-<pre class="brush:csharp">
-@using Microsoft.Web.Helpers;
- 
-@using (Html.BeginForm("Submit", "Home", FormMethod.Post))
-{
-    @ReCaptcha.GetHtml(publicKey: "&lt;public key&gt;", theme: "red")
-}
-</pre>
-
-<p>I have rendered the control inside the form because when the data gets submitted after user enters the text the <code>Submit</code> method of the <code>Home</code> controller gets fired and check the captcha text entered by the user. As you know we have two keys with us, one is a public key and the other is a private key. We have used the public key to render the control on the page and we will now use the private key to validate the captcha. Also make sure that in order to use the ReCaptcha class on server side code you need to add the <code>Microsoft.Web.Helpers</code> namespace.</p>
-
-<pre class="brush:csharp">
-[HttpPost]
-public ActionResult Submit()
-{
-        if (ReCaptcha.Validate(privateKey: "&lt;private key&gt;"))
-        {
-             return Content("Valid Captcha");
-        }
-        else
-       {
-            return Content("InValid Captcha");
-       }
-}
-</pre>
-
-<p>The ReCaptcha class of the web helpers provides a method to validate the entered text by the user. The private key of the ReCaptcha is passed as a parameter in order to validate the captcha text.</p>
-
-<p>Using ReCaptcha with ASP.NET WebForms or MVC is pretty simple and easy. Here are some of the links which I feel you might find useful.</p>
-
-<ul>
-<li><a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View.</a></li>
-<li><a href="http://www.google.com/recaptcha/whyrecaptcha">Get Recaptcha.</a></li>
-<li><a href="http://mvcrecaptcha.codeplex.com/">MVC ReCaptcha - Codeplex</a></li>
-</ul>
 
   </div>
   

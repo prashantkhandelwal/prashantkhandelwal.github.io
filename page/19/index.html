@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-02-08T03:11:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-02-19T03:34:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,51 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/">How To Free Up Gigs of Space On Your Window 7 Machine</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 19, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>I am now using Windows 7 since its beta release and so far my experience is awesome. But as a developer the hard drive space is always been a problem for me, no matter how many external drives or other stoarge devices you have connected to your machine but the disk space on the host machine is always a primary problem. Windows 7 is more stable OS in Windows family so far (I found it more stable than Win XP) and the reason it is being more stable because everytime you install a program on your Win 7 machine, it automatically creates a snapshot of the host drive. This is because if anything goes wrong with the program or it just crashes causing problems, Windows 7 can recover automatically from that state with the snapshot created before the installation.</p>
+
+<p>But these snapshots hogs up a lot of hard drive sapce and there is no way that you can copy them and place it in a different drive or just change the location of the snapshots been taken by the OS. Therefore to maintain the balance, the OS automatically deletes the last/oldest snapshot from the hard drive resulting some free space for the user and for other processes of the system.  If you no longer require the snapshots (only if you think that your machine is running perfectly fine) execute the below command to delete all the snapshots created so far:</p>
+
+<pre class ="brush:shell">
+c:\>vssadmin delete shadows /for=c: /all
+</pre>
+
+<p>In the above command /for parameter should have the letter of your Windows OS drive. In my case it is C: (as in majority of the cases it will be <code>C:</code>)</p>
+
+<p>Just in case if you don&rsquo;t want to delete all the snapshots then instead of using the <code>/all</code> parameter use the <code>/oldest</code> parameter. This will dleete the oldest snapshot from the drive:</p>
+
+<pre class ="brush:shell">
+c:\>vssadmin delete shadows /for=c: /oldest
+</pre>
+
+<p>This will free up some GIGs of space if you are using it for the first time and if you are using it quite frequently then also you end up with MBs of free space.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -729,131 +774,6 @@ private void Export2Excel(DataGridView datagridview, bool captions)
         }
       }
     }
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/windows-7-development-working-with-task-dialog-class/">Windows 7 Development: Working With Task Dialog Class</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 24, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>Last year, I blogged about few things related to <a href="http://midnightprogrammer.net/category/Windows">Windows 7 development</a> which includes <a href="http://midnightprogrammer.net/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack">Jump Lists</a> and <a href="http://midnightprogrammer.net/post/windows-7-development-aero-effects-in-net-applications">Glass Form</a>. The Windows 7 API Code Pack comes with many other features which can be used while developing applications for Windows 7 platform. The <a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows 7 API Code Pack</a> comes with some sample applications which exposes the power of the API.</p>
-
-<p>In one of my previous projects I used the Task Dialog class to use some cool looking message boxes like the one we see in Windows 7. If you see the sample code and and the executable, they are working fine but when you write the same code in the code in your application, this will not turn out to be as you would have expected. You will see a runtime error as the one below.</p>
-
-<p><img src="/images/win7dev-exception.png" alt="Windows 7 API exception" /></p>
-
-<p>This problem can be resolved by adding a <code>app.manifest</code> file to your project and modifying some part of it. Move to the end of the file and un-comment the <code>&amp;lt;dependency&amp;gt;</code> section of the file.</p>
-
-<pre class="brush:xml">
-&lt;dependency&gt;
-    &lt;dependentAssembly&gt;
-      &lt;assemblyIdentity
-          type="win32"
-          name="Microsoft.Windows.Common-Controls"
-          version="6.0.0.0"
-          processorArchitecture="*"
-          publicKeyToken="6595b64144ccf1df"
-          language="*"
-        /&gt;
-    &lt;/dependentAssembly&gt;
-&lt;/dependency&gt;
-</pre>
-
-<p>Hit <code>F5</code> again and this will do the trick for you, this time you will be able to view the message box as you wanted to. The API sample contains code for all the possible / available task dialog for you to use. But the usage is bit difficult as this cannot be acaieved in a single line like we do with the MessageBox class. Therefore I suggest you to build a helper class / function to get this easy for you. As I used this in one of my projects I have two functions one for showing the information and error messages respectively. You can also have a overload method for this, but as I have used different method names instead as I will be using only two dialogs throughout my project.</p>
-
-<p><strong>For Error Messages:</strong></p>
-
-<pre class="brush:csharp">
-public static void ShowErrorMessage(string ErrorTitle, string Instruction, string ErrorMessage, string ErrorTrace)
-{
-            TaskDialog tdError;
-            tdError = new TaskDialog();
-            tdError.DetailsExpanded = false;
-            tdError.Cancelable = true;
-            tdError.Icon = TaskDialogStandardIcon.Error;
- 
-            tdError.Caption = ErrorTitle;
-            tdError.InstructionText = Instruction;
-            tdError.Text = ErrorMessage;
-            tdError.DetailsExpandedLabel = "Hide details";
-            tdError.DetailsCollapsedLabel = "Show details";
-            tdError.DetailsExpandedText = ErrorTrace;
- 
-            tdError.Show();
-}
-</pre>
-
-<p>All the properties in the above function is self-explainatory. The code at line:12 will have a expander in the dialog box which will contain more details of the exception.</p>
-
-<p>Function for showing information is also the same but with few things &ldquo;missing&rdquo;:</p>
-
-<pre class="brush:csharp">
-public static void ShowInfoMessage(string InfoTitle, string Information, string Message)
-{
-            TaskDialog tdInfo;
-            tdInfo = new TaskDialog();
-            tdInfo.DetailsExpanded = false;
-            tdInfo.Cancelable = true;
-            tdInfo.Icon = TaskDialogStandardIcon.Information;
- 
-            tdInfo.Caption = InfoTitle;
-            tdInfo.InstructionText = Information;
-            tdInfo.Text = Message;
-            tdInfo.Show();
-}
-</pre>
-
-<p><strong>Sample Usage:</strong></p>
-
-<pre class="brush:csharp">
-//For Error Dialog
-ShowErrorMessage("Application Error", "There was an error in creating XML file", ex.Message, ex.StackTrace);
- 
-//For Information Dialog
-ShowInfoMessage("Application Name", "Image more than 32x32 pixels will be rejected", "Please check the image pixel before you use choose a package icon");
-</pre>
-
-<p><strong>Error Dialog Box</strong></p>
-
-<p><img src="/images/win7-errordialog.png" alt="Windows 7 API error message dialog box" /></p>
-
-<p>Click the <code>Show Details</code> expander icon to view the complete error stack trace.</p>
-
-<p><strong>Information Dialog Box</strong></p>
-
-<p><img src="/images/win7-infodialog.png" alt="Windows 7 API information dialog box" /></p>
-
-<p>This is just the two types of dialogs I have used for my project, but there are more supported in the API. So to get started see the sample project accompanying the API Code Pack including the one you see while running programs as Administrator while UAC is turned on, a dialog box with a progress bar and lots of more to check. The samples above would get you started.</p>
-
-<p>If you are a Visual Studio 2010 user with NuGet installed, then you can add the API reference to your project with the below command.</p>
-
-<pre class="brush:shell">
-Install-Package Windows7APICodePack
 </pre>
 
   </div>

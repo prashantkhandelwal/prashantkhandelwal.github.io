@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-01-15T18:16:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-02-19T22:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,92 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-openxml-to-insert-data-in-sql-server/">using-openxml-to-insert-data-in-sql-server</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 19, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft SQL Server provides the mechanism to save XML data to the SQL table using OpenXML. We can use a stored procedure and pass a XML text as a string. It is useful when we have a large data in XML format and we want to save the whole data in different tables.</p>
+
+<p>So first start declaring the variables. The first declare the document variable and a XML document variable as <code>Varchar(8000)</code> or <code>Varchar(MAX)</code> - It&rsquo;s a same thing</p>
+
+<pre class="brush:sql">
+DECLARE @idoc int
+DECLARE @doc varchar(8000)
+</pre>
+
+<p>Now we can set the value to the <code>@doc</code> variable, the <code>@doc</code> variable will accept the XML file as a parameter. We can also have a complete XML data in the parameter only if the XML data is less.</p>
+
+<p><strong>OpenXML takes 3 parameters:</strong></p>
+
+<ul>
+<li>The handler which we have declare at the begining will holds the XML document in the memory.</li>
+<li>XPath variable to access the various elements of the XML document.</li>
+<li>The last parameter here &lsquo;2&rsquo; allows us to access XPath as elements.</li>
+</ul>
+
+<p>Here I have read a XML file in the document variable and store in the table. Here is the full SQL query to achieve this. You can also convert the below code to stored procedure and pass XML file or string as a parameter.</p>
+
+<pre class="brush:sql">
+DECLARE @idoc int
+DECLARE @doc varchar(8000)
+SET @doc ='&lt;ROOT&gt;&lt;student&gt;
+&lt;id&gt;1&lt;/id&gt;
+&lt;name&gt;Prashant&lt;/name&gt;
+&lt;age&gt;32&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;2&lt;/id&gt;
+&lt;name&gt;Swami&lt;/name&gt;
+&lt;age&gt;42&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;3&lt;/id&gt;
+&lt;name&gt;Ash&lt;/name&gt;
+&lt;age&gt;23&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;4&lt;/id&gt;
+&lt;name&gt;Kris&lt;/name&gt;
+&lt;age&gt;12&lt;/age&gt;
+&lt;/student&gt;
+&lt;student&gt;
+&lt;id&gt;5&lt;/id&gt;
+&lt;name&gt;Derek&lt;/name&gt;
+&lt;age&gt;75&lt;/age&gt;
+&lt;/student&gt;
+&lt;/ROOT&gt;'
+ 
+--Create an internal representation of the XML document.
+EXEC sp_xml_preparedocument @idoc OUTPUT, @doc
+-- Execute a SELECT statement that uses the OPENXML rowset provider.
+Insert into Students SELECT id, name, age from
+OPENXML (@idoc, '/ROOT/student',2)
+WITH (id  int, name varchar(50), age int)
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -333,46 +419,6 @@ static List removeDuplicates(List inputList)
       return finalList;
 }
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/manage-your-azure-storage-with-ease-with-azure-storage-explorer-and-cloud-storage-studio/">Manage your Azure storage with ease!</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 24, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p>If your are using Windows Azure for storing files here are the tools you should love to use to manage your Azure cloud storage.</p>
-
-<p><a href="https://azure.microsoft.com/en-in/features/storage-explorer/">Azure Storage Explorer</a></p>
-
-<p>And</p>
-
-<p><a href="https://download.cnet.com/Cloud-Storage-Studio/3000-18500_4-75939984.html">Cloud Storage Studio</a></p>
-
-<p>If you don&rsquo;t have an Azure account, then have one <a href="https://azure.com">HERE</a></p>
 
   </div>
   

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Geo-Distributed Load Testing via K6 and Azure Container Instances • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Geo-Distributed Load Testing via K6 and Azure Container Instances"/>
+<meta name="twitter:description" content="My team at Microsoft is responsible for building tools that enhance customer experience when you contact Microsoft support. Although our tools are never used by customers directly but they play an essential role in improving the experience and overall cost reductions. This means that our work is critical for the overall success and it should perform under variance of load, especially on holidays.
+Problem Statement Team wants to test their application from different geographies and mark the metrics used."/>
+
+<meta property="og:title" content="Geo-Distributed Load Testing via K6 and Azure Container Instances" />
+<meta property="og:description" content="My team at Microsoft is responsible for building tools that enhance customer experience when you contact Microsoft support. Although our tools are never used by customers directly but they play an essential role in improving the experience and overall cost reductions. This means that our work is critical for the overall success and it should perform under variance of load, especially on holidays.
+Problem Statement Team wants to test their application from different geographies and mark the metrics used." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/geo-distributed-load-testing-via-k6-and-azure-container-instance/" /><meta property="article:published_time" content="2023-06-02T23:34:00&#43;00:00"/>
+<meta property="article:modified_time" content="2023-06-02T23:34:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/nullgap" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://medium.com/@prashantkhandelwal" rel="me"><i class="fab fa-medium fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2023 Pashant Khandelwal
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Geo-Distributed Load Testing via K6 and Azure Container Instances</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Jun 2, 2023
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/azure">AZURE</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/containers">CONTAINERS</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/k6">K6</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/testing">TESTING</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>My team at Microsoft is responsible for building tools that enhance customer experience when you contact Microsoft support. Although our tools are never used by customers directly but they play an essential role in improving the experience and overall cost reductions. This means that our work is critical for the overall success and it should perform under variance of load, especially on holidays.</p>
+
+<h3 id="problem-statement"><strong>Problem Statement</strong></h3>
+
+<p>Team wants to test their application from different geographies and mark the metrics used.</p>
+
+<p>I am not the primary team member leading the load testing project but it interests me a lot on how the other team is going to achieve this. Although they have a different plan to get this done, I came up with my own simple but useful way of getting these tests done via Azure Container Instances.</p>
+
+<p>To accomplish this, I plan to use <a href="https://k6.io/">K6</a> load testing tool which is built specifically for engineering teams and by well-known <a href="https://grafana.com/">Grafana Labs.</a> I need to setup Azure Container Instances with K6 image and configure it with Azure File Share which acts as a volume mount.</p>
+
+<h3 id="setting-up-resources-in-azure"><strong>Setting up resources in Azure</strong></h3>
+
+<p>I will start up by setting a <code>Resource Group</code> in Azure and I will name it <code>cannon</code>. You can name it anything you want.</p>
+
+<blockquote>
+<p>I am using Azure CLI aka AZ CLI. If you have not setup AZ CLI for Azure, then I strongly suggest you do so. If you still choose not to use this, then you can still use Azure Portal, Terraform etc. to create these resources.</p>
+</blockquote>
+
+<h3 id="create-a-new-resource-group"><strong>Create a new Resource Group</strong></h3>
+
+<pre class="brush:bash">
+$ az group ceate --name cannon --location eastus
+</pre>
+
+<h3 id="create-a-new-azure-storage-account"><strong>Create a new Azure Storage Account</strong></h3>
+
+<p>I need an Azure Storage account because File Share service is a part of Azure Storage.</p>
+
+<p>The below command will create a new Azure Storage account inside the resource group cannon with <code>Performance</code> tier as <code>Standard</code> and <code>Redundancy</code> as <code>Locally-redundant storage</code>. You can change these values as per your need.</p>
+
+<pre class="brush:bash">
+$ az storage account create --name geoloadteststore \
+ --resource-group cannon \
+ --location eastus \
+ --sku Standard_LRS
+ </pre>
+
+<h3 id="create-a-new-file-share"><strong>Create a new File Share</strong></h3>
+
+<p>The below command will create a new file share which I will use as a volume mount for my Azure Container Instance.</p>
+
+<pre class="brush:bash">
+az storage share create \
+--account-name geoloadteststore \
+--name loadtestresults \
+--quota 1
+</pre>
+
+<p>In the above command, <code>account-name</code> and <code>name</code> are mandatory, <code>quota</code> is a non-mandatory parameter, but I have used it to ensure that the share size is not set to default which is <strong>5TB</strong>. Setting <code>quota</code> as 1 will set the size of my share to be <strong>1GB</strong>.</p>
+
+<h3 id="create-and-run-azure-container-instance"><strong>Create and run Azure Container Instance</strong></h3>
+
+<p>When I create a new Azure Container Instance, it will use an image to create a container and run it. This means that I don’t have to run the container explicitly unless there is an error.</p>
+
+<p>Here is an AZ command that will create a new Azure Container Instance and execute the load test using K6.</p>
+
+<pre class="brush:bash">
+az container create -n k6demo \
+--resource-group cannon \
+--location eastus
+--image grafana/k6:latest \
+--azure-file-volume-account-name geoloadteststore \
+--azure-file-volume-account-key RhGutivQKlz5llXx9gPxM/CP/dlXWLw5x6/SHyCl+GtLZeRp9cAYEByYTo3vL2EFAy0Nz0H+n1CV+AStTNGEmA== \
+--azure-file-volume-share-name loadtestresults \
+--azure-file-volume-mount-path /results \
+--command-line "k6 run --duration 10s --vus 5 /results/tests/script_eastus.js --out json=/results/logs/test_results_eastus.json" \
+--restart-policy Never
+</pre>
+
+<p>The above command has lots of details and few parts of it require some good attention. For most of the part, things are simple to understand. The <a href="https://hub.docker.com/r/grafana/k6">image</a> that I am using is provided to us by Grafana from their verified Docker Hub account. I then use the Azure File share information to setup the volume mount.</p>
+
+<p>The important part here is the way the volume mount is used. The <code>--azure-file-volume-mount-path</code> has the value <code>/results</code> which will be a mount path in the container. This means that you <strong>don&rsquo;t have to create a folder</strong> named <strong>results</strong> in the file share. If you take your attention to the next parameter <code>--command-line</code>, you can see that the K6 test script is being read from <code>/result/tests</code> folder and output of the command is stored in <code>/results/logs</code>. If you wish, you can also use a full path of a blob storage or even an S3 bucket to read your script file.</p>
+
+<p>Navigate to the file share in Azure Portal and create 2 folders named <code>logs</code> and <code>tests</code>.</p>
+
+<p><img src="/images/logsntestfolders.png" alt="logs and test folder" /></p>
+
+<p>Inside the tests folder, add a K6 script file you have created. I have created multiple script files for different locations.</p>
+
+<p><img src="/images/test-folder-content.png" alt="Contents of the tests folder" /></p>
+
+<p>For this example, I am using a demo script with some changes to it. Note the change in the name of the summary file. It contains the location name for easy identification of logs.</p>
+
+<pre class="brush:js">
+import http from "k6/http";
+import { sleep } from "k6";
+
+export default function () {
+  http.get("https://test.k6.io");
+  sleep(1);
+}
+
+export function handleSummary(data) {
+  return {
+    "/results/logs/summary_eastus.json": JSON.stringify(data), //the default data object
+  };
+}
+</pre>
+
+<p>As per K6 documentation, I have added an additional function named <code>handleSummary</code>. This function will generate the summary for the entire test and save it in the JSON format which later I can use for visualization. This is the same output you will see when you run the K6 on your console. The other file which is referenced in the command above called <code>test_results_eastus.json</code> will have details about every test run.</p>
+
+<p>I execute the <code>az container create</code> command three times for 3 different regions.</p>
+
+<p><img src="/images/container-instances-for-testing.png" alt="Container instances for testing" /></p>
+
+<p>I have 3 Azure Container Instances which ran by K6 load test for 3 different locations. You can also see the location for each Azure Container Instance in the above screenshot. After the load test is finished, I can now view my JSON logs in the file share.</p>
+
+<p><img src="/images/load-testing-results.png" alt="Load testing results" /></p>
+
+<p>This way I can run the load test on my web apps or services hosted from anywhere or at least from all the Azure regions.</p>
+
+<h3 id="improvement-areas"><strong>Improvement Areas</strong></h3>
+
+<p>With the above working as expected, I think there are few things that I can really improve on.</p>
+
+<h4 id="automation"><strong>Automation</strong></h4>
+
+<p>The entire work is manual and is error prone. It will be good to automate this entire process with less user intervention when it comes to execution. Writing load tests would be user responsibility though. Going forward, I would like to automate the creation of all these resources using Terraform and then execute the TF scripts automatically. If you want to do this for any of your Terraforms projects, refer my article on <strong><a href="https://medium.com/@prashantkhandelwal/create-azure-resources-programmatically-by-executing-terraform-commands-in-go-ff2182513ee2">medium</a></strong>.</p>
+
+<h4 id="visualization"><strong>Visualization</strong></h4>
+
+<p>After getting the test logs from the File Share, I also want to see what the load test results look like. As of now there is no tool I have to do so. But there are few I found on the GitHub that allow me to visualize the output of K6 load tests. Maybe I would write one or use an open-source, I am not sure about that at the moment.</p>
+
+<p>I hope you enjoyed this article and learn one or more things related to Azure and K6. Here are few more resources that will be helpful.</p>
+
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/container?view=azure-cli-latest">az contianer cli - documentation</a></li>
+<li><a href="https://k6.io/docs/">K6 - Official documentation</a></li>
+<li><a href="https://k6.io/docs/results-output/end-of-test/custom-summary/">handleSummary or Custom Summary with K6</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/create-azure-resources-programmatically-by-executing-terraform-commands-in-go/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Create Azure Resources Programmatically By Executing Terraform Commands in Go</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+ 
+
+
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-QYXJT2TJCG', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
+
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
+
+<script>
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

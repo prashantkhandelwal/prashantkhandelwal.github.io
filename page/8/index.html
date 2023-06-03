@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2013-06-19T20:28:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2013-06-25T22:43:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,96 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/getting-started-with-glimpse-in-aspnet-mvc/">Getting Started With Glimpse In ASP.NET MVC</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 25, 2013
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>When I heard about Glimpse, I thought it like to be another MiniProfiler like stuff or a combination of MiniProfiler and this. But it seems to be more robust diagnostic tool for developers. Here is my experience with <a href="http://midnightprogrammer.net/post/diagnostic-check-for-asp-net-mvc-applications-problems/">this</a> awesome diagnostic tool.</p>
+
+<h3 id="what-is-glimpse">What is Glimpse?</h3>
+
+<p>Glimpse is a diagnostic tool for ASP.NET applications which let you see detailed diagnostic information of your web application. Glimpse knows everything your server is doing and displays it straight away to you in your browser. Currently Glimpse is supported for ASP.NET – Web Forms and MVC and PHP and other languages are in queue as well. If you want to contribute to the project as it is open-source, you can contact the project developers <a href="http://groups.google.com/forum/?fromgroups#!forum/getglimpse-dev">here</a>. The Glimpse project is still under development and there are more that 70 bugs reported at Github.</p>
+
+<h3 id="getting-glimpse-getting-started">Getting Glimpse &amp; Getting Started</h3>
+
+<p>I have used MiniProfile in the past and the major difference between the two tools I noticed is that in MiniProfile you have to make changes in the code to profile or view the diagnostic information. On the other hand Glimpse is just simply plug and play library. If you are going to give Glimpse a try make sure that you use NuGet to get the library. Glimpse comes with lots of configurations and setting them out manually in the application will be a pain just like <a href="https://code.google.com/p/elmah/">ELMAH</a>. As we are now living in post-NuGet era, we must use the power of NuGet to do all the hard work and configuration for us. You can get Glimpse depending on the type of project you have. To add Glimpse in MVC application fire the below NuGet command.</p>
+
+<pre class="brush: shell">
+PM> Install-Package Glimpse.MVC
+</pre>
+
+<p>For Web Forms</p>
+
+<pre class="brush: shell">
+PM> Install-Package Glimpse.ASP
+</pre>
+
+<p>After the command gets completed, take a look at the web.config file where you can see all the configurations. Without paying more attention to the configs, run the application to see Glimpse in action. Unlike MiniProfiler, there were no changes in the code. Before you can actually see Glimpse in action you have to turn it on, and to turn Glimpse on navigate to the URL <strong><a href="http://localhost:XXXX/glimpse.axd">http://localhost:XXXX/glimpse.axd</a></strong></p>
+
+<p><img src="/images/glimpse-ui.png" alt="Glimpse UI" /></p>
+
+<p>A cookie is set when Glimpse is turned on. This cookie tells the server to send the diagnostic data to the application. Here is how it looks on my home page.</p>
+
+<p><img src="/images/glimpse-infobar.png" alt="Glimpse UI Bar" /></p>
+
+<p>The above screenshot gives you a summarized information of what your application and server is doing. The summary part is distributed in three parts i.e. HTTP, HOST and AJAX. The HTTP segment shows the summary of the diagnostic information that flows over HTTP. In the HOST segment you can also see the name of the controller and action name. AJAX segment shows zero count as there are no AJAX call yet in my application which communicates with the server. This is just a summary which is visible at the bottom right hand corner of the web page. To view more detailed diagnostic information hover the mouse over any of these segments and you get one level more information.</p>
+
+<p><img src="/images/glimpse-ui-infobar.png" alt="Glimpse UI information bar" /></p>
+
+<p>If this is not enough for you then click on the big g icon at the bottom right corner.</p>
+
+<p><img src="/images/glimpse-ui-report.png" alt="Glimpse UI information report" /></p>
+
+<p>The screenshot above just covering one tab out of 12 tabs which have complete diagnostic information about the application.</p>
+
+<h3 id="what-else-it-can-do">What else it can do?</h3>
+
+<p>Glimpse has extensions that will let you get information about EF, nHibernate, Ninject and many more. You can view the complete list of extensions here which you can use to see what these libraries are doing behind the scenes. Check out the complete list of extensions <a href="http://getglimpse.com/Packages">here</a>.</p>
+
+<h3 id="moving-to-production">Moving to production</h3>
+
+<p>Glimpse is a diagnostic tool and is very powerful from a developer’s perspective. When moving the website or web application to the production servers, no developer would want to leave Glimpse working on the landing page of your site. So before you move to production you have to turn Glimpse off. To turn off Glimpse you can navigate to the same URL which you have used earlier to turn it on. This is the easy option available, but anyone with the Glimpse handler URL can easily turn it on!? The best approach is to change the setting in the web.config file, so even if the third person has the URL of the Glimpse handler he will never be able to turn it on. To turn off Glimpse permanently set <code>defaultRuntimePolicy</code> to <code>Off</code>. The line in your web.config after the change will look like this.</p>
+
+<pre class="brush: xml">
+<glimpse defaultRuntimePolicy="Off" endpointBaseUri="~/Glimpse.axd">
+</pre>
+
+<p>Once this property is set to <code>Off</code>, there is no way a user can turn Glimpse on without changing its value back to <code>On</code>. Glimpse has a lot more options to explore which I can’t cover in single blog post. I am looking forward on using some extensions now for Ninject and Entity Framework.</p>
+
+<h3 id="references">References:</h3>
+
+<ul>
+<li><a href="http://getglimpse.com/Packages">Glimpse – Project site</a></li>
+<li><a href="https://github.com/Glimpse">Glimpse – Github</a></li>
+<li><a href="https://github.com/Glimpse/Glimpse/wiki/Configuration">Glimpse Configuration Wiki</a></li>
+<li><a href="http://getglimpse.com/Packages">Glimpse Extensions</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -863,143 +953,6 @@ public HomeController(IDBProvider dbProvider)
 <p>I have a default constructor which takes the IDBProvider as a parameter. The IDBProvider object is all we need which provides us all its implementation. To add a friend to DB you just have to call the Add method like <code>_dbProvider.Add(friend)</code>. Same for edit, update, delete and list all the friends. You noticed that no where in the code I have made use of the SQLHelper.cs or SQLCEHelper.cs classes. This is the awesomeness of DI.</p>
 
 <p>This is all it and now your application is flexible enough to use multiple databases. I strongly recommend you to read the documentation on Ninject at <a href="http://ninject.org/">Ninject.org</a> as it is vast and can be a life saver in many scenarios.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/async-controller-in-mvc-4/">ASYNC Controller In MVC 4</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 30, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p>I have build many small applications so far in MVC to help myself in understanding the framework more deeply. Now I am planning to write a blog engine on MVC. It will not be an easy task but I will be going to learn a lot of things. As I was planning things ahead I came across a problem where I have to load my blog stats like FeedBurner readers, Facebook page likes, Google +1 count, twitter followers inside a div on the page. The problem I see here is that I am going to make multiple cross-domain calls in order to get the stats. I can’t avoid that though but this will cause my blog to load slowly. I know about <a href="http://msdn.microsoft.com/en-us/library/vstudio/hh156513.aspx">Async</a> and <a href="http://msdn.microsoft.com/en-IN/library/dd537609.aspx">Task Parallel Library(TPL)</a> but the question is how do I implement this in my application? I do a quick web search and found something which is called Async controller in MVC4. You can also have <a href="http://msdn.microsoft.com/en-us/library/system.web.mvc.asynccontroller(v=vs.108).aspx">AsynController</a> in MVC3 but that is not pretty if you start comparing it with MVC4.</p>
-
-<p>For the simplicity of the tutorial I am going to make 2 calls: get twitter followers count and facebook page likes. In MVC3, if you want to perform Async operations then you have to inherit your controller with AsyncController like this.</p>
-
-<pre class="brush: csharp">
-public class HomeController : AsyncController
-</pre>
-
-<p>But MVC4 is much cleaner. Let’s take a look at the default implementation of the calls I am making to Twitter and Facebook to get the follower count and page likes respectively. Here are my 2 methods in HomeController.</p>
-
-<pre class="brush: csharp">
-private string GetTwitterFollowersCount(string Username)
-{
-    XDocument xdoc = XDocument.Load("http://api.twitter.com/1/users/show.xml?screen_name=" + Username + "&include_entities=false");
-    return (from item in xdoc.Descendants("user")
-            select item.Element("followers_count").Value)
-            .SingleOrDefault();
-}
-  
-private string GetFacebookLikes(string FaceBookPageURL)
-{
-    string uri = "https://api.facebook.com/method/fql.query?query=select%20%20like_count,%20total_count,%20share_count,%20click_count%20from%20link_stat%20where%20url=%22" + FaceBookPageURL + "%22";
-    return Convert.ToString((from elem in XElement.Load(uri).Descendants()
-                   where elem.Name.LocalName == "like_count"
-                   select elem).First&lt;XElement&gt;().Value);
-}
-</pre>
-
-<p>Nothing fancy in the above two methods. When I call these 2 methods one after the other, they will just get the data from a different source and render the result in the view. That’s fine as it’s my requirement. Now when I run my application it now takes a longer time to render the view. Before I explain this further take a look at my <code>Index()</code>.</p>
-
-<pre class="brush: csharp">
-public ActionResult Index()
-{
-    Stopwatch watch = new Stopwatch();
-    watch.Start();
-    ViewBag.TwitterFollowers = GetTwitterFollowersCount("audi");
-    ViewBag.FacebookLikes = GetFacebookLikes("http://facebook.com/audi");
-    watch.Stop();
-    Int64 elapsedTime = watch.ElapsedMilliseconds;
-    ViewBag.Time = elapsedTime.ToString();
-    return View();
-}
-</pre>
-
-<p>This is because Controllers are synchronous by default and it will process the request one after the other i.e. it will wait for the first task to complete and then move on to the next task. In my case the controller will execute the <code>GetFollowersCount</code> method and only after the completion of this method it will shift to the next method <code>GetFacebookLikes</code>. This could be a long running task or just imagine if you are retrieving heavy data from different sources. The view or the page will not render till the execution of both the methods will not get completed. To get a rough idea of the time elapsed in making synchronous calls in the above controller, I have used <a href="http://msdn.microsoft.com/en-IN/library/system.diagnostics.stopwatch.aspx">StopWatch(System.Diagnostics)</a> class. I don’t know how accurate, but I still used it to have an approximate idea of the time. This is the output of the above code.</p>
-
-<p><img src="/images/async-controller-call.png" alt="Async controller in action" /></p>
-
-<p>It took <code>1588ms</code> to complete 2 requests. Now if I implement async in the controller I will see a drastic improvement. It is not just the controller <code>ActionResult</code> which I have to change to support async calls but I also have to update the 2 methods which I am using to collect the stats. Here are my updated methods.</p>
-
-<pre class="brush: csharp">
-private Task&lt;string&gt; GetTwitterFollowersCountAsync(string Username)
-{
-    return Task.Run(() =>
-    {
-        XDocument xdoc = XDocument.Load("http://api.twitter.com/1/users/show.xml?screen_name=" + Username + "&include_entities=false");
-        return (from item in xdoc.Descendants("user")
-                select item.Element("followers_count").Value).SingleOrDefault();
-    });
-}
-  
-private Task&lt;string&gt; GetFacebookLikesAsync(string FaceBookPageURL)
-{
-    return Task.Run(() =>
-    {
-        string uri = "https://api.facebook.com/method/fql.query?query=select%20%20like_count,%20total_count,%20share_count,%20click_count%20from%20link_stat%20where%20url=%22" + FaceBookPageURL + "%22";
-        return Convert.ToString((from elem in XElement.Load(uri).Descendants()
-                                 where elem.Name.LocalName == "like_count"
-                                 select elem).First&lt;XElement&gt;().Value);
-    });
-}
-</pre>
-
-<p>Pay attention to the <code>GetTwitterFollwersCountAsync</code> and <code>GetFacebookLikesAsync</code> return type. Previously they were only string, and now I have changed their return type to Task. I have put the code inside <a href="http://msdn.microsoft.com/en-IN/library/system.threading.tasks.task.run.aspx">Task.Run()</a> as it will queues the specified work to run on the Thread Pool and returns a <code>Task(TResult)</code> handle for that work. I have changed the ActionResult to handle the async feature. As you can see that this controller method does not return ActionResult instead it return Task. Here is my updated ActionResult.</p>
-
-<pre class="brush: csharp highlight: [5,6,7]">
-public async Task&lt;ActionResult&gt; Index()
-{
-    Stopwatch watch = new Stopwatch();
-    watch.Start();
-    Task&lt;string&gt; twitterFollowers = GetTwitterFollowersCountAsync("audi");
-    Task&lt;string&gt; facebookLikes = GetFacebookLikesAsync("http://facebook.com/audi");
-    await Task.WhenAll(twitterFollowers, facebookLikes);
-    ViewBag.TwitterFollowers = await twitterFollowers;
-    ViewBag.FacebookLikes = await facebookLikes;
-    watch.Stop();
-    Int64 elapsedTime = watch.ElapsedMilliseconds;
-    ViewBag.Time = elapsedTime.ToString();
-    return View();
-}
-</pre>
-
-<p>The code is almost the same but 3 lines are making a difference (highlighted). Task will hold the value returned from the updated async methods. MSDN defines the <a href="http://msdn.microsoft.com/en-us/library/vstudio/hh156528.aspx">await</a> operator as:</p>
-
-<blockquote>
-<p>The await operator is applied to a task in an asynchronous method to suspend the execution of the method until the awaited task completes. The task represents ongoing work.</p>
-</blockquote>
-
-<p><a href="http://msdn.microsoft.com/en-IN/library/system.threading.tasks.task.whenall.aspx">Task.WhenAll()</a> will creates a task that will complete when all of the supplied tasks have completed. This actually parallelize the request. Lets check the output and compare both.</p>
-
-<p><img src="/images/async-controller-async-action.png" alt="Async controller in action with improvement" /></p>
-
-<p>The difference is noticeable…607ms!! is half way down and a huge performance benefit. This is a small example and the real performance can be noticed when you work with real scenarios. I have used MVC4 with .NET 4.5 to use awesomeness of asynchronous controller. I hope this gives you an idea on how you can use async controllers in MVC4.</p>
 
   </div>
   

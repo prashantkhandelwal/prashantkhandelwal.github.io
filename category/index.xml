@@ -86,7 +86,7 @@
     <item>
       <title>Azure</title>
       <link>https://prashantkhandelwal.github.io/category/azure/</link>
-      <pubDate>Thu, 04 May 2023 11:27:00 +0000</pubDate>
+      <pubDate>Fri, 02 Jun 2023 23:34:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/azure/</guid>
       <description></description>
@@ -152,6 +152,15 @@
       <pubDate>Sun, 20 Jan 2019 05:25:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/container/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Containers</title>
+      <link>https://prashantkhandelwal.github.io/category/containers/</link>
+      <pubDate>Fri, 02 Jun 2023 23:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/containers/</guid>
       <description></description>
     </item>
     
@@ -269,6 +278,15 @@
       <pubDate>Mon, 04 Jan 2021 20:27:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/k3s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>K6</title>
+      <link>https://prashantkhandelwal.github.io/category/k6/</link>
+      <pubDate>Fri, 02 Jun 2023 23:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/k6/</guid>
       <description></description>
     </item>
     
@@ -404,6 +422,15 @@
       <pubDate>Thu, 04 May 2023 11:27:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/category/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Testing</title>
+      <link>https://prashantkhandelwal.github.io/category/testing/</link>
+      <pubDate>Fri, 02 Jun 2023 23:34:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/category/testing/</guid>
       <description></description>
     </item>
     
