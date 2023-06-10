@@ -266,7 +266,7 @@ One of the biggest pain points has been the authentication in command line tooli
 
 <h3 id="setting-up-go-project"><strong>Setting up Go project</strong></h3>
 
-<p>Let’s see with a very basic example of getting this done programmatically. Setup a new go project and import these packages.</p>
+<p>Let&rsquo;s see with a very basic example of getting this done programmatically. Setup a new go project and import these packages.</p>
 
 <pre class="brush:ruby">
 import (
@@ -404,7 +404,7 @@ func main() {
 <p>Note that if I have not provided an installation path or a directory, the installation will be done in a temp location of your machine. If you don’t want the installation to be done in a temporary location and also want to speed up the execution, then set the <code>InstallDir</code> property to set the path for installation.</p>
 
 <blockquote>
-<p>Check the GitHub gist below for <code>InstallDir</code> implementation.</p>
+<p>Check the below code for <code>InstallDir</code> implementation.</p>
 </blockquote>
 
 <p>Next, we set up the working directory where our Terraform code is. We need to import a new package called <code>tfexec</code>:</p>
@@ -487,7 +487,9 @@ for s, i := range state.Values.Outputs {
 
 <p>The <code>state</code> variable is a pointer to <code>*tfjson.State</code> and once it runs successfully the output will be stored in a <code>map[string]*tfjson</code>.<code>StateOutput</code>, which we can iterate over to get the values of the <code>output</code> variables.</p>
 
-<p>? NOTE: You can use my terraform files to create a web app, app service plan, Linux virtual machine etc. You can view these files <a href="https://github.com/prashantkhandelwal/Popcorn/tree/main/Deployment/Azure">here</a>.</p>
+<blockquote>
+<p>NOTE: You can use my terraform files to create a web app, app service plan, Linux virtual machine etc. You can view these files <a href="https://github.com/prashantkhandelwal/Popcorn/tree/main/Deployment/Azure">here</a>.</p>
+</blockquote>
 
 <p>Here is the complete code. You need to update the environment variables and replace them with the variables you have obtained from Azure portal. Set <code>workingDir</code> variable with the name of the path where your <code>tf</code> files are.</p>
 
