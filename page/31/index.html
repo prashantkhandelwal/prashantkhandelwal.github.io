@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-09-13T02:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-09-20T21:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,112 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-hashtables/">Using Hashtables</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 20, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>Here I illustrate how to create and use hash table. Each element of hash table is a combination of Key/Value pair stored in a <code>DictionaryEntry</code> object. A value in a hash table can be null or contains no value but a key cannot be of null reference. Key in hash table work as an identifier for the value where you can search a hash table for a value with a specified key.</p>
+
+<p>First you will need to import the namespace <code>System.Collection</code>. We use <code>System.Collection</code>namespace because it contains various interface and classes the defines various collection of objects like list, dictionary, queues, hash tables and bit arrays.</p>
+
+<p><strong>Adding Key/Values to Hash Table</strong></p>
+
+<pre class="brush:csharp">
+using System;
+using System.Collections;
+class HashtableClass
+{
+ public static void Main()
+ {
+   Hashtable htbl = new Hashtable();
+   htbl.Add("AL", "Alabama");
+   htbl.Add("CA", "California");
+   htbl.Add("FL", "Florida");
+   htbl.Add("NY", "New York");
+   htbl.Add("WY", "Wyoming");
+   // Get a collection of the keys.
+   ICollection coll = htbl.Keys;
+   foreach (string str in coll)
+   {
+     Console.WriteLine(str + ": " + htbl[str]);
+   }
+ }
+}
+</pre>
+
+<p><strong>Clear all Key/Value pairs in a hash table</strong></p>
+
+<p>To clear all the key/value pairs in a hash table use <code>Clear()</code> method of a hash table class:</p>
+
+<pre class="brush:csharp">
+htbl.Clear();
+</pre>
+
+<p><strong>Remove Key/Value pairs from hash table</strong></p>
+
+<p>Just if you want to remove a particular value from a hash table use the <code>Remove()</code> method of hash table class and specify the Key to remove the key/value:</p>
+
+<pre class="brush:csharp">
+htbl.Remove("NY");
+</pre>
+
+<p><strong>Adding Key/value pair to hash table by using indexer</strong></p>
+
+<p>We can use <code>Add()</code> method of the hash table class to add key/value pair to the hash table, but instead we can use indexer to add key/pair:</p>
+
+<pre class="brush:csharp">
+htbl["NY"] = "New York";
+</pre>
+
+<p><strong>Use the <code>ContainsKey()</code> method to check if hash table contains a key</strong></p>
+
+<p>Just a simple method to use with an <code>IF</code> condition:</p>
+
+<pre class="brush:csharp">
+if(htbl.ContainsKey("NY"))
+{
+       Console.WriteLine("Hashtable contains key NY");
+}
+</pre>
+
+<p><strong>Use the <code>ContainsValue()</code> method to check if hash table contains a key</strong></p>
+
+<p>Just a simple method to use with an IF condition:</p>
+
+<pre class="brush:csharp">
+if(htbl.ContainsValue("New York"))
+{
+    Console.WriteLine("Hashtable contains value New York");
+}
+</pre>
+
+<p><strong>Copy the keys from hash table into an array using the <code>CopyTo()</code> method</strong></p>
+
+<pre class="brush:csharp">
+string[] keys=new string[5];
+htbl.Keys.CopyTo(keys,0);
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -499,54 +605,6 @@ FROM OPENROWSET(BULK N'D:\Software\siw.exe', SINGLE_BLOB) AS Document
 
 <pre class="brush:sql">
 Select * from tblData
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/guids-in-c-sql/">GUIDs in C# / SQL</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 26, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      
-      
-      
-      
-    </span>
-    <p>GUID pronounced as goo&rsquo;id - Globally unique identifier is a 128-bit integer that can be used to uniquely identify something. If you want to identify the large collection of data GUID is the best approach in my view. Also you can use the autoincremental integer to identify records, this is the basic approach programmer&rsquo;s use.</p>
-
-<p>GUID method can be found under the System namespace and it also provides some overloads. Here is how we can use the GUID overloads:</p>
-
-<pre class="brush:csharp">
-System.Guid.NewGuid().ToString();    //c93ded50-7cce-4f3a-b8aa-5a1a34d80b14
-System.Guid.NewGuid().ToString("N"); //636bdfd2bbc541229fbc6b869995ce6f
-System.Guid.NewGuid().ToString("D"); //45e602b6-0904-47ac-a764-a5522f56f40f
-System.Guid.NewGuid().ToString("B"); //{68f55508-f72c-4a38-b96b-f493c3c5adb9}
-System.Guid.NewGuid().ToString("P"); //(1c2e52a7-e384-445e-b80a-e8704c6ecbd6)
-</pre>
-
-<p>To create GUID in SQL Server use the simple select statement:</p>
-
-<pre class="brush:sql">
-SELECT NEWID()
 </pre>
 
   </div>

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-11-27T15:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-12-02T20:31:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,59 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/t-sql-export-table-to-excel/">T-SQL: Export Table to Excel</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 2, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>What you do to export data from SQL to excel. You use data import/export wizard or just simply execute the select query and copy the whole lot of data in an excel file with headers. Copy and paste the data in the excel sheet is the quickest possible solution I can see&hellip;but what if you have to data through your code? Still there are many possible ways to accomplish this but how many lines of code you have to write to achieve this? maybe most of the people definately have a simple and reliable way. Ok&hellip;lets do this using T-SQL query. The only problem I see here is that you must have a excel file in the location defined in the query before you execute the query.</p>
+
+<p>In one of our application we maintain log in a sql table for all the tasks done in the whole day. The administrator of the application want to take a look at all the tasks done by a particular user, he didn&rsquo;t want any UI to look into this instead he asks us to generate a report at the end of the day in excel on a button click. So lets see the code.</p>
+
+<p>Execute the below query to set the configuration of SQL Server to 1. In my case there was no change as I already executed this query in the past. But, most probably you will see a change in the your case the value could be changed from 0 to 1.</p>
+
+<pre class="brush:sql">
+EXEC sp_configure 'show advanced options', 1;
+GO RECONFIGURE;
+GO EXEC sp_configure 'Ad Hoc Distributed Queries', 1;
+GO RECONFIGURE;
+GO
+</pre>
+
+<p>After you set the configuration option execute a normal select query to get all the column names and paste them in the excel sheet. Then save the excel sheet in your local hard drive.</p>
+
+<pre class="brush:sql">
+Select TOP 0 * From Person.Address
+ 
+--For Office 2003 (.XLS) format
+INSERT INTO OPENROWSET ('Microsoft.Jet.OLEDB.4.0', 'Excel 8.0;Database=c:\contact.xls;','SELECT * FROM [Sheet1$]')SELECT * FROM authors
+ 
+--For Office 2007 (.XLSX) format
+INSERT INTO OPENROWSET ('Microsoft.ACE.OLEDB.12.0', 'Excel 8.0;Database=c:\contact.xlsx;','SELECT * FROM [Sheet1$]')SELECT * FROM authors
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -572,105 +625,6 @@ private static void DownAlbum(string UserN, string AlbumN)
 <p>The above overview and other technical details about Microsoft WMI Code Creator can be found here at Microsoft download center.</p>
 
 <p><strong>Download: <a href="/files/WMICodeCreator.zip">WMICodeCreator.zip (121.38 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/readwrite-settings-to-ini-file-using-c/">Read/Write settings to INI File using C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Oct 21, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>When we design application we always face problems to save settings for the application and to achieve that we use different options available to us. A very common method to use in accordance of complexity XML files, Registry, Application.config or other/normal files. Best option is to use application configuration file but it seems that most of the people are not fully aware with the usage of the application configuration file. I will discuss late on the application configuration file a.k.a. app.config, but here is the way to use the INI files to save application settings.</p>
-
-<p>Here I am using a simple class which has two methods Write &amp; Read methods which internally calls the functions inside the <code>Kernel32.dll</code> which are WritePrivateProfileString and ReadPrivateProfileString. Both methods take parameters and write it to the INI file. Here is the complete listing of the class which can be use to read and write settings to the INI file.</p>
-
-<p>INI files have sections and keys from where the data can be read on the combination of the sections and keys. As there can be a common key in different sections of the INI file. A section is defined in [SECTION NAME] and then it have a Key and its KeyValue.</p>
-
-<pre class="brush:csharp">
-class INIFile
-{
-    private string filePath;
-       
-    [DllImport("kernel32")]
-    private static extern long WritePrivateProfileString(string section,
-    string key,
-    string val,
-    string filePath);
- 
-    [DllImport("kernel32")]
-    private static extern int GetPrivateProfileString(string section,
-    string key,
-    string def,
-    StringBuilder retVal,
-    int size,
-    string filePath);
-       
-    public INIFile(string filePath)
-    {
-        this.filePath = filePath;
-    }
- 
-    public void Write(string section, string key, string value)
-    {
-        WritePrivateProfileString(section, key, value.ToLower(), this.filePath);
-    }
- 
-    public string Read(string section, string key)
-    {
-        StringBuilder SB = new StringBuilder(255);
-        int i = GetPrivateProfileString(section, key, "", SB, 255, this.filePath);
-        return SB.ToString();
-    }
-         
-    public string FilePath
-    {
-        get { return this.filePath; }
-        set { this.filePath = value; }
-    }
-}
-</pre>
-
-<p>Now when you have to perform the read and write operations to the INI file you have to just call the Write and Read method from the above class. Initialize the above class anywhere in your application and then call the below methods to work.</p>
-
-<p>To write a new entry to an INI file use the write method. As you can see in the below method you need to first initialize a class which takes in the path of the INI fie. The write method takes 3 arguments which have Section, Key and KeyValue respectively. I have used a single section and a key to demonstrate the usage, but you can call the write method a number of time to write different settings value.</p>
-
-<pre class="brush:csharp">
-INIFile inif = new INIFile("D:\\config.ini");
-inif.Write("Database", "Devs", "sa");
-</pre>
-
-<p><img src="/images/ini-config.jpg" alt="Settings INI file" /></p>
-
-<p>To read the particular value from the INI file use the read method. It takes in 2 arguments i.e. Section and Key respectively to read a KeyValue.</p>
-
-<pre class="brush:csharp">
-INIFile inif = new INIFile("D:\\config.ini");
-Console.WriteLine("The Value is:" +inif.Read("Database", "Devs"));
-</pre>
-
-<p>I have just displayed the value after reading from the file after the write operation is completed. You can set a local variable to preserve the value and then take a required action.</p>
-
-<p><img src="/images/ini-demo.jpg" alt="Output after reading the INI file" /></p>
 
   </div>
   

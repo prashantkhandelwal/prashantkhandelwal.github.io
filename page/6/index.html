@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2015-06-14T08:15:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2015-06-16T22:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,211 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/getting-started-with-aspnet-5-on-ubuntu/">Getting Started With ASP.NET 5 On Ubuntu</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 16, 2015
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>Ever since the <a href="http://blogs.msdn.com/b/dotnet/archive/2014/11/12/net-core-is-open-source.aspx">.NET stack went open source last year</a>, there is a huge excitement among the developers about the .NET stuff and developing apps using .NET which are no longer limited to Windows platform. I tried to install ASP.NET VNext on Ubuntu VM in which I terribly failed in the first go. Why? because the tutorial I used was quite old and I messed up the installation of pre-requisites. But I get everything working in the second try. So here are the steps and commands that will get you started with ASP.NET VNext on Ubuntu.</p>
+
+<blockquote>
+<p>I am setting up a fresh VM for development on Ubuntu 14.04.2 LTS</p>
+</blockquote>
+
+<h4 id="installing-mono">Installing Mono</h4>
+
+<p>First thing is to install <a href="http://www.mono-project.com/">Mono</a>. For folks who are new to Linux environment, Mono is a community driven project which allows developers to build and run .NET application on Linux platforms. Here is the set of commands that I have to execute to install Mono.</p>
+
+<pre class="brush: bash">
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+</pre>
+
+<p><img src="/images/bash-command.png" alt="Add keyserver" /></p>
+
+<pre class="brush: bash">
+echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+sudo apt-get update
+</pre>
+
+<p><img src="/images/apt-get-command.png" alt="Update Ubuntu Installation" /></p>
+
+<p>Install the latest version of Mono available.</p>
+
+<pre class="brush: bash">
+sudo apt-get install mono-complete
+</pre>
+
+<p><img src="/images/install-mono.png" alt="Install Mono" /></p>
+
+<p>To check if Mono is successfully installed or to determine the version of Mono on you machine run the below command in the terminal.</p>
+
+<pre class="brush: bash">
+mono --version
+</pre>
+
+<p><img src="/images/mono-ver.png" alt="Check Mono Version" /></p>
+
+<h4 id="installing-libuv">Installing LibUV</h4>
+
+<p>As stated on Github:</p>
+
+<blockquote>
+<p>Libuv is a multi-platform asynchronous IO library that is used by the KestrelHttpServer that we will use to host our web applications.</p>
+</blockquote>
+
+<p>Running the below command will install LibUV along with the dependencies require to build it.</p>
+
+<pre class="brush: bash">
+sudo apt-get install automake libtool
+</pre>
+
+<p><img src="/images/install-libtool.png" alt="Install libtool and automake" /></p>
+
+<p>Getting the source and building and installing it.</p>
+
+<pre class="brush: bash">
+curl -sSL https://github.com/libuv/libuv/archive/v1.9.0.tar.gz | sudo tar zxfv - -C /usr/local/src
+cd /usr/local/src/libuv-1.9.0
+sudo sh autogen.sh
+sudo ./configure
+sudo make 
+sudo make install
+sudo rm -rf /usr/local/src/libuv-1.9.0 && cd ~/
+sudo ldconfig
+</pre>
+
+<p>Here is a note at Githb repo that explains what the above set of commands are doing.</p>
+
+<blockquote>
+<p>NOTE: make install puts libuv.so.1 in /usr/local/lib, in the above commands ldconfig is used to update ld.so.cache so that dlopen (see man dlopen) can load it. If you are getting libuv some other way or not running make install then you need to ensure that dlopen is capable of loading libuv.so.1</p>
+</blockquote>
+
+<h4 id="getting-net-version-manager-dnvm">Getting .NET Version Manager (DNVM)</h4>
+
+<p>DNVM is a command line tool which allows you to get new build of the DNX (.NET Execution Environment) and allows you to switch between them. To get DNVM running fire the below command in the terminal.</p>
+
+<pre class="brush: bash">
+curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh && source ~/.dnx/dnvm/dnvm.sh
+</pre>
+
+<p><img src="/images/install-dnvm.png" alt="Install DNVM" /></p>
+
+<p>To check if the DNVM is successfully installed on your machine, type DNVM in the terminal. The output should be something like this:</p>
+
+<p><img src="/images/check-dnvm.png" alt="Check DNVM Installation" /></p>
+
+<p>At any point of time if you want to list out the installed DNX runtimes, run the below command</p>
+
+<pre class="brush: bash">
+dnvm list
+</pre>
+
+<p><img src="/images/dnvm-list.png" alt="List DNVM version" /></p>
+
+<p>The next step after this, is to upgrade the DNVM so you can use the <code>dnx</code> and <code>dnu</code> commands. Run the following command in the terminal.</p>
+
+<pre class="brush: bash">
+dnvm upgrade
+</pre>
+
+<p><img src="/images/dnvm-upgrade.png" alt="Upgrade DNVM" /></p>
+
+<p>Once this is done, we are all set to run ASP.NET VNext application on Ubuntu box. Clone the aspnet/Home repository from Github. If you don&rsquo;t have Git installed then install it with this simple command.</p>
+
+<pre class="brush: bash">
+sudo apt-get install git
+</pre>
+
+<p>For simplicity, I have created a new directory on Ubuntu desktop named vnext. You can name the directory as you wish. Navigate to this directory in the terminal and clone the aspnet/Home repository.</p>
+
+<pre class="brush: bash">
+git clone https://github.com/aspnet/Home.git
+</pre>
+
+<p><img src="/images/git-clone-aspnet-repo.png" alt="Git clone command for asp.net repo" /></p>
+
+<p>After cloning of repository is done, navigate to the <code>1.0.0-beta4</code> directory.</p>
+
+<p><img src="/images/aspnet-beta-folder.png" alt="ASP.NET beta folder" /></p>
+
+<p>You can see three sample applications that you can test. For this tutorial I am going to checkout <code>HelloMvc</code> application. Get inside the <code>HelloMvc</code> directory and then, run the command</p>
+
+<pre class="brush: bash">
+dnu restore
+</pre>
+
+<p><img src="/images/dnu-restore-comand.png" alt="DNU restore command" /></p>
+
+<p>This will take some time to execute. I didn&rsquo;t face this problem but there is a chance that someone will. When you run this command, the <code>project.json.lock</code> file gets created and the restore of the package will start. In the end when the restore is finalizing, it may say permission is denied. To resolve this error you can change the permission of the folder by running the following command.</p>
+
+<pre class="brush: bash">
+sudo chmod -R 755 HelloMvc
+</pre>
+
+<p>You should always change permission to <code>755</code> for directories and <code>644</code> for files.</p>
+
+<p>After the execution is completed, you can start the server by running the command.</p>
+
+<pre class="brush: bash">
+dnx . kestrel
+</pre>
+
+<p><img src="/images/dnx-kestrel-command.png" alt="DNX Kestrel command" /></p>
+
+<p>This command will work for both web and mvc application. If you plan to test out the console application then you can run the following command.</p>
+
+<pre class="brush: bash">
+dnx . run
+</pre>
+
+<p>The server runs at port 5004. Fire up the browser and type in <a href="http://localhost:5004/">http://localhost:5004/</a></p>
+
+<p><img src="/images/aspnet-output.png" alt="Application output" /></p>
+
+<p>Hope this is helpful for the first time users of Linux.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -648,261 +853,6 @@ feedApp.controller('feedListController', function ($scope, $firebase) {
 <li><a href="http://angularfire.com/">AngularFire</a> / <a href="https://github.com/firebase/angularFire">Github</a> / <a href="https://www.firebase.com/docs/angular/reference.html">Reference</a></li>
 <li><a href="https://www.firebase.com/docs/">Firebase - Getting started docs</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/turn-your-google-drive-folder-in-an-online-album-viewer/">Turn Your Google Drive Folder In An Online Album Viewer</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 4, 2014
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p>Working with <a href="https://developers.google.com/drive/">Google Drive API</a> is fun. The documentation is good and will let you get started with the API pretty quickly. I have my whole complete family album on <a href="http://onedrive.com/">OneDrive</a>, but the API is still a bit hard to use as compared to Google Drive API or maybe it is just for me. But while playing around with Drive API I ended up creating a small razor based web page application which will allow you to show your folder as an online web album. I have the <a href="https://github.com/prashantkhandelwal/DriveGallery">source code at Github</a>.</p>
-
-<p>To get started register your application on the Google Developer Console. Here is a <a href="https://developers.google.com/console/help/">complete guide</a> on how to use the Google APIs.</p>
-
-<p><img src="/images/google-register-app.png" alt="Registering the application on Google Dev Console" /></p>
-
-<p>Copy the API keys and save it on the notepad. The basic usage example on the Google Drive API reference page uses a file called <code>client_secrets.json</code> which actually holds the API key. You can find this file in the <code>bin</code> folder.</p>
-
-<pre class="brush: plain">
-{
-  "installed": {
-    "client_id": "524339914714.apps.googleusercontent.com",
-    "client_secret": "_Lq8D_Ai-T2IbhU8m2zXlQa"
-  } 
-}
-</pre>
-
-<p>You also have to enable the Drive API before you start using it.</p>
-
-<p><img src="/images/dev-console-enable-api.png" alt="Enable API in Google Dev Console" /></p>
-
-<p>I created a wrapper around the Google Drive API so I can use it in my other projects. Here is the complete code of my GoogleDrive class.</p>
-
-<pre class="brush: csharp">
-using System;
-using System.Collections.Generic;
-using System.Web;
-using Google;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Download;
-using Google.Apis.Drive.v2;
-using Google.Apis.Drive.v2.Data;
-using Google.Apis.Logging;
-using Google.Apis.Services;
-using System.Threading.Tasks;
-using System.Threading;
-//using Google.Apis.Upload;
- 
-public class GoogleDrive
-{
-    DriveService service = null;
-    public GoogleDrive()
-    {
-        Run().Wait();
-    }
- 
- 
-    private File GetFileByID(string fileID, DriveService service)
-    {
-        File file = service.Files.Get(fileID).Execute();
-        if (file.ExplicitlyTrashed == null)
-            return file;
-        return null;
-    }
- 
-    public string GetFolderID(string FolderName)
-    {
-        FilesResource.ListRequest request = service.Files.List();
-        request.Q = "title = '" + FolderName + "'";
-        FileList files = request.Execute();
-        return files.Items[0].Id;
-    }
-    public List&lt;File&gt; ListFolderContent(string FolderID)
-    {
-        ChildrenResource.ListRequest request = service.Children.List(FolderID);
-        List&lt;File&gt; files = new List&lt;File&gt;();
-        //request.Q = "mimeType = 'image/jpeg'";
- 
-        request.Q = "'" + FolderID + "' in parents";
- 
-        do
-        {
-            try
-            {
-                ChildList children = request.Execute();
- 
-                foreach (ChildReference child in children.Items)
-                {
-                    files.Add(GetFileByID(child.Id, service));
-                }
- 
-                request.PageToken = children.NextPageToken;
- 
-            }
-            catch (Exception e)
-            {
-                request.PageToken = null;
-            }
-        } while (!String.IsNullOrEmpty(request.PageToken));
-        return files;
-    }
- 
-    public List&lt;File&gt; ListRootFileFolders()
-    {
-        List&lt;File&gt; result = new List&lt;File&gt;();
-        FilesResource.ListRequest request = service.Files.List();
-        do
-        {
-            try
-            {
-                FileList files = request.Execute();
- 
-                result.AddRange(files.Items);
-                request.PageToken = files.NextPageToken;
-            }
-            catch (Exception e)
-            {
-                request.PageToken = null;
-            }
-        } while (!String.IsNullOrEmpty(request.PageToken));
-        return result;
-    }
- 
-    public byte[] DownloadFile(string fileID)
-    {
-        File file = service.Files.Get(fileID).Execute();
-        var bytes = service.HttpClient.GetByteArrayAsync(file.DownloadUrl);
-        return  bytes.Result;
-    }
- 
- 
-    private async Task Run()
-    {
-        try
-        {
-            GoogleWebAuthorizationBroker.Folder = "Files";
-            UserCredential credential;
-            using (var stream = new System.IO.FileStream("client_secrets.json",
-                System.IO.FileMode.Open, System.IO.FileAccess.Read))
-            {
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets, DriveConstants.Scopes, "user", CancellationToken.None);
-            }
- 
-            var drvService = new DriveService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = "Drive API Sample",
- 
-            });
- 
-            if (drvService != null)
-            {
-                service = drvService;
-            }
-        }
-        catch { }
-    }
-}
-</pre>
-
-<p>The <code>Storage</code> class uses <a href="https://github.com/robconery/biggy">Biggy</a> for the document storage. You have to manually add the names of the folder (considered as albums) on settings page. This will get added/appended in <code>settings.json</code> file in the <code>Data</code> folder which is in the web root of <a href="https://github.com/prashantkhandelwal/DriveGallery">DriveGallery</a>. Here is my settings file.</p>
-
-<pre class="brush: plain">
-{"AlbumName":"Atlassian"}
-{"AlbumName":"DivX"}
-{"AlbumName":"Envato"}
-{"AlbumName":"Disqus"}
-</pre>
-
-<p>Settings page from where I can add the names of folders/albums. No view and delete options as of now, but I will soon add it.</p>
-
-<p><img src="/images/webapp-settings-album.png" alt="Adding a new album" /></p>
-
-<p>The added albums will be listed on the main/default page. The user will then have to click the name of the album to view the contents which should only images. At the moment there is no check which prevents it to show other files rather than only image files.</p>
-
-<p><img src="/images/app-home.png" alt="App home page" /></p>
-
-<p>Google Drive is slow when it comes to handle high amount of data. Google Drive storage is not like Azure or Amazon storage. It’s different and will not get you large results in appropriate time. If you want to use Drive Gallery make sure that you don’t use more than 25-50 images in a folder. Querying 25-50 files in a single go will be long but not more than if you have more than 50. Better option is to break your folder in parts like volume I &amp; II or Part 1 or 2.</p>
-
-<p>I will try to make it look more attractive but for the moment it solves the purpose for me. Click on the <code>View</code> button to view the album. The <code>View</code> page accepts a query string name, which has the name of the folder/album. Google Drive API does not understand the <code>name</code> of the folder, so I have to get the folder id from the name. I will use the <code>GetFolderID</code> method of the <code>GoogleDrive</code> class which gives me the folder id. The received folder id is then passed to <code>ListFolderContent</code> method which will list all the files in the folder.</p>
-
-<blockquote>
-<p>Please note that, for the moment there is no check to retrieve only images from the folder. GoogleDrive.cs class is a generic version of the class I am using in my other projects. You just need to be sure that you have only images in the folder and not any other file.</p>
-</blockquote>
-
-<p><img src="/images/album-output.png" alt="Album output" /></p>
-
-<p>Click the <code>View</code> button to view the full size image in the browser else click the <code>Download</code> button to download it directly. Basically Drive API does not have any property which holds the value of the URL to view the image online. So I tweaked the thumbnail URL in the ViewURL property so I can view the images online without having to download it.</p>
-
-<pre class="brush: csharp">
-public class Albums
-{
-    public string Id { get; set; }
-    public string Title { get; set; }
-    public string AlbumName { get; set; }
-    public string DownloadURL { get; set; }
-    public string ViewURL
-    {
-        get
-        {
-            return ThumbnailLink.Replace("=s220", "=s4000");
-        }
-    }
-    public string ThumbnailLink { get; set; }
-}
-</pre>
-
-<p>Taking the <code>ThumbnailLink</code> property and replace the <code>=s220</code> to <code>=s4000</code> does the trick.</p>
-
-<blockquote>
-<p>Note: The URLs are not permanent, it will change when the request expires.</p>
-</blockquote>
-
-<p>Properties of the Album class:</p>
-
-<ul>
-<li><code>Id:</code> File/Image id.</li>
-<li><code>Tilte:</code> Title of the image/file.</li>
-<li><code>AlbumName:</code> Name of the album/folder.</li>
-<li><code>DownloadURL:</code> Download URL of the image/file. Original Drive API property name: <code>DownloadUrl</code>.</li>
-<li><code>ViewURL:</code> URL which allows user to view the image in the browser.</li>
-<li><code>ThumbnailLink:</code> URL of the thumbnail image. Original Drive API property name: <code>ThumbnailLink</code>.</li>
-</ul>
-
-<p>The duration of the operation depends on the amount of images you have in your folder. The lesser the number of images the fast the query will get executed. Here just for fun I have used Biggy JSON store to save the content details of the folder. If you want to remove it from your implementation, please do so. You may have to change some functions in order to get all other things working fine.</p>
-
-<p>You can <a href="https://github.com/prashantkhandelwal/DriveGallery">download the complete source code from Github</a>. I am still working on it to make it more flexible and good looking. As I am not a designer and I seriously lack when it comes to web designs. Thanks to <a href="http://getbootstrap.com/">Twitter bootstrap</a> to make it look a bit good.</p>
 
   </div>
   

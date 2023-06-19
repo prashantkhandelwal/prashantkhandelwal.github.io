@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-05-29T15:09:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-05-30T15:46:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,52 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/convert-ascii-values-from-hex-to-characters/">Convert ASCII values from hex to characters</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 30, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>This C# code takes in a list of ASCII values (hexadecimal) and shows the actual characters behind, thus converting hex values to strings.</p>
+
+<pre class="brush:csharp">
+// An object storing the hex value
+string HexValue = "4765656B7065646961";
+// An object storing the string value
+string StrValue = "";
+// While there's still something to convert in the hex string
+while (HexValue.Length > 0)
+{
+    // Use ToChar() to convert each ASCII value (two hex digits) to the actual character
+    StrValue += Convert.ToChar(Convert.ToUInt32(HexValue.Substring(0, 2), 16)).ToString();
+    // Remove from the hex object the converted value
+    HexValue = HexValue.Substring(2, HexValue.Length - 2);
+}
+// Show the converted value
+MessageBox.Show(StrValue); 
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2016-10-16T20:04:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2016-10-17T21:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,118 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/">Upload Files In .NET Core By Drag And Drop Using Dropzone.JS</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 17, 2016
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC&#34;</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>Mostly all web applications out there has some way or the other amazing ways to upload a single or multiple files. While surfing on Github I found <a href="http://www.dropzonejs.com/">this amazing library</a> to upload the files to the server in a unique way with lot of configurations. It support parallel uploads along with cancellation of the files which are in the upload queue along with a good looking progress bar to show the progress of upload.</p>
+
+<p>I get the drag and drop to work in just like 5 minutes. It is super easy and that with some powerful configurations. To install Dropzone you can use the Nuget command.</p>
+
+<pre class="brush: plain">
+PM> Install-Package dropzone
+</pre>
+
+<p>Add reference of js and css files on your page. To get the UI ready use this HTML.</p>
+
+<pre class="brush: html">
+&lt;div class="row"&gt;
+    &lt;div class="col-md-9"&gt;
+        &lt;div id="dropzone"&gt;
+            &lt;form action="/Home/Upload" class="dropzone needsclick dz-clickable" id="uploader"&gt;
+                &lt;div class="dz-message needsclick"&gt;
+                    Drop files here or click to upload.&lt;br&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<p>The output of the above HTML looks like this.</p>
+
+<p><img src="/images/dropzonejs-output.png" alt="Dropzone output in HTML" /></p>
+
+<p>There are few points to be noted here in the above HTML. Notice the <code>action</code> and <code>class</code> attributes for the <code>form</code> element. You will also be needing the <code>id</code> attribute as well. Here the <code>action</code> attribute points to the <code>ActionResult</code> which is responsible to handle the file upload. I have pointed it to the <code>Upload</code> ActionResult in my controller class which accepts a parameter of type <a href="https://docs.asp.net/projects/api/en/latest/autoapi/Microsoft/AspNetCore/Http/IFormFile/">IFormFile</a>. In case of a MVC application, we would have used <a href="https://msdn.microsoft.com/en-us/library/system.web.httppostedfilebase(v=vs.110).aspx">HttpPostedFileBase</a> class. Here is the complete code which handles the file upload.</p>
+
+<pre class="brush: csharp">
+[HttpPost]
+public async Task&lt;IActionResult&gt; Upload(IFormFile file)
+{
+    var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+    if (file.Length &gt; 0)
+    {
+        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+        {
+            await file.CopyToAsync(fileStream);
+        }
+    }
+    return RedirectToAction("Index");
+}
+</pre>
+
+<p>The <code>_environment</code> variable you see in the above code is the instance of <code>IHostingEnvironment</code> interface which I have injected in the controller. Always use <code>IHostingEnvironment</code> interface to resolve the paths. You can hard code the file path but it may not work on other platforms. The combine method returns the correct path based on the platform the code is executing. The <code>WebRootPath</code> property returns the path of <code>wwwroot</code> folder and the second parameter <code>uploads</code> is then appended correctly with the path.</p>
+
+<p>Now it is time to make some adjustment in the Dropzone configuration. Recall the <code>id</code> attribute of the <code>form</code> element. I named it uploader. The Dropzone library has a unique way to set the configuration. Like this.</p>
+
+<pre class="brush: javascript">
+&lt;script&gt;
+    $(document).ready(function () {
+        Dropzone.options.uploader = {
+            paramName: "file",
+            maxFilesize: 2,
+            accept: function (file, done) {
+                if (file.name == "test.jpg") {
+                    alert("Can't upload a test file.");
+                }
+                else {
+                    //Show a confirm alert and display the image on the page.
+              }
+           }
+        };
+});
+&lt;/script&gt;
+</pre>
+
+<p>You have to be a bit careful when setting this configuration. In the configuration above the <code>paramName</code> states the name that will be used to transfer the file. This name should be the same as the <code>IFormFile</code> parameter of the <code>Upload</code> method in the controller. In this case I am using <code>file</code> and the same has to be there in the param of the <code>Upload</code> method. If the names mis-match the files will not be uploaded. The other parameter I am using is the <code>maxFileSize</code> and is very much self-explanatory. I have set the size to be <code>2 MB</code> and because of this configuration, any file above this limit will not be uploaded. Here is an example of such kind of failure.</p>
+
+<p><img src="/images/file-upload-dragndrop.png" alt="Dropzone drag and drop upload" /></p>
+
+<p>All the other files were uploaded successfully except one file which is <code>4.32 MB</code> and is way beyond the limit I set in my Dropzone configuration. If you hover the file, you will see why it got failed.</p>
+
+<p><img src="/images/file-upload-error.png" alt="Upload file error" /></p>
+
+<p>This is the simplest approach through which you can have drag and drop upload support in your applications. The configuration I am using here is the simplest and minimalistic configuration that can get you started in no time. There are some more powerful configurations like <a href="http://www.dropzonejs.com/#config-parallelUploads">parallelUploads</a> and <a href="http://www.dropzonejs.com/#config-uploadMultiple">uploadMultiple</a> that you should look into and use it.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -681,68 +793,6 @@ gulp.task('default', ['copy-js', 'copy-map', 'copy-folders']);
 <p><img src="/images/launch-settings.png" alt="App Launch Settings" /></p>
 
 <p>The URL may change and differ as per your API endpoint. Press F5 to run the application.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/dev-buzz-3-bookmarks/">Dev Buzz #3 - Bookmarks</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 29, 2016
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/devbuzz">DEVBUZZ</a>
-      
-      
-      
-      
-    </span>
-    
-
-<div style="text-align: -webkit-center;">
-<img src="/images/devbuzz1.jpg" alt="Devbuzz Image" />
-</div>
-
-<h4 id="net-core">.NET Core</h4>
-
-<ul>
-<li><a href="http://jameschambers.com/2016/04/github-authentication-asp-net-core/">GitHub Authentication with ASP.NET Core</a></li>
-<li><a href="http://rehansaeed.com/social-taghelpers-for-asp-net-core/">Social TagHelpers for ASP.NET Core</a></li>
-<li><a href="https://blogs.msdn.microsoft.com/webdev/2016/03/28/dependency-injection-in-asp-net-core/">Dependency Injection in ASP.NET Core</a>
-<a href="http://dotnetliberty.com/index.php/2016/04/11/asp-net-core-custom-service-based-on-request/">ASP.NET Core: Custom Service Based on Request</a></li>
-</ul>
-
-<h4 id="visual-studio-visual-studio-code">Visual Studio/Visual Studio Code</h4>
-
-<ul>
-<li><a href="http://tattoocoder.azurewebsites.net/setting-up-asp-net-core-debugging-in-vs-code">Setting up ASP.NET Core debugging in VS Code</a></li>
-<li><a href="https://blogs.msdn.microsoft.com/dotnet/2016/04/18/whats-new-for-the-net-native-compiler-and-runtime-in-visual-studio-2015-update-2/">What’s new for the .NET Native Compiler and Runtime in Visual Studio 2015 Update 2</a></li>
-<li><a href="https://blogs.msdn.microsoft.com/dotnet/2016/04/02/whats-new-for-c-and-vb-in-visual-studio/">What’s New for C# and VB in Visual Studio</a></li>
-<li><a href="http://jameschambers.com/2016/02/building-your-project-should-be-pretty-quick/">Tips for Speeding Up Visual Studio</a></li>
-</ul>
-
-<h4 id="open-source">Open Source</h4>
-
-<ul>
-<li><a href="https://github.com/baedert/corebird">Corebird - Native GTK+ Twitter Client</a></li>
-<li><a href="https://github.com/OpenLiveWriter/OpenLiveWriter.Github.io">OpenLiveWriter - WLW</a></li>
-</ul>
-
-<h4 id="miscellaneous">Miscellaneous</h4>
-
-<ul>
-<li><a href="http://www.omgubuntu.co.uk/2016/04/10-things-to-do-after-installing-ubuntu-16-04-lts">16 Things To Do After Installing Ubuntu 16.04 LTS</a></li>
-<li><a href="http://nickcraver.com/blog/2016/02/17/stack-overflow-the-architecture-2016-edition/">Stack Overflow: The Architecture - 2016 Edition</a></li>
-</ul>
 
   </div>
   

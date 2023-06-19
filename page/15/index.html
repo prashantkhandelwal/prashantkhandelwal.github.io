@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-09-11T14:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-11-26T14:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,113 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/get-song-lyrics-from-lyrdb-with-aspnet-mvc-and-jquery/">Get Song Lyrics From LYRDB With ASP.NET MVC And JQuery</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 26, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      
+      
+      
+      
+    </span>
+    <p>Most of the times I have seen people looking for song lyrics on online MP3 or lyrics database sites. Few of them provide API to fetch lyrics which is good for developers. Last.fm has a powerful API but they don&rsquo;t provide any API call to fetch lyrics. The two most popular APIs on the web that I am aware of is <a href="http://lyrics.wikia.com/Lyrics_Wiki">WikiLyrics</a>, <a href="http://www.lyrdb.com/">LyricsDB</a> (popularly known as LyrDB), there is another API from <a href="http://www.chartlyrics.com/">ChartLyrics</a> but I don&rsquo;t find it as useful as the other two APIs. The <a href="http://api.wikia.com/wiki/LyricWiki_API">WikiLyrics</a> API works beautifully, but it has one drawback the lyrics fetched from the service is incomplete. I wrote a complete desktop application to fetch lyrics, album art, artist image, album name and album release date but never made it available to download for public. I am planning to release it to general users. But till then you can take a look at this simple little app which I created in my spare time to fetch lyrics from LyrDB.
+This little simple application is in ASP.NET MVC. I am not a designer so I will take advantage of the default design. In the <code>home controller</code> I have a simple method named <code>GetLyrics</code> which accepts two parameters <code>Artist Name</code> and <code>Song Name</code>. The method returns results in JSON as it will be good for me to parse the results in JQuery. Take a look at the code:</p>
+
+<pre class="brush:csharp">
+[AcceptVerbs(HttpVerbs.Post)]
+public ActionResult GetLyrics(string ArtistName, string SongName)
+{
+          string response = string.Empty;
+          string LyrURL = string.Empty;
+          string url = "http://webservices.lyrdb.com/lookup.php?q=" + ArtistName + "|" + SongName + "&for=match";
+          WebResponse wResp = (WebRequest.Create(url) as HttpWebRequest).GetResponse();
+          using (StreamReader sReader = new StreamReader(wResp.GetResponseStream()))
+          {
+              response = sReader.ReadToEnd();
+          }
+          if (response == "")
+          {
+              response = "No Lyrics found on LyrDB for " + SongName + " by " + ArtistName;
+              goto Output;
+          }
+ 
+          string[] lyrID = response.Split('\\');
+ 
+          response = "";
+ 
+          LyrURL = "http://webservices.lyrdb.com/getlyr.php?q=" + lyrID[0]+"&callback=?";
+ 
+          Output:
+ 
+          return Json(new
+          {
+              success = true,
+              Lyrics = LyrURL
+          });
+}
+</pre>
+
+<p>The above code does not return the lyrics but the URL to get the lyrics. I am a big Jquery fan and as usual I will be using it here to make an AJAX call and load an IFRAME with the lyrics URL.</p>
+
+<pre class="brush:jscript">
+$(document).ready(function () {
+        $("#btnSearch").click(function () {
+            $("#btnSearch").attr('disabled', true);
+            $("#lyrics").addClass("loading");
+            $("#LyrFrame").attr('src', '');
+            var Artist = $("#txtArtistName").val();
+            var Song = $("#txtSongName").val();
+            var url = "/Home/GetLyrics?ArtistName=" + Artist + "&SongName=" + Song;
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                data: "{'ArtistName': " + Artist + ",'SongName': " + Song + "}",
+                success: function (data) {
+                    $("#lyrics").html("<iframe id=\"LyrFrame\" src=\"" + data.Lyrics + "\" marginwidth=\"0\" marginheight=\"0\" frameborder=\"0\" vspace=\"0\" hspace=\"0\" width=\"980\" height=\"750\"></iframe>");
+                    $("#btnSearch").attr('disabled', false);
+                    $("#lyrics").removeClass("loading");
+                }
+            });
+ 
+        });
+});
+</pre>
+
+<p>The URL in the above script calls <code>GetLyrics</code> method which is inside <code>Home Controller</code> takes artist and song name as query string. On the success of the call the IFRAME gets loaded with the lyrics URL. The output will look something like this:</p>
+
+<p><img src="/images/lyrdb-app.png" alt="LyrDB app in action" /></p>
+
+<p>You can download the application source code from the below link, but I want to tell you that it will not fetch each and every song lyrics for you. It&rsquo;s a database and it can provide us only information it has. But the desktop application I am will release in future will check around 2 lyrics API at least and I believe that my application guarantees 100% result. So follow my upcoming posts.</p>
+
+<p><strong>Download: <a href="/files/LyrDBApp.zip">LyrDBApp.zip (886.46 kb)</a></strong></p>
+
+<p><strong>Related Links:</strong></p>
+
+<ul>
+<li><a href="http://api.wikia.com/wiki/LyricWiki_API%2FSOAP">WikiLyrics API Documentation</a></li>
+<li><a href="http://www.lyrdb.com/services/lws-tech.php">LYRDB Web Services</a></li>
+<li><a href="http://www.chartlyrics.com/api.aspx">ChartLyrics API</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -484,46 +591,6 @@ public string GetFeedReadersCount(string url)
 </pre>
 
 <p>This is it, now it all depends on the designer or developer how to get the stats and present it in a more attractive way. I am not a designer and this is why I am not putting any effort to do something like this to show you this thing in action. At present I am working on JQuery version of the above code, so people who are willing to show stats on their blogs or website which are different platforms. Till that time, try the above code with ASP.NET and let me know of this helps you out.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/html-5-cheat-sheets/">HTML 5 Cheat Sheets</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 13, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p>If you are working with HTML5, then there are some cheat sheets which you should refer for HTML5 syntax. Here are three different cheat sheets for HTML5.</p>
-
-<p><strong>HTML 5 Visual Cheat Sheet</strong></p>
-
-<p><img src="/images/html5-visual-cheatsheet.jpg" alt="HTML5 Visual Cheatsheet" /></p>
-
-<p><strong>HTML 5 Quick reference Cheat Sheet</strong></p>
-
-<p><img src="/images/html5-quickref-cheatsheet.png" alt="HTML5 Quickreference Cheatsheet" /></p>
-
-<p><strong>HTML 5 Canvas Cheat Sheet</strong></p>
-
-<p><img src="/images/html5-canvas-cheatsheet.png" alt="HTML5 Canvas Cheatsheet" /></p>
-
-<p><strong>Download: <a href="/files/HTML 5 - Cheat Sheets.zip">HTML 5 - Cheat Sheets.zip (380.58 kb)</a></strong></p>
 
   </div>
   

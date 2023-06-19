@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2013-02-07T17:23:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2013-02-19T14:57:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,34 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/adobe-photoshop-v101-source-code-now-available-for-download/">Adobe Photoshop v1.0.1 Source Code Now Available For Download</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 19, 2013
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
+      
+      
+      
+      
+    </span>
+    <p>Download the source code for the very 1st version and one of its kind, the legendary photo editing software Adobe Photoshop. I remember, I read somewhere that they distributed the code on floppy disks. But here it is, after more than a decade the source code is now available to public.</p>
+
+<p>The source code is just 588KB!! and is hosted at <a href="http://www.computerhistory.org/">computerhistory.org</a>. You can <a href="http://www.computerhistory.org/adobe-ps-source/">download the complete source code here</a>.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -324,136 +352,6 @@ string tempXml = xmltile.GetXml();
     <p>Visual Studio 2012 is now available and here is a chart that compares the features of different versions of Visual Studio 2012.</p>
 
 <p><img src="/images/vs-features.png" alt="Visual Studio features comparison chart" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/attribute-routing-in-mvc/">Attribute Routing In MVC</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 26, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p>I took a look at <a href="http://code.google.com/p/stack-exchange-data-explorer/">Stack Overflow Stack-Exchange Data Explorer</a> that is built in MVC and is open-source application to query the <a href="http://blog.stackoverflow.com/category/cc-wiki-dump/">Stack Exchange data dump</a> that is being provided by Stack Exchange team in every month or few. I do have a dump, but I was more curious to know about the application that they built to query the database. And I must admit that I learned tons of things. I came to know the power of <a href="http://code.google.com/p/dapper-dot-net/">Micro-ORM (Dapper)</a> over Entity-Framework (EF) and one more pretty thing that attracted me was the routing mechanism used in the application. I strongly recommend that you check out this tool/application and take a deep dive in the code, lot of things to learn.</p>
-
-<p>Before we start writing the code, we&rsquo;ll take a quick look at a NuGet package <a href="http://nuget.org/packages/AttributeRouting">AttributeRouting</a>. You can find the <a href="https://github.com/mccalltd/AttributeRouting/">source code at GitHub</a> in case if you are interested. The <a href="https://github.com/mccalltd/AttributeRouting/wiki/1.-Getting-Started">documentation</a> is simple and explains almost every bit of the package. It&rsquo;s incredibly easy.</p>
-
-<blockquote>
-<p>The NuGet package I am using is for MVC, if you want to do the same with your Web API application then use <a href="http://nuget.org/packages/AttributeRouting.WebApi">this package</a>.</p>
-</blockquote>
-
-<p>To see how easy it is to implement routing in your MVC application. Start Visual Studio and create a new MVC4 (Internet) application and fire up the below NuGet command.</p>
-
-<p><img src="/images/attr-routing-nuget-cmd.png" alt="AttributeRouting Nuget Command" /></p>
-
-<p>This command just don&rsquo;t install one single package but also some other dependent packages. Here is the output when I fire the above NuGet command:</p>
-
-<pre class="brush: plain">
-PM> Install-Package AttributeRouting
-Attempting to resolve dependency 'AttributeRouting.Core (≥ 2.5.1.0)'.
-Attempting to resolve dependency 'AttributeRouting.Core.Web (≥ 2.5.1.0)'.
-Attempting to resolve dependency 'WebActivator (≥ 1.0.0.0)'.
-Successfully installed 'AttributeRouting.Core 2.5.1.0'.
-Successfully installed 'AttributeRouting.Core.Web 2.5.1.0'.
-Successfully installed 'WebActivator 1.0.0.0'.
-Successfully installed 'AttributeRouting 2.5.1.0'.
-Successfully added 'AttributeRouting.Core 2.5.1.0' to MVCAttrRouteTest.
-Successfully added 'AttributeRouting.Core.Web 2.5.1.0' to MVCAttrRouteTest.
-Successfully added 'WebActivator 1.0.0.0' to MVCAttrRouteTest.
-Successfully added 'AttributeRouting 2.5.1.0' to MVCAttrRouteTest.
-</pre>
-
-<p>Now before you make any changes to the web application, hit <code>CTRL+F5</code>. Hover or click on the links which are on the top which are <code>About</code> and <code>Contact</code>. The URL rendered in the address bar is something like this (as what specified in your application Global.asax file).</p>
-
-<p>For <code>About</code> View:</p>
-
-<pre class="brush: plain">
-/Home/About
-</pre>
-
-<p>For <code>Contact</code> View:</p>
-
-<pre class="brush: plain">
-/Home/Contact
-</pre>
-
-<p>The <code>Home</code> that we see here is the name of the controller being used. I don&rsquo;t want the name of the controller to be visible to my site visitors or maybe I just want a different name there. Usually, I would have switch to my application <code>Global.asax</code> file and register a new route there. But now I can now control my routes within controller itself. This is pretty cool for and a time saver, as I do not have to avoid working with Global.asax. This is the simplest implementation of AttributeRouting. Below are the 2 <code>Home</code> controller methods <code>About</code> and <code>Contact</code>:</p>
-
-<pre class="brush: csharp; highlight:[1,8]">
-[GET("About")]
-public ActionResult About()
-{
-    ViewBag.Message = "Your app description page.";
-    return View();
-}
- 
-[GET("Contact")]
-public ActionResult Contact()
-{
-    ViewBag.Message = "Your contact page.";
-    return View();
-}
-</pre>
-
-<p>There are no changes in the method, only the routing attribute has been added. The URLs for <code>About</code> and <code>Contact</code> are now free from the controller name <code>Home</code>. Now we look at a second condition where I want to have a totally different URL for <code>About</code> view or to be specific I would say I want to have outbound URLs and this will require <code>RouteName</code> property with the routing attribute. This is called <code>Named Routes</code>. I am going to change the URL to <code>/App/AboutMe</code>.</p>
-
-<pre class="brush: csharp">
-[GET("App/AboutMe", RouteName = "About")]
-public ActionResult About()
-{
-    ViewBag.Message = "Your app description page.";
-    return View();
-}
-</pre>
-
-<p>Working with parameters without routing can lead to very ugly URLs or some un-wanted params in the URLs. Again to have a clean URL we can handle the parameters passed to the controller action. I have added a new view named <code>Welcome</code> (no scaffolding) in the <code>Home</code> controller and added a <code>ViewBag</code> property <code>GreetMessage</code>. When this view is called, it will display a greeting message in a heading. The <code>GreetMessage</code> will hold the name of the person, which is our parameter. Below is our controller action:</p>
-
-<pre class="brush: csharp">
-[GET("App/Greet/{name}")]
-public ActionResult Welcome(string Name)
-{
-    ViewBag.GreetMessage = "Welcome " + Name;
-    return View();
-}
-</pre>
-
-<p>The URL that is rendered on the browser is:</p>
-
-<pre class="brush: plain">
-http://domain.com/App/Greet/Prashant
-</pre>
-
-<p><code>/App/Greet/</code> is the URL we want to show and <code>Prashant</code> is the parameter is being passed to the <code>Welcome</code> view.</p>
-
-<p>This is it for this tutorial but this is not it. The AttributeRouting package has to offer a lot of things and has a very powerful and easy way of routing. There are very advance topics that are <a href="https://github.com/mccalltd/AttributeRouting/wiki/_pages">documented</a> at GitHub.</p>
-
-<p>Related Links:</p>
-
-<ul>
-<li><a href="http://blog.stackoverflow.com/2012/02/stack-exchange-open-source-projects/">Stack Exchange - Open Source Projects</a></li>
-<li><a href="http://data.stackexchange.com/">Stack Exchange - Data Explorer</a></li>
-</ul>
 
   </div>
   

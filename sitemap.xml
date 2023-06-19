@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://prashantkhandelwal.github.io/post/setting-up-virtuanes-emulator-for-retro-gaming-on-windows/</loc>
+    <lastmod>2023-06-19T09:12:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://prashantkhandelwal.github.io/post/geo-distributed-load-testing-via-k6-and-azure-container-instance/</loc>
     <lastmod>2023-06-02T23:34:00+00:00</lastmod>
   </url>
@@ -967,6 +972,12 @@
   </url>
   
   <url>
+    <loc>https://prashantkhandelwal.github.io/category/emulator/</loc>
+    <lastmod>2023-06-19T09:12:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://prashantkhandelwal.github.io/category/freelancing/</loc>
     <lastmod>2013-04-26T20:17:00+00:00</lastmod>
     <priority>0</priority>
@@ -975,6 +986,12 @@
   <url>
     <loc>https://prashantkhandelwal.github.io/category/fundoo/</loc>
     <lastmod>2012-04-23T13:55:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://prashantkhandelwal.github.io/category/gaming/</loc>
+    <lastmod>2023-06-19T09:12:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1046,7 +1063,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/</loc>
-    <lastmod>2023-06-02T23:34:00+00:00</lastmod>
+    <lastmod>2023-06-19T09:12:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1076,7 +1093,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/post/</loc>
-    <lastmod>2023-06-02T23:34:00+00:00</lastmod>
+    <lastmod>2023-06-19T09:12:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1175,7 +1192,7 @@
   
   <url>
     <loc>https://prashantkhandelwal.github.io/category/windows/</loc>
-    <lastmod>2017-04-02T07:39:00+00:00</lastmod>
+    <lastmod>2023-06-19T09:12:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

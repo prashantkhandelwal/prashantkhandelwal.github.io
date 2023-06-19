@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-12-24T14:30:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-12-24T18:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,55 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/removing-duplicates-from-a-list-in-c/">Removing Duplicates from a List in C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 24, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>For more details and detailed explaination of the code visit this <a href="http://www.kirupa.com/net/removingDuplicates2.htm">link</a>.</p>
+
+<pre class="brush:csharp">
+static List removeDuplicates(List inputList)
+{
+      Dictionary uniqueStore = new Dictionary();
+      List finalList = new List();
+      foreach (string currValue in inputList)
+      {
+          if (!uniqueStore.ContainsKey(currValue))
+          {
+              uniqueStore.Add(currValue, 0);
+              finalList.Add(currValue);
+          }
+      }
+      return finalList;
+}
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -369,59 +418,6 @@ GO
 
 <pre class="brush:sql">
 EXEC USP_SaveFile 'Microsoft SQL Server 2008', 'C:\MSSQL.txt'
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/t-sql-export-table-to-excel/">T-SQL: Export Table to Excel</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 2, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>What you do to export data from SQL to excel. You use data import/export wizard or just simply execute the select query and copy the whole lot of data in an excel file with headers. Copy and paste the data in the excel sheet is the quickest possible solution I can see&hellip;but what if you have to data through your code? Still there are many possible ways to accomplish this but how many lines of code you have to write to achieve this? maybe most of the people definately have a simple and reliable way. Ok&hellip;lets do this using T-SQL query. The only problem I see here is that you must have a excel file in the location defined in the query before you execute the query.</p>
-
-<p>In one of our application we maintain log in a sql table for all the tasks done in the whole day. The administrator of the application want to take a look at all the tasks done by a particular user, he didn&rsquo;t want any UI to look into this instead he asks us to generate a report at the end of the day in excel on a button click. So lets see the code.</p>
-
-<p>Execute the below query to set the configuration of SQL Server to 1. In my case there was no change as I already executed this query in the past. But, most probably you will see a change in the your case the value could be changed from 0 to 1.</p>
-
-<pre class="brush:sql">
-EXEC sp_configure 'show advanced options', 1;
-GO RECONFIGURE;
-GO EXEC sp_configure 'Ad Hoc Distributed Queries', 1;
-GO RECONFIGURE;
-GO
-</pre>
-
-<p>After you set the configuration option execute a normal select query to get all the column names and paste them in the excel sheet. Then save the excel sheet in your local hard drive.</p>
-
-<pre class="brush:sql">
-Select TOP 0 * From Person.Address
- 
---For Office 2003 (.XLS) format
-INSERT INTO OPENROWSET ('Microsoft.Jet.OLEDB.4.0', 'Excel 8.0;Database=c:\contact.xls;','SELECT * FROM [Sheet1$]')SELECT * FROM authors
- 
---For Office 2007 (.XLSX) format
-INSERT INTO OPENROWSET ('Microsoft.ACE.OLEDB.12.0', 'Excel 8.0;Database=c:\contact.xlsx;','SELECT * FROM [Sheet1$]')SELECT * FROM authors
 </pre>
 
   </div>

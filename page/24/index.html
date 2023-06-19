@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-05-29T22:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-06-05T14:47:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,51 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/url-rewriting-in-blog-enginenet/">URL rewriting in Blog Engine.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 5, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
+      
+      
+      
+      
+    </span>
+    <p>was just looking for a way to get short URL’s for my blog, I used some extensions, some URLrewriter.NET but still not able to get this work. So I drop an e-mail to Scott Hanselman and was waiting for his response. If you look at Scott’s blog you will see that he has very simple URL for his blog posts which eventually get his posts higher ranks on search engine indexing. What I have found so far is that if you have a simple URL the search engine will crawl that page during indexing and your page is on the top of the search results or if it is not on the top then it must be at least on the first page. Remember search engine crawlers will avoid crawling pages that do not have a simple URL, like if your page has a query string it won’t be get crawled by the search engine crawler.</p>
+
+<p>The URLRewriter module in BlogEngine didn’t seems to be working for Posts. I want to have simple SEO friendly URLs like <a href="http://www.midnightprogrammer.net/post/Windows-7-Logon-Screen-Changer.aspx">http://www.midnightprogrammer.net/post/Windows-7-Logon-Screen-Changer.aspx</a> and not <a href="http://www.midnightprogrammer.net/post/2010/05/30/Windows-7-Logon-Screen-Changer.aspx">http://www.midnightprogrammer.net/post/2010/05/30/Windows-7-Logon-Screen-Changer.aspx</a> But there is no way to do this until I hook into BlogEngine.Core.dll.</p>
+
+<p>Open the whole solution in Visual Studio and open Post.cs file and navigate to the RelativeLink property in Post.cs file and change with the below code:</p>
+
+<pre class="brush:csharp">
+public string RelativeLink
+{
+    get
+    {
+        string slug = Utils.RemoveIllegalCharacters(Slug) + BlogSettings.Instance.FileExtension;
+        if (BlogSettings.Instance.TimeStampPostLinks)
+            return Utils.RelativeWebRoot + "post/" + slug;
+        return Utils.RelativeWebRoot + "post/" + slug;
+    }
+}
+</pre>
+
+<p>Recompile your DLL and place in bin directory in your blogengine root folder. Now you will have short URLs which do not have any date stamp. Having short URLs for all your posts doesn’t affect the posts with old URLs that most of the people have bookmarked on their blogs or on social bookmarking sites. Hope this helps.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -327,223 +372,6 @@ Console.WriteLine(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
 </pre>
 
 <p>This will print the processor architecture on the console window i.e. x86 and x64 for 32-bit and 64-bit respectively.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/using-sql-clr-stored-procedure-track-ip-address/">Using SQL CLR Stored Procedure To Track IP Address</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 24, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL&#34;</a>
-      
-      
-      
-      
-    </span>
-    <p>Recently I was asked by one of my friend how to call a web service directly from a stored procedure. He needs to track IP addresses using a stored procedures so, I suggested him two ways to call a web service using the SQL Procedure.</p>
-
-<ul>
-<li>Using SP_OACREATE with MSXML</li>
-<li>Create an assembly using SQL CLR using C#.</li>
-</ul>
-
-<p>I personally tried using the first way to call a web service but was not successful. Then I learnt about SQL CLR programming with Visual Studio and C# and get it done in a first go. As a good friend I create the whole project for my friend. And if your thinking that this is going to be a difficult, this is not so.</p>
-
-<p>To start creating a project, open Visual Studio and create a new project.</p>
-
-<p><img src="/images/sqlclr-newproject.png" alt="SQL CLR new Visual Studio project" /></p>
-
-<p>Before the project gets loaded completely, you will be asked to add database reference. Here select the database you want to build the assembly for. If you don’t want to add a database reference then just simply cancel. But if you choose the reference to add at this point then this would really be of help as this will allow you to deploy your assembly directly to the SQL Server database but if you have not then you need to write some SQL scripts.</p>
-
-<p><img src="/images/sqlclr-add-db-ref.png" alt="Add a database reference to the project" /></p>
-
-<blockquote>
-<p><strong>NOTE:</strong> If you have added a database reference then it doesn’t mean that your assembly is build specifically for that database you can still deploy your assembly in other database also.</p>
-</blockquote>
-
-<p>As I am creating a stored procedure, I then have to add a <code>New Item</code> to my project. Right-click project choose <code>Add&gt;Stored Procedure</code>. Here give a name of your choice to stored procedure. In my case it is <code>IPInfo</code>.</p>
-
-<p><img src="/images/sqlclr-add-new-item.png" alt="Add a new stored procedure" /></p>
-
-<p>Change the static method here to accept a parameter. Our parameter will be an IP address, which I have set as of string type.</p>
-
-<pre class="brush:csharp">
-public static void GetIPInfo(string IP)
-{  
-//Do something here
-}
-</pre>
-
-<p>Now the question here is from where we can the information of the IP Addresses? I do some search and found a website <a href="http://www.geobytes.com">http://www.geobytes.com</a>. It offers some rich information of the IP Address you want to track, so out of five sources I choose to go with geobytes.</p>
-
-<p>Lets take a quick look at the code. This is not a web service as you can see from the code below, I am just making a http request and then get the response in an XML form so I can easily traverse the nodes and read/save the information I received.</p>
-
-<pre class="brush:csharp">
-string XMLResponse;
-IPAddress = IP;
-byte[] XMLResults;
-string str = "http://www.geobytes.com/IpLocator.htm?GetLocation&template=xml.txt"
-+ "&IpAddress=" + IP;
-XMLResults = new WebClient().DownloadData(str.ToString());
-XMLResponse = Encoding.UTF8.GetString(XMLResults);
-</pre>
-
-<p>Note the fourth line where I have built the URL. The parameter Template should always have a value to xml.txt. If you change the name, it won’t throw any error but the data received cannot be read and saved in a database table. Convert the response to string format and then read the nodes one by one using the below code.</p>
-
-<pre class="brush:csharp">
-try
-        {
-            XmlDocument document = new XmlDocument();
-            document.LoadXml(XMLResponse);
-            XmlNode documentElement = document.DocumentElement;
-            if (documentElement.HasChildNodes)
-            {
-                for (int i = 0; i < documentElement.ChildNodes.Count; i++)
-                {
-                    if (documentElement.ChildNodes[i].NodeType == XmlNodeType.Element)
-                    {
-                        switch (documentElement.ChildNodes[i].Name)
-                        {
-                            case "locationcode":
-                                LocationCode = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "fips":
-                                FIPS104 = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "iso2":
-                                ISO2 = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "iso3":
-                                ISO3 = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "ison":
-                                ISON = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "internet":
-                                Internet = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "countryid":
-                                CountryID = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "country":
-                                Country = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "regionid":
-                                RegionID = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "region":
-                                Region = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "code":
-                                RegionCode = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "adm":
-                                Admn1Code = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "cityid":
-                                CityID = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "city":
-                                City = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "latitude":
-                                Latitude = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "longitude":
-                                Longitude = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "timezone":
-                                TimeZone = documentElement.ChildNodes[i].InnerText;
-                                break;
- 
-                            case "certainty":
-                                Certainty = documentElement.ChildNodes[i].InnerText;
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-        catch (Exception) { }
-</pre>
-
-<p>Build you project and you will see a DLL file in your debug/release folder. But this will not work. You will still have to set some permission level to assembly and to SQL Server database.</p>
-
-<p><strong>Set Assembly Permissions</strong></p>
-
-<p>Before you build the final version of the assembly go the project properties and set the permissions as shown below.</p>
-
-<p>Under <code>Build</code> select option for <code>Generate Serialization Assembly</code> to <code>On</code>.</p>
-
-<p><img src="/images/sqlclr-assembly-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
-
-<p>Under <code>Database</code> select <code>Permission Level</code> to <code>Unsafe</code></p>
-
-<p><img src="/images/sqlclr-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
-
-<p><strong>SQL Server Permissions</strong></p>
-
-<p>If you find problems while deploying your assembly, then make sure you have CLR enabled and set the <code>Trustworthy</code> property for the database to ON.</p>
-
-<p>You can find all the scripts in the attached solution below.</p>
-
-<p><strong>Deploying your assembly</strong></p>
-
-<p>To deploy your assembly use the below SQL command:</p>
-
-<pre class="brush:sql">
-CREATE ASSEMBLY IPTracker from 'C:\IPInfo.dll' WITH PERMISSION_SET = EXTERNAL_ACCESS
-GO
-</pre>
-
-<p>To create a stored procedure whcih in trun calls the SQL method from the deployed assembly:</p>
-
-<pre class="brush:sql">
-CREATE PROC TrackIP(@IP as nvarchar(50))AS
--- [Assembly Name].[Class Name].[CLR function Name]
-EXTERNAL NAME IPTracker.StoredProcedures.GetIPInfo 
-GO
-</pre>
-
-<p>And execute the procedure to get the IP information.</p>
-
-<p><img src="/images/sqlclr-execution-output.png" alt="SQL CLR procedure output" /></p>
-
-<p><strong>Download: <a href="/files/IPInfo.zip">IPInfo.zip (19.46 kb)</a></strong></p>
 
   </div>
   

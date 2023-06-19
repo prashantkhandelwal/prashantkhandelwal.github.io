@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-07-20T11:10:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-08-10T18:03:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,59 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/attach-virtual-hard-disk-automatically-at-windows-startup/">Attach Virtual Hard Disk Automatically At Windows Startup</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 10, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>Windows 7 gives you the power to create Virtual Hard Disk (VHD). If you don&rsquo;t know how to create a VHD in Windows 7 then you seriously need to learn how to unleash Windows 7 power. You can see the links in the end which will let you create a new VHD on your Windows 7 machine and there are some other recommended links.</p>
+
+<p>I assume that you know or you have created a new VHD and attached or mount on your Windows 7 machine. But this is one time fun&hellip;..Once you reboot or logoff the attached VHD is gone. Now you need to follow all those steps again to attach the VHD, not this time but every time you logoff or restart. To get relief from this pain perform the following steps.</p>
+
+<p>Open notepad and add the below command to the file:</p>
+
+<pre class="brush:shell">
+Select vdisk file=”D:\SourceSafe.vhd”
+Attach vdisk
+</pre>
+
+<p>Now save the file with the name of your choice with <strong>“.s”</strong> as its extension. Open notepad again and add the following line of code to get your VHD attached at system startup and save this file with file extension as <strong>&rdquo;.bat&rdquo;</strong></p>
+
+<pre class="brush:shell">
+DISKPART –s  "Path of the <.s file> created in the above step"
+</pre>
+
+<p>The path name should be the fully qualified name of the <strong>“.s”</strong> file. Just in case you face any problem I have attached the files I am using to mount my SourceSafe VHD at system startup. Place the <strong>&rdquo;.bat&rdquo;</strong> in the startup folder and thats it. Next time you logoff or restart you VHD gets attached automatically.</p>
+
+<p><strong>Download: <a href="/files/AttachVHD.zip">AttachVHD.zip (313.00 bytes)</a></strong></p>
+
+<p><strong>Related Links:</strong></p>
+
+<ul>
+<li><a href="http://www.sevenforums.com/tutorials/566-virtual-hard-disk-create-attach-vhd.html">Creating a new Virtual Hard Disk</a></li>
+<li><a href="http://www.hanselman.com/blog/LessVirtualMoreMachineWindows7AndTheMagicOfBootToVHD.aspx">Scott Hanselman - Less Virtual, More Machine - Windows 7 and the magic of Boot to VHD</a></li>
+<li><a href="http://code.msdn.microsoft.com/vhdtool">MSDN Code Gallery - VHD Tool</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -489,51 +542,6 @@ RegisterRoutes(RouteTable.Routes);
 <p><img src="/images/outofbrowser-installapp.png" alt="Installing out of briwser application" /></p>
 
 <p>Now your Silverlight application is on your system and can be executed at user’s desktop.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/url-rewriting-in-blog-enginenet/">URL rewriting in Blog Engine.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 5, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
-      
-      
-      
-      
-    </span>
-    <p>was just looking for a way to get short URL’s for my blog, I used some extensions, some URLrewriter.NET but still not able to get this work. So I drop an e-mail to Scott Hanselman and was waiting for his response. If you look at Scott’s blog you will see that he has very simple URL for his blog posts which eventually get his posts higher ranks on search engine indexing. What I have found so far is that if you have a simple URL the search engine will crawl that page during indexing and your page is on the top of the search results or if it is not on the top then it must be at least on the first page. Remember search engine crawlers will avoid crawling pages that do not have a simple URL, like if your page has a query string it won’t be get crawled by the search engine crawler.</p>
-
-<p>The URLRewriter module in BlogEngine didn’t seems to be working for Posts. I want to have simple SEO friendly URLs like <a href="http://www.midnightprogrammer.net/post/Windows-7-Logon-Screen-Changer.aspx">http://www.midnightprogrammer.net/post/Windows-7-Logon-Screen-Changer.aspx</a> and not <a href="http://www.midnightprogrammer.net/post/2010/05/30/Windows-7-Logon-Screen-Changer.aspx">http://www.midnightprogrammer.net/post/2010/05/30/Windows-7-Logon-Screen-Changer.aspx</a> But there is no way to do this until I hook into BlogEngine.Core.dll.</p>
-
-<p>Open the whole solution in Visual Studio and open Post.cs file and navigate to the RelativeLink property in Post.cs file and change with the below code:</p>
-
-<pre class="brush:csharp">
-public string RelativeLink
-{
-    get
-    {
-        string slug = Utils.RemoveIllegalCharacters(Slug) + BlogSettings.Instance.FileExtension;
-        if (BlogSettings.Instance.TimeStampPostLinks)
-            return Utils.RelativeWebRoot + "post/" + slug;
-        return Utils.RelativeWebRoot + "post/" + slug;
-    }
-}
-</pre>
-
-<p>Recompile your DLL and place in bin directory in your blogengine root folder. Now you will have short URLs which do not have any date stamp. Having short URLs for all your posts doesn’t affect the posts with old URLs that most of the people have bookmarked on their blogs or on social bookmarking sites. Hope this helps.</p>
 
   </div>
   

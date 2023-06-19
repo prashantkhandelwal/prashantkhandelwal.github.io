@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2013-04-30T22:17:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2013-05-13T14:33:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,375 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/building-mvc-application-with-multiple-database-support-using-ninject/">Building MVC Application With Multiple Database Support Using Ninject</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 13, 2013
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I used to have <a href="http://blogengine.codeplex.com/">BlogEngine.NET</a> as my blogging platform before switching to <a href="http://wordpress.org/">WordPress</a>, and that is because of my poor hosting provider who can’t afford few MBs on the shared hosting plans. I like BlogEngine.NET a lot because it is in .NET and on the other hand WordPress is on PHP which I don’t know. BlogEngine.NET is still evolving and is getting better with every release. BlogEngine.NET supports multiple databases like SQL Server, SQL Server CE, MySQL, XML file, VistaDB and may be few more. As it is open-source, I jumped into the code and found it to be a bit hard to get through its implementation. To be frank, I didn’t look into that deep!! but it is not implementing what I was expecting it was. What I was expecting was the use of dependency injection (DI).</p>
+
+<p>I am constantly working on new projects open-source and freelanced and few of them are for fun. The application I am working on right now requires a multiple DB support. The main problem I am going to face is not writing different functions for different DB operations, but having them integrated at the time when the user selects the database. BlogEngine.NET implements it pretty impressively, but I was expecting something else. For my project I will be using <a href="http://www.ninject.org/">Ninject</a>. If you want to do for your application, then this is how you can do it.</p>
+
+<p>Create a new MVC internet application. First thing that we need to do is to add Ninject reference to the project by firing the below Nuget command. Remember that for MVC application you need to use Ninject.MVC3 and for other applications you need to use Ninject only: <code>Install-Package Ninject</code></p>
+
+<pre class="brush: plain">
+Install-Package Ninject.MVC3
+</pre>
+
+<p>When the library is installed successfully, you will notice a file under <code>App_Start</code> folder named <code>NinjectWebCommon.cs</code>. This is a very important file and we will look into it this later when we are done with other things.</p>
+
+<p><img src="/images/ninject-installation.png" alt="ninject installtion in web app" /></p>
+
+<p>What I am trying to achieve here is that my application would be able to support multiple databases and I also want to keep my code clean. I don’t want to handle it using some if..else conditions. Ninject does the work for me pretty well here. I will create an interface that will have all the functions which my wrapper classes will implement. For the sake of simplicity for this example I am going to perform basis CRUD operations, I will be writing code to implement two database support and will be using a custom written ORM called <a href="https://code.google.com/p/dapper-dot-net/">Dapper</a> to communicate to the DB (you can use EF if you wish). I will name my interface <code>IDBProvider</code>.</p>
+
+<pre class="brush: csharp">
+public interface IDBProvider
+{
+    bool Add(Friends friend);
+    bool Update(int Id, Friends friend);
+    bool Delete(int Id);
+    IEnumerable ListFriends();
+    Friends ListFriend(int Id);
+}
+</pre>
+
+<p>As you can see from the above code that I am using <code>Friends</code> model to save details of my friend. So here is my model.</p>
+
+<pre class="brush: csharp">
+public class Friends
+{
+    [Key]
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string Skype { get; set; }
+}
+</pre>
+
+<p>After this I am going to have support for two databases, SQL Server and SQL Server CE (4.0). For this I will create 2 classes which will implement the <code>IDBProvider</code> interface naming <code>SQLHelper.cs</code> and <code>SQLCEHelper.cs</code> respectively.</p>
+
+<h4 id="sqlhelper-cs">SQLHelper.cs</h4>
+
+<pre class="brush: csharp">
+public class SQLHelper : IDBProvider
+{
+    string ConStr = ConfigurationManager.ConnectionStrings["Con"].ConnectionString;
+  
+    public bool Add(Friends friend)
+    {
+        bool Added = false;
+  
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string insertSQL = "INSERT INTO Friends(Name, Email, Skype) VALUES (@Name, @Email, @Skype)";
+                con.Open();
+                con.Execute(insertSQL, new
+                {
+                    friend.Name,
+                    friend.Email,
+                    friend.Skype
+                });
+  
+                Added = true;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Added;
+    }
+  
+    public IEnumerable ListFriends()
+    {
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string strQuery = "Select Id, Name, Email, Skype FROM Friends";
+                con.Open();
+                var AllFriends = con.Query(strQuery);
+  
+                return AllFriends;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+  
+    public Friends ListFriend(int Id)
+    {
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string strQuery = "SELECT Id, Name, Email, Skype FROM Friends WHERE Id=" + Id;
+                con.Open();
+                var friend = con.Query(strQuery).Single();
+                return friend;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+  
+    public bool Update(int Id, Friends friend)
+    {
+        bool Update = false;
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string strUpdate = "UPDATE Friends SET Name = @Name, Email = @Email, Skype = @Skype WHERE Id = " + Id;
+                con.Open();
+                con.Execute(strUpdate, new
+                {
+                    friend.Name,
+                    friend.Email,
+                    friend.Skype
+                });
+  
+                Update = true;
+            }
+  
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Update;
+    }
+  
+    public bool Delete(int Id)
+    {
+        bool Deleted = false;
+        try
+        {
+            using (SqlConnection con = new SqlConnection(ConStr))
+            {
+                string strDelete = "DELETE FROM Friends WHERE Id = " + Id;
+                con.Open();
+                int i = con.Execute(strDelete);
+                if (i > 0)
+                    Deleted = true;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Deleted;
+    }
+}
+</pre>
+
+<h4 id="sqlcehelper-cs">SQLCEHelper.cs</h4>
+
+<pre class="brush:csharp">
+public class SQLCEHelper : IDBProvider
+{
+    string ConStr = ConfigurationManager.ConnectionStrings["Con"].ConnectionString;
+  
+    public bool Add(Friends friend)
+    {
+        bool Added = false;
+  
+        try
+        {
+            using (SqlCeConnection con = new SqlCeConnection(ConStr))
+            {
+                string insertSQL = "INSERT INTO Friends(Name, Email, Skype) VALUES (@Name, @Email, @Skype)";
+                con.Open();
+                con.Execute(insertSQL, new
+                {
+                    friend.Name,
+                    friend.Email,
+                    friend.Skype
+                });
+  
+                Added = true;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Added;
+  
+    }
+  
+    public bool Update(int Id, Friends friend)
+    {
+        bool Update = false;
+        try
+        {
+            using (SqlCeConnection con = new SqlCeConnection(ConStr))
+            {
+                string strUpdate = "UPDATE Friends SET Name = @Name, Email = @Email, Skype = @Skype WHERE Id = "+Id;
+                con.Open();
+                con.Execute(strUpdate, new
+                {
+                    friend.Name,
+                    friend.Email,
+                    friend.Skype
+                });
+  
+                Update = true;
+            }
+  
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+  
+        return Update;
+    }
+  
+    public bool Delete(int Id)
+    {
+         bool Deleted = false;
+         try
+         {
+             using (SqlCeConnection con = new SqlCeConnection(ConStr))
+             {
+                 string strDelete = "DELETE FROM Friends WHERE Id = " + Id;
+                 con.Open();
+                 int i = con.Execute(strDelete);
+                 if (i > 0)
+                     Deleted = true;
+             }
+         }
+         catch (Exception x)
+         {
+             throw x;
+         }
+  
+         return Deleted;
+    }
+  
+    public IEnumerable ListFriends()
+    {
+        try
+        {
+            using (SqlCeConnection con = new SqlCeConnection(ConStr))
+            {
+                string strQuery = "Select Id, Name, Email, Skype FROM Friends";
+                con.Open();
+                var AllFriends = con.Query(strQuery);
+  
+                return AllFriends;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+  
+    public Friends ListFriend(int Id)
+    {
+        try
+        {
+            using (SqlCeConnection con = new SqlCeConnection(ConStr))
+            {
+                string strQuery = "SELECT Id, Name, Email, Skype FROM Friends WHERE Id=" + Id;
+                con.Open();
+                var friend = con.Query(strQuery).Single();
+                return friend;
+            }
+        }
+        catch (Exception x)
+        {
+            throw x;
+        }
+    }
+}
+</pre>
+
+<p>The question now here is that how would the application will know which DB to use as a data store? For this I made few settings in my web.config file. In the <code>appSettings</code> section I added a setting that will hold the value which we use as an identifier and connect to the DB. You can have different approach to achieve this, it is not at all necessary to use what I have used here. My app setting in web.config looks something like this:</p>
+
+<pre class="brush: xml">
+<add key="DBProvider" value="SQL"/>
+</pre>
+
+<p>When reading this settings I will be dynamically calling or injecting the code on the basis of the value of DBProvider in my app settings. In this case I will bind SQLHelper when the value is SQL and SQLCEHelper when the value is SQLCE. In the start of the tutorial I mentioned about the <code>NinjectWebCommon.cs</code> file in the <code>App_Start</code> folder. Here we will be looking into <code>CreateKernel</code> method as this is the place where I implement my helper classes.</p>
+
+<pre class="brush: csharp; highlight: [7, 8, 9, 10, 11, 12, 13, 14]">
+private static IKernel CreateKernel()
+{
+    var kernel = new StandardKernel();
+    kernel.Bind&lt;Func&lt;IKernel&gt;&gt;().ToMethod(ctx =&gt; () =&gt; new Bootstrapper().Kernel);
+    kernel.Bind&lt;IHttpModule&gt;().To&lt;HttpApplicationInitializationHttpModule&gt;();
+  
+    if (ConfigurationManager.AppSettings["DBProvider"].ToString().ToLower() == "sql")
+    {
+        kernel.Bind&lt;IDBProvider&gt;().To&lt;SQLHelper&gt;();
+    }
+    else
+    {
+        kernel.Bind&lt;IDBProvider&gt;().To&lt;SQLCEHelper&gt;();
+    }
+  
+    RegisterServices(kernel);
+    return kernel;
+}
+</pre>
+
+<p>Notice the highlighted code. I am conditionally binding the implementation on the basis of the settings in my web.config file. What exactly is happening here is that the code is being injected depending on the conditions and this is why we call it dependency injection.</p>
+
+<p>To get the benefit of this, we need to make few changes to our controller.</p>
+
+<pre class="brush: csharp">
+private readonly IDBProvider _dbProvider;
+  
+public HomeController(IDBProvider dbProvider)
+{
+    this._dbProvider = dbProvider;
+}
+</pre>
+
+<p>I have a default constructor which takes the IDBProvider as a parameter. The IDBProvider object is all we need which provides us all its implementation. To add a friend to DB you just have to call the Add method like <code>_dbProvider.Add(friend)</code>. Same for edit, update, delete and list all the friends. You noticed that no where in the code I have made use of the SQLHelper.cs or SQLCEHelper.cs classes. This is the awesomeness of DI.</p>
+
+<p>This is all it and now your application is flexible enough to use multiple databases. I strongly recommend you to read the documentation on Ninject at <a href="http://ninject.org/">Ninject.org</a> as it is vast and can be a life saver in many scenarios.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -545,34 +914,6 @@ bool uploaded = drive.UploadFile("folder.77e33dba68367a16.77E33DUA68567A16!104",
 <p><a href="http://visualstudiogallery.msdn.microsoft.com/6a23234d-45f6-4212-bac3-f6d9bb08fb1e">Pretty Paste - Visual Studio Gallery</a></p>
 
 <p><a href="https://github.com/madskristensen/PasteR">Source Code - Github</a></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/adobe-photoshop-v101-source-code-now-available-for-download/">Adobe Photoshop v1.0.1 Source Code Now Available For Download</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 19, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
-      
-      
-      
-      
-    </span>
-    <p>Download the source code for the very 1st version and one of its kind, the legendary photo editing software Adobe Photoshop. I remember, I read somewhere that they distributed the code on floppy disks. But here it is, after more than a decade the source code is now available to public.</p>
-
-<p>The source code is just 588KB!! and is hosted at <a href="http://www.computerhistory.org/">computerhistory.org</a>. You can <a href="http://www.computerhistory.org/adobe-ps-source/">download the complete source code here</a>.</p>
 
   </div>
   

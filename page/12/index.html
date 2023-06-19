@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-06-29T20:53:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-07-28T12:35:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,75 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/integrate-windows-live-signin-support-in-aspnet/">Integrate Windows Live SignIn Support In ASP.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 28, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>Last year I wrote a post on how you can <a href="http://midnightprogrammer.net/post/Add-Google-Login-Support-In-ASPNET-With-OAuth.aspx">integrate OpenID support in your ASP.NET application</a>. Few days back as usual I was chasing Windows Live SDK updates on Twitter and yes the most awaited SkyDrive API was made available to all the developers. I will be writing a post later on how to upload files using SkyDrive API.</p>
+
+<h4 id="setting-up-the-application">Setting up the application</h4>
+
+<p>To integrate Windows Live Sign-In support I have downloaded the <a href="https://github.com/liveservices/LiveSDK">LiveService samples</a> from <a href="https://github.com/">Github</a> and take a look at ASP.NET sample. All the hard work has been done for you from before. First you need to create an application at <a href="https://manage.dev.live.com/">https://manage.dev.live.com</a>. Once you create an application, you will get the <code>Client ID</code> and <code>Client secret</code> for the application which we will be using in our application.</p>
+
+<p><img src="/images/live-api-settings.png" alt="Windows Live API Settings Page" /></p>
+
+<p>Now you have the Client ID and Client secret, you then need to update the same in the Callback.aspx code-behind. The redirect domain will be the name of the domain. In my case I have hosted the complete solution which you can try <a href="http://midnightprogrammer.net/live/oauthsample/default.html">here</a>. The pretty looking Sign In button rendered on the page is from the JavaScript code.</p>
+
+<p><img src="/images/live-llivetest.png" alt="Windows Live Test Page" /></p>
+
+<p>When you click on the button it will open a window which will ask your Live or Hotmail credentials.</p>
+
+<p><img src="/images/live-login-page.png" alt="Windows Live Login Page" /></p>
+
+<p>After you successfully authenticated from Live service, it will return you the authentication code. For your ease I have made the authentication code (along with the URL that retrieves the user&rsquo;s image) available to you through a JavaScript alert.</p>
+
+<p><img src="/images/live-token-alert.png" alt="Windows Live Token Alert Dialog" /></p>
+
+<p>Don&rsquo;t waste your time in looking into the alert message. Just press CTRL+C to copy the whole message and paste it into notepad. Now it&rsquo;s time to look into it carefully. If you quickly open a new tab in your browser and paste the copied URL, then you will get the image of the user who is authenticated. To get more information about the user, modify the URL in the notepad to this:</p>
+
+<pre class="brush:plain">
+https://apis.live.net/v5.0/me?access_token=EwBAAq1DBAAUlbRWyAJjK5w968Ru3Cyt/6GvwXwAAf/Zr2CM5/qilrH.......
+</pre>
+
+<p>Note that from the URL above I have removed <code>/picture</code>. Now hit the new URL to the browser again, and this time the output has more information:</p>
+
+<p><img src="/images/live-response-user.png" alt="Windows Live user details" /></p>
+
+<p>The question comes here is: What if I want to get the contacts of the authenticated user or want to get the list of folders in his/her SkyDrive? To understand this, consider that Windows Live is a big application which is built up with small applications like mail, SkyDrive, calendar etc. Now if someone wants to access any part of the application we need to specify which part of the application we need to access. For us (programmers) it is called <code>Scope</code>. The test application I am demonstrating here has the following scopes: <code>wl.signin</code>, <code>wl.basic</code>, <code>wl.offline_access</code>, <code>wl.skydrive</code>. To grant access to your application you should provide the correct scopes in your application. To know more about scopes read <a href="http://msdn.microsoft.com/en-us/library/live/hh243646.aspx">here</a>.</p>
+
+<p>After everything went fine and I was successfully authenticated I get my picture with Windows Live (it&rsquo;s 2 year old) and the Sign in button changed to Sign out:</p>
+
+<p><img src="/images/live-user-pic.png" alt="Windows Live user image" /></p>
+
+<p>You can also display other user information, if you wish. I have compiled all the files under one hood for your ease and you only have to create a new application, get the Client ID and Client secret and update it into the application.</p>
+
+<p><strong>Download</strong>: <a href="/files/Live-SignIn.zip">Live-SignIn.zip (9.71 kb)</a></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -654,53 +723,6 @@ SELECT Title, DateCreated, Slug FROM (
 <p>In the end the most awaited SkyDrive app is out and is going to be a big hit soon. If you have some suggestions for the SkyDrive app or want to report back a bug or you have some suggestions or want some new features then please do so. Let&rsquo;s make this app a hit.</p>
 
 <p><strong>IMPORTANT: If you are not the current user of <a href="http://skydrive.live.com/">SkyDrive</a> then be advised that for the new users the storage capacity available will be 7GB and not 25GB which is offered to old account holders. So make it quick to get the 25GB storage capacity before it gets too late.</strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/top-3-ultimate-timepass-for-developers/">Top 3 Ultimate Timepass For Developers</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 23, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/fundoo">FUNDOO</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p>We have been programming a lot so we need some time to refresh our minds and get ourselves in a state where our mind processors can start working again more beautifully. When I am pushing myself hard I play 3 games that is on my favorite list. Though I do have many games but these are the 3 games that I play.</p>
-
-<p><strong><a href="http://worldsbiggestpacman.com/">The World&rsquo;s Largest Pac-Mac</a></strong></p>
-
-<p>The legendry dot-eating games Pac-Man. I first played this game on 8-bit Atari console and I remember I used to bet with my firends. We played Pac-Man on a single maze, we don&rsquo;t have many options, but here we have lots and lots of mazes to choose from. The statistics is a section.</p>
-
-<p><img src="/images/pac-man.png" alt="The World's Biggest Pac-Man" /></p>
-
-<p><strong><a href="http://chrome.angrybirds.com">Angry Birds</a></strong></p>
-
-<p>One of the most playable and most addicted games at the moment available on the web. Amazing stages and awesome game play. I have spent numerous amount of effort and time on this game. I have played the offline version of this game, if you don&rsquo;t want to install then play it right <a href="http://midnightprogrammer.net/page/chrome.angrybirds.com">here</a>.</p>
-
-<p><img src="/images/angry-birds.png" alt="Angry Birds Game" /></p>
-
-<p><strong><a href="http://www.cuttherope.ie/">Cut The Rope</a></strong></p>
-
-<p>This game is more or like Angry Birds. Why? If you have played Angry Birds then you must have noticed that in Angry Birds it is not just about hitting the pillars. It&rsquo;s about how you kill the pigs by consuming fewer birds. Cut The Rope is the game initially written in Objective-C and later written in JavaScript by the awesome developers at <a href="http://zeptolab.com/">Zepto Labs</a>. I love playing this game as it allows you think before you make the move.</p>
-
-<p><img src="/images/cut-the-rope.png" alt="Cut The Rope Game" /></p>
 
   </div>
   

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-03-05T01:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-03-05T18:35:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,90 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/calling-aspnet-web-service-using-jquery-part-ii/">Calling ASP.NET Web Service Using Jquery - Part II - Passing Parameters</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 5, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>In my previous post I have shown with a simple example on how you call an ASP.NET web service using JQuery. In this post I will show how you on how can you pass parameters to the web method and get the result using the web service. If you have read my previous post, you have seen that we have just called a web method which returns a simple string back to us. In this example, instead of returning a plain simple string back to the client, we will ask the user to enter two numbers and the call the web service which in turn add the two numbers and returns the result back to the client.</p>
+
+<p>First start up with the design of the page. As we are going to add two numbers, we will add a label, textboxes and a button as shown in the below screenshot:</p>
+
+<p><img src="/images/ajax-jquery-ui.png" alt="Web UI" />
+<img src="/images/ajax-jquery-ui-html.png" alt="Web markup" /></p>
+
+<p>Add a web service to your project as I have described in my previous post. Follow the same steps to add a web service to your project. The only change that you have to make is to add a method which accepts two numbers as parameters and return the sum of the two numbers. For your convenience, the method is as follows.</p>
+
+<pre class="brush:csharp">
+[WebMethod]
+public int Add(int num1, int num2)
+{
+    return num1 + num2;
+}
+</pre>
+
+<p>The script which I am using here to call the web service is the same as I have shown in my previous post, but the data parameter in the ajax function needs to be changed. When we are calling a web service which returns a normal string to us we can set the data parameter to blank. But this is not the case when we have to pass parameters to the web service to return the result. The data parameter in the Jquery ajax script goes something like this:</p>
+
+<pre class="brush:plain">
+data: "{'num1': " + $("#txt_num1").val() + ", 'num2': " + ("#txt_num2").val() + "}"
+</pre>
+
+<p>In this parameter the ‘num1’ and ‘num2’ are the name of the parameters in the web service which we have to fulfill if we want the result from the web service. The parameter variable name should always remains the same as defined in the web service method. The parameters and their values are separated by a ‘:’( colon) and a ‘,’ (comma) is used to separate the parameters. The Jquery script $(“txt_num1”).val() will set the value to the parameter and then pass it to the web service method to get the result.</p>
+
+<p>The code for Jquery script to call a web service in this example goes like this:</p>
+
+<pre class="brush:jscript">
+function CallService() {
+         &dollar;("#lblResult").addClass("loading");
+         &dollar;("#lblResult").html('');
+         &dollar;.ajax({
+             type: "POST",
+             url: "Service.asmx/Add",
+             data: "{'num1': " + &dollar;("#txt_num1").val() + ", 'num2': " + &dollar;("#txt_num2").val() + "}",
+             contentType: "application/json; charset=utf-8",
+             dataType: "json",
+             success: OnSuccess,
+             error: OnError
+         });
+ 
+         function OnSuccess(data, status) {
+             &dollar;("#lblResult").removeClass("loading");
+             &dollar;("#lblResult").html(data.d);
+         }
+ 
+         function OnError(request, status, error) {
+             &dollar;("#lblResult").removeClass("loading");
+             &dollar;("#lblResult").html(request.statusText);
+         }
+     }
+</pre>
+
+<p>I have added a bit of CSS to show ajax loading style animation. I am not covering it here but sure I will in the later Jquery posts. In my next post I will cover on how to fetch data from the SQL Server using a web service.</p>
+
+<p><strong>Download: <a href="/files/JqueryAjaxParams.zip">JqueryAjaxParams.zip (94.76 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -497,86 +581,6 @@ public partial class AeroForm : GlassForm
       
     </span>
     <p>Performance of SQL server matters while working with large enterprise applications and where performance really bothers the business workflow. When NOCOUNT is ON, the count of rows by the execution of the query (T-SQL statements) is not returned. You must have noticed that when you perform operations by executing INSERT, UPDATE, DELETE or SELECT statements, the server returns the number of rows. The count of rows is necessary while debugging your queries, when you are done with debugging you can turn NOCOUNT ON. To view the number of rows affected use the command SET NOCOUNT OFF. You can try writing a normal select query with NOCOUNT as OFF, when NOCOUNT is OFF you can see the number of rows affected, but when you set NOCOUNT ON, you will not see any message related to the count of rows which are affected when you execute select statement or T-SQL statement.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/single-instance-of-child-forms-in-mdi-applications/">Single Instance of Child Forms in MDI Applications</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 22, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>In MDI application we can have multiple forms and can work with multiple forms i.e. MDI childs at a time but while developing applications we don&rsquo;t pay attention to the minute details of memory management. Take this as an example, when we develop application say preferably an MDI application, we have multiple child forms inside one parent form. On MDI parent form we would like to have menu strip and tab strip which in turn calls other forms which build the other parts of the application. This also makes our application looks pretty and eye-catching (not much actually). Now on a first go when a user clicks a menu item or a button on a tab strip an application initialize a new instance of a form and shows it to the user inside the MDI parent, if a user again clicks the same button the application creates another new instance for the form and presents it to the user, this will result in the un-necessary usage of the memory. Therefore, if you wish to have your application to prevent generating new instances of the forms then use the below method which will first check if the the form is visible among the list of all the child forms and then compare their types, if the form types matches with the form we are trying to initialize then the form will get activated or we can say it will be bring to front else it will be initialize and set visible to the user in the MDI parent window. The method we are using:</p>
-
-<pre class="brush:csharp">
-private bool CheckForDuplicateForm(Form newForm)
-{
-     bool bValue = false;
-     foreach (Form frm in this.MdiChildren)
-     {
-         if (frm.GetType() == newForm.GetType())
-         {
-             frm.Activate();
-             bValue = true;
-         }
-      }
-      return bValue;
-}
-</pre>
-
-<p><strong>Usage:</strong> First we need to initialize the form using the NEW keyword</p>
-
-<pre class="brush:csharp">
-ReportForm ReportForm = new ReportForm();
-</pre>
-
-<p>We can now check if there is another form present in the MDI parent. Here, we will use the above method to check the presence of the form and set the result in a bool variable as our function return bool value.</p>
-
-<pre class="brush:csharp">
-bool frmPresent = CheckForDuplicateForm(Reportfrm);
-</pre>
-
-<p>Once the above check is done then depending on the value received from the method we can set our form.</p>
-
-<pre class="brush:csharp">
-if (frmPresent)
-    return;
-else if (!frmPresent)
-{
-    Reportfrm.MdiParent = this;
-    Reportfrm.Show();
-}
-</pre>
-
-<p>In the end this is the code you will have at you menu item or tab strip click:</p>
-
-<pre class="brush:csharp">
-ReportForm Reportfrm = new ReportForm();
-bool frmPresent = CheckForDuplicateForm(Reportfrm);
-if (frmPresent)
-return;
-else if (!frmPresent)
-{
-    Reportfrm.MdiParent = this;
-    Reportfrm.Show();
-}
-</pre>
 
   </div>
   

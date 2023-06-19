@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-02-19T22:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-02-22T00:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,86 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/single-instance-of-child-forms-in-mdi-applications/">Single Instance of Child Forms in MDI Applications</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 22, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>In MDI application we can have multiple forms and can work with multiple forms i.e. MDI childs at a time but while developing applications we don&rsquo;t pay attention to the minute details of memory management. Take this as an example, when we develop application say preferably an MDI application, we have multiple child forms inside one parent form. On MDI parent form we would like to have menu strip and tab strip which in turn calls other forms which build the other parts of the application. This also makes our application looks pretty and eye-catching (not much actually). Now on a first go when a user clicks a menu item or a button on a tab strip an application initialize a new instance of a form and shows it to the user inside the MDI parent, if a user again clicks the same button the application creates another new instance for the form and presents it to the user, this will result in the un-necessary usage of the memory. Therefore, if you wish to have your application to prevent generating new instances of the forms then use the below method which will first check if the the form is visible among the list of all the child forms and then compare their types, if the form types matches with the form we are trying to initialize then the form will get activated or we can say it will be bring to front else it will be initialize and set visible to the user in the MDI parent window. The method we are using:</p>
+
+<pre class="brush:csharp">
+private bool CheckForDuplicateForm(Form newForm)
+{
+     bool bValue = false;
+     foreach (Form frm in this.MdiChildren)
+     {
+         if (frm.GetType() == newForm.GetType())
+         {
+             frm.Activate();
+             bValue = true;
+         }
+      }
+      return bValue;
+}
+</pre>
+
+<p><strong>Usage:</strong> First we need to initialize the form using the NEW keyword</p>
+
+<pre class="brush:csharp">
+ReportForm ReportForm = new ReportForm();
+</pre>
+
+<p>We can now check if there is another form present in the MDI parent. Here, we will use the above method to check the presence of the form and set the result in a bool variable as our function return bool value.</p>
+
+<pre class="brush:csharp">
+bool frmPresent = CheckForDuplicateForm(Reportfrm);
+</pre>
+
+<p>Once the above check is done then depending on the value received from the method we can set our form.</p>
+
+<pre class="brush:csharp">
+if (frmPresent)
+    return;
+else if (!frmPresent)
+{
+    Reportfrm.MdiParent = this;
+    Reportfrm.Show();
+}
+</pre>
+
+<p>In the end this is the code you will have at you menu item or tab strip click:</p>
+
+<pre class="brush:csharp">
+ReportForm Reportfrm = new ReportForm();
+bool frmPresent = CheckForDuplicateForm(Reportfrm);
+if (frmPresent)
+return;
+else if (!frmPresent)
+{
+    Reportfrm.MdiParent = this;
+    Reportfrm.Show();
+}
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -368,55 +448,6 @@ namespace ConsoleApplication1
             Console.ReadLine();
         }
     }
-}
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/removing-duplicates-from-a-list-in-c/">Removing Duplicates from a List in C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 24, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>For more details and detailed explaination of the code visit this <a href="http://www.kirupa.com/net/removingDuplicates2.htm">link</a>.</p>
-
-<pre class="brush:csharp">
-static List removeDuplicates(List inputList)
-{
-      Dictionary uniqueStore = new Dictionary();
-      List finalList = new List();
-      foreach (string currValue in inputList)
-      {
-          if (!uniqueStore.ContainsKey(currValue))
-          {
-              uniqueStore.Add(currValue, 0);
-              finalList.Add(currValue);
-          }
-      }
-      return finalList;
 }
 </pre>
 

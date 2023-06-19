@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-01-24T16:57:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-01-25T16:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,108 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/code-snippet-export-datagridview-to-excel-with-columns/">Code Snippet: Export DataGridView To Excel With Columns</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 25, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>This is among one of the best code snippet I have and using since long to export the datagridview to excel. The best part of this code snippet is that it just don&rsquo;t uses the excel interop, so you need not to worry about the Office version or PIAs installed at user&rsquo;s machine. What actualy is needed is just a Reflection namespace - <code>System.Reflection</code> and it will bind the data to the instance of the excel application.</p>
+
+<pre class="brush:csharp">
+private void Export2Excel(DataGridView datagridview, bool captions)
+{
+    if (datagridview.ColumnCount > 0)
+    {
+        string[] strArray = new string[datagridview.ColumnCount];
+        string[] strArray2 = new string[datagridview.ColumnCount];
+        int num = 0;
+        int index = 0;
+        int num3 = 0;
+        for (index = 0; index < datagridview.ColumnCount; index++)
+        {
+            strArray[index] = datagridview.Rows[0].Cells[index].OwningColumn.Name.ToString();
+            if ((num > 0) && ((index % num) == 0))
+            {
+                num = 0;
+            }
+            num3 = index / 0x1a;
+            if (num3 == 0)
+            {
+                num = index + 0x41;
+                strArray2[index] = Convert.ToString((char)num);
+            }
+            else
+            {
+                int num4 = num3 + 0x40;
+                num = (index % 0x1a) + 0x41;
+                strArray2[index] = Convert.ToString((char)num4) + Convert.ToString((char)num);
+            }
+        }
+        try
+        {
+            object obj7;
+            object target = Activator.CreateInstance(Type.GetTypeFromProgID("Excel.Application"));
+            object obj4 = target.GetType().InvokeMember("Workbooks", BindingFlags.GetProperty, null, target, null);
+            object obj3 = obj4.GetType().InvokeMember("Add", BindingFlags.InvokeMethod, null, obj4, null);
+            object obj5 = obj3.GetType().InvokeMember("Worksheets", BindingFlags.GetProperty, null, obj3, null);
+            object[] args = new object[] { 1 };
+            object obj6 = obj5.GetType().InvokeMember("Item", BindingFlags.GetProperty, null, obj5, args);
+            if (captions)
+            {
+                index = 0;
+                while (index < datagridview.ColumnCount)
+                {
+                    args = new object[] { strArray2[index] + "1", Missing.Value };
+                    obj7 = obj6.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, obj6, args);
+                    args = new object[] { strArray[index] };
+                    obj7.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, obj7, args);
+                    index++;
+                }
+            }
+            for (num = 0; num < datagridview.RowCount; num++)
+            {
+                for (index = 0; index < datagridview.ColumnCount; index++)
+                {
+                    args = new object[] { strArray2[index] + Convert.ToString((int)(num + 2)), Missing.Value };
+                    obj7 = obj6.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, obj6, args);
+                    args = new object[] { datagridview.Rows[num].Cells[strArray[index]].Value.ToString() };
+                    obj7.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, obj7, args);
+                }
+            }
+            args = new object[] { true };
+            target.GetType().InvokeMember("Visible", BindingFlags.SetProperty, null, target, args);
+            target.GetType().InvokeMember("UserControl", BindingFlags.SetProperty, null, target, args);
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show(("Error: " + exception.Message) + " Line: " + exception.Source, "Error");
+        }
+      }
+    }
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -568,64 +670,6 @@ public partial class AutocompleteLINQ : System.Web.UI.Page
 <p>Just for your ease to use this project as it is, I have included the SQL scripts for the country table. Hope this helps you in building another great or a part of your application.</p>
 
 <p><strong>Download: <a href="/files/JqueryAutoComplete.zip">JqueryAutoComplete.zip (210.73 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/disable-x-close-button-on-your-windows-form-application/">Disable &#39;X&#39; Close Button On Your Windows Form Application</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 12, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>Recently, someone on MSDN forums asked this question on how to disable the &ldquo;X&rdquo; a.k.a. close button in his windows form application so the user is forced to close the application from the cancel button on the form and not from the close button. He wanted this for his application which requires registration first before a user can start using his application.</p>
-
-<p>I don&rsquo;t know the answer so I bing arond a bit and find a solution posted by someone though I don&rsquo;t have the name but it worked like a charm&hellip;.!!</p>
-
-<p>We need some interoperability to do this, therefore get the namespace System.Runtime.InteropServices
-Code:</p>
-
-<pre class="brush:csharp">
-private const int MF_BYPOSITION = 0x400;
-[DllImport("User32")]
-private static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
-[DllImport("User32")]
-private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
-[DllImport("User32")]
-private static extern int GetMenuItemCount(IntPtr hWnd);
-</pre>
-
-<p>Below code goes to the load event of your form:</p>
-
-<pre class="brush:csharp">
-IntPtr hMenu = GetSystemMenu(this.Handle, false);
-int menuItemCount = GetMenuItemCount(hMenu);
-RemoveMenu(hMenu, menuItemCount - 1, MF_BYPOSITION);
-</pre>
-
-<p>Time to press &lsquo;F5&rsquo;&hellip;.and the close button is now disabled on the form.</p>
-
-<p><img src="/images/winform-disable-close-btn.png" alt="Windows Forms application with close button disabled" /></p>
-
-<p><strong>Download: <a href="/files/CloseButton.zip">CloseButton.zip (43.08 kb)</a></strong></p>
 
   </div>
   

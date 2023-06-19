@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-02-19T03:34:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-02-26T14:24:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,57 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack/">Windows 7: Create Jumplists In WPF Application Without Using Windows 7 API Code Pack</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 26, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/wpf">WPF</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>I wrote a blog post on how you can <a href="http://midnightprogrammer.net/post/Windows-7-Development-Creating-Jumplist-In-Windows-7.aspx">add a custom Jumplist</a> on your Windows form application for Windows 7 platform using the <a href="http://www.midnightprogrammer.net/post/2010/01/15/Development-in-and-with-Windows-7.aspx">Windows 7 API Code Pack</a>, but that is for Windows Form applications running on Windows 7.</p>
+
+<p>WPF makes Jumplists more simpler. You need not to add any API reference or any other reference in your project. You can just make the use of Jumplists for better navigation for your users.</p>
+
+<p>If you are using WPF then, there is a simple way to add Jumplists. I will show how you can have a pre-defined jumplists for your application. The main part of the application in which we have to focus is <code>App.xaml</code>. All work related to jumplist will be done here. For instance use the below code to add calculator to the jumplist.</p>
+
+<pre class="brush:csharp">
+&lt;JumpList.JumpList&gt;
+        &lt;JumpList ShowFrequentCategory="True" ShowRecentCategory="True"&gt;
+            &lt;JumpTask Title="Calculator"
+                      Description="Open Calculator"
+                      ApplicationPath="calc.exe"
+                      IconResourcePath="calc.exe"/&gt;
+        &lt;/JumpList&gt;
+&lt;/JumpList.JumpList&gt;
+</pre>
+
+<p>You know why there is <code>Title</code> and <code>Description</code>. The <code>ApplicationPath</code> will have the fully qualified name of the application path or just the name of the programs that can be executed with their name. <code>IconResourcePath</code> will have a fully qualified path of the icon. If your application have an icon embedded in the application, then you can just set the application exe path or name else you can have a fully qualified path of the icon file.</p>
+
+<p>To add a new Jumplist, add a new <JumpTask> tag with the above mentioned tags and for every Jumplist item you need to do the same.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -673,108 +724,6 @@ public static string ReverseShortURL(string ShortURL)
 <li>I don&rsquo;t want to good salary.</li>
 <li>I want to learn until my death.</li>
 </ol>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/code-snippet-export-datagridview-to-excel-with-columns/">Code Snippet: Export DataGridView To Excel With Columns</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 25, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>This is among one of the best code snippet I have and using since long to export the datagridview to excel. The best part of this code snippet is that it just don&rsquo;t uses the excel interop, so you need not to worry about the Office version or PIAs installed at user&rsquo;s machine. What actualy is needed is just a Reflection namespace - <code>System.Reflection</code> and it will bind the data to the instance of the excel application.</p>
-
-<pre class="brush:csharp">
-private void Export2Excel(DataGridView datagridview, bool captions)
-{
-    if (datagridview.ColumnCount > 0)
-    {
-        string[] strArray = new string[datagridview.ColumnCount];
-        string[] strArray2 = new string[datagridview.ColumnCount];
-        int num = 0;
-        int index = 0;
-        int num3 = 0;
-        for (index = 0; index < datagridview.ColumnCount; index++)
-        {
-            strArray[index] = datagridview.Rows[0].Cells[index].OwningColumn.Name.ToString();
-            if ((num > 0) && ((index % num) == 0))
-            {
-                num = 0;
-            }
-            num3 = index / 0x1a;
-            if (num3 == 0)
-            {
-                num = index + 0x41;
-                strArray2[index] = Convert.ToString((char)num);
-            }
-            else
-            {
-                int num4 = num3 + 0x40;
-                num = (index % 0x1a) + 0x41;
-                strArray2[index] = Convert.ToString((char)num4) + Convert.ToString((char)num);
-            }
-        }
-        try
-        {
-            object obj7;
-            object target = Activator.CreateInstance(Type.GetTypeFromProgID("Excel.Application"));
-            object obj4 = target.GetType().InvokeMember("Workbooks", BindingFlags.GetProperty, null, target, null);
-            object obj3 = obj4.GetType().InvokeMember("Add", BindingFlags.InvokeMethod, null, obj4, null);
-            object obj5 = obj3.GetType().InvokeMember("Worksheets", BindingFlags.GetProperty, null, obj3, null);
-            object[] args = new object[] { 1 };
-            object obj6 = obj5.GetType().InvokeMember("Item", BindingFlags.GetProperty, null, obj5, args);
-            if (captions)
-            {
-                index = 0;
-                while (index < datagridview.ColumnCount)
-                {
-                    args = new object[] { strArray2[index] + "1", Missing.Value };
-                    obj7 = obj6.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, obj6, args);
-                    args = new object[] { strArray[index] };
-                    obj7.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, obj7, args);
-                    index++;
-                }
-            }
-            for (num = 0; num < datagridview.RowCount; num++)
-            {
-                for (index = 0; index < datagridview.ColumnCount; index++)
-                {
-                    args = new object[] { strArray2[index] + Convert.ToString((int)(num + 2)), Missing.Value };
-                    obj7 = obj6.GetType().InvokeMember("Range", BindingFlags.GetProperty, null, obj6, args);
-                    args = new object[] { datagridview.Rows[num].Cells[strArray[index]].Value.ToString() };
-                    obj7.GetType().InvokeMember("Value", BindingFlags.SetProperty, null, obj7, args);
-                }
-            }
-            args = new object[] { true };
-            target.GetType().InvokeMember("Visible", BindingFlags.SetProperty, null, target, args);
-            target.GetType().InvokeMember("UserControl", BindingFlags.SetProperty, null, target, args);
-        }
-        catch (Exception exception)
-        {
-            MessageBox.Show(("Error: " + exception.Message) + " Line: " + exception.Source, "Error");
-        }
-      }
-    }
-</pre>
 
   </div>
   

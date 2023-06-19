@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-08-30T16:05:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-09-06T16:26:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,168 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/razor-view-engine-in-aspnet-mvc-3/">RAZOR: View Engine In ASP.NET MVC 3</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 6, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    <p>A new view engine is introduced in ASP.NET MVC 3 called RAZOR. You can <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=cb42f741-8fb1-4f43-a5fa-812096f8d1e8&amp;displaylang=en#filelist">download Preview 1</a> from Microsoft&rsquo;s download center and get it running on your machine to check the new features in MVC 3. Just in case if you are thinking that installing MVC 3 will mess your current MVC 2 installation&hellip;.No, it won&rsquo;t. I came across a <a href="http://channel9.msdn.com/shows/Web+Camps+TV/Web-Camps-TV-1-ASPNET-MVC-3-Preview-1-and-Razor-Tips-with-Phil-Haack/">Webcamp video</a> where <a href="http://haacked.com/">Phil Haack</a> with <a href="http://jamessenior.com/">James Senior</a> demonstrate this view engine. My this post is also based on the same talk.</p>
+
+<p>So when you install MVC 3 Preview 1 on your machine, jump start by creating a new project in Visual Studio 2010. You will not be able to use this view engine with .NETFX 3.5 (SP1).</p>
+
+<p><img src="/images/vs-mvc-project-template.png" alt="Visual Studio MVC project template" /></p>
+
+<p>Now when you select new project and under <code>Web</code> templates you will now see ASP.NET MVC 3 application twice. The one template with (ASPX) is using normal web forms as your view engine and the other one with (Razor) is the new view engine. This is only for preview 1, these options will not be present in the final release of the MVC 3, instead you will have an oprion to select the view engine for your application later, I am not very sure how, but it will be more likely the way you select tests.</p>
+
+<p>Time to check the <code>Solution Explorer</code>. No <code>.aspx</code> files only <code>.cshtml</code></p>
+
+<p><img src="/images/vs-mvc-files.png" alt="Visual Studio MVC project files" /></p>
+
+<p>The drawback in Preview 1 is that there is no syntax highlighting and no intellisense. Now that would have made you think &ldquo;OMG! how am I going to write the code now!?&rdquo;. But Razor is easy and more over it too light-weight, more then I thought before I used it. Check out Index.cshtml, the markup code looks like this.</p>
+
+<p><img src="/images/vs-mvc-markup.png" alt="MVC razor markup" /></p>
+
+<p>Time to take a look at Home Controller. Take a look at the <code>Index()</code> action method, the syntax is bit different with the one we have used previously.</p>
+
+<pre class="brush:csharp">
+public ActionResult Index()
+{      
+       ViewModel.Message = "Welcome to ASP.NET MVC!";
+       return View();
+}
+</pre>
+
+<p>The line <strong>ViewModel.Message = &ldquo;Welcome to ASP.NET MVC!&rdquo;;</strong> is equivalent to:</p>
+
+<pre class="brush:csharp">
+public ActionResult Index()
+{      
+       ViewData["Message"] = "Welcome to ASP.NET MVC!";
+       return View();
+}
+</pre>
+
+<p>The ViewModel basically is of type <code>dynamic</code> which means that its operations will be resolved at runtime. Hover your cursor over <code>ViewModel</code> and <code>Message</code> to know about it.</p>
+
+<p><img src="/images/vs-mvc-dynamic.png" alt="Dynamic" />
+<img src="/images/vs-mvc-dynamix-expr.png" alt="Dynamic expression" /></p>
+
+<p>If you need to show some addtional information related your current project you can set it too with ease. In the Index method you can add antoher line like this which says something about your project:</p>
+
+<p><strong>NOTE:</strong> *As ViewModel is of Dynamic type, so when you press dot (.) after writing ViewModel don&rsquo;t expect that something will come up and as said before <strong>all expressions will be resolved at runtime</strong>.*</p>
+
+<pre class="brush:csharp">
+public ActionResult Index()
+{
+      ViewModel.Message = "Welcome to ASP.NET MVC!";
+      ViewModel.AboutApp = "This is a sample ASP.NET MVC 3 Preview 1 application!";
+      return View();
+}
+</pre>
+
+<p>To show this message on the Index view you will just call it by prefixing it with <strong>&rsquo;@&rsquo;</strong> symbol. To show the value on the page you simply write below line and prefix it with @ symbol(If you say this is simple, I would rather prefer to say it effortless).</p>
+
+<pre class="brush:plain">
+@View.Message 
+@View.AboutApp
+</pre>
+
+<p>Moving further, add a new class called <code>Contacts</code> (or what ever name you like) with 3 peoperties.</p>
+
+<pre class="brush:csharp">
+public class Contacts
+{
+    public string Name{ get; set; }
+    public int Age{ get; set; }
+    public string Email { get; set; }
+}
+</pre>
+
+<p>Moving back to the <code>HomeController</code> add the below lines of code to the <code>Index</code> action method.</p>
+
+<pre class="brush:csharp">
+var ctc = new Contacts[] {
+          new Contacts{Name="Prashant", Age = 23},
+          new Contacts{Name="Arvind", Age = 24},
+          new Contacts{Name="Max", Age = 23}
+};
+</pre>
+
+<p>The view should not be empty this time. And therefore your Index action method return the <code>Contacts</code> we have just created.</p>
+
+<pre class="brush:csharp">
+
+public ActionResult Index()
+{
+    ViewModel.Message = "Welcome to ASP.NET MVC!";
+    ViewModel.AboutApp = "This is a sample ASP.NET MVC 3 Preview 1 application!";             
+    var ctc = new Contacts[] {
+          new Contacts{Name="Prashant", Age = 23},
+          new Contacts{Name="Arvind", Age = 24},
+          new Contacts{Name="Max", Age = 23}
+          return View(ctc);
+    };
+}
+</pre>
+
+<p>This time also Razor makes it simple to view the the data you returned from the controller. In the Index.cshtml you can do it pretty simply and you will still have a pretty looking markup of the view page. Create a list of contacts you have just created. As they are in a set of array, we can then enumerate the array with a foreach loop and show it on the page.</p>
+
+<pre class="brush:html">
+&lt;ul&gt;
+@foreach (var c in Model){
+&lt;li&gt; My name is @c.Name and I am @c.Age years old. &lt;/li&gt;
+}&lt;/ul&gt;
+</pre>
+
+<p>You can easily get the data in a jiffy without writing a lot of markup. No problem in concatenating the data, the @ symbol and MVC compiler is pretty intelligent and does this for us. So what if we want to add e-mail addresses also. How this view engine will handle this ambiguity? Well let see. Just add an e-mail property to the array of contacts.</p>
+
+<pre class="brush:csharp">
+var ctc = new Contacts[] {
+          new Contacts{Name = "Prashant", Age = 23, Email = "prashant@midnightprogrammer.net"
+}
+</pre>
+
+<p>And on the view page the line will be something like this</p>
+
+<pre class="brush:html">
+&lt;ul&gt;
+@foreach (var c in Model){
+&lt;li&gt; My name is @c.Name and I am @c.Age years old. You can email me at @c.Email.&lt;/li&gt;
+}&lt;/ul&gt;
+</pre>
+
+<p>Hit F5 and see it by yourself. There are lot of features described by Scott Guthrie and Phil Haack on their blog. Well I can go on writing and writing about Razor, so I think I should take a pause now and you can go to below links for more deep information about Razor view engine and to know what&rsquo;s new in the upcoming release of ASP.NET MVC 3.</p>
+
+<p><strong>Recommend Reading:</strong></p>
+
+<ul>
+<li><a href="http://weblogs.asp.net/scottgu/archive/2010/07/27/introducing-asp-net-mvc-3-preview-1.aspx">Scott Guthrie - Introducing ASP.NET MVC 3 Preview 1</a></li>
+<li><a href="http://haacked.com/archive/2010/07/27/aspnetmvc3-preview1-released.aspx">Phill Haack on MVC 3 Preview 1</a></li>
+<li><a href="http://haacked.com/archive/2010/07/03/razor-view-syntax.aspx">Phill Haack on Razor view syntax</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -390,59 +552,6 @@ TagPrefix="rp" %&gt;
 <p>Press F5 and set the URL pointing to the file diagnostics file and you will be able to see a detailed information about your currently running MVC application. The page you see should look something like this.</p>
 
 <p><img src="/images/mvc-diag-page-result.png" alt="MVC diagnostic page result" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/attach-virtual-hard-disk-automatically-at-windows-startup/">Attach Virtual Hard Disk Automatically At Windows Startup</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 10, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>Windows 7 gives you the power to create Virtual Hard Disk (VHD). If you don&rsquo;t know how to create a VHD in Windows 7 then you seriously need to learn how to unleash Windows 7 power. You can see the links in the end which will let you create a new VHD on your Windows 7 machine and there are some other recommended links.</p>
-
-<p>I assume that you know or you have created a new VHD and attached or mount on your Windows 7 machine. But this is one time fun&hellip;..Once you reboot or logoff the attached VHD is gone. Now you need to follow all those steps again to attach the VHD, not this time but every time you logoff or restart. To get relief from this pain perform the following steps.</p>
-
-<p>Open notepad and add the below command to the file:</p>
-
-<pre class="brush:shell">
-Select vdisk file=”D:\SourceSafe.vhd”
-Attach vdisk
-</pre>
-
-<p>Now save the file with the name of your choice with <strong>“.s”</strong> as its extension. Open notepad again and add the following line of code to get your VHD attached at system startup and save this file with file extension as <strong>&rdquo;.bat&rdquo;</strong></p>
-
-<pre class="brush:shell">
-DISKPART –s  "Path of the <.s file> created in the above step"
-</pre>
-
-<p>The path name should be the fully qualified name of the <strong>“.s”</strong> file. Just in case you face any problem I have attached the files I am using to mount my SourceSafe VHD at system startup. Place the <strong>&rdquo;.bat&rdquo;</strong> in the startup folder and thats it. Next time you logoff or restart you VHD gets attached automatically.</p>
-
-<p><strong>Download: <a href="/files/AttachVHD.zip">AttachVHD.zip (313.00 bytes)</a></strong></p>
-
-<p><strong>Related Links:</strong></p>
-
-<ul>
-<li><a href="http://www.sevenforums.com/tutorials/566-virtual-hard-disk-create-attach-vhd.html">Creating a new Virtual Hard Disk</a></li>
-<li><a href="http://www.hanselman.com/blog/LessVirtualMoreMachineWindows7AndTheMagicOfBootToVHD.aspx">Scott Hanselman - Less Virtual, More Machine - Windows 7 and the magic of Boot to VHD</a></li>
-<li><a href="http://code.msdn.microsoft.com/vhdtool">MSDN Code Gallery - VHD Tool</a></li>
-</ul>
 
   </div>
   

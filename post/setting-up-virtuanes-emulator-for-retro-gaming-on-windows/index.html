@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Setting Up VirtuaNES Emulator For Retro Gaming On Windows • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Setting Up VirtuaNES Emulator For Retro Gaming On Windows"/>
+<meta name="twitter:description" content="I grew up playing all the 90s games and I still love them. For quite a sometime I am now using VirtuaNES emulator to do retro gaming on my Windows machine. There are other NES emulators out there but this is the one I have been using now for a while and it has been good so far.
+To setup VirtuaNES emulator on Windows, download it from here and here."/>
+
+<meta property="og:title" content="Setting Up VirtuaNES Emulator For Retro Gaming On Windows" />
+<meta property="og:description" content="I grew up playing all the 90s games and I still love them. For quite a sometime I am now using VirtuaNES emulator to do retro gaming on my Windows machine. There are other NES emulators out there but this is the one I have been using now for a while and it has been good so far.
+To setup VirtuaNES emulator on Windows, download it from here and here." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/setting-up-virtuanes-emulator-for-retro-gaming-on-windows/" /><meta property="article:published_time" content="2023-06-19T09:12:00&#43;00:00"/>
+<meta property="article:modified_time" content="2023-06-19T09:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/nullgap" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://facebook.com/khandelwal.p" rel="me"><i class="fab fa-facebook-f"></i></a>
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://medium.com/@prashantkhandelwal" rel="me"><i class="fab fa-medium fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2023 Pashant Khandelwal
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Setting Up VirtuaNES Emulator For Retro Gaming On Windows</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Jun 19, 2023
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/emulator">EMULATOR</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/gaming">GAMING</a>
+    &nbsp;
+    
+    <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>I grew up playing all the 90s games and I still love them. For quite a sometime I am now using VirtuaNES emulator to do retro gaming on my Windows machine. There are other NES emulators out there but this is the one I have been using now for a while and it has been good so far.</p>
+
+<p>To setup VirtuaNES emulator on Windows, download it from <a href="https://www.emulatorgames.net/emulators/nintendo/virtualnes-0-9-7/">here</a> and <a href="https://www.emulator-zone.com/doc.php/nes/virtuanes.html">here</a>. Once you download the zip file, extract the content to any folder and double click the <code>VirtuaNES.exe</code> to run the emulator.</p>
+
+<p><img src="/images/virtuanes-extract-folder.png" alt="VirtuaNES files after extraction" /></p>
+
+<p>After the emulator is launched, we can start configuring the sound and controller. If you are a keyboard person, then no configuration is needed, you can instantly load a ROM and start playing the game. The default keys are as follows (yours might look a little different):</p>
+
+<p>Go to <strong>Options -&gt; Controller</strong> to change the keyboard bindings or your controller bindings.</p>
+
+<p><img src="/images/virtuanes-keyboard-maps.png" alt="VirtuaNES keyboard settings" /></p>
+
+<blockquote>
+<p>XBOX One controller is also compatible and you can configure it easily. Make sure to turn on or plug in the controller before you start the emulator.</p>
+</blockquote>
+
+<p>Here is the screenshot of the bindings of my XBox One controller.</p>
+
+<p><img src="/images/virtuanes-xbox-bindings.png" alt="VirtuaNES xbox controller bindings" /></p>
+
+<p>For configuring the sound settings, go to <strong>Options -&gt; Sound</strong></p>
+
+<p><img src="/images/virtuanes-sound-settings.png" alt="VirtuaNES sound settings" /></p>
+
+<p>Even after setting up the sound, there is a chance that you can&rsquo;t hear it when you play the game. That is due to a setting in the audio settings section in Windows. Refer the below screenshot and check whether the <code>Mono audio</code> is <code>off</code> or <code>on</code>. If it is <code>off</code>, then you have to turn it <code>on</code> and that will solve the sound problem in the emulator.</p>
+
+<p><img src="/images/virtuanes-system-sound-settings.png" alt="VirtuaNES system sound settings" /></p>
+
+<p>All set now!! Let&rsquo;s get some games or ROMs as we call it and load it in the emulator. I downloaded few ROMs from <a href="https://www.emulatorgames.net/roms/nintendo/">Emulatorgames.net</a>. Extract the zip file and load the ROM in the emulator by going to <strong>File -&gt; Open</strong>. You should now see your childhood retro gaming console in front of you.</p>
+
+<p><img src="/images/virtuanes-emulator-running.png" alt="VirtuaNES emulator running" /></p>
+
+<h3 id="links">Links</h3>
+
+<ul>
+<li><a href="https://www.emulatorgames.net/">Emulator Games</a></li>
+<li><a href="https://www.emulatorgames.net/roms/">ROMs for all platform emulators</a></li>
+<li><a href="https://www.emulatorgames.net/emulators/">Other emulators</a></li>
+</ul>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/geo-distributed-load-testing-via-k6-and-azure-container-instance/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Geo-Distributed Load Testing via K6 and Azure Container Instances</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+ 
+
+
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-QYXJT2TJCG', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
+
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
+
+<script>
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

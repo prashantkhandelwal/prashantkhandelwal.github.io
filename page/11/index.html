@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-08-25T11:55:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-08-26T14:33:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,136 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/attribute-routing-in-mvc/">Attribute Routing In MVC</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 26, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>I took a look at <a href="http://code.google.com/p/stack-exchange-data-explorer/">Stack Overflow Stack-Exchange Data Explorer</a> that is built in MVC and is open-source application to query the <a href="http://blog.stackoverflow.com/category/cc-wiki-dump/">Stack Exchange data dump</a> that is being provided by Stack Exchange team in every month or few. I do have a dump, but I was more curious to know about the application that they built to query the database. And I must admit that I learned tons of things. I came to know the power of <a href="http://code.google.com/p/dapper-dot-net/">Micro-ORM (Dapper)</a> over Entity-Framework (EF) and one more pretty thing that attracted me was the routing mechanism used in the application. I strongly recommend that you check out this tool/application and take a deep dive in the code, lot of things to learn.</p>
+
+<p>Before we start writing the code, we&rsquo;ll take a quick look at a NuGet package <a href="http://nuget.org/packages/AttributeRouting">AttributeRouting</a>. You can find the <a href="https://github.com/mccalltd/AttributeRouting/">source code at GitHub</a> in case if you are interested. The <a href="https://github.com/mccalltd/AttributeRouting/wiki/1.-Getting-Started">documentation</a> is simple and explains almost every bit of the package. It&rsquo;s incredibly easy.</p>
+
+<blockquote>
+<p>The NuGet package I am using is for MVC, if you want to do the same with your Web API application then use <a href="http://nuget.org/packages/AttributeRouting.WebApi">this package</a>.</p>
+</blockquote>
+
+<p>To see how easy it is to implement routing in your MVC application. Start Visual Studio and create a new MVC4 (Internet) application and fire up the below NuGet command.</p>
+
+<p><img src="/images/attr-routing-nuget-cmd.png" alt="AttributeRouting Nuget Command" /></p>
+
+<p>This command just don&rsquo;t install one single package but also some other dependent packages. Here is the output when I fire the above NuGet command:</p>
+
+<pre class="brush: plain">
+PM> Install-Package AttributeRouting
+Attempting to resolve dependency 'AttributeRouting.Core (≥ 2.5.1.0)'.
+Attempting to resolve dependency 'AttributeRouting.Core.Web (≥ 2.5.1.0)'.
+Attempting to resolve dependency 'WebActivator (≥ 1.0.0.0)'.
+Successfully installed 'AttributeRouting.Core 2.5.1.0'.
+Successfully installed 'AttributeRouting.Core.Web 2.5.1.0'.
+Successfully installed 'WebActivator 1.0.0.0'.
+Successfully installed 'AttributeRouting 2.5.1.0'.
+Successfully added 'AttributeRouting.Core 2.5.1.0' to MVCAttrRouteTest.
+Successfully added 'AttributeRouting.Core.Web 2.5.1.0' to MVCAttrRouteTest.
+Successfully added 'WebActivator 1.0.0.0' to MVCAttrRouteTest.
+Successfully added 'AttributeRouting 2.5.1.0' to MVCAttrRouteTest.
+</pre>
+
+<p>Now before you make any changes to the web application, hit <code>CTRL+F5</code>. Hover or click on the links which are on the top which are <code>About</code> and <code>Contact</code>. The URL rendered in the address bar is something like this (as what specified in your application Global.asax file).</p>
+
+<p>For <code>About</code> View:</p>
+
+<pre class="brush: plain">
+/Home/About
+</pre>
+
+<p>For <code>Contact</code> View:</p>
+
+<pre class="brush: plain">
+/Home/Contact
+</pre>
+
+<p>The <code>Home</code> that we see here is the name of the controller being used. I don&rsquo;t want the name of the controller to be visible to my site visitors or maybe I just want a different name there. Usually, I would have switch to my application <code>Global.asax</code> file and register a new route there. But now I can now control my routes within controller itself. This is pretty cool for and a time saver, as I do not have to avoid working with Global.asax. This is the simplest implementation of AttributeRouting. Below are the 2 <code>Home</code> controller methods <code>About</code> and <code>Contact</code>:</p>
+
+<pre class="brush: csharp; highlight:[1,8]">
+[GET("About")]
+public ActionResult About()
+{
+    ViewBag.Message = "Your app description page.";
+    return View();
+}
+ 
+[GET("Contact")]
+public ActionResult Contact()
+{
+    ViewBag.Message = "Your contact page.";
+    return View();
+}
+</pre>
+
+<p>There are no changes in the method, only the routing attribute has been added. The URLs for <code>About</code> and <code>Contact</code> are now free from the controller name <code>Home</code>. Now we look at a second condition where I want to have a totally different URL for <code>About</code> view or to be specific I would say I want to have outbound URLs and this will require <code>RouteName</code> property with the routing attribute. This is called <code>Named Routes</code>. I am going to change the URL to <code>/App/AboutMe</code>.</p>
+
+<pre class="brush: csharp">
+[GET("App/AboutMe", RouteName = "About")]
+public ActionResult About()
+{
+    ViewBag.Message = "Your app description page.";
+    return View();
+}
+</pre>
+
+<p>Working with parameters without routing can lead to very ugly URLs or some un-wanted params in the URLs. Again to have a clean URL we can handle the parameters passed to the controller action. I have added a new view named <code>Welcome</code> (no scaffolding) in the <code>Home</code> controller and added a <code>ViewBag</code> property <code>GreetMessage</code>. When this view is called, it will display a greeting message in a heading. The <code>GreetMessage</code> will hold the name of the person, which is our parameter. Below is our controller action:</p>
+
+<pre class="brush: csharp">
+[GET("App/Greet/{name}")]
+public ActionResult Welcome(string Name)
+{
+    ViewBag.GreetMessage = "Welcome " + Name;
+    return View();
+}
+</pre>
+
+<p>The URL that is rendered on the browser is:</p>
+
+<pre class="brush: plain">
+http://domain.com/App/Greet/Prashant
+</pre>
+
+<p><code>/App/Greet/</code> is the URL we want to show and <code>Prashant</code> is the parameter is being passed to the <code>Welcome</code> view.</p>
+
+<p>This is it for this tutorial but this is not it. The AttributeRouting package has to offer a lot of things and has a very powerful and easy way of routing. There are very advance topics that are <a href="https://github.com/mccalltd/AttributeRouting/wiki/_pages">documented</a> at GitHub.</p>
+
+<p>Related Links:</p>
+
+<ul>
+<li><a href="http://blog.stackoverflow.com/2012/02/stack-exchange-open-source-projects/">Stack Exchange - Open Source Projects</a></li>
+<li><a href="http://data.stackexchange.com/">Stack Exchange - Data Explorer</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -467,75 +597,6 @@ git push appharbor master
 <li><a href="http://kendotodo.apphb.com/">Kendo UI Todo List</a></li>
 <li><a href="http://funwithsignalr.apphb.com/">Fun with SignalR</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/integrate-windows-live-signin-support-in-aspnet/">Integrate Windows Live SignIn Support In ASP.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 28, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>Last year I wrote a post on how you can <a href="http://midnightprogrammer.net/post/Add-Google-Login-Support-In-ASPNET-With-OAuth.aspx">integrate OpenID support in your ASP.NET application</a>. Few days back as usual I was chasing Windows Live SDK updates on Twitter and yes the most awaited SkyDrive API was made available to all the developers. I will be writing a post later on how to upload files using SkyDrive API.</p>
-
-<h4 id="setting-up-the-application">Setting up the application</h4>
-
-<p>To integrate Windows Live Sign-In support I have downloaded the <a href="https://github.com/liveservices/LiveSDK">LiveService samples</a> from <a href="https://github.com/">Github</a> and take a look at ASP.NET sample. All the hard work has been done for you from before. First you need to create an application at <a href="https://manage.dev.live.com/">https://manage.dev.live.com</a>. Once you create an application, you will get the <code>Client ID</code> and <code>Client secret</code> for the application which we will be using in our application.</p>
-
-<p><img src="/images/live-api-settings.png" alt="Windows Live API Settings Page" /></p>
-
-<p>Now you have the Client ID and Client secret, you then need to update the same in the Callback.aspx code-behind. The redirect domain will be the name of the domain. In my case I have hosted the complete solution which you can try <a href="http://midnightprogrammer.net/live/oauthsample/default.html">here</a>. The pretty looking Sign In button rendered on the page is from the JavaScript code.</p>
-
-<p><img src="/images/live-llivetest.png" alt="Windows Live Test Page" /></p>
-
-<p>When you click on the button it will open a window which will ask your Live or Hotmail credentials.</p>
-
-<p><img src="/images/live-login-page.png" alt="Windows Live Login Page" /></p>
-
-<p>After you successfully authenticated from Live service, it will return you the authentication code. For your ease I have made the authentication code (along with the URL that retrieves the user&rsquo;s image) available to you through a JavaScript alert.</p>
-
-<p><img src="/images/live-token-alert.png" alt="Windows Live Token Alert Dialog" /></p>
-
-<p>Don&rsquo;t waste your time in looking into the alert message. Just press CTRL+C to copy the whole message and paste it into notepad. Now it&rsquo;s time to look into it carefully. If you quickly open a new tab in your browser and paste the copied URL, then you will get the image of the user who is authenticated. To get more information about the user, modify the URL in the notepad to this:</p>
-
-<pre class="brush:plain">
-https://apis.live.net/v5.0/me?access_token=EwBAAq1DBAAUlbRWyAJjK5w968Ru3Cyt/6GvwXwAAf/Zr2CM5/qilrH.......
-</pre>
-
-<p>Note that from the URL above I have removed <code>/picture</code>. Now hit the new URL to the browser again, and this time the output has more information:</p>
-
-<p><img src="/images/live-response-user.png" alt="Windows Live user details" /></p>
-
-<p>The question comes here is: What if I want to get the contacts of the authenticated user or want to get the list of folders in his/her SkyDrive? To understand this, consider that Windows Live is a big application which is built up with small applications like mail, SkyDrive, calendar etc. Now if someone wants to access any part of the application we need to specify which part of the application we need to access. For us (programmers) it is called <code>Scope</code>. The test application I am demonstrating here has the following scopes: <code>wl.signin</code>, <code>wl.basic</code>, <code>wl.offline_access</code>, <code>wl.skydrive</code>. To grant access to your application you should provide the correct scopes in your application. To know more about scopes read <a href="http://msdn.microsoft.com/en-us/library/live/hh243646.aspx">here</a>.</p>
-
-<p>After everything went fine and I was successfully authenticated I get my picture with Windows Live (it&rsquo;s 2 year old) and the Sign in button changed to Sign out:</p>
-
-<p><img src="/images/live-user-pic.png" alt="Windows Live user image" /></p>
-
-<p>You can also display other user information, if you wish. I have compiled all the files under one hood for your ease and you only have to create a new application, get the Client ID and Client secret and update it into the application.</p>
-
-<p><strong>Download</strong>: <a href="/files/Live-SignIn.zip">Live-SignIn.zip (9.71 kb)</a></p>
 
   </div>
   

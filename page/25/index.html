@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-03-28T02:08:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-04-24T00:24:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,223 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-sql-clr-stored-procedure-track-ip-address/">Using SQL CLR Stored Procedure To Track IP Address</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 24, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL&#34;</a>
+      
+      
+      
+      
+    </span>
+    <p>Recently I was asked by one of my friend how to call a web service directly from a stored procedure. He needs to track IP addresses using a stored procedures so, I suggested him two ways to call a web service using the SQL Procedure.</p>
+
+<ul>
+<li>Using SP_OACREATE with MSXML</li>
+<li>Create an assembly using SQL CLR using C#.</li>
+</ul>
+
+<p>I personally tried using the first way to call a web service but was not successful. Then I learnt about SQL CLR programming with Visual Studio and C# and get it done in a first go. As a good friend I create the whole project for my friend. And if your thinking that this is going to be a difficult, this is not so.</p>
+
+<p>To start creating a project, open Visual Studio and create a new project.</p>
+
+<p><img src="/images/sqlclr-newproject.png" alt="SQL CLR new Visual Studio project" /></p>
+
+<p>Before the project gets loaded completely, you will be asked to add database reference. Here select the database you want to build the assembly for. If you don’t want to add a database reference then just simply cancel. But if you choose the reference to add at this point then this would really be of help as this will allow you to deploy your assembly directly to the SQL Server database but if you have not then you need to write some SQL scripts.</p>
+
+<p><img src="/images/sqlclr-add-db-ref.png" alt="Add a database reference to the project" /></p>
+
+<blockquote>
+<p><strong>NOTE:</strong> If you have added a database reference then it doesn’t mean that your assembly is build specifically for that database you can still deploy your assembly in other database also.</p>
+</blockquote>
+
+<p>As I am creating a stored procedure, I then have to add a <code>New Item</code> to my project. Right-click project choose <code>Add&gt;Stored Procedure</code>. Here give a name of your choice to stored procedure. In my case it is <code>IPInfo</code>.</p>
+
+<p><img src="/images/sqlclr-add-new-item.png" alt="Add a new stored procedure" /></p>
+
+<p>Change the static method here to accept a parameter. Our parameter will be an IP address, which I have set as of string type.</p>
+
+<pre class="brush:csharp">
+public static void GetIPInfo(string IP)
+{  
+//Do something here
+}
+</pre>
+
+<p>Now the question here is from where we can the information of the IP Addresses? I do some search and found a website <a href="http://www.geobytes.com">http://www.geobytes.com</a>. It offers some rich information of the IP Address you want to track, so out of five sources I choose to go with geobytes.</p>
+
+<p>Lets take a quick look at the code. This is not a web service as you can see from the code below, I am just making a http request and then get the response in an XML form so I can easily traverse the nodes and read/save the information I received.</p>
+
+<pre class="brush:csharp">
+string XMLResponse;
+IPAddress = IP;
+byte[] XMLResults;
+string str = "http://www.geobytes.com/IpLocator.htm?GetLocation&template=xml.txt"
++ "&IpAddress=" + IP;
+XMLResults = new WebClient().DownloadData(str.ToString());
+XMLResponse = Encoding.UTF8.GetString(XMLResults);
+</pre>
+
+<p>Note the fourth line where I have built the URL. The parameter Template should always have a value to xml.txt. If you change the name, it won’t throw any error but the data received cannot be read and saved in a database table. Convert the response to string format and then read the nodes one by one using the below code.</p>
+
+<pre class="brush:csharp">
+try
+        {
+            XmlDocument document = new XmlDocument();
+            document.LoadXml(XMLResponse);
+            XmlNode documentElement = document.DocumentElement;
+            if (documentElement.HasChildNodes)
+            {
+                for (int i = 0; i < documentElement.ChildNodes.Count; i++)
+                {
+                    if (documentElement.ChildNodes[i].NodeType == XmlNodeType.Element)
+                    {
+                        switch (documentElement.ChildNodes[i].Name)
+                        {
+                            case "locationcode":
+                                LocationCode = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "fips":
+                                FIPS104 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "iso2":
+                                ISO2 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "iso3":
+                                ISO3 = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "ison":
+                                ISON = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "internet":
+                                Internet = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "countryid":
+                                CountryID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "country":
+                                Country = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "regionid":
+                                RegionID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "region":
+                                Region = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "code":
+                                RegionCode = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "adm":
+                                Admn1Code = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "cityid":
+                                CityID = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "city":
+                                City = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "latitude":
+                                Latitude = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "longitude":
+                                Longitude = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "timezone":
+                                TimeZone = documentElement.ChildNodes[i].InnerText;
+                                break;
+ 
+                            case "certainty":
+                                Certainty = documentElement.ChildNodes[i].InnerText;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception) { }
+</pre>
+
+<p>Build you project and you will see a DLL file in your debug/release folder. But this will not work. You will still have to set some permission level to assembly and to SQL Server database.</p>
+
+<p><strong>Set Assembly Permissions</strong></p>
+
+<p>Before you build the final version of the assembly go the project properties and set the permissions as shown below.</p>
+
+<p>Under <code>Build</code> select option for <code>Generate Serialization Assembly</code> to <code>On</code>.</p>
+
+<p><img src="/images/sqlclr-assembly-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
+
+<p>Under <code>Database</code> select <code>Permission Level</code> to <code>Unsafe</code></p>
+
+<p><img src="/images/sqlclr-permissions.png" alt="Set SQL CLR assembly permissions" /></p>
+
+<p><strong>SQL Server Permissions</strong></p>
+
+<p>If you find problems while deploying your assembly, then make sure you have CLR enabled and set the <code>Trustworthy</code> property for the database to ON.</p>
+
+<p>You can find all the scripts in the attached solution below.</p>
+
+<p><strong>Deploying your assembly</strong></p>
+
+<p>To deploy your assembly use the below SQL command:</p>
+
+<pre class="brush:sql">
+CREATE ASSEMBLY IPTracker from 'C:\IPInfo.dll' WITH PERMISSION_SET = EXTERNAL_ACCESS
+GO
+</pre>
+
+<p>To create a stored procedure whcih in trun calls the SQL method from the deployed assembly:</p>
+
+<pre class="brush:sql">
+CREATE PROC TrackIP(@IP as nvarchar(50))AS
+-- [Assembly Name].[Class Name].[CLR function Name]
+EXTERNAL NAME IPTracker.StoredProcedures.GetIPInfo 
+GO
+</pre>
+
+<p>And execute the procedure to get the IP information.</p>
+
+<p><img src="/images/sqlclr-execution-output.png" alt="SQL CLR procedure output" /></p>
+
+<p><strong>Download: <a href="/files/IPInfo.zip">IPInfo.zip (19.46 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -395,90 +612,6 @@ So first, as usual create a normal ASP.NET project and add the required files. C
 <img src="/images/ajax-jquery-2.png" alt="AJAX call in ASP.NET app via JQuery" /></p>
 
 <p><strong>Download: <a href="JqueryAjaxSQLDemo.zip">JqueryAjaxSQLDemo.zip (97.86 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/calling-aspnet-web-service-using-jquery-part-ii/">Calling ASP.NET Web Service Using Jquery - Part II - Passing Parameters</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 5, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>In my previous post I have shown with a simple example on how you call an ASP.NET web service using JQuery. In this post I will show how you on how can you pass parameters to the web method and get the result using the web service. If you have read my previous post, you have seen that we have just called a web method which returns a simple string back to us. In this example, instead of returning a plain simple string back to the client, we will ask the user to enter two numbers and the call the web service which in turn add the two numbers and returns the result back to the client.</p>
-
-<p>First start up with the design of the page. As we are going to add two numbers, we will add a label, textboxes and a button as shown in the below screenshot:</p>
-
-<p><img src="/images/ajax-jquery-ui.png" alt="Web UI" />
-<img src="/images/ajax-jquery-ui-html.png" alt="Web markup" /></p>
-
-<p>Add a web service to your project as I have described in my previous post. Follow the same steps to add a web service to your project. The only change that you have to make is to add a method which accepts two numbers as parameters and return the sum of the two numbers. For your convenience, the method is as follows.</p>
-
-<pre class="brush:csharp">
-[WebMethod]
-public int Add(int num1, int num2)
-{
-    return num1 + num2;
-}
-</pre>
-
-<p>The script which I am using here to call the web service is the same as I have shown in my previous post, but the data parameter in the ajax function needs to be changed. When we are calling a web service which returns a normal string to us we can set the data parameter to blank. But this is not the case when we have to pass parameters to the web service to return the result. The data parameter in the Jquery ajax script goes something like this:</p>
-
-<pre class="brush:plain">
-data: "{'num1': " + $("#txt_num1").val() + ", 'num2': " + ("#txt_num2").val() + "}"
-</pre>
-
-<p>In this parameter the ‘num1’ and ‘num2’ are the name of the parameters in the web service which we have to fulfill if we want the result from the web service. The parameter variable name should always remains the same as defined in the web service method. The parameters and their values are separated by a ‘:’( colon) and a ‘,’ (comma) is used to separate the parameters. The Jquery script $(“txt_num1”).val() will set the value to the parameter and then pass it to the web service method to get the result.</p>
-
-<p>The code for Jquery script to call a web service in this example goes like this:</p>
-
-<pre class="brush:jscript">
-function CallService() {
-         &dollar;("#lblResult").addClass("loading");
-         &dollar;("#lblResult").html('');
-         &dollar;.ajax({
-             type: "POST",
-             url: "Service.asmx/Add",
-             data: "{'num1': " + &dollar;("#txt_num1").val() + ", 'num2': " + &dollar;("#txt_num2").val() + "}",
-             contentType: "application/json; charset=utf-8",
-             dataType: "json",
-             success: OnSuccess,
-             error: OnError
-         });
- 
-         function OnSuccess(data, status) {
-             &dollar;("#lblResult").removeClass("loading");
-             &dollar;("#lblResult").html(data.d);
-         }
- 
-         function OnError(request, status, error) {
-             &dollar;("#lblResult").removeClass("loading");
-             &dollar;("#lblResult").html(request.statusText);
-         }
-     }
-</pre>
-
-<p>I have added a bit of CSS to show ajax loading style animation. I am not covering it here but sure I will in the later Jquery posts. In my next post I will cover on how to fetch data from the SQL Server using a web service.</p>
-
-<p><strong>Download: <a href="/files/JqueryAjaxParams.zip">JqueryAjaxParams.zip (94.76 kb)</a></strong></p>
 
   </div>
   

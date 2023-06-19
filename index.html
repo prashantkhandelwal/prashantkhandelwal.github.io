@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2023-06-02T23:34:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2023-06-19T09:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,78 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/setting-up-virtuanes-emulator-for-retro-gaming-on-windows/">Setting Up VirtuaNES Emulator For Retro Gaming On Windows</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 19, 2023
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/emulator">EMULATOR</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/gaming">GAMING</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I grew up playing all the 90s games and I still love them. For quite a sometime I am now using VirtuaNES emulator to do retro gaming on my Windows machine. There are other NES emulators out there but this is the one I have been using now for a while and it has been good so far.</p>
+
+<p>To setup VirtuaNES emulator on Windows, download it from <a href="https://www.emulatorgames.net/emulators/nintendo/virtualnes-0-9-7/">here</a> and <a href="https://www.emulator-zone.com/doc.php/nes/virtuanes.html">here</a>. Once you download the zip file, extract the content to any folder and double click the <code>VirtuaNES.exe</code> to run the emulator.</p>
+
+<p><img src="/images/virtuanes-extract-folder.png" alt="VirtuaNES files after extraction" /></p>
+
+<p>After the emulator is launched, we can start configuring the sound and controller. If you are a keyboard person, then no configuration is needed, you can instantly load a ROM and start playing the game. The default keys are as follows (yours might look a little different):</p>
+
+<p>Go to <strong>Options -&gt; Controller</strong> to change the keyboard bindings or your controller bindings.</p>
+
+<p><img src="/images/virtuanes-keyboard-maps.png" alt="VirtuaNES keyboard settings" /></p>
+
+<blockquote>
+<p>XBOX One controller is also compatible and you can configure it easily. Make sure to turn on or plug in the controller before you start the emulator.</p>
+</blockquote>
+
+<p>Here is the screenshot of the bindings of my XBox One controller.</p>
+
+<p><img src="/images/virtuanes-xbox-bindings.png" alt="VirtuaNES xbox controller bindings" /></p>
+
+<p>For configuring the sound settings, go to <strong>Options -&gt; Sound</strong></p>
+
+<p><img src="/images/virtuanes-sound-settings.png" alt="VirtuaNES sound settings" /></p>
+
+<p>Even after setting up the sound, there is a chance that you can&rsquo;t hear it when you play the game. That is due to a setting in the audio settings section in Windows. Refer the below screenshot and check whether the <code>Mono audio</code> is <code>off</code> or <code>on</code>. If it is <code>off</code>, then you have to turn it <code>on</code> and that will solve the sound problem in the emulator.</p>
+
+<p><img src="/images/virtuanes-system-sound-settings.png" alt="VirtuaNES system sound settings" /></p>
+
+<p>All set now!! Let&rsquo;s get some games or ROMs as we call it and load it in the emulator. I downloaded few ROMs from <a href="https://www.emulatorgames.net/roms/nintendo/">Emulatorgames.net</a>. Extract the zip file and load the ROM in the emulator by going to <strong>File -&gt; Open</strong>. You should now see your childhood retro gaming console in front of you.</p>
+
+<p><img src="/images/virtuanes-emulator-running.png" alt="VirtuaNES emulator running" /></p>
+
+<h3 id="links">Links</h3>
+
+<ul>
+<li><a href="https://www.emulatorgames.net/">Emulator Games</a></li>
+<li><a href="https://www.emulatorgames.net/roms/">ROMs for all platform emulators</a></li>
+<li><a href="https://www.emulatorgames.net/emulators/">Other emulators</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -1210,303 +1282,6 @@ $ az acr repository show-tags --name ossacrprod --repository goazl --output tabl
 <p><img src="/images/static-website-final-result.png" alt="Static Website - Final Result" /></p>
 
 <p>Hooray!! Our react application is successfully hosted and served from Azure Blob Storage.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/capture-screenshot-and-description-of-a-web-page-using-go-and-chromedp/">Capture screenshot and description of a web page using Go and Chromedp</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 5, 2023
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/chromedp">CHROMEDP</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/go">GO</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p>Adding or sharing a link with a snapshot of a web page is a very useful feature in Microsoft Teams or in Zoom chat. This gives a user a way to quickly look at the web page snapshot and a small description about the link.</p>
-
-<p>Go has an amazing library called <a href="https://github.com/chromedp/chromedp">chromedp</a> which allows you to perform some amazing tasks like taking screenshot, fill out a form and submit it, send key events, device emulation, script evaluation etc. You can look at the complete example list <a href="https://github.com/chromedp/examples">here</a>.</p>
-
-<p>We are interested in taking a screenshot of the web page for the given URL. Chromedp allows you the take a screenshot of a specific element of the page or for the entire browser viewport.</p>
-
-<p>The use case I am having is to capture just enough of the web page to give an idea to the user about the website. Looking at the screenshot and recalling whether one has visited this link or not is easier than looking at the link. Here is a sample code which will let you snap a screenshot of a given web page.</p>
-
-<pre class="brush:ruby">
-package main
-
-import (
- "context"
- "crypto/rand"
- "fmt"
- "log"
- "os"
- "time"
- "unsafe"
-
- "github.com/chromedp/cdproto/emulation"
- "github.com/chromedp/chromedp"
-)
-
-const (
- UserAgentName = "Websnapv1.0"
- Path          = "images\\"
- Timeout       = 15
-)
-
-// https://stackoverflow.com/questions/22892120/how-to-generate-a-random-string-of-a-fixed-length-in-go
-func GenRandStr(n int) string {
- var alphabet = []byte("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
- b := make([]byte, n)
- rand.Read(b)
- for i := 0; i < n; i++ {
-  b[i] = alphabet[b[i]%byte(len(alphabet))]
- }
- return *(*string)(unsafe.Pointer(&b))
-}
-
-func Snap(url string) (string, error) {
- ctx, cancel := chromedp.NewContext(context.Background())
- defer cancel()
-
- // Creating timeout for 15 seconds
- ctx, cancel = context.WithTimeout(ctx, time.Second*Timeout)
- defer cancel()
-
- name := GenRandStr(12)
- var buf []byte
- var file = Path + name + ".png"
-
- err := chromedp.Run(ctx,
-  emulation.SetUserAgentOverride(UserAgentName),
-  chromedp.Navigate(url),
-  //chromedp.FullScreenshot(&buf, 100),
-  chromedp.CaptureScreenshot(&buf),
- )
-
- if err != nil {
-  log.Fatalf("ERROR:webext - Unable to extract meta(s) from the given URL - %s\n", url)
-  return "", err
- }
-
- if err := os.WriteFile(file, buf, 0o644); err != nil {
-  log.Fatalf("ERROR:webext - Cannot create snap for the link - %s\n", url)
-  file = ""
-  return "", err
- }
-
- return file, nil
-}
-
-func main() {
- i, err := Snap("https://medium.com/@prashantkhandelwal/marvel-comics-universe-graph-database-7264381478e1")
- if err != nil {
-  log.Fatalf("ERROR: Unable to retrieve screenshot - %v", err.Error())
- }
-
- // print the image path
- fmt.Println(i)
-}
-</pre>
-
-<p>Here, I have some <code>const</code> declared which are easy to understand. Then I have a random string generator which I found on Stackoverflow to generate random image names. In the end I have a function <code>snap</code> which takes a screenshot of the web page. Overall, this function is very simple to understand but I want you to pay special attention to this part of the function where <code>chromedp</code> is used.</p>
-
-<pre class="brush:ruby">
-err := chromedp.Run(ctx, 
-  emulation.SetUserAgentOverride("Bindv1.0"), 
-  chromedp.Navigate(url), 
-  chromedp.CaptureScreenshot(&buf), 
- ) 
-</pre>
-
-<p>Now the <code>CaptureScreenshot</code> is a function which will capture a part of the web page. This function accepts the pointer to the buffer to which it writes the output eventually writes to an image file. Here is an example output:</p>
-
-<p><img src="/images/screenshot-web-page-1.png" alt="Screenshot from `CaptureScreenshot` function" /></p>
-
-<p>The next useful function that you can also use is called <code>FullScreenshot</code>. This function will let you capture the entire web page as an image. You can use this function with your functional tests to check how your web page looks when accessed from a different location or with different parameters. This function takes two parameters, the first is the pointer to the buffer, just like the one before and the second one is the <code>quality</code> of the image. As the screenshot is for the entire viewport or the web page, I am uploading an image displayed in an image viewer program to give you a perspective of the screenshot. Here is an example output:</p>
-
-<p><img src="/images/Screenshot-full-viewport.png" alt="Screenshot from `FullScreenshot` function" /></p>
-
-<p>With screenshots done, let’s also get some basic information about the web page as well. Let’s create a new method and name it <code>ExtractMeta</code>. It accepts URL of the web page as a parameter and returns a pointer to the <code>WebData</code> struct which holds value for <code>Title</code> and <code>Description</code> of the web page. This function looks exactly like the <code>Snap</code> function except for a slight change in the Run function usage and some variable declarations to hold returned values. Here is the code for extracting the metadata information:</p>
-
-<pre class="brush:ruby">
-var pageTitle, description string
-
-var w = &WebData{}
-
-err := chromedp.Run(ctx,
- emulation.SetUserAgentOverride(UserAgentName),
- chromedp.Navigate(url),
- chromedp.Title(&pageTitle),
- chromedp.Evaluate(`document.querySelector("meta[name^='description' i]").getAttribute('content');`, &description),
-)
-
-w.Title = pageTitle
-w.Description = description
-</pre>
-
-<p>Notice that the <code>Run</code> function has additional parameters <code>chromedp.Evaluate</code> and <code>chromedp.Title</code>. The <code>chromedp.Title</code> returns the title of the web page. The <code>chromedp.Evaluate</code> function lets you evaluate or execute a <code>JavaScript</code> on the web page it is visiting and return the result so you can use it. For our use case, which is to get the description of the web page, we can execute the <code>document.querySelector</code> on the <code>meta</code> tags of the web page where the meta tag <code>name</code> equals to <code>description</code>. The <code>i</code> is the case-insensitivity qualifier here. Add the below code to the <code>main</code> function:</p>
-
-<pre class="brush:ruby">
-w, err := ExtractMeta("https://medium.com/@prashantkhandelwal/marvel-comics-universe-graph-database-7264381478e1")
-if err != nil {
- log.Fatalf("ERROR: Unable to retrieve metadata - %v", err.Error())
-}
-fmt.Println(w.Title)
-fmt.Println(w.Description)
-</pre>
-
-<p>Executing above code will generate the output like this:</p>
-
-<p><img src="/images/final-output.png" alt="Final output of the entire program" /></p>
-
-<p>Similarly, you can also execute this function multiple times to get other information from the web page as desired.</p>
-
-<p>Here is the complete code for reference:</p>
-
-<pre class="brush:ruby">
-package main
-
-import (
-    "context"
-    "crypto/rand"
-    "fmt"
-    "log"
-    "os"
-    "time"
-    "unsafe"
-
-    "github.com/chromedp/cdproto/emulation"
-    "github.com/chromedp/chromedp"
-)
-
-const (
-    UserAgentName = "Websnapv1.0"
-    Path          = "images\\"
-    Timeout       = 15
-)
-
-type WebData struct {
-    Title       string
-    Description string
-}
-
-// https://stackoverflow.com/questions/22892120/how-to-generate-a-random-string-of-a-fixed-length-in-go
-func GenRandStr(n int) string {
-    var alphabet = []byte("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    b := make([]byte, n)
-    rand.Read(b)
-    for i := 0; i < n; i++ {
-        b[i] = alphabet[b[i]%byte(len(alphabet))]
-    }
-    return *(*string)(unsafe.Pointer(&b))
-}
-
-func Snap(url string) (string, error) {
-    ctx, cancel := chromedp.NewContext(context.Background())
-    defer cancel()
-
-    // Creating timeout for 15 seconds
-    ctx, cancel = context.WithTimeout(ctx, time.Second*Timeout)
-    defer cancel()
-
-    name := GenRandStr(12)
-    var buf []byte
-    var file = Path + name + ".png"
-
-    err := chromedp.Run(ctx,
-        emulation.SetUserAgentOverride(UserAgentName),
-        chromedp.Navigate(url),
-        //chromedp.FullScreenshot(&buf, 100),
-        chromedp.CaptureScreenshot(&buf),
-    )
-
-    if err != nil {
-        log.Fatalf("ERROR:webext - Unable to extract meta(s) from the given URL - %s\n", url)
-        return "", err
-    }
-
-    if err := os.WriteFile(file, buf, 0o644); err != nil {
-        log.Fatalf("ERROR:webext - Cannot create snap for the link - %s\n", url)
-        file = ""
-        return "", err
-    }
-
-    return file, nil
-}
-
-func ExtractMeta(url string) (*WebData, error) {
-    ctx, cancel := chromedp.NewContext(context.Background())
-    defer cancel()
-
-    // Creating timeout for 15 seconds
-    ctx, cancel = context.WithTimeout(ctx, time.Second*Timeout)
-    defer cancel()
-
-    var pageTitle, description string
-
-    var w = &WebData{}
-
-    err := chromedp.Run(ctx,
-        emulation.SetUserAgentOverride(UserAgentName),
-        chromedp.Navigate(url),
-        chromedp.Title(&pageTitle),
-        chromedp.Evaluate(`document.querySelector("meta[name^='description' i]").getAttribute('content');`, &description),
-    )
-
-    if err != nil {
-        log.Fatalf("ERROR:webext - Unable to extract meta(s) from the given URL - %s\n", url)
-        return nil, err
-    }
-
-    w.Title = pageTitle
-    w.Description = description
-
-    return w, nil
-}
-
-func main() {
-    i, err := Snap("https://medium.com/@prashantkhandelwal/marvel-comics-universe-graph-database-7264381478e1")
-    if err != nil {
-        log.Fatalf("ERROR: Unable to retrieve screenshot - %v", err.Error())
-    }
-
-    // print the image path
-    fmt.Println(i)
-
-    // Extract metadata of the page
-    w, err := ExtractMeta("https://medium.com/@prashantkhandelwal/marvel-comics-universe-graph-database-7264381478e1")
-    if err != nil {
-        log.Fatalf("ERROR: Unable to retrieve metadata - %v", err.Error())
-    }
-    fmt.Println(w.Title)
-    fmt.Println(w.Description)
-}
-</pre>
-
-<p><strong>References</strong></p>
-
-<ul>
-<li><a href="https://github.com/chromedp/chromedp">Chromedp GitHub Repository</a></li>
-<li><a href="https://github.com/chromedp/examples">Chromedp Examples GitHub Repository</a></li>
-</ul>
 
   </div>
   

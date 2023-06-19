@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2017-08-31T14:34:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2017-09-03T15:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,330 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/extract-text-from-images-using-computer-vision-api-and-azure-function/">Extract Text From Images Using Computer Vision API And Azure Function</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 3, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cognitive-services">COGNITIVE SERVICES</a>
+      
+      
+      
+      
+    </span>
+    <p>I started to work on a project which is a combination of lot of intelligent APIs and Machine Learning stuff. One of the things I have to accomplish is to extract the text from the images that are being uploaded to the storage. To accomplish this part of the project I planned to use Microsoft Cognitive Service Computer Vision API. Here is the extract of it from my architecture diagram.</p>
+
+<p><img src="/images/arch-diagram.png" alt="Architcure Diagram" /></p>
+
+<p>Let&rsquo;s get started by provisioning a new Azure Function.</p>
+
+<p><img src="/images/create-func-app.png" alt="Creating Function App" /></p>
+
+<p>I named my Function App as <code>quoteextractor</code> and selected the Hosting Plan as <code>Consumption Plan</code> instead of <code>App Service Plan</code>. If you choose <code>Consumption Plan</code> you will be billed only what you use or whenever your function executes. On the other hand, if you choose App Service Plan you will be billed monthly based on the Service Plan you choose even if your function executes only few times a month or not even executed at all. I have selected the <code>Location</code> as <code>West US</code> because the Cognitive Service subscription I have has the endpoint for the API from <code>West US</code>. I then also created a new <code>Storage Account</code>. Click on <code>Create</code> button to create the Function App.</p>
+
+<p><img src="/images/func-app.png" alt="Created Function App" /></p>
+
+<p>After the Function App is created successfully, create a new function in the Function App <code>quoteextractor</code>. Click on the <code>Functions</code> on the left hand side and then click <code>New Function</code> on the right side window to create a new function as shown in the below screenshot.</p>
+
+<p><img src="/images/create-new-func-app.png" alt="Creating New Function" /></p>
+
+<p>The idea is to trigger the function whenever a new image is added/uploaded to the blob storage. To filter down the list of templates, select C# as the Language and then select <code>BlobTrigger - C#</code> from the template list. I have also change the name of the function to <code>QuoteExtractor</code>. I have also changed the <code>Path</code> parameter of Azure Blob Storage trigger to have <code>quoteimages</code>. The <code>quoteimages</code> is the name of the container where the function will bind itself and whenever a new image or item is added to the storage it will get triggered.</p>
+
+<p><img src="/images/quickstart-template.png" alt="Quickstart Function Templates" /></p>
+
+<p><img src="/images/naming-function.png" alt="Naming Function" /></p>
+
+<p>Now change the <code>Storage account connection</code> which is basically a connection string for your storage account. To create a new connection click on the <code>new</code> link and select the storage account you want your function to get associated with. The storage account I am selecting is the same one which got crated at the time of creating the Function App.</p>
+
+<p><img src="/images/function-storage.png" alt="Function Storage" /></p>
+
+<p>Once you select the storage account, you will be able to see the connection key in the <code>Storage account connection</code> dropdown. If you want to view the full connection string then click the <code>show value</code> link.</p>
+
+<p><img src="/images/storage-connection.png" alt="Function Storage Connection String" /></p>
+
+<p>Click the <code>Create</code> button to create the function. You will now be able to see your function name under the <code>Functions</code> section. Expand your function and you will see three other segments named <code>Integrate</code>, <code>Manage</code> and <code>Monitor</code>.</p>
+
+<p><img src="/images/function-final.png" alt="Function Running" /></p>
+
+<p>Click on <code>Integrate</code> and under <code>Triggers</code> update the <code>Blob parameter name</code> from <code>myBlob</code> to <code>quoteImage</code> or whatever the name you feel like having. This name is important as this is the same parameter I will be using in my function. Click <code>Save</code> to save the settings.</p>
+
+<p><img src="/images/function-triggers.png" alt="Function Running" /></p>
+
+<p>The storage account which is created at the time of creating the Function App, still does not have a container. Add a container with the name which is used in the <code>path</code> of the <code>Azure Blob Storage trigger</code> which is <code>quotesimages</code>.</p>
+
+<p><img src="/images/function-blob-trigger.png" alt="Function Running" /></p>
+
+<p>Make sure you select the <code>Public access level</code> to <code>Blob</code>. Click <code>OK</code> to create a container in your storage account.</p>
+
+<p><img src="/images/function-storage-access-level.png" alt="Change the public access level" /></p>
+
+<p>With this step, you should be done with all the configuration which are required for Azure Function to work properly. Now let&rsquo;s get the <code>Computer Vision API</code> subscription. Go to <a href="https://azure.microsoft.com/en-in/try/cognitive-services/">https://azure.microsoft.com/en-in/try/cognitive-services/</a> and under <code>Vision</code> section click <code>Get API Key</code> which is next to <code>Computer Vision API</code>. Agree with all the terms and conditions and continue. Login with any of the preferred account to get the subscription ready. Once everything went well, you will see your subscription key and endpoint details.</p>
+
+<p><img src="/images/cognitive-api.png" alt="Cognitive Service API Keys" /></p>
+
+<p>The result which I am going to get as a response from the API is in JSON format. Either I can parse the JSON request in the function itself or I can save it directly in the CosmosDB or any other persistent storage. I am going to put all the response in CosmosDB in raw format. This is an optional step for you as the idea is to see how easy it is to use Cognitive Services Computer Vision API with Azure Functions. If you are skipping this step, the you have to tweak the code a bit so that you can see the response in the log window of your function.</p>
+
+<p>Provision a new <code>CosmosDB</code> and add a collection to it. By default there is a database named <code>ToDoList</code> and with a collection called <code>Items</code> that you can create soon after provisioning of the CosmosDB from the getting started page. If you want you can also create a new database and add a new collection which make more sense.</p>
+
+<p><img src="/images/cosmosdb-create.png" alt="Creating CosmosDB" /></p>
+
+<p>To create a new database and collection go to <code>Data Explorer</code> and click on <code>New Collection</code>. Enter the details and click <code>OK</code> to create a database and a collection.</p>
+
+<p><img src="/images/cosmosdb-add-collection.png" alt="Add Collection in CosmosDB" /></p>
+
+<p>Now we have everything ready. let&rsquo;s get started with the CODE!!.</p>
+
+<p>Let&rsquo;s start by creating a new function called <code>SaveResponse</code> which takes the API response as one of the parameters and is of type string. In this method I am going to use the <a href="https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/">Azure DocumentDB</a> library to communicate with CosmosDB. This means I have to add this library as a reference to my function. To add this library as a reference, navigate to the KUDU portal by adding scm in the URL of your function app like so: <a href="https://quoteextractor.scm.azurewebsites.net/">https://quoteextractor.scm.azurewebsites.net/</a>. This will open up the <code>KUDU</code> portal.</p>
+
+<p><img src="/images/kudu-portal.png" alt="KUDU Portal" /></p>
+
+<p>Go to <code>Debug console</code> and click <code>CMD</code>. Navigate to <code>site/wwwroot/&lt;Function Name&gt;</code>. In the command window use the command <code>mkdir</code> to create a folder name <code>bin</code>.</p>
+
+<pre class="brush:plain">
+mkdir bin
+</pre>
+
+<p><img src="/images/kudu-file-listing.png" alt="KUDU File Listing" /></p>
+
+<p>You can now see the <code>bin</code> folder in the function app directory. Click the <code>bin</code> folder and upload the lib(s).</p>
+
+<p><img src="/images/function-view-files.png" alt="View Function Files" /></p>
+
+<p>In the very first line of the function use <code>#r</code> directive to add the reference of external libraries or assemblies. Now you can use this library in the function with the help of <code>using</code> directive.</p>
+
+<pre class="brush: csharp">
+#r "D:\home\site\wwwroot\QuoteExtractor\bin\Microsoft.Azure.Documents.Client.dll"
+</pre>
+
+<p>Right after adding the reference of the DocumentDB assembly, add namespaces with the help of using directive. In the later stage of the function, you will also need to make HTTP POST calls to the API endpoint and therefore make use of the <code>System.Net.Http</code> namespace as well.</p>
+
+<pre class="brush:csharp">
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using System.Net.Http;
+using System.Net.Http.Headers;
+</pre>
+
+<p>The code for the <code>SaveResponse</code> function is very simple and just make use of the DocumentClient class to create a new document for the response we receive from the Vision API. Here is the complete code.</p>
+
+<pre class="brush:csharp">
+private static async Task&lt;bool&gt; SaveResponse(string APIResponse)
+{
+    bool isSaved = false;
+    const string EndpointUrl = "https://imgdocdb.documents.azure.com:443/";
+    const string PrimaryKey = "QCIHMgrcoGIuW1w3zqoBrs2C9EIhRnxQCrYhZOVNQweGi5CEn94sIQJOHK3NleFYDoFclB7DwhYATRJwEiUPag==";
+ 
+    try
+    {
+        DocumentClient client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
+        await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("VisionAPIDB", "ImgRespCollcetion"), new {APIResponse});
+        isSaved = true;
+    }
+    catch(Exception)
+    {
+        //Do something useful here.
+    }   
+    return isSaved;
+}
+</pre>
+
+<p><img src="/images/cosmosdb-endpoint-keys.png" alt="View Function Files" /></p>
+
+<p>Notice the database and collection name in the function <code>CreateDocumentAsync</code> where the <code>CreateDocumentCollectionUri</code> will return the endpoint uri based of the database and collection name. The last parameter <code>new {ApiResponse}</code> is the response that is received from the Vision API.</p>
+
+<p>Create a new function and call it <code>ExtractText</code>. This function will take <code>Stream</code> object of the image that we can easily get from the <code>Run</code> function. This method is responsible to get the stream object and convert it into byte array with the help of another method <code>ConvertStreamToByteArray</code> and then send the byte array to Vision API endpoint to get the response. Once the response is successful from the API, I will save the response in CosmosDB. Here is the complete code for the function <code>ExtractText</code>.</p>
+
+<pre class="brush:csharp">
+private static async Task&lt;string&gt; ExtractText(Stream quoteImage, TraceWriter log)
+{
+    string APIResponse = string.Empty;
+    string APIKEY = "b33f562505bd7cc4b37b5e44cb2d2a2b";
+    string Endpoint = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
+ 
+    HttpClient client = new HttpClient();
+ 
+    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKEY);
+ 
+    Endpoint = Endpoint + "?language=unk&detectOrientation=true";
+ 
+    byte[] imgArray = ConvertStreamToByteArray(quoteImage);
+ 
+    HttpResponseMessage response;
+ 
+    try
+    {   
+        using(ByteArrayContent content = new ByteArrayContent(imgArray))
+        {
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+ 
+            response = await client.PostAsync(Endpoint, content);
+ 
+            APIResponse = await response.Content.ReadAsStringAsync();
+            log.Info(APIResponse);
+            //TODO: Perform check on the response and act accordingly.
+        }
+    }
+    catch(Exception)
+    {
+        log.Error("Error occured");
+    }
+ 
+    return APIResponse;
+}
+</pre>
+
+<p>There are few things in the above function which need out attention. You will get the subscription key and the endpoint when you register for the the Cognitive Services Computer Vision API. Notice the endpoint I am using also had <code>ocr</code> in the end which is important as I want to read the text from the images I am uploading to the storage. The other parameters I am passing is the <code>language</code> and <code>detectOrientation</code>. <code>Language</code> has the value as <code>unk</code> which stands for <code>unknown</code> which in turn tells the API to auto-detect the language and <code>detectOrientation</code> checks text orientation in the image. The API respond in JSON format which this method returns back in the <code>Run</code> function and this output becomes the input for <code>SaveResponse</code> method. Here is the code for <code>ConvertStreamtoByteArray</code> metod.</p>
+
+<pre class="brush:csharp">
+private static byte[] ConvertStreamToByteArray(Stream input)
+{
+    byte[] buffer = new byte[16*1024];
+    using (MemoryStream ms = new MemoryStream())
+    {
+        int read;
+        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+        {
+            ms.Write(buffer, 0, read);
+        }
+        return ms.ToArray();
+    }
+}
+</pre>
+Now comes the method where all the things will go into, the Run method. Here is how the `Run` method looks like.
+
+<pre class="brush:csharp">
+public static async Task&lt;bool&gt; Run(Stream quoteImage, string name, TraceWriter log)
+{
+    string response = await ExtractText(quoteImage, log);
+    bool isSaved = await SaveResponse(response);
+    return isSaved;
+}
+</pre>
+
+<p>I don&rsquo;t think this method needs any kind of explanation. Let&rsquo;s execute the function by adding a new image to the storage and see if we are able to see the log in the Logs window and a new document in the CosmosDB. Here is the screenshot of the <code>Logs</code> window after the function gets triggered when I uploaded a new image to the storage.</p>
+
+<p><img src="/images/function-logs.png" alt="Function Logs" /></p>
+
+<p>In CosmosDB, I can see a new document added to the collection. To view the complete document navigate to <code>Document Explorer</code> and check the results. This is how my view looks like:</p>
+
+<p><img src="/images/cosmosdb-result-output.png" alt="CosmosDB Result View" /></p>
+
+<p>To save you all a little time, here is the complete code.</p>
+
+<pre class="brush:csharp">
+#r "D:\home\site\wwwroot\QuoteExtractor\bin\Microsoft.Azure.Documents.Client.dll"
+ 
+using System.Net.Http.Headers;
+using System.Net.Http;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+ 
+ 
+public static async Task&lt;bool&gt; Run(Stream quoteImage, string name, TraceWriter log)
+{
+    string response = await ExtractText(quoteImage, log);
+    bool isSaved = await SaveResponse(response);
+    return isSaved;
+}
+ 
+private static async Task&lt;string&gt; ExtractText(Stream quoteImage, TraceWriter log)
+{
+    string APIResponse = string.Empty;
+    string APIKEY = "b33f562505bd7cc4b37b5e44cb2d2a2b";
+    string Endpoint = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
+ 
+    HttpClient client = new HttpClient();
+ 
+    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", APIKEY);
+ 
+    Endpoint = Endpoint + "?language=unk&detectOrientation=true";
+ 
+    byte[] imgArray = ConvertStreamToByteArray(quoteImage);
+ 
+    HttpResponseMessage response;
+ 
+    try
+    {   
+        using(ByteArrayContent content = new ByteArrayContent(imgArray))
+        {
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+ 
+            response = await client.PostAsync(Endpoint, content);
+ 
+            APIResponse = await response.Content.ReadAsStringAsync();
+            //TODO: Perform check on the response and act accordingly.
+        }
+    }
+    catch(Exception)
+    {
+        log.Error("Error occured");
+    }
+ 
+    return APIResponse;
+}
+ 
+private static async Task&lt;bool&gt; SaveResponse(string APIResponse)
+{
+    bool isSaved = false;
+    const string EndpointUrl = "https://imgdocdb.documents.azure.com:443/";
+    const string PrimaryKey = "QCIHMgrcoGIuW1w3zqoBrs2C9EIhRnzZCrYhZOVNQweIi5CEn94sIQJOHK2NkeFYDoFcpB7DwhYATRJwEiUPbg==";
+ 
+    try
+    {
+        DocumentClient client = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
+        await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("VisionAPIDB", "ImgRespCollcetion"), new {APIResponse});
+        isSaved = true;
+    }
+    catch(Exception)
+    {
+        //Do something useful here.
+    }   
+    return isSaved;
+}
+ 
+private static byte[] ConvertStreamToByteArray(Stream input)
+{
+    byte[] buffer = new byte[16*1024];
+    using (MemoryStream ms = new MemoryStream())
+    {
+        int read;
+        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+        {
+            ms.Write(buffer, 0, read);
+        }
+        return ms.ToArray();
+    }
+}
+</pre>
+
+<ul>
+<li><strong>References:</strong>
+
+<ul>
+<li><a href="https://azure.microsoft.com/en-in/try/cognitive-services/">Cognitive Services API</a></li>
+<li><a href="https://westus.dev.cognitive.microsoft.com/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fc">API Reference</a></li>
+<li><a href="https://www.nuget.org/packages/Microsoft.Azure.DocumentDB/">Azure DocumentDB Assembly</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/home">Computer Vision API - Documentation</a></li>
+<li><a href="https://docs.microsoft.com/en-in/azure/cognitive-services/computer-vision/quickstarts/csharp#optical-character-recognition-ocr-with-computer-vision-api-using-ca-nameocr-a">OCR with Computer Vision API - Documentation</a></li>
+</ul></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -1046,118 +1370,6 @@ public ActionResult Index()
 <p>If you look closely, you will notice that the temperature line is not as smooth as you thought it would be. This is because every time when Raspberry PI read the data from the sensor there is a slight change in the temperature only with a few decimal places. If you don&rsquo;t like this then you can change the <code>gridlines</code> property of the <code>vAxis</code> in the chart. Also you can try changing the time delay on the device to see if that impacts the lines on the chart. try changing both time delay in the device application and the <code>gridlines</code> in the web application to see how the chart renders.</p>
 
 <p><a href="https://github.com/prashantkhandelwal/Pi-Code/tree/master/BME280-PI3-Win10IoT-Azure">The complete source code is available on Github</a>.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/upload-files-in-net-core-by-drag-and-drop-using-dropzonejs/">Upload Files In .NET Core By Drag And Drop Using Dropzone.JS</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Oct 17, 2016
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC&#34;</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p>Mostly all web applications out there has some way or the other amazing ways to upload a single or multiple files. While surfing on Github I found <a href="http://www.dropzonejs.com/">this amazing library</a> to upload the files to the server in a unique way with lot of configurations. It support parallel uploads along with cancellation of the files which are in the upload queue along with a good looking progress bar to show the progress of upload.</p>
-
-<p>I get the drag and drop to work in just like 5 minutes. It is super easy and that with some powerful configurations. To install Dropzone you can use the Nuget command.</p>
-
-<pre class="brush: plain">
-PM> Install-Package dropzone
-</pre>
-
-<p>Add reference of js and css files on your page. To get the UI ready use this HTML.</p>
-
-<pre class="brush: html">
-&lt;div class="row"&gt;
-    &lt;div class="col-md-9"&gt;
-        &lt;div id="dropzone"&gt;
-            &lt;form action="/Home/Upload" class="dropzone needsclick dz-clickable" id="uploader"&gt;
-                &lt;div class="dz-message needsclick"&gt;
-                    Drop files here or click to upload.&lt;br&gt;
-                &lt;/div&gt;
-            &lt;/form&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</pre>
-
-<p>The output of the above HTML looks like this.</p>
-
-<p><img src="/images/dropzonejs-output.png" alt="Dropzone output in HTML" /></p>
-
-<p>There are few points to be noted here in the above HTML. Notice the <code>action</code> and <code>class</code> attributes for the <code>form</code> element. You will also be needing the <code>id</code> attribute as well. Here the <code>action</code> attribute points to the <code>ActionResult</code> which is responsible to handle the file upload. I have pointed it to the <code>Upload</code> ActionResult in my controller class which accepts a parameter of type <a href="https://docs.asp.net/projects/api/en/latest/autoapi/Microsoft/AspNetCore/Http/IFormFile/">IFormFile</a>. In case of a MVC application, we would have used <a href="https://msdn.microsoft.com/en-us/library/system.web.httppostedfilebase(v=vs.110).aspx">HttpPostedFileBase</a> class. Here is the complete code which handles the file upload.</p>
-
-<pre class="brush: csharp">
-[HttpPost]
-public async Task&lt;IActionResult&gt; Upload(IFormFile file)
-{
-    var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-    if (file.Length &gt; 0)
-    {
-        using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-        {
-            await file.CopyToAsync(fileStream);
-        }
-    }
-    return RedirectToAction("Index");
-}
-</pre>
-
-<p>The <code>_environment</code> variable you see in the above code is the instance of <code>IHostingEnvironment</code> interface which I have injected in the controller. Always use <code>IHostingEnvironment</code> interface to resolve the paths. You can hard code the file path but it may not work on other platforms. The combine method returns the correct path based on the platform the code is executing. The <code>WebRootPath</code> property returns the path of <code>wwwroot</code> folder and the second parameter <code>uploads</code> is then appended correctly with the path.</p>
-
-<p>Now it is time to make some adjustment in the Dropzone configuration. Recall the <code>id</code> attribute of the <code>form</code> element. I named it uploader. The Dropzone library has a unique way to set the configuration. Like this.</p>
-
-<pre class="brush: javascript">
-&lt;script&gt;
-    $(document).ready(function () {
-        Dropzone.options.uploader = {
-            paramName: "file",
-            maxFilesize: 2,
-            accept: function (file, done) {
-                if (file.name == "test.jpg") {
-                    alert("Can't upload a test file.");
-                }
-                else {
-                    //Show a confirm alert and display the image on the page.
-              }
-           }
-        };
-});
-&lt;/script&gt;
-</pre>
-
-<p>You have to be a bit careful when setting this configuration. In the configuration above the <code>paramName</code> states the name that will be used to transfer the file. This name should be the same as the <code>IFormFile</code> parameter of the <code>Upload</code> method in the controller. In this case I am using <code>file</code> and the same has to be there in the param of the <code>Upload</code> method. If the names mis-match the files will not be uploaded. The other parameter I am using is the <code>maxFileSize</code> and is very much self-explanatory. I have set the size to be <code>2 MB</code> and because of this configuration, any file above this limit will not be uploaded. Here is an example of such kind of failure.</p>
-
-<p><img src="/images/file-upload-dragndrop.png" alt="Dropzone drag and drop upload" /></p>
-
-<p>All the other files were uploaded successfully except one file which is <code>4.32 MB</code> and is way beyond the limit I set in my Dropzone configuration. If you hover the file, you will see why it got failed.</p>
-
-<p><img src="/images/file-upload-error.png" alt="Upload file error" /></p>
-
-<p>This is the simplest approach through which you can have drag and drop upload support in your applications. The configuration I am using here is the simplest and minimalistic configuration that can get you started in no time. There are some more powerful configurations like <a href="http://www.dropzonejs.com/#config-parallelUploads">parallelUploads</a> and <a href="http://www.dropzonejs.com/#config-uploadMultiple">uploadMultiple</a> that you should look into and use it.</p>
 
   </div>
   

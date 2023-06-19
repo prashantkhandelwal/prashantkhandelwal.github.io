@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-03-17T17:16:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-03-19T17:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,52 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/">Blog Analytics: Widget For BlogEngine.NET Powered By Google Analytics</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 19, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/blog-analytics-logo.png" alt="Blog Analytics Logo"/></p>
+
+<p>Finally, I got to know the way to show Google Analytics stats on my blog space. To know more about using Google Analytics API <a href="http://code.google.com/apis/analytics/docs/gdata/gdataArticlesCode.html">read their official article on using the API</a>.</p>
+
+<p>I have built a widget with the help of Analytics API to show the Google Analytics stats on my blog. The widget shows three stats at the moment (I don&rsquo;t want to make the widget look complex). Below is a screenshot for the widget in action on my blog:</p>
+
+<p><img src="/images/blog-analytics-widget.png" alt="Blog Analytics Widget" /></p>
+
+<p>The above widget shows the stats since I have started blogging. As you can see my blog is not as popular as yours or as popular comparative with other MSFT guys and other popular bloggers. As usual before you can use the widget you need to do some settings for the widget.</p>
+
+<p><img src="/images/blog-analytics-settings.png" alt="Blog Analytics widget settings" /></p>
+
+<p>You should be aware by now that this widgets uses Google Analytics API, and I hope you all have <a href="http://www.google.com/analytics">Analytics</a> account. The <code>Username</code> and <code>Password</code> will be the same as your Analytics account (<em>and without @xyz.com</em>). <code>From Date</code> and <code>To Date</code> specifies the date range which then populate the stats from Analytics service for the specified date range. I have provided an option that allows you to always use the <code>To Date</code> as the current date, you can do that by checking<code>Always use Current Date</code> (<em>checking this will override <code>To Date</code> value</em>). If you wish to show the stats ONLY for the current day then check <strong>Use From and To Date as Current Date</strong> (<em>change the widget title from what you have to <code>Today's Hit</code> or whatever you wish!</em>). I have settings as shown in the screenshot above for my blog and I am showing all my stats since I have started blogging.Last three options will allow you to toggle between the three statistics options you want to show on the widget or not.</p>
+
+<p><strong>Download: <a href="/files/BlogAnalytics - Widget.zip">BlogAnalytics - Widget.zip (107.28 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -658,57 +704,6 @@ As has become customary, we will give you a window to migrate off and ask us any
 </ul>
 
 <p><strong>Download: <a href="/files/DBMatrix.zip">DBMatrix.zip (1.13 mb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/windows-7-create-jumplists-in-wpf-application-without-using-windows-7-api-code-pack/">Windows 7: Create Jumplists In WPF Application Without Using Windows 7 API Code Pack</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 26, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/wpf">WPF</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>I wrote a blog post on how you can <a href="http://midnightprogrammer.net/post/Windows-7-Development-Creating-Jumplist-In-Windows-7.aspx">add a custom Jumplist</a> on your Windows form application for Windows 7 platform using the <a href="http://www.midnightprogrammer.net/post/2010/01/15/Development-in-and-with-Windows-7.aspx">Windows 7 API Code Pack</a>, but that is for Windows Form applications running on Windows 7.</p>
-
-<p>WPF makes Jumplists more simpler. You need not to add any API reference or any other reference in your project. You can just make the use of Jumplists for better navigation for your users.</p>
-
-<p>If you are using WPF then, there is a simple way to add Jumplists. I will show how you can have a pre-defined jumplists for your application. The main part of the application in which we have to focus is <code>App.xaml</code>. All work related to jumplist will be done here. For instance use the below code to add calculator to the jumplist.</p>
-
-<pre class="brush:csharp">
-&lt;JumpList.JumpList&gt;
-        &lt;JumpList ShowFrequentCategory="True" ShowRecentCategory="True"&gt;
-            &lt;JumpTask Title="Calculator"
-                      Description="Open Calculator"
-                      ApplicationPath="calc.exe"
-                      IconResourcePath="calc.exe"/&gt;
-        &lt;/JumpList&gt;
-&lt;/JumpList.JumpList&gt;
-</pre>
-
-<p>You know why there is <code>Title</code> and <code>Description</code>. The <code>ApplicationPath</code> will have the fully qualified name of the application path or just the name of the programs that can be executed with their name. <code>IconResourcePath</code> will have a fully qualified path of the icon. If your application have an icon embedded in the application, then you can just set the application exe path or name else you can have a fully qualified path of the icon file.</p>
-
-<p>To add a new Jumplist, add a new <JumpTask> tag with the above mentioned tags and for every Jumplist item you need to do the same.</p>
 
   </div>
   

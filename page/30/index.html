@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-10-20T16:26:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-10-21T18:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,105 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/readwrite-settings-to-ini-file-using-c/">Read/Write settings to INI File using C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 21, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>When we design application we always face problems to save settings for the application and to achieve that we use different options available to us. A very common method to use in accordance of complexity XML files, Registry, Application.config or other/normal files. Best option is to use application configuration file but it seems that most of the people are not fully aware with the usage of the application configuration file. I will discuss late on the application configuration file a.k.a. app.config, but here is the way to use the INI files to save application settings.</p>
+
+<p>Here I am using a simple class which has two methods Write &amp; Read methods which internally calls the functions inside the <code>Kernel32.dll</code> which are WritePrivateProfileString and ReadPrivateProfileString. Both methods take parameters and write it to the INI file. Here is the complete listing of the class which can be use to read and write settings to the INI file.</p>
+
+<p>INI files have sections and keys from where the data can be read on the combination of the sections and keys. As there can be a common key in different sections of the INI file. A section is defined in [SECTION NAME] and then it have a Key and its KeyValue.</p>
+
+<pre class="brush:csharp">
+class INIFile
+{
+    private string filePath;
+       
+    [DllImport("kernel32")]
+    private static extern long WritePrivateProfileString(string section,
+    string key,
+    string val,
+    string filePath);
+ 
+    [DllImport("kernel32")]
+    private static extern int GetPrivateProfileString(string section,
+    string key,
+    string def,
+    StringBuilder retVal,
+    int size,
+    string filePath);
+       
+    public INIFile(string filePath)
+    {
+        this.filePath = filePath;
+    }
+ 
+    public void Write(string section, string key, string value)
+    {
+        WritePrivateProfileString(section, key, value.ToLower(), this.filePath);
+    }
+ 
+    public string Read(string section, string key)
+    {
+        StringBuilder SB = new StringBuilder(255);
+        int i = GetPrivateProfileString(section, key, "", SB, 255, this.filePath);
+        return SB.ToString();
+    }
+         
+    public string FilePath
+    {
+        get { return this.filePath; }
+        set { this.filePath = value; }
+    }
+}
+</pre>
+
+<p>Now when you have to perform the read and write operations to the INI file you have to just call the Write and Read method from the above class. Initialize the above class anywhere in your application and then call the below methods to work.</p>
+
+<p>To write a new entry to an INI file use the write method. As you can see in the below method you need to first initialize a class which takes in the path of the INI fie. The write method takes 3 arguments which have Section, Key and KeyValue respectively. I have used a single section and a key to demonstrate the usage, but you can call the write method a number of time to write different settings value.</p>
+
+<pre class="brush:csharp">
+INIFile inif = new INIFile("D:\\config.ini");
+inif.Write("Database", "Devs", "sa");
+</pre>
+
+<p><img src="/images/ini-config.jpg" alt="Settings INI file" /></p>
+
+<p>To read the particular value from the INI file use the read method. It takes in 2 arguments i.e. Section and Key respectively to read a KeyValue.</p>
+
+<pre class="brush:csharp">
+INIFile inif = new INIFile("D:\\config.ini");
+Console.WriteLine("The Value is:" +inif.Read("Database", "Devs"));
+</pre>
+
+<p>I have just displayed the value after reading from the file after the write operation is completed. You can set a local variable to preserve the value and then take a required action.</p>
+
+<p><img src="/images/ini-demo.jpg" alt="Output after reading the INI file" /></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -416,112 +515,6 @@ AS destORDER BY deqs.last_execution_time DESC
 <p>In the end we move to the round-table session where we all developers start with a short introduction of ourselves and end up with a feedback on Microsoft Technologies / Events / Cons / Pros and how can we make more and more people aware of the fact on how Microsoft Technologies affect their lives. Moving further we also discussed on how do we get more and more people especially students at the events so they know about the new technology and eventually this will help them as a fresher to choose a domain / technology to move on. Even personally I have seen students that they are very confused about on what they have to choose &hellip;..the technology they want to work in. They just think should I choose Java or .NET but they find it hard to decide. So it&rsquo;s better that someone from Microsoft or on behalf of Microsoft can guide them to choose what&rsquo;s best for them. All other developers also put questions regarding Microsoft certifications and the black market associated with it. Bijoy guarantees that he will be informing Microsoft regarding the same and will definitely take a serious action against this. After all this is about software giant&rsquo;s reputation.</p>
 
 <p>Finally, we decided to get connected once again and we will make our best efforts to promote Microsoft Technologies at every level as we can. I myself is a DieHard Microsoft Fan and I personally will make every possible effort to make people / students aware / beleive in the power of technology Microsoft provides.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/using-hashtables/">Using Hashtables</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 20, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>Here I illustrate how to create and use hash table. Each element of hash table is a combination of Key/Value pair stored in a <code>DictionaryEntry</code> object. A value in a hash table can be null or contains no value but a key cannot be of null reference. Key in hash table work as an identifier for the value where you can search a hash table for a value with a specified key.</p>
-
-<p>First you will need to import the namespace <code>System.Collection</code>. We use <code>System.Collection</code>namespace because it contains various interface and classes the defines various collection of objects like list, dictionary, queues, hash tables and bit arrays.</p>
-
-<p><strong>Adding Key/Values to Hash Table</strong></p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections;
-class HashtableClass
-{
- public static void Main()
- {
-   Hashtable htbl = new Hashtable();
-   htbl.Add("AL", "Alabama");
-   htbl.Add("CA", "California");
-   htbl.Add("FL", "Florida");
-   htbl.Add("NY", "New York");
-   htbl.Add("WY", "Wyoming");
-   // Get a collection of the keys.
-   ICollection coll = htbl.Keys;
-   foreach (string str in coll)
-   {
-     Console.WriteLine(str + ": " + htbl[str]);
-   }
- }
-}
-</pre>
-
-<p><strong>Clear all Key/Value pairs in a hash table</strong></p>
-
-<p>To clear all the key/value pairs in a hash table use <code>Clear()</code> method of a hash table class:</p>
-
-<pre class="brush:csharp">
-htbl.Clear();
-</pre>
-
-<p><strong>Remove Key/Value pairs from hash table</strong></p>
-
-<p>Just if you want to remove a particular value from a hash table use the <code>Remove()</code> method of hash table class and specify the Key to remove the key/value:</p>
-
-<pre class="brush:csharp">
-htbl.Remove("NY");
-</pre>
-
-<p><strong>Adding Key/value pair to hash table by using indexer</strong></p>
-
-<p>We can use <code>Add()</code> method of the hash table class to add key/value pair to the hash table, but instead we can use indexer to add key/pair:</p>
-
-<pre class="brush:csharp">
-htbl["NY"] = "New York";
-</pre>
-
-<p><strong>Use the <code>ContainsKey()</code> method to check if hash table contains a key</strong></p>
-
-<p>Just a simple method to use with an <code>IF</code> condition:</p>
-
-<pre class="brush:csharp">
-if(htbl.ContainsKey("NY"))
-{
-       Console.WriteLine("Hashtable contains key NY");
-}
-</pre>
-
-<p><strong>Use the <code>ContainsValue()</code> method to check if hash table contains a key</strong></p>
-
-<p>Just a simple method to use with an IF condition:</p>
-
-<pre class="brush:csharp">
-if(htbl.ContainsValue("New York"))
-{
-    Console.WriteLine("Hashtable contains value New York");
-}
-</pre>
-
-<p><strong>Copy the keys from hash table into an array using the <code>CopyTo()</code> method</strong></p>
-
-<pre class="brush:csharp">
-string[] keys=new string[5];
-htbl.Keys.CopyTo(keys,0);
-</pre>
 
   </div>
   

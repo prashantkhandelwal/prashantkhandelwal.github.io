@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-04-22T03:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-04-23T13:55:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,53 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/top-3-ultimate-timepass-for-developers/">Top 3 Ultimate Timepass For Developers</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 23, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/fundoo">FUNDOO</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>We have been programming a lot so we need some time to refresh our minds and get ourselves in a state where our mind processors can start working again more beautifully. When I am pushing myself hard I play 3 games that is on my favorite list. Though I do have many games but these are the 3 games that I play.</p>
+
+<p><strong><a href="http://worldsbiggestpacman.com/">The World&rsquo;s Largest Pac-Mac</a></strong></p>
+
+<p>The legendry dot-eating games Pac-Man. I first played this game on 8-bit Atari console and I remember I used to bet with my firends. We played Pac-Man on a single maze, we don&rsquo;t have many options, but here we have lots and lots of mazes to choose from. The statistics is a section.</p>
+
+<p><img src="/images/pac-man.png" alt="The World's Biggest Pac-Man" /></p>
+
+<p><strong><a href="http://chrome.angrybirds.com">Angry Birds</a></strong></p>
+
+<p>One of the most playable and most addicted games at the moment available on the web. Amazing stages and awesome game play. I have spent numerous amount of effort and time on this game. I have played the offline version of this game, if you don&rsquo;t want to install then play it right <a href="http://midnightprogrammer.net/page/chrome.angrybirds.com">here</a>.</p>
+
+<p><img src="/images/angry-birds.png" alt="Angry Birds Game" /></p>
+
+<p><strong><a href="http://www.cuttherope.ie/">Cut The Rope</a></strong></p>
+
+<p>This game is more or like Angry Birds. Why? If you have played Angry Birds then you must have noticed that in Angry Birds it is not just about hitting the pillars. It&rsquo;s about how you kill the pigs by consuming fewer birds. Cut The Rope is the game initially written in Objective-C and later written in JavaScript by the awesome developers at <a href="http://zeptolab.com/">Zepto Labs</a>. I love playing this game as it allows you think before you make the move.</p>
+
+<p><img src="/images/cut-the-rope.png" alt="Cut The Rope Game" /></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -529,109 +576,6 @@
 <li><a href="http://www.unsigned-softworks.sk/visual-installer/">Visual &amp; Installer - Home Page</a></li>
 <li><a href="http://www.unsigned-softworks.sk/visual-installer/downloads.html">Visual &amp; Installer - Download Page</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/add-google-login-support-in-aspnet-with-oauth/">Add Google Login Support In ASP.NET With OpenID</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 18, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      
-      
-      
-      
-    </span>
-    <p>Few years back I blogged about <a href="http://midnightprogrammer.net/post/Add-OpenID-Login-Support-In-Your-ASPNET-Application.aspx">adding OpenID login support in ASP.NET application</a>. This time I am blogging about adding Google login support in ASP.NET application. A friend of mine is trying to integrate multiple third party authentication support for one of the application he is developing for his client. He is using <a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a> for Google authentication. the code I am using here is from my friend and I am sharing it with his explicit permission.</p>
-
-<p>First, download the latest version of DotNetOpenAuth and add its reference in your web application and these two namespaces.</p>
-
-<pre class="brush: csharp">
-using DotNetOpenAuth.OpenId;
-using DotNetOpenAuth.OpenId.RelyingParty;
-</pre>
-
-<p>After adding the reference, add a normal button with <code>CommandArgument</code> to point <code>https://www.google.com/accounts/o8/id</code>.</p>
-
-<pre class="brush: html">
-&lt;asp:Button ID="btnGoogleLogin" runat="server" CommandArgument="https://www.google.com/accounts/o8/id"
-        OnCommand="btnGoogleLogin_Click" Text="Sign In with Google" /&gt;
-</pre>
-
-<p>On the button click event on the server side:</p>
-
-<pre class="brush: csharp">
-protected void btnGoogleLogin_Click(object sender, CommandEventArgs e)
-{
-    string discoveryUri = e.CommandArgument.ToString();
-    OpenIdRelyingParty openid = new OpenIdRelyingParty();
-    var URIbuilder = new UriBuilder(Request.Url) { Query = "" };
-    var req = openid.CreateRequest(discoveryUri, URIbuilder.Uri, URIbuilder.Uri);
-    req.RedirectToProvider();
-}
-</pre>
-
-<p>Now when you click the button it will take you to Google login page which look something like this.</p>
-
-<p><img src="/images/google-signin-page.png" alt="Google signin page" /></p>
-
-<p>You can see on the right side of the screen with the information of the site requesting the authentication. Once you get successfully authenticated with your entered user name and password, you will then redirect to the confirmation page:</p>
-
-<p><img src="/images/google-signin-confirm.png" alt="Google signin confirmation" /></p>
-
-<p>As I am using my local development server, you will see Locahost. Once you deploy the application in the production environment it will automatically get the name of the domain. Clicking on the <code>Sign in</code> button you will then be redirected to the main page, but before you get to the main page you need to check whether the authentication was successful or was it cancelled by the user or was failed. To make sure use the below code on the load event of the login page:</p>
-
-<pre class="brush: csharp">
-protected void Page_Load(object sender, EventArgs e)
-{
-    OpenIdRelyingParty rp = new OpenIdRelyingParty();
-    var response = rp.GetResponse();
-    if (response != null)
-    {
-        switch (response.Status)
-        {
-            case AuthenticationStatus.Authenticated:
-                Session["GoogleIdentifier"] = response.ClaimedIdentifier.ToString();
-                Response.Redirect("Default.aspx");
-                break;
-            case AuthenticationStatus.Canceled:
-                Session["GoogleIdentifier"] = "Cancelled.";
-                break;
-            case AuthenticationStatus.Failed:
-                Session["GoogleIdentifier"] = "Login Failed.";
-                break;
-        }
-    }
- 
-}
-</pre>
-
-<p>On Default.aspx page I have set the <code>ClaimedIdentifier</code>:</p>
-
-<p><img src="/images/aspnet-app-googleoath.png" alt="ASP.NET application with Google oauth " /></p>
-
-<p>The response/status returned from Google will be checked here and we will redirect the application to work the way accordingly. My friend sends me the above code to find out whether there is any way we can logout from the service. Well, unfortunately there isn&rsquo;t any specific way to log out using DotNetOpenAuth? But there is a workaround. I don&rsquo;t know if it is a good practice or bad but it worked out for me. To logout, I am just calling this logout URL used by Google.</p>
-
-<pre class="brush: plain">
-http://accounts.google.com/logout
-</pre>
-
-<p>If you have some suggestions or you know a better way or approach of doing this then please drop a line in the comments sections.</p>
 
   </div>
   

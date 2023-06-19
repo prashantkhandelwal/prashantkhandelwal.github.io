@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-06-10T02:23:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-06-25T08:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,197 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/getting-started-with-netmf-and-netduino/">Getting Started With NETMF And Netduino</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 25, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-micro-framework">.NET MICRO FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>My Netduino card arrived this Sunday but I was not able to play with my new development board due to some serious &ldquo;crap work&rdquo; I was doing. Today I was able to run a small piece of code which blinks the user LED on the Netduino board. The code is simple enough and just like &ldquo;hello world&rdquo; example like we have for all other programming languages.</p>
+
+<p>Here is my Netduino kit:</p>
+
+<p><img src="/images/netduino-kit.jpg" alt="Netduino Kit" /></p>
+
+<p>The best part of this development board is that it is the advanced version of the very famous Ardunio boards. Below is the detailed comparison of the three boards.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Netduino</th>
+<th>Arduino Uno</th>
+<th>Arduino Mega 2560</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>CPU</td>
+<td>Atmel ATSAM7X</td>
+<td>Atmel ATmega328</td>
+<td>Atmel ATmega2560</td>
+</tr>
+
+<tr>
+<td>Architecture</td>
+<td>32-bit ARM7</td>
+<td>8-bit AVR</td>
+<td>8-bit AVR</td>
+</tr>
+
+<tr>
+<td>Clock</td>
+<td>48 Mhz</td>
+<td>16 Mhz</td>
+<td>16 Mhz</td>
+</tr>
+
+<tr>
+<td>MIPS / Mhz</td>
+<td>0.9</td>
+<td>1</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>MIPS</td>
+<td>43.2</td>
+<td>16</td>
+<td>16</td>
+</tr>
+
+<tr>
+<td>Code</td>
+<td>128 KB</td>
+<td>32 KB</td>
+<td>256 KB</td>
+</tr>
+
+<tr>
+<td>RAM</td>
+<td>60KB</td>
+<td>2 KB</td>
+<td>8 KB</td>
+</tr>
+
+<tr>
+<td>Flash</td>
+<td>512 KB</td>
+<td>32 KB</td>
+<td>256 KB</td>
+</tr>
+
+<tr>
+<td>SRAM</td>
+<td>128 KB</td>
+<td>2 KB</td>
+<td>8 KB</td>
+</tr>
+
+<tr>
+<td>EEPROM</td>
+<td>–</td>
+<td>1 KB</td>
+<td>4 KB</td>
+</tr>
+
+<tr>
+<td>Pins</td>
+<td>14 Dig. I/O (4 PWM)</td>
+<td>14 Dig. I/O (6 PWM)</td>
+<td>54 Dig. I/O (14 PWM)</td>
+</tr>
+
+<tr>
+<td></td>
+<td>6 analog-in or digital I/O</td>
+<td>6 analog-in</td>
+<td>16 analog-in</td>
+</tr>
+
+<tr>
+<td>UARTs</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+</tr>
+
+<tr>
+<td>output limits</td>
+<td>8 mA / pin &amp; 16 mA / PWM</td>
+<td>40 mA per Pin</td>
+<td>40 mA per Pin</td>
+</tr>
+</tbody>
+</table>
+
+<p>As you can see from the above comparison, the Netduino board is 3x faster than the Arduino and on the top it has 30x the RAM and check the processor 32-bit ARM7 awesome!!</p>
+
+<p><strong>Getting Started</strong></p>
+
+<p>To get started, you first need to set up your machine with some SDKs from Microsoft and Netduino. Below is the list of the SDKs you need to install on your development machine:</p>
+
+<ul>
+<li><a href="http://www.netduino.com/downloads/MicroFrameworkSDK.msi">.NET Microframework SDK 4.1</a></li>
+<li><a href="http://www.netduino.com/downloads/netduinosdk_32bit.exe">Netduino SDK</a></li>
+<li><a href="http://www.netduino.com/downloads/gettingstarted.pdf">Getting started guide on Netduino</a></li>
+</ul>
+
+<p>This is it and you are good to go with your first Netduino application. Fire Visual Studio and create new project under Micro Framework and select Netduino Application.</p>
+
+<p><img src="/images/vs-netduino-project-template.png" alt="Netduino project template in Visual Studio" /></p>
+
+<p>I have named the project Blink because we are going to blink the LED on board. As you can see there are two LEDs on the board. The one near the micro-USB indicates power (white) and the one near the onboard button is user LED (blue).</p>
+
+<p>We are going to blink the user LED and for this I am going to use the code from the getting started guide form Netduino (nothing fancy here from my side) I am just re-using the code. below is the code you have to put inside you main method:</p>
+
+<pre class="brush:csharp">
+OutputPort led = new OutputPort(Pins.ONBOARD_LED, false);
+while (true)
+{
+        led.Write(true); // turn on the LED
+        Thread.Sleep(250); // sleep for 250ms
+        led.Write(false); // turn off the LED
+        Thread.Sleep(250); // sleep for 250ms
+}
+</pre>
+
+<p>Now before you hit F5 go to project properties and under <code>.NET Micro Framework</code> change the <code>Transport</code> mode from <code>Emulator</code> to <code>USB</code>. As soon as you change the <code>Transport</code> mode you will notice the <code>Device</code> has been changed from <code>Microsoft Emulator</code> to <code>Netduino_Netduino</code>. Now press F5 and the application will get deployed to your Netduino board.</p>
+
+<p><img src="/images/vs-netduino-project-properties.png" alt="Netduino project properties" /></p>
+
+<p>This is just a simple thing to do with a small but powerful development board. There are people around the globe building some amazing things with Netdunio and Arduino shields. In my next post I will show you how to erase Netduino memory for other application to deploy.</p>
+
+<p>Below are some of the resources that I think you may find useful:</p>
+
+<ul>
+<li><a href="http://10rem.net/blog/2011/01/19/10-interesting-net-micro-framework-demos-and-applications">10 Interesting .NET Micro Framework Demos and Applications - Pete Brown</a></li>
+<li><a href="http://10rem.net/blog/2010/09/24/using-a-4x20-hd44780-controlled-lcd-display-with-the-netduino">Using a 4x20 HD44780-controlled LCD Display with the Netduino - Pete Brown</a></li>
+<li><a href="http://blog.bobcravens.com/2010/09/gps-using-the-netduino/">GPS using the Netduino - Bob Cravens</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -504,52 +695,6 @@ private static string[] RemoveDuplicates(ArrayList arrList)
 <blockquote>
 <p>Note: I found this method on the net and therefore I am sharing it as it is. Use any of the above which suites your requirement.</p>
 </blockquote>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/blog-analytics-widget-for-blogenginenet-powered-by-google-analytics/">Blog Analytics: Widget For BlogEngine.NET Powered By Google Analytics</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 19, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/blog-analytics-logo.png" alt="Blog Analytics Logo"/></p>
-
-<p>Finally, I got to know the way to show Google Analytics stats on my blog space. To know more about using Google Analytics API <a href="http://code.google.com/apis/analytics/docs/gdata/gdataArticlesCode.html">read their official article on using the API</a>.</p>
-
-<p>I have built a widget with the help of Analytics API to show the Google Analytics stats on my blog. The widget shows three stats at the moment (I don&rsquo;t want to make the widget look complex). Below is a screenshot for the widget in action on my blog:</p>
-
-<p><img src="/images/blog-analytics-widget.png" alt="Blog Analytics Widget" /></p>
-
-<p>The above widget shows the stats since I have started blogging. As you can see my blog is not as popular as yours or as popular comparative with other MSFT guys and other popular bloggers. As usual before you can use the widget you need to do some settings for the widget.</p>
-
-<p><img src="/images/blog-analytics-settings.png" alt="Blog Analytics widget settings" /></p>
-
-<p>You should be aware by now that this widgets uses Google Analytics API, and I hope you all have <a href="http://www.google.com/analytics">Analytics</a> account. The <code>Username</code> and <code>Password</code> will be the same as your Analytics account (<em>and without @xyz.com</em>). <code>From Date</code> and <code>To Date</code> specifies the date range which then populate the stats from Analytics service for the specified date range. I have provided an option that allows you to always use the <code>To Date</code> as the current date, you can do that by checking<code>Always use Current Date</code> (<em>checking this will override <code>To Date</code> value</em>). If you wish to show the stats ONLY for the current day then check <strong>Use From and To Date as Current Date</strong> (<em>change the widget title from what you have to <code>Today's Hit</code> or whatever you wish!</em>). I have settings as shown in the screenshot above for my blog and I am showing all my stats since I have started blogging.Last three options will allow you to toggle between the three statistics options you want to show on the widget or not.</p>
-
-<p><strong>Download: <a href="/files/BlogAnalytics - Widget.zip">BlogAnalytics - Widget.zip (107.28 kb)</a></strong></p>
 
   </div>
   

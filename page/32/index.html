@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-06-21T15:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-06-26T15:37:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -154,6 +154,54 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/guids-in-c-sql/">GUIDs in C# / SQL</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 26, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      
+      
+      
+      
+    </span>
+    <p>GUID pronounced as goo&rsquo;id - Globally unique identifier is a 128-bit integer that can be used to uniquely identify something. If you want to identify the large collection of data GUID is the best approach in my view. Also you can use the autoincremental integer to identify records, this is the basic approach programmer&rsquo;s use.</p>
+
+<p>GUID method can be found under the System namespace and it also provides some overloads. Here is how we can use the GUID overloads:</p>
+
+<pre class="brush:csharp">
+System.Guid.NewGuid().ToString();    //c93ded50-7cce-4f3a-b8aa-5a1a34d80b14
+System.Guid.NewGuid().ToString("N"); //636bdfd2bbc541229fbc6b869995ce6f
+System.Guid.NewGuid().ToString("D"); //45e602b6-0904-47ac-a764-a5522f56f40f
+System.Guid.NewGuid().ToString("B"); //{68f55508-f72c-4a38-b96b-f493c3c5adb9}
+System.Guid.NewGuid().ToString("P"); //(1c2e52a7-e384-445e-b80a-e8704c6ecbd6)
+</pre>
+
+<p>To create GUID in SQL Server use the simple select statement:</p>
+
+<pre class="brush:sql">
+SELECT NEWID()
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -323,52 +371,6 @@ LockWorkStation(); //Locks the workstation, Equivalent to WIN+L
 ExitWindowsEx(0, 0)//Shutdowns the machine 
 Application.SetSuspendState(PowerState.Suspend, true, true)  //Put the machine in stand-by mode
 Application.SetSuspendState(PowerState.Hibernate, true, true); // Hibernates the system
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/convert-ascii-values-from-hex-to-characters/">Convert ASCII values from hex to characters</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 30, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>This C# code takes in a list of ASCII values (hexadecimal) and shows the actual characters behind, thus converting hex values to strings.</p>
-
-<pre class="brush:csharp">
-// An object storing the hex value
-string HexValue = "4765656B7065646961";
-// An object storing the string value
-string StrValue = "";
-// While there's still something to convert in the hex string
-while (HexValue.Length > 0)
-{
-    // Use ToChar() to convert each ASCII value (two hex digits) to the actual character
-    StrValue += Convert.ToChar(Convert.ToUInt32(HexValue.Substring(0, 2), 16)).ToString();
-    // Remove from the hex object the converted value
-    HexValue = HexValue.Substring(2, HexValue.Length - 2);
-}
-// Show the converted value
-MessageBox.Show(StrValue); 
 </pre>
 
   </div>
