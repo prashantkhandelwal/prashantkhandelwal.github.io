@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-02-22T00:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-02-25T20:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,35 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/sql-server-performance-and-nocount/">SQL Server performance and NOCOUNT</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Feb 25, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>Performance of SQL server matters while working with large enterprise applications and where performance really bothers the business workflow. When NOCOUNT is ON, the count of rows by the execution of the query (T-SQL statements) is not returned. You must have noticed that when you perform operations by executing INSERT, UPDATE, DELETE or SELECT statements, the server returns the number of rows. The count of rows is necessary while debugging your queries, when you are done with debugging you can turn NOCOUNT ON. To view the number of rows affected use the command SET NOCOUNT OFF. You can try writing a normal select query with NOCOUNT as OFF, when NOCOUNT is OFF you can see the number of rows affected, but when you set NOCOUNT ON, you will not see any message related to the count of rows which are affected when you execute select statement or T-SQL statement.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -386,70 +415,6 @@ WITH (id  int, name varchar(50), age int)
 </ul>
 
 <p>The training kit includes the demos and presentations, hand-on labs for developers. I haven&rsquo;t yet started with Windows 7 development. But as soon as I get started I will blog some demo for Windows 7.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/how-to-plug-in-a-dll-into-a-c-project/">How to plug-in a DLL into a C# project</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 7, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p><a href="http://social.msdn.microsoft.com/Profile/en-US/?user=JohnGrove&amp;referrer=http%3a%2f%2fsocial.msdn.microsoft.com%2fForums%2fen-US%2fcsharpgeneral%2fthread%2fc3da5226-fc87-4fff-be60-4cc5af4d6c07&amp;rh=%2fc%2fjJR1gi7bC2eWC6ntSfFwjeOOqGFqEA0pR1UaBY40%3d&amp;sp=forums">John Grove</a> share a code at <a href="http://social.msdn.microsoft.com/Forums/en-US/csharpgeneral/thread/c3da5226-fc87-4fff-be60-4cc5af4d6c07">MSDN</a> on how can we call DLLs methods dynamically using C# code.</p>
-
-<p>The below code can further be modified and a developer can easily extend the functionality of his application to create a application which accepts DLLs as plug-ins. This concept is useful when different users have different requirements in a generalized application like in the case of famous photo editing program Photoshop from Adobe. Here anyone can create a plug-in and hook it up with the host application which further inherits all the functionalities from the DLL.</p>
-
-<pre class="brush:csharp">
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
- 
-namespace ConsoleApplication1
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Assembly assembly = Assembly.LoadFrom(@"C:\Documents and Settings\john.grove\MyMath.dll");
-            Type mathUtility = assembly.GetType("MyMathUtilty");
-            Object theInstance = Activator.CreateInstance(mathUtility);
-            Int32 result = (Int32)mathUtility.InvokeMember("Add", BindingFlags.InvokeMethod, null, theInstance, new object[] { 56, 26 });
-            Console.WriteLine("Dynamically invoking MyMathUtilty Add method");
-            Console.WriteLine("56 + 26 = {0}", result);
-            Console.WriteLine("");
- 
-            // get all public static methods of MyMathUtilty type
-            MethodInfo[] methodInfos = mathUtility.GetMethods(BindingFlags.Public | BindingFlags.Static);
-            Console.WriteLine("All public/static methods in MyMathUtilty");
-            Console.WriteLine("----------------------------------------");
-            for (Int32 i = 0; i < methodInfos.Count(); i++ )
-                Console.WriteLine("{0}.) {1}", i + 1, methodInfos[i].Name);
-            Console.ReadLine();
-        }
-    }
-}
-</pre>
 
   </div>
   
@@ -779,7 +744,16 @@ namespace ConsoleApplication1
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -787,7 +761,7 @@ namespace ConsoleApplication1
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

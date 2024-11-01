@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2016-04-29T13:51:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2016-05-21T18:45:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,232 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/building-angular-2-app-with-web-api-and-net-core/">Building Angular 2 App With Web API And .NET Core</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 21, 2016
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      
+      
+      
+      
+    </span>
+    <p>Setting up the new Angular 2 app with Web API and .NET core is easy but can be a bit tricky. The older beta releases of Angular 2 works fine as there are not many files to refer and to work with. When I started using Angular 2 it was in RC1 and the way the files are being referenced in the app is bit different than the older versions of Angular 2. I don&rsquo;t want to repeat these steps again and again so I put up a Github repo for this seed project. You clone it and hit F5 and you will have your Angular 2 app with Web API.</p>
+
+<blockquote>
+<p>At the time of writing this post I am using .NET Core version 1.0.0-preview1-002702. The complete seed project is available on <a href="https://github.com/prashantkhandelwal/Angular2WebAPI-Seed">GitHub</a>.</p>
+</blockquote>
+
+<p>Here is how I did it. Select <code>ASP.NET Core Web Application (.NET Core)</code>. I have installed the new .NET Core RC2. Name the project as you like.</p>
+
+<p><img src="/images/vs-new-project.png" alt="Visual Studio New Project" /></p>
+
+<p>Select the <code>Web API</code> project template.</p>
+
+<p><img src="/images/vs-new-add-api.png" alt="Visual Studio Add Web API" /></p>
+
+<p>After the project creation is successfull. The first thing is to create a <code>Views</code> folder. The folder structure is like the same like it is for MVC application. This is how the folder structure looks like.</p>
+
+<p><img src="/images/vs-view-project-files.png" alt="Visual Studio Project Files View" /></p>
+
+<p>Because its a a Web API project, by default it will not render the views and therefore we have to add some dependencies in <code>project.json</code> file.</p>
+
+<pre class="brush: plain">
+"Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
+"Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0-rc2-final",
+"Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0-rc2-final"
+</pre>
+
+<p>The <code>project.json</code> file is different than that of the older version of the .NET Core. You will see the difference when you see it.
+Next we set the routes for the views we have in the <code>Startup.cs</code> file.</p>
+
+<pre class="brush: csharp">
+app.UseMvc(routes =&gt;
+{
+    routes.MapRoute("default",
+                    "{controller=Home}/{action=Index}/{id?}");
+ 
+    routes.MapWebApiRoute("defaultApi",
+                          "api/{controller}/{id?}");
+});
+</pre>
+
+<p>The routes are now set and you can run the application and check if you can see the view or not. Once that is set, let start adding the support for Angular. Here is the list of the files which we need to add.</p>
+
+<p><code>tsconfig.json</code> file</p>
+
+<p><img src="/images/add-tsconfig-file.png" alt="Add tsconfig.json file" /></p>
+
+<p>Add the below code to the file and save it.</p>
+
+<pre class="brush: plain">
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "system",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "rootDir": "wwwroot",
+    "outDir": "wwwroot",
+    "listFiles": true,
+    "noLib": false,
+    "diagnostics": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
+</pre>
+
+<p><code>typings.json</code> file</p>
+
+<p>Add a blank <code>.json file</code> and name it <code>typings.json</code></p>
+
+<p><img src="/images/add-typings.json.png" alt="Add typings.json file" /></p>
+
+<p>Add below lines to the <code>typings.json</code> file.</p>
+
+<pre class="brush: plain">
+{
+  "ambientDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160412134438"
+  }
+}
+</pre>
+
+<p>As per the official <a href="https://angular.io/docs/ts/latest/quickstart.html">Angular documentation</a>, we will stick with <code>NPM</code> to fulfill the client-side dependencies. Start with adding new <code>npm Configuration File</code>. The content of the <code>NPM</code> file is almost the same, but I made few changes as per my requirement. Here is the complete configuration file.</p>
+
+<p><img src="/images/npm-configuration-file.png" alt="NPM Configuration File" /></p>
+
+<pre class="brush: plain">
+{
+  "name": "Angular2WebAPI-Seed",
+  "version": "1.0.0",
+  "scripts": {
+    "postinstall": "typings install"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/http": "2.0.0-rc.1",
+    "@angular/platform-browser": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
+    "@angular/router": "2.0.0-rc.1",
+    "@angular/router-deprecated": "2.0.0-rc.1",
+    "@angular/upgrade": "2.0.0-rc.1",
+ 
+    "lodash": "4.12.0",
+    "systemjs": "0.19.27",
+    "es6-shim": "^0.35.0",
+    "reflect-metadata": "^0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "^0.6.12",
+    "angular2-in-memory-web-api": "0.0.7",
+    "bootstrap": "^3.3.6"
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "concurrently": "^2.0.0",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1"
+  }
+}
+</pre>
+
+<p>Notice the <code>postinstall</code> section in the npm configuration file. In this section we are installing the types required by our Angular 2 application. Now we can start setting up the Angular stuff in the <code>wwwroot</code> folder. Create an <code>app</code> and <code>js</code> folder inside this folder. Inside <code>app</code> folder create a new <code>.ts</code> file (TypeScript file). Here is the folder structure looks like in the <code>wwwroot</code> folder.</p>
+
+<p><img src="/images/angular-files.png" alt="Angular Files Structure" /></p>
+
+<p>You can see a <code>system.config.js</code> file is the same as you can see the Angular quickstart guide. I just have map the paths for the dependencies so that can be loaded without any problem. The <code>main.ts</code> file will be the main bootstrapper and <code>app.component.ts</code> file is the component file which will render the content on the page. At this point running the application will fail and it will give you several warnings and errors. To resolve that we need to add the references and we can do this easily by using a gulp file. The gulp file will automate the copying of dependencies in the <code>wwwroot</code> folder and ease our task.</p>
+
+<p><img src="/images/add-gulp-config-file.png" alt="Add Gulp Configuration File" /></p>
+
+<p>The content of the gulp file in this case looks like this.</p>
+
+<pre class="brush: plain">
+/// <binding BeforeBuild='default' />
+ 
+var _ = require('lodash');
+var gulp = require('gulp');
+ 
+var js = [
+    'node_modules/zone.js/dist/zone.min.js',
+    'node_modules/systemjs/dist/system.js',
+    'node_modules/reflect-metadata/Reflect.js',
+    'node_modules/es6-shim/es6-shim.min.js'
+];
+ 
+var map = [
+    'node_modules/es6-shim/es6-shim.map',
+    'node_modules/reflect-metadata/reflect.js.map',
+    'node_modules/systemjs/dist/system.js.map'
+];
+ 
+var folders = [
+    'node_modules/@angular/**/*.*',
+    'node_modules/rxjs/**/*.*'
+];
+ 
+gulp.task('copy-js', function () {
+    _.forEach(js, function (file, _) {
+        gulp.src(file)
+       .pipe(gulp.dest('./wwwroot/js'))
+    });
+});
+ 
+gulp.task('copy-map', function () {
+    _.forEach(map, function (file, _) {
+        gulp.src(file)
+        .pipe(gulp.dest('./wwwroot/js'))
+    });
+});
+ 
+gulp.task('copy-folders', function () {
+    _.forEach(folders, function (folder) {
+        gulp.src(folder, { base: 'node_modules' })
+            .pipe(gulp.dest('./wwwroot/js'))
+    });
+})
+ 
+gulp.task('default', ['copy-js', 'copy-map', 'copy-folders']);
+</pre>
+
+<p>Notice the very first line in the file above. We want to execute the task on every time before the build is triggered. The gulp file will only be copying the required files to the <code>js</code> folder and other unnecessary files will not be required. After the task is executed here is the how the final directiry structure will look like under <code>wwwroot</code>.</p>
+
+<p><img src="/images/angular-wwwroot-content.png" alt="Angular wwwroot content" /></p>
+
+<p>Depending on the selector you have in your component, you need to add the selector to your view. In my case the selector is <code>app</code>, hence add <code>&lt;app&gt;&lt;/app&gt;</code> in your <code>Index.cshtml</code> file.</p>
+
+<p>After you set up the index page, there is one more thing that you have to do is to set the launch URL.</p>
+
+<p><img src="/images/launch-settings.png" alt="App Launch Settings" /></p>
+
+<p>The URL may change and differ as per your API endpoint. Press F5 to run the application.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -521,123 +747,6 @@ lcd.message(str(msg))
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/net-projects-you-should-be-follwing-on-github/">.NET Projects You Should Be Following On Github</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 19, 2015
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>Open-source has entirely change the programming and developers world. Today you can create any application, game, mobile app without spending a single penny. Thanks to open-source software and awesome community of developers and people behind them. As a .NET developer I have been developing enterprise applications for quite a long time and now I have shifted my focus towards developing products and understanding what it takes to make a successful product launch.</p>
-
-<p>Back then, I used to spend most of my time in investigating the new technologies and what technology we should be using to get this thing done. I still do that today, not because it is the requirement of the project but because I have been asking a lot of questions. The list of projects I have compiled below are the projects that have helped me in learning lots of new things and insights of the programming and I hope this does the same for you as well.  Here is the list of awesome open-source project that you should be following on Github.</p>
-
-<h4 id="pinta-http-www-pinta-project-com"><a href="http://www.pinta-project.com/">Pinta</a></h4>
-
-<p><img src="/images/pinta-screenshot.jpg" alt="Pinta" /></p>
-
-<p>We all know about Paint.net, it is an awesome tool and a complete replacement of Photoshop (at least for me). And yet there is another project which is almost the same and open-source and it works on Linux and Mac. It uses Gtk# (Gtk sharp) to run on both Window and Linux platforms. This project is a must have if you are a .NET guy and want to get yourself into some serious programming. You will learn about the insights of using gtk# in your projects. Though Microsoft already took the steps to have .NET FX on Linux but still this project is a great learning source.</p>
-
-<p><strong>Official site:</strong> <a href="http://www.pinta-project.com/">http://www.pinta-project.com/</a></p>
-
-<p><strong>Github:</strong> <a href="https://github.com/PintaProject/Pinta">https://github.com/PintaProject/Pinta</a></p>
-
-<h4 id="sharex-https-getsharex-com"><a href="https://getsharex.com/">ShareX</a></h4>
-
-<p><img src="/images/sharex-screenshot.png" alt="ShareX" /></p>
-
-<p>I take a lot of screen shots and record screen casts as well for my personal use. But I used to use two different tools to get the work done. This is one of the tools that will not just take screen shots or just let you record your screen casts easily, it will also allow you to upload them to the 40 different image storing cloud services. Dive into the source code and see the awesomeness under the hood. Here is the project description as seen on Github.</p>
-
-<blockquote>
-<p>ShareX is an open source program that lets you take screenshots or screencasts of any selected area with a single key, save them in your clipboard, hard disk or instantly upload them to over 40 different file hosting services. In addition to taking screenshots, it can upload images, text files and all other different file types.</p>
-</blockquote>
-
-<p><strong>Official site:</strong> <a href="https://getsharex.com/">https://getsharex.com/</a></p>
-
-<p><strong>Github:</strong> <a href="https://github.com/ShareX/ShareX">https://github.com/ShareX/ShareX</a></p>
-
-<h4 id="stackexchange-data-explorer-https-data-stackexchange-com"><a href="https://data.stackexchange.com/">StackExchange - Data Explorer</a></h4>
-
-<p><img src="/images/data-explorer-screenshot.png" alt="DataExplorer" /></p>
-
-<p>You got a programming question, you Google it and it redirects it to StackOverflow. StackOverflow needs no introduction among programmers. StackOverflow is one of the Q&amp;A site dedicated to the developers to get the answers for their problems. But it is just one site. In the recent years StackExchange has grew up and not just providing support for programmers but also helping folks from other fields. Now the data StackExchange has is available for anyone out there for free under creative-commons. If you are interested in looking into the source code that powers the user to query that immense amount of data bank then head over to Github and fork this project. StackExchange is all about Microsoft stack and this tool is also written in ASP.NET MVC3.</p>
-
-<p><strong>Official App:</strong> <a href="https://data.stackexchange.com/">https://data.stackexchange.com/</a></p>
-
-<p><strong>Github:</strong> <a href="https://github.com/StackExchange/StackExchange.DataExplorer">https://github.com/StackExchange/StackExchange.DataExplorer</a></p>
-
-<h4 id="miniblog-https-github-com-madskristensen-miniblog"><a href="https://github.com/madskristensen/MiniBlog">MiniBlog</a></h4>
-
-<p><img src="/images/miniblog-screenshot.png" alt="MiniBlog" /></p>
-
-<p>This is the minimalistic blog engine written in ASP.NET web pages by the author of BlogEngine.NET, Mads Kristensen. I started my bog with BlogEngine.NET and I had an amazing experience with it. MiniBlog is totally different in terms of features that are offered by BlogEngine.NET. This project will tell you the power of web pages and how you can write your own simple site without wasting much time.</p>
-
-<p><strong>Demo:</strong> <a href="http://miniblog.azurewebsites.net/">http://miniblog.azurewebsites.net/</a> (with user name and password as demo).</p>
-
-<p><strong>Github:</strong> <a href="https://github.com/madskristensen/MiniBlog">https://github.com/madskristensen/MiniBlog</a></p>
-
-<h4 id="fluent-scheduler-https-github-com-jgeurts-fluentscheduler"><a href="https://github.com/jgeurts/FluentScheduler">Fluent Scheduler</a></h4>
-
-<p>If you want to run cron jobs or automated jobs in your application quietly, then this is the library you should be using. The documentation is pretty sleek and get you started in no time. But other than that you should take a look at the source code and see how nicely this has been done.</p>
-
-<p><strong>Github:</strong> <a href="https://github.com/jgeurts/FluentScheduler">https://github.com/jgeurts/FluentScheduler</a></p>
-
-<h4 id="dapper-https-github-com-stackexchange-dapper-dot-net"><a href="https://github.com/StackExchange/dapper-dot-net">Dapper</a></h4>
-
-<p>A Micro-ORM used by StackExchange sites. This is a perfect replacement for EF. This is just a single file that you can drop in your project and get started.</p>
-
-<blockquote>
-<p>Dapper is a single file you can drop in to your project that will extend your IDbConnection interface.</p>
-</blockquote>
-
-<p><strong>Github:</strong> <a href="https://github.com/StackExchange/dapper-dot-net">https://github.com/StackExchange/dapper-dot-net</a></p>
-
-<h4 id="linq-towiki-https-github-com-svick-linq-to-wiki"><a href="https://github.com/svick/LINQ-to-Wiki">LINQ-toWIKI</a>)</h4>
-
-<p>A .NET library to access MediaWiki API. The library is almost 3 years old but the source code will worth the look. Excerpt from Github:</p>
-
-<blockquote>
-<p>LinqToWiki is a library for accessing sites running MediaWiki (including Wikipedia) through the MediaWiki API from .Net languages like C# and VB.NET.</p>
-
-<p>It can be used to do almost anything that can be done from the web interface and more, including things like editing articles, listing articles in categories, listing all kinds of links on a page and much more. Querying the various lists available can be done using LINQ queries, which then get translated into efficient API requests.</p>
-</blockquote>
-
-<p><strong>Github:</strong> <a href="https://github.com/svick/LINQ-to-Wiki">https://github.com/svick/LINQ-to-Wiki</a></p>
-
-  </div>
-  
 </div>
 
 
@@ -962,7 +1071,16 @@ lcd.message(str(msg))
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -970,7 +1088,7 @@ lcd.message(str(msg))
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

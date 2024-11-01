@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-04-24T00:24:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-05-13T22:22:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,44 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-find-whether-the-machine-is-32-bit-64-bit/">How To Find Whether The Machine Is of 32-Bit/64-Bit Architecture</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 13, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>The easiest way to find out the processor architecture is to use the Environment class <code>GetEnvironmentVariable</code> method.</p>
+
+<pre class="brush:csharp">
+Console.WriteLine(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE"));
+</pre>
+
+<p>This will print the processor architecture on the console window i.e. x86 and x64 for 32-bit and 64-bit respectively.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -576,45 +614,6 @@ list.AddUserTasks(JLink);
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/calling-aspnet-web-service-using-jquery-part-iii-fetch-data-from-sql-server/">Calling ASP.NET Web Service Using Jquery - Part III - Fetch Data From SQL Server</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 11, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>My previous two posts on using Jquery for calling ASP.NET web service takes you to the basics of calling a web service using Jquery AJAX. In this last post of the series I will show hot to fetch data from the SQL Server through a web service.</p>
-
-<p>In this example I am going to show on how we can fetch data from SQL Server. I am using pretty well known Adventure Works database for this example. I am using Person.Contact table for this example. I will show on how to fetch data i.e. first name, last name and e-mail address on the basis of the ContactID.
-So first, as usual create a normal ASP.NET project and add the required files. Create a new web service, I have named my web service “AdvService.asmx”. You can name your web service as you like. This time we are fetching data from the SQL Server by passing a parameter to the web service method. I am using the very same, basic way of fetching record from the SQL Server. You can also use LINQ here to fetch data.</p>
-
-<p>I have used a delay of few seconds to how the animation, rest in the code is self explanatory. Just passing a parameter and fetching the details of the person from the Adventure Works database.Below are the screenshots for the sample application.</p>
-
-<p><img src="/images/ajax-jquery-1.png" alt="AJAX call in ASP.NET app via JQuery" />
-<img src="/images/ajax-jquery-2.png" alt="AJAX call in ASP.NET app via JQuery" /></p>
-
-<p><strong>Download: <a href="JqueryAjaxSQLDemo.zip">JqueryAjaxSQLDemo.zip (97.86 kb)</a></strong></p>
-
-  </div>
-  
 </div>
 
 
@@ -941,7 +940,16 @@ So first, as usual create a normal ASP.NET project and add the required files. C
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -949,7 +957,7 @@ So first, as usual create a normal ASP.NET project and add the required files. C
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

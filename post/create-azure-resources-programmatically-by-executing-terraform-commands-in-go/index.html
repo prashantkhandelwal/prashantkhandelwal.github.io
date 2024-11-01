@@ -144,7 +144,7 @@ One of the biggest pain points has been the authentication in command line tooli
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -314,7 +314,7 @@ fmt.Println(outStr)
 $ az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID 
 </pre>
 
-<p>As we are automating this process, we can use the <code>exec.Command</code> to execute this command with parameters like this:</p>
+<p>As we are automating this process, we can use the exec.Command to execute this command with parameters like this:</p>
 
 <pre class="brush:ruby">
 cmd := exec.Command("az", "login", "--service-principal", "-u", os.Getenv("ARM_CLIENT_ID"), "-p", os.Getenv("ARM_CLIENT_SECRET"), "--tenant", os.Getenv("ARM_TENANT_ID")) 

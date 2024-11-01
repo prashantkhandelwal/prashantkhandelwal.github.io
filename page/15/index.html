@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-11-26T14:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-12-03T12:29:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,38 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/html-5-show-your-support-tell-the-world/">HTML 5: Show Your Support / Tell The World</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 3, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/html5-logo.png" alt="HTML5 Logo"/></p>
+
+<p>If you really love working with HTML5 the this is then time to show some support for HTML5. Use the <a href="http://www.w3.org/html/logo/#badge-builder">HTML5 badge builder</a> to create a badge and use it on your blog/website to show your support. The badge builder allows you to customize the badge with tech you use with HTML5. You can see the badge I customized with the tech under badge section on the right.</p>
+
+<p><img src="/images/html5-love.png" alt="HTML5 love" /></p>
+
+<p>The <a href="http://www.w3.org/html/logo/">w3.org site</a> for HTML5 has to offer more than just a badge. You can download HTML5 Logos, stickers, T-shirts, jacket, grey hoodie and beanie to show your love or I must say more precisely show off your HTML5 love. The HTML5 T-shirts are awesome and worth buying if you want to show off. Take a look at <a href="http://html5shirt.com/">HTML5 Logo T-Shirts</a> and buy one if you really like HTML5 and yes if you want to show off and make other jealous.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -502,98 +534,6 @@ $(document).ready(function () {
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/">Get Twitter, Facebook And Feed Readers Count In ASP.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 2, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>I am working on some web stuff these days and surfing around to look at some of the best web developer&rsquo;s work around the web. As I was surfing I came across one of the most popular and reputed web tutorials site <a href="http://net.tutsplus.com/">Nettus+</a>. I am not going talking about any tutorial or article published on this site, but one thing that attracts my attention was the way they are displaying their followers count on twitter, facebook likes and RSS readers.</p>
-
-<p><img src="/images/nettuts-social-widget.png" alt="Nettuts+ Social Widget" /></p>
-
-<p>This looks pretty cool and just out of curiosity I viewed the page source, hoping to find some script or API call which gets the count. But eventually I can&rsquo;t found anything. For Twitter and Facebook I know that there is an API and therefore I can get the twitter followers and facebook like count but don&rsquo;t know anything about the feed readers count. So I search the web get myself aware of the feedburner API. So let&rsquo;s take a look at the code.</p>
-
-<h4 id="get-twitter-followers-count"><strong>Get Twitter Followers Count</strong></h4>
-
-<p>To get your twitter followers count, I am making a REST API call. This call will return XML string and then I am going to parse the received XML using LINQ. You just need to pass your twitter user name to get the followers count.</p>
-
-<pre class="brush:csharp">
-public string GetTwitterFollowersCount(string UserName)
-{
-            XDocument xdoc = XDocument.Load("http://api.twitter.com/1/users/show.xml?screen_name=" + UserName + "&include_entities=false");
-            return (from item in xdoc.Descendants("user")
-                    select item.Element("followers_count").Value).SingleOrDefault();
-}
-</pre>
-
-<h4 id="get-facebook-likes-count"><strong>Get Facebook Likes Count</strong></h4>
-
-<p>To get total Facebook likes count you need to remember that you have to use the URL of your page for e.g. <a href="http://www.facebook.com/audi">http://www.facebook.com/audi</a> or <a href="http://www.facebook.com/nettutsplus">http://www.facebook.com/nettutsplus</a> and not just the name of your page. Check out the code:</p>
-
-<pre class="brush:csharp">
-public string GetFacebookLikes(string FaceBookURL)
-{
-         string URL = "https://api.facebook.com/method/fql.query?query=select%20%20like_count,%20total_count,%20share_count,%20click_count%20from%20link_stat%20where%20url=%22" + FaceBookURL + "%22";
-         XElement xdoc = null;
-         XElement counts = null;
-         xdoc = XElement.Load(URL);
- 
-         IEnumerable&lt;XElement&gt; total_Like_count =
-             from elem in xdoc.Descendants()
-             where elem.Name.LocalName == "like_count"
-             select elem;
- 
-         counts = total_Like_count.First();
-         string FBLikes = Convert.ToString(counts.Value);
-         return FBLikes;
-}
-</pre>
-
-<h4 id="get-rss-feed-readers-count"><strong>Get RSS Feed Readers Count</strong></h4>
-
-<p>To get the RSS feed readers count you need to pass the complete URL of your feed URL for e.g. <a href="http://feeds.feedburner.com/MidnightProgrammer">http://feeds.feedburner.com/MidnightProgrammer</a></p>
-
-<pre class="brush:csharp">
-public string GetFeedReadersCount(string url)
-{
-            XDocument xdoc = XDocument.Load("http://feedburner.google.com/api/awareness/1.0/GetFeedData?uri=" + url);
-            return (from item in xdoc.Descendants("entry")
-                    select item.Attribute("circulation").Value).SingleOrDefault();
-}
-</pre>
-
-<p>This is it, now it all depends on the designer or developer how to get the stats and present it in a more attractive way. I am not a designer and this is why I am not putting any effort to do something like this to show you this thing in action. At present I am working on JQuery version of the above code, so people who are willing to show stats on their blogs or website which are different platforms. Till that time, try the above code with ASP.NET and let me know of this helps you out.</p>
-
-  </div>
-  
 </div>
 
 
@@ -920,7 +860,16 @@ public string GetFeedReadersCount(string url)
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -928,7 +877,7 @@ public string GetFeedReadersCount(string url)
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

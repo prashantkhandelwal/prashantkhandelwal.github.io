@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2023-04-05T12:13:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2023-04-14T15:36:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,145 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/">How To Host Your React Application For Cheap With Azure Blob Storage</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 14, 2023
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/react">REACT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>If you have a static website, blog or a react application, here is how you can host them for cheap with Azure Blob Storage. This article focuses on how you can configure Azure Blob Storage to host your static website or react application.</p>
+
+<h3 id="starting-with-create-react-app"><strong>Starting with create-react-app</strong></h3>
+
+<p>Creating a react application is simple with <code>create-react-app</code> and then build the optimized output of the application by running <code>npm run build</code> command. This will publish the optimized version of the react app in the <code>build</code> folder.</p>
+
+<blockquote>
+<p>IMPORTANT: If you are using Next.JS or any other framework which require server-side rendering then hosting your application with Azure Blob Storage will not work as server-side rendering demands a web server to deliver the content to the client.</p>
+</blockquote>
+
+<h3 id="creating-and-configuring-azure-storage-account"><strong>Creating and Configuring Azure Storage Account</strong></h3>
+
+<p>Once the build is completed successfully, it is time to configure Azure Blob Storage to host the static website. Go to <a href="https://portal.azure.com">portal.azure.com</a> and create a new resource by clicking <code>Create a resource</code> and then search for <code>Blob Storage</code>.</p>
+
+<p><img src="/images/azure-blob-storage.png" alt="New resource - Azure Blob Storage" /></p>
+
+<p>Select the resource offering which is provided by Microsoft. Click on <code>Create</code> and follow the instructions to create a new <code>Blob Storage Account</code>.</p>
+
+<p>In the <code>Basics</code> tab, fill in the details like shown below.</p>
+
+<p><img src="/images/blob-storage-basics.png" alt="New resource - Azure Blob Storage Basics Tab" /></p>
+
+<p>I have created a new resource group and named it <code>staticweb</code>. You can name it anything you want. The next is <code>Storage account name</code> which you can set what you want but the name you choose here should be unique across Azure. <code>Region</code> is the place where your resources/storage account will get created. You can select the region which is close to your geographic location for lower latencies. If your website, application or blog is very critical, then you can also opt for <code>Geo-zone-redundant-storage</code> which is for critical business applications. As our use case is very simple and our application is not critical, we can select <code>Locally-redundant storage</code>. For <code>Performance</code>, you can select <code>Standard</code>, but if you want lower latencies then you can select <code>Premium</code>.</p>
+
+<blockquote>
+<p>Check pricing with <a href="https://azure.microsoft.com/en-in/pricing/calculator/">Azure Pricing Calculator</a> before you proceed with any service in Azure. This will give you an idea of how much money you have to spend with these settings over a period of a month.</p>
+</blockquote>
+
+<p>Let’s keep all other settings as they are and click <code>Create</code> to provision a new Storage Account.</p>
+
+<p><img src="/images/blob-storage-review-create.png" alt="New resource - Azure Blob Storage review and create" /></p>
+
+<p>After the storage account is created, under <code>Data management</code>, select <code>Static website</code>.</p>
+
+<p><img src="/images/azure-storage-static-website.png" alt="Azure Blob Storage static website" /></p>
+
+<p>Static websites are disabled by default. Click on <code>Enabled</code> and you will see two fields are now visible asking for the index document name and error document path.</p>
+
+<p><img src="/images/static-website-enabled.png" alt="Static website enabled" /></p>
+
+<p>Depending on the landing, default or index page of your application, you can enter the name of the document here. In my case where I am hosting a react application, the index document name is <code>index.html</code> and error document can be <code>404.html</code> or something else. I don’t have an error document, so I am leaving it blank.</p>
+
+<p>Click <code>Save</code> to save the setting. You will now have the URL of your static website along with the name of the container where the contents of your static app should be uploaded.</p>
+
+<p><img src="/images/static-website-url.png" alt="Static website url" /></p>
+
+<p>Notice the container name is <code>$web</code> and the primary endpoint is <a href="https://myawesomewebsite.z13.web.core.windows.net/">https://myawesomewebsite.z13.web.core.windows.net/</a>.</p>
+
+<p>You can also navigate to this <code>$web</code> container by clicking <code>Containers</code> under <code>Data storage</code> section.</p>
+
+<p><img src="/images/static-website-containers.png" alt="Static website container" /></p>
+
+<h3 id="upload-static-contents-of-web-app"><strong>Upload static contents of web app</strong></h3>
+
+<p>Uploading multiple files directly from the portal is a tedious task and takes a lot of time. I would recommend making use of an open-source tool called <a href="https://azure.microsoft.com/en-us/products/storage/storage-explorer">Azure Storage Explorer</a>. Download this for your operating system and install it.</p>
+
+<p><img src="/images/azure-storage-explorer.png" alt="Azure storage explorer" /></p>
+
+<p>There are a few ways to connect to the storage account in Storage Explorer.</p>
+
+<ul>
+<li>Sign in with your Azure credentials and connect to all the storage accounts you have in your subscription.</li>
+<li>Use storage account connection string to connect to a specific storage account.</li>
+</ul>
+
+<p>Click on <code>Attach a resource</code> on the <code>Get Started</code> page or right click <code>Storage Account</code> and select <code>Connect to Azure storage…</code></p>
+
+<p><img src="/images/storage-explorer-select-resource.png" alt="Azure storage explorer - Select Resource" /></p>
+
+<p>You can also select <code>Blob container</code> and then generate the <code>SAS token</code> to connect to a container. I am connecting my storage account with storage account connection string. You can get the connection string from the Azure Portal.</p>
+
+<p><img src="/images/storage-access-keys.png" alt="Storage account access keys" /></p>
+
+<p>Under <code>Security + Networking</code>, click <code>Access Keys</code> and then click on <code>Show</code> button for <code>Key1 &gt; Connection string</code>. Click <code>Copy to clipboard</code> icon to copy the connection string.</p>
+
+<p>Back in the Storage Explorer, click on <code>Connection string (Key or SAS)</code>.</p>
+
+<p><img src="/images/storage-explorer-connection-method.png" alt="Storage explorer - connection method" /></p>
+
+<p>Enter the connection information and click <code>Next</code>.</p>
+
+<p><img src="/images/storage-explorer-connection-info.png" alt="Storage explorer - connection info" /></p>
+
+<p><img src="/images/storage-explorer-summary.png" alt="Storage explorer - summary" /></p>
+
+<p>Review the final details and click on <code>Connect</code> to connect to the storage account.</p>
+
+<p>After the connection is succeeded, you should see the list of all the containers in the storage account.</p>
+
+<p><img src="/images/storage-explorer-container-view.png" alt="Storage explorer - Container view" /></p>
+
+<p>Select the <code>$web</code> container and start uploading the files of your static web app.</p>
+
+<p><img src="/images/react-build-app.png" alt="React build app output" /></p>
+
+<p><img src="/images/storage-explorer-files-uploaded.png" alt="Storage explorer - Uploaded contents" /></p>
+
+<p>That’s all!!</p>
+
+<p>Let’s check if our react application is running through static website blob storage url or not.</p>
+
+<p>I built my react application by using the <code>npm run build</code> command and these are the files which I am going to upload to the <code>$web</code> container.</p>
+
+<p><img src="/images/static-website-final-result.png" alt="Static Website - Final Result" /></p>
+
+<p>Hooray!! Our react application is successfully hosted and served from Azure Blob Storage.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -855,72 +994,6 @@ $ echo PASSWORD
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/create-mount-and-unmount-img-files-in-ubuntu/">Create, Mount And Unmount .img Files In Ubuntu</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Oct 22, 2017
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/ubuntu">UBUNTU</a>
-      
-      
-      
-      
-    </span>
-    <p>Recently I moved from Windows to Ubuntu on one of my laptops and since then I was trying to look for the way to create a VHDs or some sort of image files that I can use as a container. So I looked up for the solution and found a working solution scattered though places. So here I am putting it in a blog post to have all it in one place.</p>
-
-<p>First we need to create an image file (.img) by using the <code>dd</code> command. The dd command is used to copy and convert the file. The reason it is not called <code>cc</code> is because it is already being used by C compiler. Here goes the command.</p>
-
-<pre class="brush: bash">
-$ dd if=/dev/zero of=cdata.img bs=1G count=5
-</pre>
-
-<blockquote>
-<p>Note: The command execution time depends on the size of the image you have opted out for.</p>
-</blockquote>
-
-<p><img src="/images/dd-command.png" alt="dd command" /></p>
-
-<p>The <code>if</code> param stands for <code>input file</code> to refer the input file. As <code>if</code>, <code>of</code> stands for <code>output file</code> and this will create the <code>.img</code> file with the name you specify. The third param <code>bs</code> stands for <code>block size</code>. This will let you set the size of the image file. The <code>G</code> in the above command stands for <code>GigaByte</code> (GB). You can set the image size by specifying the block size. In this case <code>G</code> stands for GigaBytes (GB), <code>K</code> for KiloBytes (KB), <code>T</code> for TeraBytes (TB), <code>P</code> for Petabytes (PB) and so on. Here I am creating a 5 blocks of 1 GB each for the image file name <code>cdata</code>.</p>
-
-<p>This command will create the .img file but you cannot mount this file as of yet. To do that you have to format the image so that it can have a file system. To do this make use of <code>mkfs</code> command.</p>
-
-<pre class="brush: bash">
-$ mkfs ext3 -F cdata.img
-</pre>
-
-<p>I am creating an <code>ext3</code> filesystem on my image file. <code>-F</code> is to force the operation. Here is the output of the command.</p>
-
-<p><img src="/images/mkfs-command.png" alt="mkfs command" /></p>
-
-<p>Now we can mount the image file by using the <code>mount</code> command:</p>
-
-<pre class="brush: bash">
-$ sudo mount -o loop cdata.img ~/Desktop/HDD/
-</pre>
-
-<p>With the success of the above command, you can see the image mounted on your desktop. You can unmount the image by clicking the eject or unmount button as shown in the below screenshot or you can execute the <code>umount</code> command to do that.</p>
-
-<p><img src="/images/ui-diskmount.png" alt="disk mounted" /></p>
-
-<p>Unmounting the image by using command line.</p>
-
-<pre class="brush: bash">
-$ sudo umount ~/Desktop/HDD
-</pre>
-
-  </div>
-  
 </div>
 
 
@@ -1239,7 +1312,16 @@ $ sudo umount ~/Desktop/HDD
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -1247,7 +1329,7 @@ $ sudo umount ~/Desktop/HDD
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

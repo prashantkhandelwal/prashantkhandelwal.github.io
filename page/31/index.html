@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-09-20T21:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-09-26T22:24:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,48 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/microsoft-event-windows-mobile-65-net-framework-40/">Microsoft Event - Windows Mobile 6.5 &amp; .NET Framework 4.0</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 26, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      
+      
+      
+      
+    </span>
+    <p>I attended the Microsoft developers event at NCUI auditorium in New Delhi on Windows Mobile® 6.5 and .NET Framework 4.0. Abhishek Baxi was a key speaker on Windows Mobile® 6.5. You can read his blog <a href="http://www.baxiabhishek.info/">here</a>. He demonstrates all the new features that Win Mob provides to the end users. How do we sync our data using cloud (Windows Live Mesh), configuring Outlook (Exchange ID) and even configure your live and other IDs, access internet using IE and develops gadgets and other application using VS2008 and 2010 on your phone. He also tells us about Microsoft Marketplace and how do we developers get benefits from the marketplace.</p>
+
+<p>Resources for Windows Mobile® 6.5:</p>
+
+<ul>
+<li><a href="http://www.windowsmobile.com">http://www.windowsmobile.com</a></li>
+<li><a href="http://developer.windowsmobile.com">http://developer.windowsmobile.com</a></li>
+<li><a href="http://twitter.com/windowsmobile">http://twitter.com/windowsmobile</a></li>
+<li><a href="http://twitter.com/wmdev">http://twitter.com/wmdev</a></li>
+<li><a href="http://www.winmo.in">http://www.winmo.in</a></li>
+</ul>
+
+<p>After this we have a half-an-hour break time and then we get back in to attend Bijoy&rsquo;s Singhal&rsquo;s .NET Framework&rsquo;s session. Bijoy is a Developer Evengelist at Microsoft. You can read his blog <a href="http://blogs.msdn.com/bsinghal">here</a>. So, he started up to make all the developer&rsquo;s aware of the new features of .NET Framework 4.0 provides. He continues to talk about parallel computing and parallel computing, PLINQ, DLR, enhancements in CLR, MVC, MEF, MAF and other tons of features&hellip;which is totally outstanding.</p>
+
+<p>In the end we move to the round-table session where we all developers start with a short introduction of ourselves and end up with a feedback on Microsoft Technologies / Events / Cons / Pros and how can we make more and more people aware of the fact on how Microsoft Technologies affect their lives. Moving further we also discussed on how do we get more and more people especially students at the events so they know about the new technology and eventually this will help them as a fresher to choose a domain / technology to move on. Even personally I have seen students that they are very confused about on what they have to choose &hellip;..the technology they want to work in. They just think should I choose Java or .NET but they find it hard to decide. So it&rsquo;s better that someone from Microsoft or on behalf of Microsoft can guide them to choose what&rsquo;s best for them. All other developers also put questions regarding Microsoft certifications and the black market associated with it. Bijoy guarantees that he will be informing Microsoft regarding the same and will definitely take a serious action against this. After all this is about software giant&rsquo;s reputation.</p>
+
+<p>Finally, we decided to get connected once again and we will make our best efforts to promote Microsoft Technologies at every level as we can. I myself is a DieHard Microsoft Fan and I personally will make every possible effort to make people / students aware / beleive in the power of technology Microsoft provides.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -556,59 +598,6 @@ namespace EncryptString
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/insert-binary-files-to-sql-server-using-bulk-operation/">Insert binary files to SQL server using BULK operation</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 11, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>Performing BULK operations with SQL can be useful when you are trying to insert any type of file. Don&rsquo;t mess up with the complex code, just use a simple SQL query to insert any file type in SQL table.</p>
-
-<p>To perform this operation first you need to have a column with datatype as <code>varbinary(max)</code>. See below example:</p>
-
-<p>Create a table with an ID and Data as columns with <code>INT</code> and <code>VARBINARY(MAX)</code> as their Datatypes respectively.</p>
-
-<pre class="brush:sql">
-Create table tblData
-(
-FileId int,
-FileData varbinary(max)
-)
-</pre>
-
-<p>Perform INSERT to Save a file. Here just change the location of the file you want to insert.</p>
-
-<pre class="brush:sql">
-Insert into tblData
-(FileId, FileData)
-SELECT 1, BulkColumn
-FROM OPENROWSET(BULK N'D:\Software\siw.exe', SINGLE_BLOB) AS Document
-</pre>
-
-<p>Display table data after INSERT</p>
-
-<pre class="brush:sql">
-Select * from tblData
-</pre>
-
-  </div>
-  
 </div>
 
 
@@ -933,7 +922,18 @@ Select * from tblData
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -941,7 +941,7 @@ Select * from tblData
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

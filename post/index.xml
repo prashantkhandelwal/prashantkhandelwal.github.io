@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Jun 2023 09:12:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 30 Oct 2024 17:37:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Simple and Cheap: Create a DIY Mouse Jiggler with Raspberry Pi Pico</title>
+      <link>https://prashantkhandelwal.github.io/post/simple-and-cheap-create-a-diy-mouse-jiggler-with-raspberry-pi-pico/</link>
+      <pubDate>Wed, 30 Oct 2024 17:37:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/simple-and-cheap-create-a-diy-mouse-jiggler-with-raspberry-pi-pico/</guid>
+      <description>Today my Amazon feed was filled with the suggestions of mouse jigglers varying from different shape, size and features. It happened when few days back during a conversation with my friend it came as a topic where he want to use something like a mouse jiggler when he is working from home and still want to be shown as active on Microsoft Teams when he is away doing some household chores.</description>
+    </item>
     
     <item>
       <title>Setting Up VirtuaNES Emulator For Retro Gaming On Windows</title>

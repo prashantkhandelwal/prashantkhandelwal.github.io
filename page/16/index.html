@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-08-13T03:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-09-02T03:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,98 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/get-twitter-facebook-and-feed-readers-count-in-aspnet/">Get Twitter, Facebook And Feed Readers Count In ASP.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 2, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I am working on some web stuff these days and surfing around to look at some of the best web developer&rsquo;s work around the web. As I was surfing I came across one of the most popular and reputed web tutorials site <a href="http://net.tutsplus.com/">Nettus+</a>. I am not going talking about any tutorial or article published on this site, but one thing that attracts my attention was the way they are displaying their followers count on twitter, facebook likes and RSS readers.</p>
+
+<p><img src="/images/nettuts-social-widget.png" alt="Nettuts+ Social Widget" /></p>
+
+<p>This looks pretty cool and just out of curiosity I viewed the page source, hoping to find some script or API call which gets the count. But eventually I can&rsquo;t found anything. For Twitter and Facebook I know that there is an API and therefore I can get the twitter followers and facebook like count but don&rsquo;t know anything about the feed readers count. So I search the web get myself aware of the feedburner API. So let&rsquo;s take a look at the code.</p>
+
+<h4 id="get-twitter-followers-count"><strong>Get Twitter Followers Count</strong></h4>
+
+<p>To get your twitter followers count, I am making a REST API call. This call will return XML string and then I am going to parse the received XML using LINQ. You just need to pass your twitter user name to get the followers count.</p>
+
+<pre class="brush:csharp">
+public string GetTwitterFollowersCount(string UserName)
+{
+            XDocument xdoc = XDocument.Load("http://api.twitter.com/1/users/show.xml?screen_name=" + UserName + "&include_entities=false");
+            return (from item in xdoc.Descendants("user")
+                    select item.Element("followers_count").Value).SingleOrDefault();
+}
+</pre>
+
+<h4 id="get-facebook-likes-count"><strong>Get Facebook Likes Count</strong></h4>
+
+<p>To get total Facebook likes count you need to remember that you have to use the URL of your page for e.g. <a href="http://www.facebook.com/audi">http://www.facebook.com/audi</a> or <a href="http://www.facebook.com/nettutsplus">http://www.facebook.com/nettutsplus</a> and not just the name of your page. Check out the code:</p>
+
+<pre class="brush:csharp">
+public string GetFacebookLikes(string FaceBookURL)
+{
+         string URL = "https://api.facebook.com/method/fql.query?query=select%20%20like_count,%20total_count,%20share_count,%20click_count%20from%20link_stat%20where%20url=%22" + FaceBookURL + "%22";
+         XElement xdoc = null;
+         XElement counts = null;
+         xdoc = XElement.Load(URL);
+ 
+         IEnumerable&lt;XElement&gt; total_Like_count =
+             from elem in xdoc.Descendants()
+             where elem.Name.LocalName == "like_count"
+             select elem;
+ 
+         counts = total_Like_count.First();
+         string FBLikes = Convert.ToString(counts.Value);
+         return FBLikes;
+}
+</pre>
+
+<h4 id="get-rss-feed-readers-count"><strong>Get RSS Feed Readers Count</strong></h4>
+
+<p>To get the RSS feed readers count you need to pass the complete URL of your feed URL for e.g. <a href="http://feeds.feedburner.com/MidnightProgrammer">http://feeds.feedburner.com/MidnightProgrammer</a></p>
+
+<pre class="brush:csharp">
+public string GetFeedReadersCount(string url)
+{
+            XDocument xdoc = XDocument.Load("http://feedburner.google.com/api/awareness/1.0/GetFeedData?uri=" + url);
+            return (from item in xdoc.Descendants("entry")
+                    select item.Attribute("circulation").Value).SingleOrDefault();
+}
+</pre>
+
+<p>This is it, now it all depends on the designer or developer how to get the stats and present it in a more attractive way. I am not a designer and this is why I am not putting any effort to do something like this to show you this thing in action. At present I am working on JQuery version of the above code, so people who are willing to show stats on their blogs or website which are different platforms. Till that time, try the above code with ASP.NET and let me know of this helps you out.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -464,79 +556,6 @@ public HtmlString Avatar(string email)
 <p><img src="/images/win7-angrybird-theme.png" alt="Windows 7 Angry Birds theme" /></p>
 
 <p>You can download the Angry Birds theme from the Microsoft downloads center <strong><a href="http://download.microsoft.com/download/4/8/E/48EE7950-8B46-4F4E-BAEE-072875FB2608/AngryBirds.themepack">here</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/bin-deploy-aspnet-mvc-3-application-with-sql-ce-40-entity-framework/">Bin Deploy ASP.NET MVC 3 Application With SQL CE 4.0 &amp; Entity Framework</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 4, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/net-framework">NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p>A few days back <a href="http://haacked.com/">Phil Haack</a> wrote a blog post on <a href="http://haacked.com/archive/2011/05/25/bin-deploying-asp-net-mvc-3.aspx">how to bin deploy ASP.NET MVC 3 application</a> on the web server where ASP.NET MVC 3 is not installed. Like many users I am also on shared hosting and therefore I do not have full control over IIS or the remote machine so I can install or update ASP.NET MVC 3, SQL Server CE 4.0 and other development related stuff. Phil did an excellent post but that works only if you are deploying application with SQL Server as a database. If you are planning to deploy your application with SQL CE as your application backend then here are the steps you need to perform.</p>
-
-<p>I assume that you have your ASP.NET MVC 3 application ready to be deployed with SQL CE 4.0 and EF 4.1. But make sure you have add assembly and for SQL CE 4.0 using NuGet. I recommend you to use NuGet here because it will add all the necessary configurations in Web.config file and also add the correct references to your project. If you have <a href="http://www.microsoft.com/download/en/details.aspx?id=1491">MVC 3 tools update</a> installed then there is no need to add the references for SQL CE 4.0 and for EF 4.1, the default MVC 3 template will do it for you. But there are still some changes to be done in Web.config file.</p>
-
-<p>To deploy your application with SQL CE 4.0 you need to make below changes to the web.config file:</p>
-
-<p>Comment or delete everything inside the <code>connectionStrings</code> tag. The connection string by default is pointing to your default SQL Server instance and as we are going to deploy our application with SQL CE 4.0 we need to change the value under connectionStrings tag like the one below.</p>
-
-<pre class="brush:xml">
-&lt;add name="ContactEntities" connectionString="Data Source=|DataDirectory|DB.sdf" providerName="System.Data.SqlServerCe.4.0" /&gt;
-</pre>
-
-<p>Next is to add <code>DbProviderFactories</code> under <code>System.Data</code> tag. If you run the application on your local development server then it will run without any problems, but if you deploy the web application to the hosting web server where SQL CE 4.0 is not installed then you will get the below error.</p>
-
-<p><img src="/images/bindeploy-error-in-app.png" alt="Bin deploy runtime exception in application" /></p>
-
-<p>To avoid this error you need to manually add the <code>DbProviderFactories</code> in the Web.config file. Below in the markup you need to add to your web.config file.</p>
-
-<pre class="brush:html">
-&lt;system.data&gt;
-    &lt;DbProviderFactories&gt;
-      &lt;remove invariant="System.Data.SqlServerCe.4.0" /&gt;
-      &lt;add name="Microsoft SQL Server Compact Data Provider 4.0" invariant="System.Data.SqlServerCe.4.0" description=".NET Framework Data Provider for Microsoft SQL Server Compact" type="System.Data.SqlServerCe.SqlCeProviderFactory, System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /&gt;
-    &lt;/DbProviderFactories&gt;
-&lt;/system.data&gt;
-</pre>
-
-<p>The best way to do this and to avoid any unnecessary error is to use NuGet. If you use NuGet to deploy SQL CE 4.0 then it will add all necessary configurations to the web.config file, add the correct dependent assembly to the project.</p>
-
-<p><strong>Copy all the dependencies to the BIN folder</strong></p>
-
-<p>The question here is how the one knows what are the dependencies and where to find them all so that they can be deployed with the application? To perform this step you should have <a href="http://www.microsoft.com/download/en/details.aspx?id=23691">Visual Studio 2010 Service Pack 1</a> (VS 2010 SP1) installed on your machine. After installing VS 2010 SP1 there will be an option called <code>Add Deployable Dependencies</code> added when the user right-click the project icon in the solution explorer. When you click this option a dialog box appears which allows you to select the dependencies required for the project.</p>
-
-<p><img src="/images/vs-add-deployable-dependencies.png" alt="Adding deployable assemblies in Visual Studio" /></p>
-
-<p>If you have read Phil&rsquo;s post by now, you might know the difference of all the above options. Here, as we are deploying SQL CE 4.0 database we will also check <code>SQL Server Compact</code> also. Click <code>OK</code> button to add all the required dependencies. As soon as you click OK button you will notice that a new folder named <code>_bin_deployableAssemblies</code> gets added to the solution explorer.</p>
-
-<p><img src="/images/bin-deploy-solution-explorer.png" alt="Deplyable assemblies in solution explorer" /></p>
-
-<p>After adding all the dependencies you then need to build you web application which then copies all the dependencies to the project&rsquo;s or web application&rsquo;s bin folder. While deploying the application we will place each file with similar directory structure in the BIN folder on the hosting web server where ASP.NET MVC 3, SQL CE 4.0 and EF 4.1 is not installed. Just in case if you are wondering on how to deploy EF 4.1, then there is no other thing to be done to deploy EF 4.1, a DLL named <code>EntityFramework</code> inside the bin folder will do the work for us.</p>
-
-<p><strong>Note: I have made no changes to the directory structure while placing files at the remote hosting server.</strong></p>
 
   </div>
   
@@ -866,7 +885,16 @@ public HtmlString Avatar(string email)
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -874,7 +902,7 @@ public HtmlString Avatar(string email)
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

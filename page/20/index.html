@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-01-25T16:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-01-29T05:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,46 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/9-promises-should-be-taken-before-choosing-it-profession/">9 Promises Should Be Taken Before Choosing IT Profession</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 29, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/fundoo">FUNDOO</a>
+      
+      
+      
+      
+    </span>
+    <p>I received an e-mail from a friend of mine who is quite upset after choosing IT as his profession becasue of the list of promises in the e-mail (listed below). Well this is because he didn&rsquo;t made any of the below listed promises to himself and after reading this e-mail he was more upset. Therefore, if you are willing to be an IT guy, then make sure you have made 9 promises as listed below.</p>
+
+<p>Personally, I will say these 9 promises or points are perfect to define an IT/Tech guy.</p>
+
+<ol>
+<li>I have already enjoyed my life in childhood.</li>
+<li>I love tension.</li>
+<li>I don&rsquo;t want to spend time with my family and friends.</li>
+<li>I love night outs.</li>
+<li>I love to work on Sundays and Holidays.</li>
+<li>I want to take revenge on myself (Perfect Reason)</li>
+<li>I don&rsquo;t want to marry before 30.</li>
+<li>I don&rsquo;t want to good salary.</li>
+<li>I want to learn until my death.</li>
+</ol>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -563,116 +603,6 @@ protected void btn_Validate(object sender, EventArgs e)
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/autocomplete-with-jquery-and-aspnet/">Autocomplete With jQuery and ASP.NET</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 19, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>Building auto-complete feature with jQuery is easy and you can build this in no time. It&rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&rsquo;s begin up getting files under one hood.</p>
-
-<p>Use the below live links for jQuery auto-complete and CSS.</p>
-
-<pre class="brush:html">
-&lt;link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css" type="text/css" /&gt;
-&lt;script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"&gt;&lt;/script&gt;
-</pre>
-
-<p>You can also download these files and use them in your project, if you are planning to run your application offline. For this demonstration, I have downloaded the files. I am using both ADO.NET and LINQ to auto-complete with jQuery auto-complete pug-in.</p>
-
-<p>Starting up with ADO.NET, as we were/are using this for so many years now and therefore there should be no problem for anyone using it. Simple page behind code to get the full list of countries in the world (I hope I have all of them) and seperate each country name with a &lsquo;|&rsquo; pipe symbol so I can split countries name and set it to the text box for auto-complete.</p>
-
-<pre class="brush:csharp">
-public partial class _Default : System.Web.UI.Page
-   {
-       SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
-       SqlCommand cmd;
-       SqlDataReader dr;
- 
-       public string Listcountries;
- 
-       private string countryName()
-       {
- 
-           StringBuilder sb = new StringBuilder();
-           cmd = new SqlCommand("Select country_name from Country order by country_name", con);
-           con.Open();
-           dr = cmd.ExecuteReader();
- 
-           while (dr.Read())
-           {
-               sb.Append(Convert.ToString(dr[0] + "|"));
-           }
- 
-           return Convert.ToString(sb);
-       }
- 
-       protected void Page_Load(object sender, EventArgs e)
-       {
-           Listcountries = countryName();
-       }
-   }
-</pre>
-
-<p>Done with code behind and now only requires few lines of client script on the page to get the auto-complete running.</p>
-
-<pre class="brush:jscript">
-&lt;script type="text/javascript"&gt;
-        $(document).ready(function () {
-            var cc = '&lt;%=Listcountries%&gt;'.split("|");
-            $("#autoText").autocomplete(cc);
-        });
-&lt;/script&gt;
-</pre>
-
-<p>The same can be done with LINQ but the jQuery script part will be the same.</p>
-
-<pre class="brush:csharp">
-public partial class AutocompleteLINQ : System.Web.UI.Page
-{
-    DeveloperDBEntities db = new DeveloperDBEntities();
-    public IQueryable countries;
-    public string Listcountries;
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        countries = from c in db.Countries select c;
-        foreach (Country cobj in countries)
-        {
-            Listcountries += cobj.Country_Name + "|";
-        }
-    }
-}
-</pre>
-
-<p>Just for your ease to use this project as it is, I have included the SQL scripts for the country table. Hope this helps you in building another great or a part of your application.</p>
-
-<p><strong>Download: <a href="/files/JqueryAutoComplete.zip">JqueryAutoComplete.zip (210.73 kb)</a></strong></p>
-
-  </div>
-  
 </div>
 
 
@@ -999,7 +929,16 @@ public partial class AutocompleteLINQ : System.Web.UI.Page
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -1007,7 +946,7 @@ public partial class AutocompleteLINQ : System.Web.UI.Page
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2023-06-19T09:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2024-10-30T17:37:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,55 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/simple-and-cheap-create-a-diy-mouse-jiggler-with-raspberry-pi-pico/">Simple and Cheap: Create a DIY Mouse Jiggler with Raspberry Pi Pico</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Oct 30, 2024
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/iot">IOT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/raspberry-pi">RASPBERRY PI</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>Today my Amazon feed was filled with the suggestions of mouse jigglers varying from different shape, size and features. It happened when few days back during a conversation with my friend it came as a topic where he want to use something like a mouse jiggler when he is working from home and still want to be shown as active on Microsoft Teams when he is away doing some household chores. I heard of such a device for the first time and it is kind of intriguing to look for it and see what it can do.</p>
+
+<h4 id="what-is-a-mouse-jiggler">What is a Mouse Jiggler?</h4>
+
+<p>In a nutshell, mouse jiggler is a device which moves your mouse pointer on periodic basis.</p>
+
+<p>The cheapest mouse jiggler I can found on Amazon was around Rs. 880 or $11 (approx.). Now mouse and keyboard are Human Interface Device (HID) and this can be easily mimic with something like a cheap Raspberry PI Pico and the total cost of this will be around Rs. 330 or $4.00.</p>
+
+<h4 id="how-to-build">How to build?</h4>
+
+<p>Grab a Raspberry PI Pico from <a href="https://robu.in">Robu.in</a> or <a href="https://thingbits.in">ThingBits.in</a> as these are the official reseller of Raspberry PIs in India.</p>
+
+<h5 id="download-and-install-thonny">Download and Install Thonny</h5>
+
+<p><a href="https://thonny.org/">Thonny</a> is a Python IDE which has excellent support for Raspberry PI. I will be using this IDE so the steps are more clear to anyone who is working with a RPI for the first time.</p>
+
+<h4 id="configuring-the-ide">Configuring the IDE</h4>
+
+<p>After the installation is complete, plug the Pico to your computer while holding the BOOTSEL button on the PICO. This will put the PICO in the <code>bootloader</code> mode.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -540,7 +589,7 @@ fmt.Println(outStr)
 $ az login --service-principal -u CLIENT_ID -p CLIENT_SECRET --tenant TENANT_ID 
 </pre>
 
-<p>As we are automating this process, we can use the <code>exec.Command</code> to execute this command with parameters like this:</p>
+<p>As we are automating this process, we can use the exec.Command to execute this command with parameters like this:</p>
 
 <pre class="brush:ruby">
 cmd := exec.Command("az", "login", "--service-principal", "-u", os.Getenv("ARM_CLIENT_ID"), "-p", os.Getenv("ARM_CLIENT_SECRET"), "--tenant", os.Getenv("ARM_TENANT_ID")) 
@@ -1146,145 +1195,6 @@ $ az acr repository show-tags --name ossacrprod --repository goazl --output tabl
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/how-to-host-your-react-application-for-cheap-with-azure-blob-storage/">How To Host Your React Application For Cheap With Azure Blob Storage</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 14, 2023
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/react">REACT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>If you have a static website, blog or a react application, here is how you can host them for cheap with Azure Blob Storage. This article focuses on how you can configure Azure Blob Storage to host your static website or react application.</p>
-
-<h3 id="starting-with-create-react-app"><strong>Starting with create-react-app</strong></h3>
-
-<p>Creating a react application is simple with <code>create-react-app</code> and then build the optimized output of the application by running <code>npm run build</code> command. This will publish the optimized version of the react app in the <code>build</code> folder.</p>
-
-<blockquote>
-<p>IMPORTANT: If you are using Next.JS or any other framework which require server-side rendering then hosting your application with Azure Blob Storage will not work as server-side rendering demands a web server to deliver the content to the client.</p>
-</blockquote>
-
-<h3 id="creating-and-configuring-azure-storage-account"><strong>Creating and Configuring Azure Storage Account</strong></h3>
-
-<p>Once the build is completed successfully, it is time to configure Azure Blob Storage to host the static website. Go to <a href="https://portal.azure.com">portal.azure.com</a> and create a new resource by clicking <code>Create a resource</code> and then search for <code>Blob Storage</code>.</p>
-
-<p><img src="/images/azure-blob-storage.png" alt="New resource - Azure Blob Storage" /></p>
-
-<p>Select the resource offering which is provided by Microsoft. Click on <code>Create</code> and follow the instructions to create a new <code>Blob Storage Account</code>.</p>
-
-<p>In the <code>Basics</code> tab, fill in the details like shown below.</p>
-
-<p><img src="/images/blob-storage-basics.png" alt="New resource - Azure Blob Storage Basics Tab" /></p>
-
-<p>I have created a new resource group and named it <code>staticweb</code>. You can name it anything you want. The next is <code>Storage account name</code> which you can set what you want but the name you choose here should be unique across Azure. <code>Region</code> is the place where your resources/storage account will get created. You can select the region which is close to your geographic location for lower latencies. If your website, application or blog is very critical, then you can also opt for <code>Geo-zone-redundant-storage</code> which is for critical business applications. As our use case is very simple and our application is not critical, we can select <code>Locally-redundant storage</code>. For <code>Performance</code>, you can select <code>Standard</code>, but if you want lower latencies then you can select <code>Premium</code>.</p>
-
-<blockquote>
-<p>Check pricing with <a href="https://azure.microsoft.com/en-in/pricing/calculator/">Azure Pricing Calculator</a> before you proceed with any service in Azure. This will give you an idea of how much money you have to spend with these settings over a period of a month.</p>
-</blockquote>
-
-<p>Let’s keep all other settings as they are and click <code>Create</code> to provision a new Storage Account.</p>
-
-<p><img src="/images/blob-storage-review-create.png" alt="New resource - Azure Blob Storage review and create" /></p>
-
-<p>After the storage account is created, under <code>Data management</code>, select <code>Static website</code>.</p>
-
-<p><img src="/images/azure-storage-static-website.png" alt="Azure Blob Storage static website" /></p>
-
-<p>Static websites are disabled by default. Click on <code>Enabled</code> and you will see two fields are now visible asking for the index document name and error document path.</p>
-
-<p><img src="/images/static-website-enabled.png" alt="Static website enabled" /></p>
-
-<p>Depending on the landing, default or index page of your application, you can enter the name of the document here. In my case where I am hosting a react application, the index document name is <code>index.html</code> and error document can be <code>404.html</code> or something else. I don’t have an error document, so I am leaving it blank.</p>
-
-<p>Click <code>Save</code> to save the setting. You will now have the URL of your static website along with the name of the container where the contents of your static app should be uploaded.</p>
-
-<p><img src="/images/static-website-url.png" alt="Static website url" /></p>
-
-<p>Notice the container name is <code>$web</code> and the primary endpoint is <a href="https://myawesomewebsite.z13.web.core.windows.net/">https://myawesomewebsite.z13.web.core.windows.net/</a>.</p>
-
-<p>You can also navigate to this <code>$web</code> container by clicking <code>Containers</code> under <code>Data storage</code> section.</p>
-
-<p><img src="/images/static-website-containers.png" alt="Static website container" /></p>
-
-<h3 id="upload-static-contents-of-web-app"><strong>Upload static contents of web app</strong></h3>
-
-<p>Uploading multiple files directly from the portal is a tedious task and takes a lot of time. I would recommend making use of an open-source tool called <a href="https://azure.microsoft.com/en-us/products/storage/storage-explorer">Azure Storage Explorer</a>. Download this for your operating system and install it.</p>
-
-<p><img src="/images/azure-storage-explorer.png" alt="Azure storage explorer" /></p>
-
-<p>There are a few ways to connect to the storage account in Storage Explorer.</p>
-
-<ul>
-<li>Sign in with your Azure credentials and connect to all the storage accounts you have in your subscription.</li>
-<li>Use storage account connection string to connect to a specific storage account.</li>
-</ul>
-
-<p>Click on <code>Attach a resource</code> on the <code>Get Started</code> page or right click <code>Storage Account</code> and select <code>Connect to Azure storage…</code></p>
-
-<p><img src="/images/storage-explorer-select-resource.png" alt="Azure storage explorer - Select Resource" /></p>
-
-<p>You can also select <code>Blob container</code> and then generate the <code>SAS token</code> to connect to a container. I am connecting my storage account with storage account connection string. You can get the connection string from the Azure Portal.</p>
-
-<p><img src="/images/storage-access-keys.png" alt="Storage account access keys" /></p>
-
-<p>Under <code>Security + Networking</code>, click <code>Access Keys</code> and then click on <code>Show</code> button for <code>Key1 &gt; Connection string</code>. Click <code>Copy to clipboard</code> icon to copy the connection string.</p>
-
-<p>Back in the Storage Explorer, click on <code>Connection string (Key or SAS)</code>.</p>
-
-<p><img src="/images/storage-explorer-connection-method.png" alt="Storage explorer - connection method" /></p>
-
-<p>Enter the connection information and click <code>Next</code>.</p>
-
-<p><img src="/images/storage-explorer-connection-info.png" alt="Storage explorer - connection info" /></p>
-
-<p><img src="/images/storage-explorer-summary.png" alt="Storage explorer - summary" /></p>
-
-<p>Review the final details and click on <code>Connect</code> to connect to the storage account.</p>
-
-<p>After the connection is succeeded, you should see the list of all the containers in the storage account.</p>
-
-<p><img src="/images/storage-explorer-container-view.png" alt="Storage explorer - Container view" /></p>
-
-<p>Select the <code>$web</code> container and start uploading the files of your static web app.</p>
-
-<p><img src="/images/react-build-app.png" alt="React build app output" /></p>
-
-<p><img src="/images/storage-explorer-files-uploaded.png" alt="Storage explorer - Uploaded contents" /></p>
-
-<p>That’s all!!</p>
-
-<p>Let’s check if our react application is running through static website blob storage url or not.</p>
-
-<p>I built my react application by using the <code>npm run build</code> command and these are the files which I am going to upload to the <code>$web</code> container.</p>
-
-<p><img src="/images/static-website-final-result.png" alt="Static Website - Final Result" /></p>
-
-<p>Hooray!! Our react application is successfully hosted and served from Azure Blob Storage.</p>
-
-  </div>
-  
 </div>
 
 
@@ -1603,7 +1513,16 @@ $ az acr repository show-tags --name ossacrprod --repository goazl --output tabl
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -1611,7 +1530,7 @@ $ az acr repository show-tags --name ossacrprod --repository goazl --output tabl
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

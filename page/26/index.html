@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-03-05T18:35:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-03-11T01:29:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,45 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/calling-aspnet-web-service-using-jquery-part-iii-fetch-data-from-sql-server/">Calling ASP.NET Web Service Using Jquery - Part III - Fetch Data From SQL Server</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 11, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>My previous two posts on using Jquery for calling ASP.NET web service takes you to the basics of calling a web service using Jquery AJAX. In this last post of the series I will show hot to fetch data from the SQL Server through a web service.</p>
+
+<p>In this example I am going to show on how we can fetch data from SQL Server. I am using pretty well known Adventure Works database for this example. I am using Person.Contact table for this example. I will show on how to fetch data i.e. first name, last name and e-mail address on the basis of the ContactID.
+So first, as usual create a normal ASP.NET project and add the required files. Create a new web service, I have named my web service “AdvService.asmx”. You can name your web service as you like. This time we are fetching data from the SQL Server by passing a parameter to the web service method. I am using the very same, basic way of fetching record from the SQL Server. You can also use LINQ here to fetch data.</p>
+
+<p>I have used a delay of few seconds to how the animation, rest in the code is self explanatory. Just passing a parameter and fetching the details of the person from the Adventure Works database.Below are the screenshots for the sample application.</p>
+
+<p><img src="/images/ajax-jquery-1.png" alt="AJAX call in ASP.NET app via JQuery" />
+<img src="/images/ajax-jquery-2.png" alt="AJAX call in ASP.NET app via JQuery" /></p>
+
+<p><strong>Download: <a href="JqueryAjaxSQLDemo.zip">JqueryAjaxSQLDemo.zip (97.86 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -555,35 +594,6 @@ public partial class AeroForm : GlassForm
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/sql-server-performance-and-nocount/">SQL Server performance and NOCOUNT</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 25, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>Performance of SQL server matters while working with large enterprise applications and where performance really bothers the business workflow. When NOCOUNT is ON, the count of rows by the execution of the query (T-SQL statements) is not returned. You must have noticed that when you perform operations by executing INSERT, UPDATE, DELETE or SELECT statements, the server returns the number of rows. The count of rows is necessary while debugging your queries, when you are done with debugging you can turn NOCOUNT ON. To view the number of rows affected use the command SET NOCOUNT OFF. You can try writing a normal select query with NOCOUNT as OFF, when NOCOUNT is OFF you can see the number of rows affected, but when you set NOCOUNT ON, you will not see any message related to the count of rows which are affected when you execute select statement or T-SQL statement.</p>
-
-  </div>
-  
 </div>
 
 
@@ -910,7 +920,16 @@ public partial class AeroForm : GlassForm
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -918,7 +937,7 @@ public partial class AeroForm : GlassForm
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

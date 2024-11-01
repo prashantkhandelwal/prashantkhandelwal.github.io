@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-12-02T20:31:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-12-11T14:33:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,85 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/use-sql-query-to-writecreate-a-file/">Use Sql query to write/create a file</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 11, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>This SQL stored procedure will allow you to write to the file on your file system. Note the file system will be the the same on which the SQL server is running. If you are using this with your local SQL server then it will write and create files on your local file system and if you are on the remote machine, the file system will be the remote file system.</p>
+
+<pre class="brush:sql">
+Create Procedure  [dbo].[USP_SaveFile](@text as NVarchar(Max),@Filename Varchar(200)) 
+AS
+Begin
+  
+declare @Object int,
+        @rc int, -- the return code from sp_OA procedures 
+        @FileID Int
+  
+EXEC @rc = sp_OACreate 'Scripting.FileSystemObject', @Object OUT
+EXEC @rc = sp_OAMethod  @Object , 'OpenTextFile' , @FileID OUT , @Filename , 2 , 1 
+Set  @text = Replace(Replace(Replace(@text,'&','&'),'<' ,'<'),'>','>')
+EXEC @rc = sp_OAMethod  @FileID , 'WriteLine' , Null , @text  
+Exec @rc = master.dbo.sp_OADestroy @FileID   
+  
+Declare @Append  bit
+Select  @Append = 0
+  
+If @rc <> 0
+Begin
+    Exec @rc = master.dbo.sp_OAMethod @Object, 'SaveFile',null,@text ,@Filename,@Append
+        
+End
+ 
+Exec @rc = master.dbo.sp_OADestroy @Object 
+     
+End
+</pre>
+
+<p>But before you start using this procedure you need to reconfigure some advanced SQL server settings. Use the below configuration query to enable &lsquo;OLE Automation Procedures&rsquo;. If this is not enabled and you try executing the procedure you will get errors.</p>
+
+<pre class="brush:sql">
+Use master
+GO
+-- To allow advanced options to be changed.
+EXEC sp_configure 'show advanced options', 1
+GO
+--To enable Ole automation feature
+EXEC sp_configure 'Ole Automation Procedures', 1;
+GO
+RECONFIGURE;
+GO
+</pre>
+
+<p>The first parameter will take the text to be written to the file and the second parameter will take the complete path of the file to be created with the text in it. You can also use the same procedure to wite binary files to the file system, you just need to check and change the file extension in the second parameter. Usage:</p>
+
+<pre class="brush:sql">
+EXEC USP_SaveFile 'Microsoft SQL Server 2008', 'C:\MSSQL.txt'
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -584,50 +663,6 @@ private static void DownAlbum(string UserN, string AlbumN)
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/microsoft-wmi-code-creator/">Microsoft WMI Code Creator</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Oct 27, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p>The WMI Code Creator tool generates code that uses WMI to obtain management information or perform management tasks. You can use the tool to learn how to manage computers using WMI scripting and WMI .NET. The tool generates code that runs on the local computer, a remote computer, or a group of remote computers based on your selection from the Target Computer menu on the tool. You can also execute the generated code directly from the tool.</p>
-
-<p>The tool is meant to help IT Professionals quickly create management scripts and to help developers learn WMI scripting and WMI .NET. The tool helps take the complexity out of writing code that uses WMI and helps developers and IT Professionals understand how powerful and useful WMI can be for managing computers.</p>
-
-<p>Using the tool, you can query for management information such as the name and version of an operating system, how much free disk space is on a hard drive, or the state of a service. You can also use the tool to execute a method from a WMI class to perform a management task. For example, you can create code that executes the Create method of the Win32_Process class to create a new process such as Notepad or another executable. The tool also allows you to generate code to receive event notifications using WMI. For example, you can select to receive an event every time a process is started or stopped, or when a computer shuts down.</p>
-
-<p>The tool also allows you to browse through the available WMI namespaces and classes on the local computer to find their descriptions, properties, methods, and qualifiers.</p>
-
-<p>The code that creates the tool is also included in the download. The tool was created using WMI .NET, and the code for the tool can help developers understand how WMI .NET is used to create applications and manage information. Be sure to read the end-user license agreement that is included in the download.</p>
-
-<p>The above overview and other technical details about Microsoft WMI Code Creator can be found here at Microsoft download center.</p>
-
-<p><strong>Download: <a href="/files/WMICodeCreator.zip">WMICodeCreator.zip (121.38 kb)</a></strong></p>
-
-  </div>
-  
 </div>
 
 
@@ -954,7 +989,16 @@ private static void DownAlbum(string UserN, string AlbumN)
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -962,7 +1006,7 @@ private static void DownAlbum(string UserN, string AlbumN)
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

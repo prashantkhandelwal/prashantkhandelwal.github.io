@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-02-26T14:24:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-03-06T10:58:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,186 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/working-with-microsoft-web-helpers-in-mvc-3-razor-view/">Working With Microsoft Web Helpers In MVC 3 Razor View</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 6, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>Building applications with ASP.NET MVC 3 and that too with RAZOR is easy. I believe most of the programmers out there found MVC 3 with RAZOR view engine found it easy. The best things I found in the new RAZOR view engine is the code is pretty much tidy no traditional code behinds and moreover you can work with the server-side code with the start of the @ symbol.</p>
+
+<p><strong>What is a Helper Class?</strong></p>
+
+<p>I am not going to copy and paste the definition from somewhere but I want to write my own thoughts on the helper class. Maybe this is not the best definition but this is how I would like to describe the Helper Class.</p>
+
+<blockquote>
+<p>A class that minimize the effort incurred in the design, implementation of functionality on your application is called a helper class.</p>
+</blockquote>
+
+<p>One of the best things that Microsoft incorporated in the framework is the use of the helper classes. Although this is not a new concept, previously also all the programmers are working on their own to create helper classes for the work they are doing to minimize the effort and time spend in writing the same lines of code again and again. Microsoft Web Helpers provides some of the best helper classes that can be used in almost every web application.</p>
+
+<p><strong>How to get Microsoft Web Helpers</strong></p>
+
+<p>To use Microsoft Web Helpers in your project use the below NuGet command:</p>
+
+<p><img src="/images/webhelpers-nuget-cmd.png" alt="Web helpers nuget command" /></p>
+
+<p>If you are using Web Matrix then you can start using the helper class right away, but if you have created the application from Visual Studio then you still need the Web Matrix reference in you project. You can add the Web Matrix reference from <strong>C:\Program Files\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\Assemblies</strong>. Once installed, you can now use it for majority of the complex tasks with ease and in less time. Some of the major use of this helper class is listed below:</p>
+
+<p><img src="/images/webhelpers-class.png" alt="Web helpers class description" /></p>
+
+<h4 id="using-web-helpers"><strong>Using Web Helpers</strong></h4>
+
+<p><strong>Gravatar:</strong> To show the gravatar on your web page use the <code>Gravatar</code> class <code>Gethtml()</code> and pass e-mail address as a parameter. If the e-mail id provided, has no Gravatar then the default Garavatar image will be displayed. To get the Gravatar with default Gravatar image:</p>
+
+<pre class="brush:csharp">
+@Gravatar.GetHtml("prashant@midnightrogrammer.net")
+</pre>
+
+<p><img src="/images/webhelper-gravatar.png" alt="Web helpers gravatar image" /></p>
+
+<p>You can also have your own default image to replace the default Gravatar image. To show your own default image use the <code>defaultImage</code>: attribute</p>
+
+<pre class="brush:csharp">
+@Gravatar.GetHtml("prashant@midnightrogrammer.net", defaultImage: "http://midnightprogrammer.net/pics/default.gif")
+</pre>
+
+<p><img src="/images/webhelper-gravatar-default.png" alt="Web helpers gravatar with default image" /></p>
+
+<p><strong>Twitter:</strong> Twitter helper class can be used to show your tweets using the <code>Profile</code> method. This will display the same widget that you can get for youself from the Twitter website. Moreover you can also change the apperance of the widget. To display your tweets you can use your twitter profile name as a parameter in the <code>Profile</code> method.</p>
+
+<pre class="brush:csharp">
+@Twitter.Profile("prashantmx")
+</pre>
+
+<p><img src="/images/webhelper-twitter.png" alt="Web helpers twitter widget" /></p>
+
+<p>You can also search Twitter and display all the reactions. If I have to search about Windows Phone 7 then I will use the keyword <code>#WP7</code>.</p>
+
+<pre class="brush:csharp">
+@Twitter.Search("#wp7")
+</pre>
+
+<p><img src="/images/webhelpers-twitter-search.png" alt="Web helpers twitter widget search" /></p>
+
+<p>For Twitter follow button:</p>
+
+<pre class="brush:csharp">
+@TwitterGoodies.FollowButton("prashantmx")
+</pre>
+
+<p><img src="/images/webhelper-twitter-follow.png" alt="Web helpers twitter follow button" /></p>
+
+<p><strong>Tweet Button:</strong> The tweet button will help you to tweet your website or blog content. But this time we will use the <code>TwitterGoodies</code> class <code>TweetButton</code>.</p>
+
+<pre class="brush:csharp">
+@TwitterGoodies.TweetButton(TwitterGoodies.DataCount.Horizontal, "This is RAZOR Tweet", "http://midnightprogrammer.net", TwitterGoodies.Languages.English,"prashantmx")
+</pre>
+
+<p><img src="/images/webhelpers-twitter-share.png" alt="Web helpers twitter share button" /></p>
+
+<p>You can set the align of tweet counts either vertically or horizontally or none. I have set it to horizontal.</p>
+
+<p><strong>Google/Yahoo Analytics:</strong> Insert tracking code in your website directly.</p>
+
+<pre class="brush:csharp">
+@Analytics.GetGoogleHtml("UA-9087")
+</pre>
+
+<p>Same can be done for Yahoo. Just use <code>GetYahooHtml</code> instead of <code>GetGoogleHtml</code>.</p>
+
+<p><strong>Facebook:</strong> Facebook integration is now much easier. To get the like button use:</p>
+
+<pre class="brush:csharp">
+@Facebook.LikeButton("http://midnightprogrammer.net")
+</pre>
+
+<p><img src="/images/webhelpers-fb-like.png" alt="Web helpers facebook like button" /></p>
+
+<p>To show the latest activity feed use the <code>ActivityFeed</code> method. I am going to see the latest activity from Microsoft.</p>
+
+<pre class="brush:csharp">
+@Facebook.ActivityFeed("http://www.microsoft.com")
+</pre>
+
+<p><img src="/images/webhelpers-fb-activity-widget.png" alt="Web helpers facebook recent activity widget" /></p>
+
+<p><strong>Microsoft Bing Search:</strong> If you want to have a search then the best option is to use Microsoft Bing (<strong>B</strong>ecause <strong>I</strong>t&rsquo;s <strong>N</strong>ot <strong>G</strong>oogle). There are two Bing search boxes that you can use, but the most popular is the Bing Advanced Search Box. Below are the two ways to use the Bing Search box.</p>
+
+<p><strong>Normal Search Box:</strong></p>
+
+<pre class="brush:csharp">
+@{
+    Bing.SiteTitle = "Midnight Programmer";
+    Bing.SiteUrl = "http://midnightprogrammer.net";
+}
+ 
+@Bing.SearchBox()
+</pre>
+
+<p><img src="/images/webhelpers-normal-bing.png" alt="Web helpers normal bing search" /></p>
+
+<p><strong>Advanced Search Box:</strong></p>
+
+<p>The same code will be used to show the advanced search box, just use the AdvancedSearchBox method instead of SearchBox as done previously.</p>
+
+<pre class="brush:csharp">
+@{
+    Bing.SiteTitle = "Midnight Programmer";
+    Bing.SiteUrl = "http://midnightprogrammer.net";
+}
+ 
+@Bing.AdvancedSearchBox()
+</pre>
+
+<p>The main advantage of using the advanced search box for Bing is that it will let you search the whole website/blog without taking you to the Bing site and display the search content in the small container with two tabs showing the search result from the website/blog and the other one from the web.</p>
+
+<p><strong>Note:</strong> Bing team at Microsoft announced that they will be shutting down <a href="http://www.bing.com/siteowner">siteowner</a> service on April 4th. This will prevent you to use the AdvancedSearchBox feature of Bing on your website/blog or web applications. Here is the quote from Bing&rsquo;s official blog:</p>
+
+<blockquote>
+<p>As of April 4th, 2011 we will discontinue support for the bing.com/siteowner functionality. If you continue to leverage the feature after this date (April 4th, 2011), users who attempt to query in the search box will be redirected to a 404 page. This means that you will need to move to the Bing API in order to continue to receive web or site search results from us. We have decided to take this step for two reasons.
+First, the tool has not been getting a lot of use and while we have some very loyal customers on it, we believe we can provide you better alternatives in the future as we free up resources.
+Second, the functionality available through bing.com/siteowner can be replicated with the Bing search API and so it feels a bit redundant.
+As has become customary, we will give you a window to migrate off and ask us any questions you may have about this change. We will also provide reminders as we get closer to April 4th. Thank you so much for your support.</p>
+</blockquote>
+
+<p><img src="/images/webhelpers-advance-bing.png" alt="Web helpers advance bing search" /></p>
+
+<p>So this is it. These are some of the helper classes in action that I have described in this post. There are lot of others and I hope that there would be other helper classes would be added in the later releases of Microsoft helper classes for web. You can read more here on web helpers from the below official Mirosoft resources.</p>
+
+<ul>
+<li><a href="http://www.asp.net/webmatrix/tutorials/asp-net-web-pages-api-reference">ASP.NET Web Matrix API Reference</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/microsoft.web.helpers%28v=vs.99%29.aspx">Microsoft Web Helpers on MSDN</a></li>
+</ul>
+
+<p><strong>Download: <a href="/files/DBMatrix.zip">DBMatrix.zip (1.13 mb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -687,46 +867,6 @@ public static string ReverseShortURL(string ShortURL)
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/9-promises-should-be-taken-before-choosing-it-profession/">9 Promises Should Be Taken Before Choosing IT Profession</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 29, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/fundoo">FUNDOO</a>
-      
-      
-      
-      
-    </span>
-    <p>I received an e-mail from a friend of mine who is quite upset after choosing IT as his profession becasue of the list of promises in the e-mail (listed below). Well this is because he didn&rsquo;t made any of the below listed promises to himself and after reading this e-mail he was more upset. Therefore, if you are willing to be an IT guy, then make sure you have made 9 promises as listed below.</p>
-
-<p>Personally, I will say these 9 promises or points are perfect to define an IT/Tech guy.</p>
-
-<ol>
-<li>I have already enjoyed my life in childhood.</li>
-<li>I love tension.</li>
-<li>I don&rsquo;t want to spend time with my family and friends.</li>
-<li>I love night outs.</li>
-<li>I love to work on Sundays and Holidays.</li>
-<li>I want to take revenge on myself (Perfect Reason)</li>
-<li>I don&rsquo;t want to marry before 30.</li>
-<li>I don&rsquo;t want to good salary.</li>
-<li>I want to learn until my death.</li>
-</ol>
-
-  </div>
-  
 </div>
 
 
@@ -1053,7 +1193,16 @@ public static string ReverseShortURL(string ShortURL)
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -1061,7 +1210,7 @@ public static string ReverseShortURL(string ShortURL)
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

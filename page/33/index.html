@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-05-30T15:46:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-06-12T17:32:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,57 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/shoutdownlogoffhibernatestand-by-use-code-to-do-em-all/">Shoutdown/Logoff/Hibernate/Stand By - Use CODE to do &#39;em all</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 12, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p><strong>Step 1:</strong> Add the following line to use the namespace. This is necessary as we need to use the <code>User32.dll</code> with <code>DLLImport</code> attribute.</p>
+
+<pre class="brush:csharp">
+using System.Runtime.InteropServices;
+</pre>
+
+<p><strong>Step 2:</strong> Now add the below line to your code to use the methods from the User32.dll.</p>
+
+<pre class="brush:csharp">
+[DllImport("user32.dll")]
+public static extern void LockWorkStation();
+[DllImport("user32.dll")]
+public static extern int ExitWindowsEx(int uFlags, int dwReason);
+</pre>
+
+<p><strong>Step 3:</strong> Once you complete the above two steps, you can now call the methods on button click or after some or with some particular event or the way you like.</p>
+
+<pre class="brush:csharp">
+LockWorkStation(); //Locks the workstation, Equivalent to WIN+L
+ExitWindowsEx(0, 0)//Shutdowns the machine 
+Application.SetSuspendState(PowerState.Suspend, true, true)  //Put the machine in stand-by mode
+Application.SetSuspendState(PowerState.Hibernate, true, true); // Hibernates the system
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -313,41 +364,6 @@ ROWTERMINATOR = '\n'   --Use to shift the control to next row
 </pre>
 
 <p><img src="/images/sql-bulkinsert-output.jpg" alt="SQL bulk insert ouput" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/convert-numbers-to-words-in-c/">Convert Numbers to Words in C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 24, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>Use the below code to convert numbers to words and currency to word programatically (Check the code below). Instead you can create a DLL and use it or whatever the way you like.</p>
-
-<p><strong>Usage:</strong></p>
-
-<p><img src="/images/num-curr.jpg" alt="Number to word conversion" /></p>
-
-<p><strong>Download: <a href="/files/Num2Wrd.cs">Num2Wrd.cs (8.30 kb)</a></strong></p>
 
   </div>
   
@@ -674,12 +690,23 @@ ROWTERMINATOR = '\n'   --Use to shift the control to next row
     <li class="page-item active"><a class="page-link" href="/page/33/">33</a></li>
     
     
-    <li class="page-item disabled">
-    <a href="" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/34/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

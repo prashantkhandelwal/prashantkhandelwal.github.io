@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2013-05-13T14:33:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2013-06-02T23:46:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,238 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/html5-video-capture-and-upload-image-to-azure-storage/">HTML5 Video - Capture And Upload Image To Azure Storage</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 2, 2013
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/html5">HTML5</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I was exploring Github for some image effects/filters and I found some but still keep exploring and found an interesting plugin called <a href="https://github.com/neave/face-detection">face-detection</a>. This plugin uses HTML5 <a href="http://www.html5rocks.com/en/tutorials/getusermedia/intro/">getUserMedia</a> to use your web camera only if your browser supports it. Unfortunately, IE10 still doesn’t support it. This seems cool to me, so I created a sample application to test it. This sample application will let you preview the video using your web camera and allows you to capture the image from your web camera and upload  it to the Azure storage. The javascript code for the HTML5 video I am using is from David Walsh’s <a href="http://davidwalsh.name/browser-camera">post</a>. Not every browser supports getUserMedia, so if the user is not using the browser which supports getUserMedia then you can show an alert message to the user notifying about the browser incompatibility. Here is the function which will check your browser compatibility for getUserMedia.</p>
+
+<pre class="brush: jscript">
+function hasGetUserMedia() {
+ // Note: Opera is unprefixed.
+ return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+ navigator.mozGetUserMedia || navigator.msGetUserMedia);
+}
+  
+if (hasGetUserMedia()) {
+ // Good to go!
+} else {
+ alert('getUserMedia() is not supported in your browser');
+}
+</pre>
+
+<p>To know more and explore more what you can do with getUserMedia visit <a href="http://www.html5rocks.com/en/tutorials/getusermedia/intro/">HTML5Rocks</a>. Moving further, I have a normal HTML page where initially I am placing 3 elements on the page. One is a video tag which will show the stream from the web camera attached to your machine or your laptop camera. Second, is the canvas tag which is used to show the image captured from the web camera and the third one is the normal button which will let me capture the image at my will on its click.</p>
+
+<pre class="brush: html">
+<video autoplay id="video" width="640" height="480"></video>
+<input id="snap" type="button" value="Click" />
+<canvas id="canvas" width="640" height="480"></canvas>
+</pre>
+
+<p>Notice the <code>autoplay</code> property in the video tag. I have set it because I don’t want the video to be frozen as soon as it started. To make the video work I am using David Walsh’s code as it is without any changes.</p>
+
+<pre class="brush: jscript">
+window.addEventListener("DOMContentLoaded", function () {
+    // Grab elements, create settings, etc.
+    var canvas = document.getElementById("canvas"),
+        context = canvas.getContext("2d"),
+        video = document.getElementById("video"),
+        videoObj = { "video": true },
+        errBack = function (error) {
+            console.log("Video capture error: ", error.code);
+        };
+  
+    if (navigator.getUserMedia) { // Standard
+        navigator.getUserMedia(videoObj, function (stream) {
+            video.src = stream;
+            video.play();
+        }, errBack);
+    } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
+        navigator.webkitGetUserMedia(videoObj, function (stream) {
+            video.src = window.webkitURL.createObjectURL(stream);
+            video.play();
+        }, errBack);
+    }
+  
+    // Trigger photo take
+    document.getElementById("snap").addEventListener("click", function () {
+        context.drawImage(video, 0, 0, 640, 480);
+    });
+}, false);
+</pre>
+
+<p>In the above script, you can see that it first checks if the browser or navigator has the getUserMedia support. if you see there are two conditions one for the standard and other one with the webkit prefix. In the end, the click event on the button which will let me capture the image.</p>
+
+<p>When you view the application in the browser, the browser will prompt you whether you want to allow or deny the application to use the web camera.</p>
+
+<p><img src="/images/azure-camera-access.png" alt="Allow camera access in browser" /></p>
+
+<p>You cannot run this just by double-clicking the file due to security reasons. You must access the web page from the server itself, either from within the Visual Studio development server, from IIS or by publishing the file on your production server. It can be annoying for many users to grant the access to the camera every time they access the page. You can save the user consent if you are using https. If you plan to stick with http, you will not be able to do this.</p>
+
+<p>Looking in the address bar again, you will notice that the fav icon of the web application, changed to an animated icon. It is a little red dot which keeps on flashing notifying the user that the camera is in use. If you plan to block the access to the camera permanently or temporarily, you can then click the camera icon which is on the right hand side of the address bar.</p>
+
+<p><img src="/images/azure-camera-mic-access.png" alt="Camera and mic access in browser" /></p>
+
+<p>When you click the icon you will be prompted with options to continue allow the access to the camera or always block the camera. Also if you notice the camera option, you will see that it is showing me two devices or camera attached to the machine. I build this application on my laptop so I am able to the integrated camera which is the front facing camera of my laptop and the second one is the USB camera I have plugged on my laptop’s USB port. I can choose to use any one of these. If you make any changes to these settings and click on done, you will be asked to reload the page.</p>
+
+<p>This is how my web page looks.</p>
+
+<p><img src="/images/azure-web-page-cam.png" alt="Web app" /></p>
+
+<p>The click button is at the bottom right hand side will let me take a snap of the feed coming from my camera. When I click the Click button, the image is captured and show on the canvas we have added on the page. This is my web page after I took the snap from my web camera.</p>
+
+<p><img src="/images/azure-webapp-cam-snap.png" alt="Web app camera snap" /></p>
+
+<p>The second image (at the bottom) is the image on the canvas that is snapped from the camera. Now I want to upload the image to my Azure cloud storage. If you look at the address bar, you’ll notice that I have used normal HTML page. It’s you wish if you want to use a simple HTML page or a web form. Both works good. The problem I am going to face with web forms is if I am going to upload the snapped image to my cloud storage or to my server repository, the page will post-back which is not cool at all. So I am going to accomplish it by making an AJAX call. Add a HTML button to your page and on its click event upload the file to the cloud.</p>
+
+<p>I have the image on my canvas, therefore you just cannot retrieve the image Base64 string just like that. I am going to extract the <a href="https://en.wikipedia.org/wiki/Base64">Base64</a> string of the image from the canvas and pass it as a parameter. The server method will then convert the Base64 string to stream and upload it to the cloud storage. Here is the jQuery AJAX call.</p>
+
+<pre class="brush: jscript">
+function UploadToCloud() {
+    $("#upload").attr('disabled', 'disabled');
+    $("#upload").attr("value", "Uploading...");
+    var img = canvas.toDataURL('image/jpeg', 0.9).split(',')[1];
+    $.ajax({
+        url: "Camera.aspx/Upload",
+        type: "POST",
+        data: "{ 'image': '" + img + "' }",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function () {
+            alert('Image Uploaded!!');
+            $("#upload").removeAttr('disabled');
+            $("#upload").attr("value", "Upload");
+        },
+        error: function () {
+            alert("There was some error while uploading Image");
+            $("#upload").removeAttr('disabled');
+            $("#upload").attr("value", "Upload");
+        }
+    });
+}
+</pre>
+
+<p>The line 4 in the above script is the one which will get the Base64 string of the image from the canvas. The string is now in the variable named img which I am passing as a parameter to the <code>Upload</code> web method in my code-behind page. You can use web service or handler or maybe a WCF service to handle the request but I am sticking with page methods. Before you can actually make use of the Azure storage, you have to add reference of the <a href="http://nuget.org/packages/WindowsAzure.Storage/">Azure Storage library from NuGet</a>. Fire the below NuGet command to add the Azure Storage reference to your application.</p>
+
+<pre class="brush: shell">
+PM> Install-Package WindowsAzure.Storage
+</pre>
+
+<p>After the package/assemblies are referenced in your code, add the below namespaces.</p>
+
+<pre class="brush: csharp">
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Auth;
+using System.IO; //For MemoryStream
+using System.Web.Services; //For WebMethod attribute
+</pre>
+
+<p>These all the namespace will help me to connect to my local cloud storage emulator or to my live cloud storage. This is my upload method which will upload the file to my live cloud storage.</p>
+
+<pre class="brush: csharp">
+[WebMethod]
+public static string Upload(string image)
+{
+    string APIKey = "LFuAPbLLyUtFTNIWwR9Tju/v7AApFGDFwSbodLB4xlQ5tBq3Bvq9ToFDrmsZxt3u1/qlAbu0B/RF4eJhpQUchA==";
+    string AzureString = "DefaultEndpointsProtocol=https;AccountName=[AccountName];AccountKey=" + APIKey;
+  
+    byte[] bytes = Convert.FromBase64String(image);
+  
+    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(AzureString);
+  
+    CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+  
+    CloudBlobContainer container = blobClient.GetContainerReference("img");
+  
+    string ImageFileName = RandomString(5) + ".jpg";
+  
+    CloudBlockBlob imgBlockBlob = container.GetBlockBlobReference(ImageFileName);
+  
+    using (MemoryStream ms = new MemoryStream(bytes))
+    {
+        imgBlockBlob.UploadFromStream(ms);
+    }
+  
+    return "uploaded";
+}
+</pre>
+
+<p>I have decorated this method with WebMethod attribute. This is necessary as I have to call this method from jQuery/javascript. Also the method should be public static. The <code>AzureString</code>  serves as the connection string for the cloud storage. You have to change the <code>[AccountName]</code> in the connection string to the storage account name. In my case it is propics. The method accepts the Base64 string as a parameter.</p>
+
+<p><img src="/images/azure-storage-cam.png" alt="Azure storage container to save snaps" /></p>
+
+<p>Storage is something different than that of the container and therefore I have to create a container which actually holds my images which I upload to the cloud storage. I am not explaining the code completely but it is not that complicate. To upload the file to the storage I must have a file name. The image I get from the canvas is just a Base64 string and does not have a name, so I have to give it a name. I have a random function which will generate the random string which I will be using as a file name for my image file.</p>
+
+<pre class="brush: csharp">
+//stole from http://stackoverflow.com/questions/1122483/c-sharp-random-string-generator
+private static string RandomString(int size)
+{
+    Random _rng = new Random();
+    string _chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  
+    char[] buffer = new char[size];
+  
+    for (int i = 0; i < size; i++)
+    {
+        buffer[i] = _chars[_rng.Next(_chars.Length)];
+    }
+  
+    return new string(buffer);
+}
+</pre>
+
+<p>This is a small function which I stole from Stackoverflow to generate random name for my image file. So this is it and when I click the upload button on my page.</p>
+
+<p><img src="/images/azure-cam-snap-in-action.png" alt="Web app showing images after snap" /></p>
+
+<p>Now if I check my cloud storage I have can see the uploaded files.</p>
+
+<p><img src="/images/azure-storage-snap-files.png" alt="Images uploaded o Azure storage from web app" /></p>
+
+<p>This is just a simple example to get you started. You can give some cool effects before you can actually upload the files. If you do a quick search you’ll find plenty of links which will let you give some cool effects to your pictures. I came across a brilliant plugin called filtrr. You should try it and come up with something which is awesome or may be something like Instagram. Hope this help some folks out there.</p>
+
+<h4 id="references">References:</h4>
+
+<ul>
+<li><a href="http://davidwalsh.name/browser-camera">David Walsh – Browser Camera</a></li>
+<li><a href="http://www.html5rocks.com/en/tutorials/getusermedia/intro/">HTML5 – getUserMedia</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -884,39 +1116,6 @@ bool uploaded = drive.UploadFile("folder.77e33dba68367a16.77E33DUA68567A16!104",
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/pretty-paste-visual-studio-extension-which-makes-pretty-paste/">Pretty Paste - Visual Studio Extension Which Makes Pretty Paste</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 31, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p>This is a much needed extension for every developer out there. How many times you have been yelling when you paste the code from a blog post or from an article which eventually turns out to be a nightmare for you to re-format it? I came across a VS extension that can actually get this done for me. The good thing about this extension is that it is open-source and you can extend and contribute to it to make it more awesome.</p>
-
-<p><a href="http://visualstudiogallery.msdn.microsoft.com/6a23234d-45f6-4212-bac3-f6d9bb08fb1e">Pretty Paste - Visual Studio Gallery</a></p>
-
-<p><a href="https://github.com/madskristensen/PasteR">Source Code - Github</a></p>
-
-  </div>
-  
 </div>
 
 
@@ -1243,7 +1442,16 @@ bool uploaded = drive.UploadFile("folder.77e33dba68367a16.77E33DUA68567A16!104",
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -1251,7 +1459,7 @@ bool uploaded = drive.UploadFile("folder.77e33dba68367a16.77E33DUA68567A16!104",
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

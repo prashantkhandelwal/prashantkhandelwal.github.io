@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-02-18T17:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-03-08T03:36:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,63 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/death-of-visual-studio-installer-projects-after-visual-studio-2010-and-nsis-inno-setup-installers/">Death Of Visual Studio Installer Projects After Visual Studio 2010 And NSIS &amp; Inno Setup Installers</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 8, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I came across an announcement made by Candy Chiang at <a href="http://social.msdn.microsoft.com/Forums">MSDN Forums</a> at <a href="http://social.msdn.microsoft.com/Forums/en-US/winformssetup/threads">ClickOnce and Setup &amp; Deployment Projects</a> forums.</p>
+
+<blockquote>
+<p>In Visual Studio 2010, we have partnered with Flexera, makers of InstallShield, to create InstallShield Limited Edition 2010 just for Visual Studio 2010 customers. The InstallShield Limited Edition 2010 offers comparable functionality to the Visual Studio Installer projects. In addition, you can build your deployment projects using Team Foundation Server and MSBuild. For more information, see <a href="http://blogs.msdn.com/b/deployment_technologies/archive/2010/04/20/installshield-limited-edition-is-available-for-download-in-visual-studio-2010.aspx">here</a>.</p>
+</blockquote>
+
+<p>With InstallShield available, the Visual Studio Installer project types will not be available in future versions of Visual Studio. To preserve existing customer investments in Visual Studio Installer projects, Microsoft will continue to support the Visual Studio Installer projects feature that shipped with Visual Studio 2010 and below as per our product life-cycle strategy. For more information, see <a href="http://msdn2.microsoft.com/en-us/vstudio/aa718686.aspx">Expanded Microsoft Support Lifecycle Policy for Business &amp; Development Products</a>.</p>
+
+<p>The question here is how we are going to create a setup within Visual Studio? How we are going to install the Windows service? How the application gets deployed in the production environment? The in-built Setup and Deployment template was extremely useful and I have no idea at the moment what is the best alternative Microsoft will come up with in Visual Studio 11 which is flexible enough to provide all what the developer needs. Well, in time we&rsquo;ll see but this is for sure that we are not going to have project templates for <code>Setup and Deployment</code> in the next release for Visual Studio. Microsoft also confirms that InstallShield will be available in the future versions of Visual Studio, but again it will be a limited edition (as what we have in Visual Studio 2010). Let&rsquo;s hope we are going to see more advanced version of InstallShield in next release of Visual Studio.</p>
+
+<h4 id="what-are-the-alternatives">What are the alternatives?</h4>
+
+<p>With Setup and Deployment gone from Visual Studio, there is an <a href="http://visualstudiogallery.msdn.microsoft.com/5e57fe9a-ae5d-4740-a1c3-7a8e278e105b?SRC=Home">excellent Visual Studio extension</a> which allows you to create setup packages. This extension will let you create NSIS and Inno Setup installers for your application. At the moment this extension supports Visual Studio 2005, 2008 and 2010 and as I see excellent potential in this extension and the people behind the extension, I hope we will be able to see this extension for Visual Studio 11 soon. The <a href="http://www.unsigned-softworks.sk/visual-installer/downloads.html">current/latest version</a> is still in beta and is only available for Visual Studio 2010.</p>
+
+<p><strong>Note: Before you start installing the add-in make sure you have few of the pre-requisites installed in your machine. Read for the pre-requisites <a href="http://www.unsigned-softworks.sk/visual-installer/downloads.html">here</a>.</strong></p>
+
+<p>The best part about this extension is that alike traditional Setup and Deployment projects it gives you a complete wizard to create a setup package for your application. For folks who have never put their hands on NSIS, I would like to tell them that is a scriptable installer and that means that you can write your own custom scripts to get more out of the box.</p>
+
+<p>Let&rsquo;s see what this add-in has to offer us in future.</p>
+
+<h4 id="related-links">Related Links:</h4>
+
+<ul>
+<li><a href="http://visualstudiogallery.msdn.microsoft.com/5e57fe9a-ae5d-4740-a1c3-7a8e278e105b?SRC=Home">Visual &amp; Installer - Visual Studio Gallery</a></li>
+<li><a href="http://www.unsigned-softworks.sk/visual-installer/">Visual &amp; Installer - Home Page</a></li>
+<li><a href="http://www.unsigned-softworks.sk/visual-installer/downloads.html">Visual &amp; Installer - Download Page</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -674,38 +731,6 @@ Response.End();
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/html-5-show-your-support-tell-the-world/">HTML 5: Show Your Support / Tell The World</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 3, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/html5-logo.png" alt="HTML5 Logo"/></p>
-
-<p>If you really love working with HTML5 the this is then time to show some support for HTML5. Use the <a href="http://www.w3.org/html/logo/#badge-builder">HTML5 badge builder</a> to create a badge and use it on your blog/website to show your support. The badge builder allows you to customize the badge with tech you use with HTML5. You can see the badge I customized with the tech under badge section on the right.</p>
-
-<p><img src="/images/html5-love.png" alt="HTML5 love" /></p>
-
-<p>The <a href="http://www.w3.org/html/logo/">w3.org site</a> for HTML5 has to offer more than just a badge. You can download HTML5 Logos, stickers, T-shirts, jacket, grey hoodie and beanie to show your love or I must say more precisely show off your HTML5 love. The HTML5 T-shirts are awesome and worth buying if you want to show off. Take a look at <a href="http://html5shirt.com/">HTML5 Logo T-Shirts</a> and buy one if you really like HTML5 and yes if you want to show off and make other jealous.</p>
-
-  </div>
-  
 </div>
 
 
@@ -1032,7 +1057,16 @@ Response.End();
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -1040,7 +1074,7 @@ Response.End();
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

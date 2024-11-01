@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2016-10-17T21:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2017-04-02T07:39:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,348 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/building-web-based-temperaturehumidity-monitor-app-with-raspberry-pi-3-and-azure-iot-hub/">Building Web Based Temperature/Humidity Monitor App With Raspberry PI 3 and Azure IoT Hub</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 2, 2017
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/iot">IOT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/raspberry-pi">RASPBERRY PI</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I was planning to build a web based temperature/humidity monitoring app with Raspberry PI 3 and Windows 10 IoT Core. I have playing around with Raspbian for a while now and this time I wanted to try something different. I have been using Python to write application for Raspberry PI, Windows IoT Core with C# will be something new for me and therefore, this time I choose to go with Windows 10 IoT Core.</p>
+
+<p><img src="/images/iot-arch-diag.png" alt="IoT Architecture Diagram" /></p>
+
+<p>Here is the list of things to get started:</p>
+
+<ul>
+<li>Raspberry PI 3 with Windows 10 IoT Core</li>
+<li>Adafruit BME280 Temperature Humidity Pressure sensor<br /></li>
+<li>Jumper wires</li>
+<li>Power Bank</li>
+<li>Visual Studio <sup>2015</sup>&frasl;<sub>2017</sub></li>
+<li><a href="https://developer.microsoft.com/en-us/windows/iot/docs/iotdashboard">IoT Dashboard</a></li>
+<li>Azure account</li>
+</ul>
+
+<p>Setting up the PI with Windows 10 IoT Core is a very straight forward process. You can read about it more <a href="https://developer.microsoft.com/en-us/windows/iot/docs/iotdashboard">here</a>. I recommend to connect the device to your Wi-Fi network. This will give you a benefit to move your device around. The problem for the first time users will be that the device will not auto-connect to the Wi-Fi network. To solve this problem, you need to use a wired LAN connection from the network or from the local computer. Once plugged in you will be able to see the device in the IoT dashboard from where you can go to <code>Device Portal</code> and connect to the Wi-Fi network. After the connection is successful, you can then remove the LAN cable. To follow the exact steps, head over to this <a href="http://www.opentechguides.com/how-to/article/windows-iot/111/windows-iot-wifi.html">documentation</a>. This is how your device will get displayed in the IoT dashboard.</p>
+
+<p><img src="/images/iot-dashboard.png" alt="IoT Dashboard" /></p>
+
+<h3 id="getting-things-ready-in-azure">Getting things ready in Azure</h3>
+
+<p>You can set up things in the cloud from the Azure Portal as well as from the IoT Dashboard itself. From dashboard you can create and provisioned a new IoT Hub and register the device in that Hub. Here is how you can do that. First sign-in to your Azure account by clicking the Sign-In option in the left hand side bar. After the sign-in is successful, you will be prompted with the below screen where you can provision a new IoT Hub and add your current device in the hub.</p>
+
+<p><img src="/images/iot-provisioning-device.png" alt="IoT Dashboard" /></p>
+
+<p>I am skipping the step for setting the IoT Hub from the Azure Portal as there is a <a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal">good documentation</a> available at Azure Docs. Pushing data to the IoT Hub with the SDK is easy but you can&rsquo;t make use of the IoT Hub alone to read that data and do your work. Therefore, you also need to set up a Queue to read that data. As of now, you cannot create a Queue from the new Azure Portal instead you have to head towards the old portal at manage.windowsazure.com and create a queue from there. To create a queue, click the <code>New&gt;App Services&gt;Service Bus&gt;Queue&gt;Quick Create</code>. Fill in the details to create a new queue.</p>
+
+<blockquote>
+<p>Make sure that the region you are selecting here for the queue, it should be the same as your IoT Hub region. If you select a different region than that of your IoT Hub, you will not be able to associate this queue with the hub endpoint.</p>
+</blockquote>
+
+<p>In the Azure Portal, to associate this queue with the IoT Hub endpoint, click the <code>Endpoints</code> and then click <code>Add</code> to add the queue to the endpoint.</p>
+
+<p><img src="/images/create-service-bus.png" alt="Create Service Bus" /></p>
+
+<h4 id="setting-up-the-circuit">Setting up the circuit</h4>
+
+<p>Now as you have the device and the OS ready, you can now build the circuit. The BME280 sensor can be used with both I2C and SPI. For the project, I am using I2C. Below is the Fritzing diagram for your reference. You can download the <a href="https://github.com/prashantkhandelwal/Pi-Code/raw/master/BME280-PI3-Win10IoT-Azure/BME280.fzz">Fritzing sketch file on Github repo</a>.</p>
+
+<p><img src="/images/iot-fritz-sketch.png" alt="IoT Fritzing Sketch" /></p>
+
+<h4 id="creating-device-application">Creating Device Application</h4>
+
+<p>I am using Visual Studio 2017 Enterprise Edition to build the device application and the web monitor application which I will be hosting in the cloud. For creating the device application, start with selection the Windows Universal project templates and then select <code>Blank App (Universal)</code> template.</p>
+
+<p><img src="/images/vs-universal-app.png" alt="VS Universal app" /></p>
+
+<blockquote>
+<p>There is a project template available for Visual Studio which will let you build applications for Raspberry PI. The problem with that project type is that you will not be able to make use of the libraries or the SDK available for .NET yet. You can still build applications with this project type but you have to make use of REST API and using REST API is not as straight-forward as SDKs.</p>
+</blockquote>
+
+<p>After the project creation is successful, you need to add below dependencies which will let you connect to IoT Hub and have a device to cloud communication. Below are the NuGet packages you need to install.</p>
+
+<p>This package will enable you to have a device to cloud communication.</p>
+
+<pre class="brush: plain">
+Install-Package BuildAzure.IoT.Adafruit.BME280
+</pre>
+
+<p>This package is the wrapper for the BME280 sensor.</p>
+
+<pre class="brush: plain">
+Install-Package Microsoft.Azure.Devices.Client
+</pre>
+
+<p>Add the below namespaces in the <code>Main.xaml.cs</code> file.</p>
+
+<pre class="brush: csharp">
+using Newtonsoft.Json;
+using Microsoft.Azure.Devices.Client;
+using BuildAzure.IoT.Adafruit.BME280;
+</pre>
+
+<p>Declare the variables.</p>
+
+<pre class="brush: csharp">
+private DeviceClient _deviceClient;
+private BME280Sensor _sensor;
+private string iotHubUri = "piiothub.azure-devices.net";
+private string deviceKey = "Tj60asOk5ffVAT6a6SvZKMOqo8DYKSwWV7eQ2pLf0/k=";
+</pre>
+
+<p>The <code>iothuburi</code> is the URL for the IoT Hub created in the Azure portal or from the IoT dashboard. You can get the device key from the <code>Device Explorer</code> section in the IoT Hub. You can see how to get the <code>Key</code> from the <code>Device Explorer</code> from the below screen shot. I am using the <code>Primary Key</code> as a <code>devicekey</code> in my code.</p>
+
+<p><img src="/images/azure-iot-device-explorer.png" alt="Azure IoT Hub Device Explorer" /></p>
+
+<p>In the constructor, initialize the <code>DeviceClient</code> and <code>BME280Sensor</code> objects. I have commented out the <code>InitializeComponent()</code>, but if you want you can keep it as it is.</p>
+
+<pre class="brush: csharp">
+public MainPage()
+{
+    //this.InitializeComponent();
+    deviceClient = DeviceClient.Create(iotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey("raspberrypi", deviceKey), TransportType.Mqtt);
+    _sensor = new BME280Sensor();
+    DeviceToCloudMessage();
+}
+</pre>
+
+<p>Now add a function named <code>DeviceToCloudMessage</code> which will connect to the IoT Hub using the device key, read the sensor data, serialize the data in JSON format and send it to the IoT Hub. Add this at the very bottom of the constructor.</p>
+
+<pre class="brush: csharp">
+private async void DeviceToCloudMessage()
+{
+    await _sensor.Initialize();
+    float temperature = 0.00f;
+    float humidity = 0.00f;
+    while (true)
+    {
+        temperature = await _sensor.ReadTemperature();
+        humidity = await _sensor.ReadHumidity();
+        var sensorData = new
+        {
+            date = String.Format("{0}, {1}, {2}",
+                                 DateTime.Now.ToLocalTime().TimeOfDay.Hours,
+                                 DateTime.Now.ToLocalTime().TimeOfDay.Minutes,
+                                 DateTime.Now.ToLocalTime().TimeOfDay.Seconds),
+            temp = Math.Round(temperature, 2),
+            humid = Math.Round(humidity, 2)
+        };
+        var messageString = JsonConvert.SerializeObject(sensorData);
+        var message = new Message(Encoding.ASCII.GetBytes(messageString));
+        await deviceClient.SendEventAsync(message);
+        //Debug.WriteLine("{0} &gt; Sending message: {1}", DateTime.Now, messageString);
+        Task.Delay(5000).Wait();
+    }
+}
+</pre>
+
+<p>The <code>date</code> property in the <code>sensorData</code> type is being set in this specific way because we want to see the graph continuously moving. I can also read <code>Pressure</code> from the sensor but as I am not interested in showing this data, I am skipping it out. If you want you can use it but you also have to change the web app to show this reading. Before I can send this data to the IoT Hub, I am serializing the <code>sensorData</code> object and use ASCII encoding to get the <code>byte[]</code> and pass it to the <code>Message</code> class constructor. The last step is to send the message to the hub by using the <code>DeviceClient</code> class <code>SendEventAsync</code> method. In the last line I am adding a delay of 5 seconds between each reading. You can increase the time and see how the chart renders. I recommend not to go below this time delay as this might give you some false readings from the sensor.</p>
+
+<p>I took this code from the documentation here and tweaked it to have the real data from the sensor connected to the device. Press Ctrl+Shift+B to build the solution. Navigate to <code>Project</code> and then click <code>&lt;project&gt; Properties</code>. Under <code>Debug</code> section, set the <code>Start Options</code> as shown below. Notice that the <code>Platform</code> is set to <code>ARM</code> and <code>Configuration</code> is <code>Active (Debug)</code>. When you are done with debugging the code and ready to deploy the code to the device you need to change it to <code>Release</code>.</p>
+
+<p><img src="/images/iotweatherhub-properties.png" alt="IoT Weather App Properties" /></p>
+
+<p>Unlike Raspbian, where we ssh or RDP into the device and compile or build the code, Windows 10 IoT works in a different way. You need to remote deploy the application from Visual Studio. Also, if you have enabled the remote debugging on the device, you also have to add the <code>port number</code> to the <code>Remote Machine</code> value and set the <code>Authentication Mode</code> to <code>None</code>.</p>
+
+<blockquote>
+<p>NOTE: When you make changes to device application, you also need to change/increment the version of the application in the Package.appxmanifest file. If you miss this step then the application deployment will fail.
+<img src="/images/iot-app-packaging.png" alt="IoT App Packaging" /></p>
+</blockquote>
+
+<p><img src="/images/windows10-iot-debug.png" alt="Windows 10 IoT Debug" /></p>
+
+<p>To deploy the app to the device, click the <code>Build</code> menu and select <code>Deploy &lt;Project Name&gt;</code>. If you are deploying the application for the first time, it will take some time to get deployed. After the deployment is successful, you will see the application under the <code>App</code> section. At this moment, the application is stopped. To start the application in the, click the <code>Play</code> button in the list to start the application. The <code>App Type</code> show the type of application or you can say the mode it is running on. When I created the application, I selected the <code>UWP</code> application and therefore, it will always run in the <code>Foreground</code> type. The reason I choose this application type (UWP) is because I can then use the SDK to communicate with the IoT Hub. If you want to create a <code>Background</code> application type then you can download this Visual Studio Extension for 2017 and <a href="https://marketplace.visualstudio.com/items?itemName=MicrosoftIoT.WindowsIoTCoreProjectTemplates">this</a> for Visual Studio 2015 which will let you build the background application. Keep in mind that you cannot use any SDK library with this project type. All you have now is the power of REST API which is not very easy to use.</p>
+
+<p><img src="/images/win10-iot-app-manager.png" alt="Windows 10 IoT App Manager" /></p>
+
+<h4 id="setting-the-web-app">Setting the Web App</h4>
+
+<p>You can build any kind of app to visualize the data, but because the SDK support for .NET is good I am going to set up a simple MVC application using .NET Framework. As of now, you cannot use Azure SDK with .NET Core application and also it looks like the team does not have any plans to shift their focus for releasing the SDK for .NET Core anytime soon.</p>
+
+<p>Start with installing NuGet packages. First with the package that will let you read the data from the Queue.</p>
+
+<pre class="brush: plain">
+Install-Package WindowsAzure.ServiceBus
+</pre>
+
+<p>Because this is a real-time application you also need to install SignalR</p>
+
+<pre class="brush: plain">
+Install-Package Microsoft.AspNet.SignalR
+</pre>
+
+<p>After these packages are installed, You need a way to visualize the temperature and humidity received from the queue. To do this you can use any jquery chart plugin or any other library of your choice. I will be using <a href="https://developers.google.com/chart">Google Charts</a> in my app, <a href="https://developers.google.com/chart/interactive/docs/gallery/linechart">Line Charts</a> to be precise. Installation is straight forward for the charts and you can play around with different options to tweak the look and feel of the chart. I am going to add the chart code in the <code>Index.cshtml</code> file. Below is the complete code for the chart to render.</p>
+
+<pre class="brush: javascript">
+&lt;script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"&gt;&lt;/script&gt;
+&lt;div id="chart_div"&gt;&lt;/div&gt;
+&lt;script&gt;
+    var data = [];
+    var chart;
+    google.charts.load('current', { packages: ['corechart', 'line'] });
+    google.charts.setOnLoadCallback(loadChart);
+    var hub = $.connection.ioTHub;
+    $.connection.hub.start();
+    hub.client.iotHubNotification = function (d) {
+        console.log(d);
+        var pi = JSON.parse(d);
+        var time = pi.date.split(',');
+        var temp = pi.temp;
+        var humid = pi.humid;
+        data.addRows([[[parseInt(time[0]), parseInt(time[1]), parseInt(time[2])], temp, humid]]);
+        var options = {
+            height: 250,
+            hAxis: {
+                title: 'Time'
+            },
+            vAxis: {
+                title: 'Temperature / Humidity',
+                gridlines: { count: 22 }
+            }
+        };
+        chart.draw(data, options);
+    };
+    function loadChart() {
+        data = new google.visualization.DataTable();
+        data.addColumn('timeofday', 'Time');
+        data.addColumn('number', 'Temperature');
+        data.addColumn('number', 'Humidity');
+        var options = {
+            height: 250,
+            hAxis: {
+                title: 'Time'
+            },
+            vAxis: {
+                title: 'Temperarture / Humidity',
+                gridlines: { count: 22 }
+            }
+        };
+        chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+&lt;/script&gt;
+</pre>
+
+<p>I make use of the sample code from the examples at Google Charts and used it along with some minor tweaks to suite my needs. <code>loadChart()</code> function is called for the first time when the page is loaded and then I have a SignalR hub which updates the chart with the same option sets that I have in the <code>loadChart()</code> function. I add 3 data columns to display the data in the chart. There are few things that I would like to talk about in the above code. First is the <code>timeofday</code> is displayed on a <code>X-Axis</code> because time is continuous and I want to update the chart with time. Second, the <code>gridlines</code> property of the <code>vAxis</code> let you set how many horizontal rows you want to see in the graph. I have increased it to quite a significant number because I want to see the graph in more detail. You can play around with these settings and see what looks better for you. Third, the response I receive in the <code>hub</code> is in string format and therefore, I have parsed that string to JSON in order to read it and set to the rows. Also note that I have leave the <code>console.log</code> in the above code so that when you run the web app you can see the raw data in the console.</p>
+
+<p>In the <code>HomeController.cs</code>, first I will set the connection string to the queue which I have associated with the IoT Hub endpoint in Azure and set the queue name along with the <code>IHubContext</code> for SignalR communication.</p>
+
+<pre class="brush: csharp">
+private string connectionString = "Endpoint=sb://iothubqueue-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=88kJcD1mvJnO1jtiiY+AcUtIoinW//V/lF2WicOJ50s=";
+private string queueName = "iothubqueue";
+private IHubContext _hubContext;
+</pre>
+
+<p>In the constructor, initialize the <code>IHubContext</code> object.</p>
+
+<pre class="brush: csharp">
+_hubContext = GlobalHost.ConnectionManager.GetHubContext&lt;IoTHub&gt;();
+</pre>
+
+<p>Here is the code for the <code>IoTHub</code> class:</p>
+
+<pre class="brush: csharp">
+using Microsoft.AspNet.SignalR;
+namespace IoTHubTempWebApp.Hubs
+{
+    public class IoTHub : Hub
+    {
+        public void IoTHubNotification(string value)
+        {
+            Clients.All.iotHubNotification(value);
+        }
+    }
+}
+</pre>
+
+<p>And the code for <code>Startup</code> class <code>(Startup.cs)</code></p>
+
+<pre class="brush: csharp">
+using Microsoft.Owin;
+using Owin;
+[assembly: OwinStartup(typeof(IoTHubTempWebApp.Startup))]
+namespace IoTHubTempWebApp
+{
+    public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
+            app.MapSignalR();
+        }
+    }
+}
+</pre>
+
+<p>In the Index <code>ActionResult</code>, I will start a task which will read the messages from the queue and then SignalR will broadcast it to the client side which in turn update the chart with the latest data or temperature/humidity readings.</p>
+
+<pre class="brush: csharp">
+public ActionResult Index()
+{
+    Task task = Task.Run(() =&gt;
+    {
+        QueueClient client = QueueClient.CreateFromConnectionString(connectionString, queueName, ReceiveMode.ReceiveAndDelete);
+        client.OnMessage(message =&gt;
+        {
+            Stream stream = message.GetBody&lt;Stream&gt;();
+            StreamReader reader = new StreamReader(stream, Encoding.ASCII);
+            string s = reader.ReadToEnd();
+            _hubContext.Clients.All.ioTHubNotification(s);
+        });
+    });
+    task.Wait();
+    return View();
+}
+</pre>
+
+<p>First I create a <code>QueueClient</code> object with the connection string and queue name along with the <code>ReceiveMode</code>. I have set <code>ReceiveMode</code> to <code>ReceiveAndDelete</code> as I want to delete the data from the queue once it has been read. Though you have an option to have the data in the queue for the maximum of 7 days in Azure. The <code>QueueClient</code> has an <code>OnMessage</code> event which process a message in an event-driven message pump, which means that as soon as the something is being added to the queue, this event is fired. I get the message body in the form of <code>Stream</code>, read the message to the end and pass the message to SignalR hub which in turn updates my chart in real-time. Here is the final output I have now.</p>
+
+<p><img src="/images/iot-weatherhub-ui.png" alt="IoT Weather App in action" /></p>
+
+<p>If you look closely, you will notice that the temperature line is not as smooth as you thought it would be. This is because every time when Raspberry PI read the data from the sensor there is a slight change in the temperature only with a few decimal places. If you don&rsquo;t like this then you can change the <code>gridlines</code> property of the <code>vAxis</code> in the chart. Also you can try changing the time delay on the device to see if that impacts the lines on the chart. try changing both time delay in the device application and the <code>gridlines</code> in the web application to see how the chart renders.</p>
+
+<p><a href="https://github.com/prashantkhandelwal/Pi-Code/tree/master/BME280-PI3-Win10IoT-Azure">The complete source code is available on Github</a>.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -570,232 +912,6 @@ Z_Label.Text = Convert.ToString(adxl[2].Split(':')[1]);
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/building-angular-2-app-with-web-api-and-net-core/">Building Angular 2 App With Web API And .NET Core</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 21, 2016
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-core">.NET CORE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    <p>Setting up the new Angular 2 app with Web API and .NET core is easy but can be a bit tricky. The older beta releases of Angular 2 works fine as there are not many files to refer and to work with. When I started using Angular 2 it was in RC1 and the way the files are being referenced in the app is bit different than the older versions of Angular 2. I don&rsquo;t want to repeat these steps again and again so I put up a Github repo for this seed project. You clone it and hit F5 and you will have your Angular 2 app with Web API.</p>
-
-<blockquote>
-<p>At the time of writing this post I am using .NET Core version 1.0.0-preview1-002702. The complete seed project is available on <a href="https://github.com/prashantkhandelwal/Angular2WebAPI-Seed">GitHub</a>.</p>
-</blockquote>
-
-<p>Here is how I did it. Select <code>ASP.NET Core Web Application (.NET Core)</code>. I have installed the new .NET Core RC2. Name the project as you like.</p>
-
-<p><img src="/images/vs-new-project.png" alt="Visual Studio New Project" /></p>
-
-<p>Select the <code>Web API</code> project template.</p>
-
-<p><img src="/images/vs-new-add-api.png" alt="Visual Studio Add Web API" /></p>
-
-<p>After the project creation is successfull. The first thing is to create a <code>Views</code> folder. The folder structure is like the same like it is for MVC application. This is how the folder structure looks like.</p>
-
-<p><img src="/images/vs-view-project-files.png" alt="Visual Studio Project Files View" /></p>
-
-<p>Because its a a Web API project, by default it will not render the views and therefore we have to add some dependencies in <code>project.json</code> file.</p>
-
-<pre class="brush: plain">
-"Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
-"Microsoft.AspNetCore.Mvc.TagHelpers": "1.0.0-rc2-final",
-"Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.0-rc2-final"
-</pre>
-
-<p>The <code>project.json</code> file is different than that of the older version of the .NET Core. You will see the difference when you see it.
-Next we set the routes for the views we have in the <code>Startup.cs</code> file.</p>
-
-<pre class="brush: csharp">
-app.UseMvc(routes =&gt;
-{
-    routes.MapRoute("default",
-                    "{controller=Home}/{action=Index}/{id?}");
- 
-    routes.MapWebApiRoute("defaultApi",
-                          "api/{controller}/{id?}");
-});
-</pre>
-
-<p>The routes are now set and you can run the application and check if you can see the view or not. Once that is set, let start adding the support for Angular. Here is the list of the files which we need to add.</p>
-
-<p><code>tsconfig.json</code> file</p>
-
-<p><img src="/images/add-tsconfig-file.png" alt="Add tsconfig.json file" /></p>
-
-<p>Add the below code to the file and save it.</p>
-
-<pre class="brush: plain">
-{
-  "compilerOptions": {
-    "target": "es5",
-    "module": "system",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "rootDir": "wwwroot",
-    "outDir": "wwwroot",
-    "listFiles": true,
-    "noLib": false,
-    "diagnostics": true
-  },
-  "exclude": [
-    "node_modules"
-  ]
-}
-</pre>
-
-<p><code>typings.json</code> file</p>
-
-<p>Add a blank <code>.json file</code> and name it <code>typings.json</code></p>
-
-<p><img src="/images/add-typings.json.png" alt="Add typings.json file" /></p>
-
-<p>Add below lines to the <code>typings.json</code> file.</p>
-
-<pre class="brush: plain">
-{
-  "ambientDependencies": {
-    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
-    "jasmine": "registry:dt/jasmine#2.2.0+20160412134438"
-  }
-}
-</pre>
-
-<p>As per the official <a href="https://angular.io/docs/ts/latest/quickstart.html">Angular documentation</a>, we will stick with <code>NPM</code> to fulfill the client-side dependencies. Start with adding new <code>npm Configuration File</code>. The content of the <code>NPM</code> file is almost the same, but I made few changes as per my requirement. Here is the complete configuration file.</p>
-
-<p><img src="/images/npm-configuration-file.png" alt="NPM Configuration File" /></p>
-
-<pre class="brush: plain">
-{
-  "name": "Angular2WebAPI-Seed",
-  "version": "1.0.0",
-  "scripts": {
-    "postinstall": "typings install"
-  },
-  "license": "ISC",
-  "dependencies": {
-    "@angular/common": "2.0.0-rc.1",
-    "@angular/compiler": "2.0.0-rc.1",
-    "@angular/core": "2.0.0-rc.1",
-    "@angular/http": "2.0.0-rc.1",
-    "@angular/platform-browser": "2.0.0-rc.1",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
-    "@angular/router": "2.0.0-rc.1",
-    "@angular/router-deprecated": "2.0.0-rc.1",
-    "@angular/upgrade": "2.0.0-rc.1",
- 
-    "lodash": "4.12.0",
-    "systemjs": "0.19.27",
-    "es6-shim": "^0.35.0",
-    "reflect-metadata": "^0.1.3",
-    "rxjs": "5.0.0-beta.6",
-    "zone.js": "^0.6.12",
-    "angular2-in-memory-web-api": "0.0.7",
-    "bootstrap": "^3.3.6"
-  },
-  "devDependencies": {
-    "gulp": "3.9.1",
-    "concurrently": "^2.0.0",
-    "typescript": "^1.8.10",
-    "typings": "^0.8.1"
-  }
-}
-</pre>
-
-<p>Notice the <code>postinstall</code> section in the npm configuration file. In this section we are installing the types required by our Angular 2 application. Now we can start setting up the Angular stuff in the <code>wwwroot</code> folder. Create an <code>app</code> and <code>js</code> folder inside this folder. Inside <code>app</code> folder create a new <code>.ts</code> file (TypeScript file). Here is the folder structure looks like in the <code>wwwroot</code> folder.</p>
-
-<p><img src="/images/angular-files.png" alt="Angular Files Structure" /></p>
-
-<p>You can see a <code>system.config.js</code> file is the same as you can see the Angular quickstart guide. I just have map the paths for the dependencies so that can be loaded without any problem. The <code>main.ts</code> file will be the main bootstrapper and <code>app.component.ts</code> file is the component file which will render the content on the page. At this point running the application will fail and it will give you several warnings and errors. To resolve that we need to add the references and we can do this easily by using a gulp file. The gulp file will automate the copying of dependencies in the <code>wwwroot</code> folder and ease our task.</p>
-
-<p><img src="/images/add-gulp-config-file.png" alt="Add Gulp Configuration File" /></p>
-
-<p>The content of the gulp file in this case looks like this.</p>
-
-<pre class="brush: plain">
-/// <binding BeforeBuild='default' />
- 
-var _ = require('lodash');
-var gulp = require('gulp');
- 
-var js = [
-    'node_modules/zone.js/dist/zone.min.js',
-    'node_modules/systemjs/dist/system.js',
-    'node_modules/reflect-metadata/Reflect.js',
-    'node_modules/es6-shim/es6-shim.min.js'
-];
- 
-var map = [
-    'node_modules/es6-shim/es6-shim.map',
-    'node_modules/reflect-metadata/reflect.js.map',
-    'node_modules/systemjs/dist/system.js.map'
-];
- 
-var folders = [
-    'node_modules/@angular/**/*.*',
-    'node_modules/rxjs/**/*.*'
-];
- 
-gulp.task('copy-js', function () {
-    _.forEach(js, function (file, _) {
-        gulp.src(file)
-       .pipe(gulp.dest('./wwwroot/js'))
-    });
-});
- 
-gulp.task('copy-map', function () {
-    _.forEach(map, function (file, _) {
-        gulp.src(file)
-        .pipe(gulp.dest('./wwwroot/js'))
-    });
-});
- 
-gulp.task('copy-folders', function () {
-    _.forEach(folders, function (folder) {
-        gulp.src(folder, { base: 'node_modules' })
-            .pipe(gulp.dest('./wwwroot/js'))
-    });
-})
- 
-gulp.task('default', ['copy-js', 'copy-map', 'copy-folders']);
-</pre>
-
-<p>Notice the very first line in the file above. We want to execute the task on every time before the build is triggered. The gulp file will only be copying the required files to the <code>js</code> folder and other unnecessary files will not be required. After the task is executed here is the how the final directiry structure will look like under <code>wwwroot</code>.</p>
-
-<p><img src="/images/angular-wwwroot-content.png" alt="Angular wwwroot content" /></p>
-
-<p>Depending on the selector you have in your component, you need to add the selector to your view. In my case the selector is <code>app</code>, hence add <code>&lt;app&gt;&lt;/app&gt;</code> in your <code>Index.cshtml</code> file.</p>
-
-<p>After you set up the index page, there is one more thing that you have to do is to set the launch URL.</p>
-
-<p><img src="/images/launch-settings.png" alt="App Launch Settings" /></p>
-
-<p>The URL may change and differ as per your API endpoint. Press F5 to run the application.</p>
-
-  </div>
-  
 </div>
 
 
@@ -1118,7 +1234,16 @@ gulp.task('default', ['copy-js', 'copy-map', 'copy-folders']);
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -1126,7 +1251,7 @@ gulp.task('default', ['copy-js', 'copy-map', 'copy-folders']);
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

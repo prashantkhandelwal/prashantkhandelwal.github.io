@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-12-12T07:55:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-12-19T01:46:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,116 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/autocomplete-with-jquery-and-aspnet/">Autocomplete With jQuery and ASP.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 19, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>Building auto-complete feature with jQuery is easy and you can build this in no time. It&rsquo;s your wish if you want to use ADO.NET or EF (LINQ) to get this done, it works great for all. The sample application I build is using both ADO.NET and EF. So let&rsquo;s begin up getting files under one hood.</p>
+
+<p>Use the below live links for jQuery auto-complete and CSS.</p>
+
+<pre class="brush:html">
+&lt;link rel="stylesheet" href="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.css" type="text/css" /&gt;
+&lt;script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/autocomplete/jquery.autocomplete.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>You can also download these files and use them in your project, if you are planning to run your application offline. For this demonstration, I have downloaded the files. I am using both ADO.NET and LINQ to auto-complete with jQuery auto-complete pug-in.</p>
+
+<p>Starting up with ADO.NET, as we were/are using this for so many years now and therefore there should be no problem for anyone using it. Simple page behind code to get the full list of countries in the world (I hope I have all of them) and seperate each country name with a &lsquo;|&rsquo; pipe symbol so I can split countries name and set it to the text box for auto-complete.</p>
+
+<pre class="brush:csharp">
+public partial class _Default : System.Web.UI.Page
+   {
+       SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
+       SqlCommand cmd;
+       SqlDataReader dr;
+ 
+       public string Listcountries;
+ 
+       private string countryName()
+       {
+ 
+           StringBuilder sb = new StringBuilder();
+           cmd = new SqlCommand("Select country_name from Country order by country_name", con);
+           con.Open();
+           dr = cmd.ExecuteReader();
+ 
+           while (dr.Read())
+           {
+               sb.Append(Convert.ToString(dr[0] + "|"));
+           }
+ 
+           return Convert.ToString(sb);
+       }
+ 
+       protected void Page_Load(object sender, EventArgs e)
+       {
+           Listcountries = countryName();
+       }
+   }
+</pre>
+
+<p>Done with code behind and now only requires few lines of client script on the page to get the auto-complete running.</p>
+
+<pre class="brush:jscript">
+&lt;script type="text/javascript"&gt;
+        $(document).ready(function () {
+            var cc = '&lt;%=Listcountries%&gt;'.split("|");
+            $("#autoText").autocomplete(cc);
+        });
+&lt;/script&gt;
+</pre>
+
+<p>The same can be done with LINQ but the jQuery script part will be the same.</p>
+
+<pre class="brush:csharp">
+public partial class AutocompleteLINQ : System.Web.UI.Page
+{
+    DeveloperDBEntities db = new DeveloperDBEntities();
+    public IQueryable countries;
+    public string Listcountries;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        countries = from c in db.Countries select c;
+        foreach (Country cobj in countries)
+        {
+            Listcountries += cobj.Country_Name + "|";
+        }
+    }
+}
+</pre>
+
+<p>Just for your ease to use this project as it is, I have included the SQL scripts for the country table. Hope this helps you in building another great or a part of your application.</p>
+
+<p><strong>Download: <a href="/files/JqueryAutoComplete.zip">JqueryAutoComplete.zip (210.73 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -556,48 +666,6 @@ namespace DOTNETOAUTH
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/upload-multiple-files-with-jquery-uploadify/">Upload Multiple Files With jQuery &#39;Uploadify&#39;</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 12, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>I have found many web developers seeking for help to upload a file in AJAX style, I am not a web developer but among the list of people who used to search the web for some control, way or a workaround to do this. I found a .NET control to do this, but like all good controls&hellip;.it wasn&rsquo;t free. But the control worth it.</p>
-
-<p>But now we have an excellent open source plugin called <a href="http://www.uploadify.com/">Uploadify</a>. I have been using it for sometime and thought I should now blog and spread a word about it. To implement in your ASP.NET project is simple. Download the latest version of Uploadify from its official site <a href="http://www.uploadify.com/download/">here</a>.</p>
-
-<p>Take a look at the downloaded files. Actually, I need NOT to explain it again to you because the download itself has a PDF file which makes it really simple to understand the working and usage of the plugin. If you need to take a look how this plug-in works, then the  best place to look at the demo page at the uploadify page <a href="http://www.uploadify.com/download">here</a>.</p>
-
-<p>I also compiled a small apllication with ASP.NET to see it in action with ASP.NET</p>
-
-<p><strong>NOTE: The code below I have uploaded is not written by me, I have just compiled a bunch of files under one hood to get it working.</strong></p>
-
-<p><strong>Download: <a href="/files/JqueryUploadify.zip">JqueryUploadify.zip (229.05 kb)</a></strong></p>
-
-  </div>
-  
 </div>
 
 
@@ -924,7 +992,16 @@ namespace DOTNETOAUTH
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -932,7 +1009,7 @@ namespace DOTNETOAUTH
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>

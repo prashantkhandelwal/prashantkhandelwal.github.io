@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2014-05-04T15:09:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2014-05-17T23:25:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -141,7 +141,7 @@
       </div>
     </div>
     <p class="copyright">
-      &copy; 2023 Pashant Khandelwal
+      &copy; 2024 Pashant Khandelwal
       <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
       
     </p>
@@ -154,6 +154,143 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/building-real-time-applications-with-firebase-and-angularjs/">Building Real Time Applications With Firebase And AngularJS</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 17, 2014
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>Building real-time applications with SignalR is easy. But building real-time applications with JavaScript will be a problem if you are not aware of <a href="https://www.firebase.com/">Firebase</a>. I first heard of it when I was learning <a href="http://angularjs.org/">AngularJS</a>. The official AngularJS site has the example where you can add, edit and delete the detials in real-time. This example uses Firebase as the storage and updates the UI in real time.</p>
+
+<p>The data is stored in JSON format and accessing it using jQuery makes it very easy. Firebase API is pretty powerful and lets you get started in minutes. To get started with Firebase, you have to first <a href="https://www.firebase.com/signup/">create a new account with Firebase</a>. It&rsquo;s a paid service but for now you can opt for a developer account. As soon as your account is created you will be redirected to your dashboard where you can create a new application or use the one which is there by default from Firebase. Take the note of the URL ending with <code>firebaseIO.com</code>, we will be needing it later on at the time of implementing.</p>
+
+<p><img src="/images/firebase-create-new-app.png" alt="Firebase New App" /></p>
+
+<p>Clicking on Manage App button will take you to the details page of the application. Where you can view/edit/import/export the data in the JSON format, authentication from Facebook, Twitter, Google etc, simulate read/write operation and more. You can see the sample data in JSON format I have been testing in the below screenshot. If you already have a JSON file, you can directly import it from the dashboard using the <code>Import JSON</code> feature.</p>
+
+<p><img src="/images/firebase-dashboard.png" alt="Firebase Dashboard" /></p>
+
+<p>For this example I am using jQuery and AngularJS. If you wish you can just stick to jQuery. Create a new HTML page and add Firebase JS references in the head section. I am using AngularJS so I am going to add AngularJS reference as well.</p>
+
+<pre class="brush: js">
+&lt;script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.firebase.com/js/client/1.0.11/firebase.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>You get the first three references but the last reference is the AngularFire which is a quick way to work with Firebase applications with AngularJS. This is AngularJS code with firebase dependency.</p>
+
+<pre class="brush: js">
+var feedApp = angular.module('feedDataApp', ['firebase']);
+ 
+feedApp.controller('feedListController', function ($scope, $firebase) {
+    var fbURL = new Firebase("https://scorching-fire-0000.firebaseio.com/Feeds/");
+    $scope.feedsList = $firebase(fbURL);
+ 
+    $scope.save = function () {
+        $scope.feedsList.$add({
+            Name: $scope.feedsList.Name,
+            Url: $scope.feedsList.Url,
+            Description: $scope.feedsList.Description
+             
+        });
+        $(":text").val('');
+    }
+});
+</pre>
+
+<p>I am not getting into the basics of AngularJS, but I will explain few things in the above code. The first line in the above code has the dependency named <code>firebase</code>, in simple AngularJS apps we could have skip the dependecies. Then I have the controller named <code>feeListController</code>, which is accompanied by a very own <code>$scope</code> and new param which is <code>$firebase</code>. Inside the controller I have a variable <code>fbURL</code> which holds my Firebase URL. If you see here, you willl notice that I have appended the URL with <code>Feeds</code>. This is because I want my data to be saved inside the Feeds section in the Firebase storage. The <code>$scope.feedsList</code> will hold the collection of all my entries I have in my storage. I have the save function which will save the details to my storage. Inside the Firebase&rsquo;s <code>$add</code> function, I have passed <code>Name</code>, <code>Url</code> and <code>Description</code>. You can pass as many params as you want. the best thing is that you don&rsquo;t even have to set the storage schema. As soon as you click the save button, a new entry is created in the storage. This is my storage looks like.</p>
+
+<p><img src="/images/firebase-json-tree.png" alt="Firebase JSON Viewer" /></p>
+
+<p>If you don&rsquo;t want to save it under the <code>Feeds</code> section then in the above JS file you just have to remove the <code>Feeds</code> from the above URL. The UI for this demo is simple, just listing down the saved JSON data in a readable form using AngularJS.</p>
+
+<pre class="brush: html">
+&lt;div ng-controller="feedListController"&gt;
+    &lt;table class="table"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                Name
+            &lt;/td&gt;
+            &lt;td&gt;
+                Url
+            &lt;/td&gt;
+            &lt;td&gt;
+                Description
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr ng-repeat=" feeds in feedsList"&gt;
+            &lt;td&gt;{{feeds.Name}}&lt;/td&gt;
+            &lt;td&gt;{{feeds.Url}}&lt;/td&gt;
+            &lt;td&gt;{{feeds.Description}}&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Name" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Url" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type="text" ng-model="feedsList.Description" /&gt;&lt;br /&gt;
+            &lt;/td&gt;
+            &lt;td&gt;
+                &lt;button type="submit" ng-click="save()"&gt;Add Feed&lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+</pre>
+
+<p>Using a simple design I have displayed the details using AngularJS.</p>
+
+<p><img src="/images/firebase-web-app.png" alt="Firebase Angular Web App" /></p>
+
+<p>The best part is the as soon as I add a new feed details, it will get updated in the UI in real-time. Open the same page on a different browser and add a new entry. You will notice that the data is updated in real-time.</p>
+
+<p><img src="/images/firebase-json-db.png" alt="Firebase DB" /></p>
+
+<p><img src="/images/firebase-ng-app-output.png" alt="Firebase Angular Web App" /></p>
+
+<p>Firebase is not limited for web, it is available for iOS/OS x, Java/Android, Node.js, Ember etc. Building mobile applications using Firebase as a real-time storage will be an amazing thing to do. This is not a very good example for Firebase with AngularJS but this will get you started with Firebase and let you test a part of your application using this awesome real-time storage.</p>
+
+<p>I would recommend you to look at <a href="https://github.com/firebase/firereader">this web application</a> build completely on Firebase and AngularJS.</p>
+
+<h4 id="references">References</h4>
+
+<ul>
+<li><a href="https://www.firebase.com/">Firebase</a></li>
+<li><a href="http://angularfire.com/">AngularFire</a> / <a href="https://github.com/firebase/angularFire">Github</a> / <a href="https://www.firebase.com/docs/angular/reference.html">Reference</a></li>
+<li><a href="https://www.firebase.com/docs/">Firebase - Getting started docs</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -750,77 +887,6 @@ function ShowNotificationsWithIcons(title, body) {
 
   </div>
   
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/dev-buzz-2-bookmarks-1-jul-2013/">Dev Buzz #2 - Bookmarks - 1 JUL 2013</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 1, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/devbuzz">DEVBUZZ</a>
-      
-      
-      
-      
-    </span>
-    
-
-<div style="text-align: -webkit-center;">
-<img src="/images/devbuzz2.jpg" alt="Devbuzz Image" />
-</div>
-
-<h4 id="awesome-stuff">Awesome Stuff</h4>
-
-<ul>
-<li><a href="http://code.msdn.microsoft.com/windowsapps/Windows-8-Modern-Style-App-Samples">Windows 8.1 sample apps</a></li>
-<li><a href="https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en">Postman</a> – Chrome based REST client</li>
-<li><a href="http://www.modern.ie/">Modern.IE</a> – Testing for IE
-<a href="http://channel9.msdn.com/Events/Build/2013/3-503">Visual Studio 2013 for Web developers – Build Webcast – Mads Kristensen</a></li>
-<li><a href="http://www.lotaris.com/">Lotaris</a> – A new way to monetize your Windows 8 apps</li>
-<li><a href="http://extensionmethod.net/">Entensionmethods.net</a> – A site dedicate to Extension Methods</li>
-<li><a href="http://curl.haxx.se/download.html">cURL for Windows</a></li>
-</ul>
-
-<h4 id="web-development">Web Development</h4>
-
-<ul>
-<li><a href="http://www.typescriptlang.org/">TypeScript</a></li>
-<li><a href="https://eisk.codeplex.com/">EISK</a> - Employee Info Starter Kit</li>
-<li><a href="http://notebookheavy.com/2013/05/22/angularjs-and-typescript/">AngularJS and TypeScript</a></li>
-<li><a href="http://www.peterprovost.org/blog/2012/06/19/adding-ninject-to-web-api">Adding Ninject to Web API</a></li>
-<li><a href="http://www.faridesign.net/2012/04/20-javascript-frameworks-mvvm-templating-licenses-etc/">20 JavaScript Frameworks: MVVM Templating, Licenses etc</a></li>
-<li><a href="http://www.bluelemoncode.com/post/2013/02/17/One-to-one-chat-using-Aspnet-SignalR-groups.aspx">One to one chat using ASP.NET SignalR groups</a></li>
-<li><a href="http://www.skylinetechnologies.com/Blog/Article/48/Peer-to-Peer-Media-Streaming-with-WebRTC-and-SignalR.aspx">Peer to peer media streaming with WebRTC and SignalR</a></li>
-<li><a href="http://www.jquery4u.com/bootstraps/metro-bootstraps/">10 popular metro bootstraps</a></li>
-</ul>
-
-<h4 id="jquery">JQuery</h4>
-
-<ul>
-<li><a href="http://cube3x.com/adipoli-jquery-image-hover-plugin/">Adipoli</a> – Image Hover Plugin</li>
-<li><a href="http://www.createjs.com/#!/PreloadJS">CreateJS</a> – PreloadJS</li>
-<li><a href="http://www.highcharts.com/">Highcharts</a> – Interactive JavaScript charts</li>
-<li><a href="https://github.com/CodeSeven/toastr">Toastr</a> – Non-blocking notifications</li>
-</ul>
-
-<h4 id="open-source">Open Source</h4>
-
-<ul>
-<li><a href="http://attributerouting.net/">Attribute Routing</a> – Attribute based routing library for MVC and Web APIs</li>
-<li><a href="http://lesscss.org/">LessCSS</a> – The dynamic stylesheet language</li>
-</ul>
-
-  </div>
-  
 </div>
 
 
@@ -1147,7 +1213,16 @@ function ShowNotificationsWithIcons(title, body) {
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/33/">33</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/34/">34</a></li>
     
     
     <li class="page-item">
@@ -1155,7 +1230,7 @@ function ShowNotificationsWithIcons(title, body) {
     </li>
     
     <li class="page-item">
-        <a href="/page/33/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/34/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>
