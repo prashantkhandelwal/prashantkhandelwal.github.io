@@ -6,7 +6,7 @@
     <description>Recent content in Raspberry Pi on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Oct 2024 17:37:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 31 Oct 2024 18:44:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/category/raspberry-pi/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,11 @@
     <item>
       <title>Simple and Cheap: Create a DIY Mouse Jiggler with Raspberry Pi Pico</title>
       <link>https://prashantkhandelwal.github.io/post/simple-and-cheap-create-a-diy-mouse-jiggler-with-raspberry-pi-pico/</link>
-      <pubDate>Wed, 30 Oct 2024 17:37:00 +0000</pubDate>
+      <pubDate>Thu, 31 Oct 2024 18:44:00 +0000</pubDate>
       
       <guid>https://prashantkhandelwal.github.io/post/simple-and-cheap-create-a-diy-mouse-jiggler-with-raspberry-pi-pico/</guid>
-      <description>Today my Amazon feed was filled with the suggestions of mouse jigglers varying from different shape, size and features. It happened when few days back during a conversation with my friend it came as a topic where he want to use something like a mouse jiggler when he is working from home and still want to be shown as active on Microsoft Teams when he is away doing some household chores.</description>
+      <description>Today, my Amazon feed was flooded with mouse jiggler suggestions in various shapes, sizes, and features. A few days ago, during a chat with a friend, he mentioned wanting a device to keep his status active on Microsoft Teams while doing household chores. It was my first time hearing about such a gadget, and I found it fascinating to explore what it can do.
+What is a Mouse Jiggler? In a nutshell, mouse jiggler is a device which moves your mouse or simulate its movement to keep your computer active.</description>
     </item>
     
     <item>

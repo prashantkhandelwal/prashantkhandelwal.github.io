@@ -22,13 +22,15 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Simple and Cheap: Create a DIY Mouse Jiggler with Raspberry Pi Pico"/>
-<meta name="twitter:description" content="Today my Amazon feed was filled with the suggestions of mouse jigglers varying from different shape, size and features. It happened when few days back during a conversation with my friend it came as a topic where he want to use something like a mouse jiggler when he is working from home and still want to be shown as active on Microsoft Teams when he is away doing some household chores."/>
+<meta name="twitter:description" content="Today, my Amazon feed was flooded with mouse jiggler suggestions in various shapes, sizes, and features. A few days ago, during a chat with a friend, he mentioned wanting a device to keep his status active on Microsoft Teams while doing household chores. It was my first time hearing about such a gadget, and I found it fascinating to explore what it can do.
+What is a Mouse Jiggler? In a nutshell, mouse jiggler is a device which moves your mouse or simulate its movement to keep your computer active."/>
 
 <meta property="og:title" content="Simple and Cheap: Create a DIY Mouse Jiggler with Raspberry Pi Pico" />
-<meta property="og:description" content="Today my Amazon feed was filled with the suggestions of mouse jigglers varying from different shape, size and features. It happened when few days back during a conversation with my friend it came as a topic where he want to use something like a mouse jiggler when he is working from home and still want to be shown as active on Microsoft Teams when he is away doing some household chores." />
+<meta property="og:description" content="Today, my Amazon feed was flooded with mouse jiggler suggestions in various shapes, sizes, and features. A few days ago, during a chat with a friend, he mentioned wanting a device to keep his status active on Microsoft Teams while doing household chores. It was my first time hearing about such a gadget, and I found it fascinating to explore what it can do.
+What is a Mouse Jiggler? In a nutshell, mouse jiggler is a device which moves your mouse or simulate its movement to keep your computer active." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://prashantkhandelwal.github.io/post/simple-and-cheap-create-a-diy-mouse-jiggler-with-raspberry-pi-pico/" /><meta property="article:published_time" content="2024-10-30T17:37:00&#43;00:00"/>
-<meta property="article:modified_time" content="2024-10-30T17:37:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/simple-and-cheap-create-a-diy-mouse-jiggler-with-raspberry-pi-pico/" /><meta property="article:published_time" content="2024-10-31T18:44:00&#43;00:00"/>
+<meta property="article:modified_time" content="2024-10-31T18:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -162,7 +164,7 @@
     
     
     <span>
-        <i class="fas fa-calendar-alt"></i> Oct 30, 2024
+        <i class="fas fa-calendar-alt"></i> Oct 31, 2024
     </span>
     
     
@@ -192,25 +194,71 @@
   <div class="post">
     
 
-<p>Today my Amazon feed was filled with the suggestions of mouse jigglers varying from different shape, size and features. It happened when few days back during a conversation with my friend it came as a topic where he want to use something like a mouse jiggler when he is working from home and still want to be shown as active on Microsoft Teams when he is away doing some household chores. I heard of such a device for the first time and it is kind of intriguing to look for it and see what it can do.</p>
+<p><img src="/images/mouse-jiggler.jpg#center" alt="A mouse jiggler" /></p>
 
-<h4 id="what-is-a-mouse-jiggler">What is a Mouse Jiggler?</h4>
+<p>Today, my Amazon feed was flooded with mouse jiggler suggestions in various shapes, sizes, and features. A few days ago, during a chat with a friend, he mentioned wanting a device to keep his status active on Microsoft Teams while doing household chores. It was my first time hearing about such a gadget, and I found it fascinating to explore what it can do.</p>
 
-<p>In a nutshell, mouse jiggler is a device which moves your mouse pointer on periodic basis.</p>
+<h3 id="what-is-a-mouse-jiggler"><strong>What is a Mouse Jiggler?</strong></h3>
+
+<p>In a nutshell, mouse jiggler is a device which moves your mouse or simulate its movement to keep your computer active.</p>
 
 <p>The cheapest mouse jiggler I can found on Amazon was around Rs. 880 or $11 (approx.). Now mouse and keyboard are Human Interface Device (HID) and this can be easily mimic with something like a cheap Raspberry PI Pico and the total cost of this will be around Rs. 330 or $4.00.</p>
 
-<h4 id="how-to-build">How to build?</h4>
+<h3 id="how-to-build"><strong>How to build?</strong></h3>
 
 <p>Grab a Raspberry PI Pico from <a href="https://robu.in">Robu.in</a> or <a href="https://thingbits.in">ThingBits.in</a> as these are the official reseller of Raspberry PIs in India.</p>
 
-<h5 id="download-and-install-thonny">Download and Install Thonny</h5>
+<h3 id="download-and-install-thonny"><strong>Download and Install Thonny</strong></h3>
 
 <p><a href="https://thonny.org/">Thonny</a> is a Python IDE which has excellent support for Raspberry PI. I will be using this IDE so the steps are more clear to anyone who is working with a RPI for the first time.</p>
 
-<h4 id="configuring-the-ide">Configuring the IDE</h4>
+<h3 id="configuring-the-ide"><strong>Configuring the IDE</strong></h3>
 
 <p>After the installation is complete, plug the Pico to your computer while holding the BOOTSEL button on the PICO. This will put the PICO in the <code>bootloader</code> mode.</p>
+
+<p>Click the bottom right corner of the main window, and select <code>Configure interpreter</code>.</p>
+
+<p><img src="/images/thonny-change-interpreter.png" alt="Change Interpreter" /></p>
+
+<p>Thonny options window will pop up where you will now click <code>Install or update CircuitPython(UF2)</code>.</p>
+
+<p><img src="/images/thonny-options.png" alt="Thonny Options" /></p>
+
+<p><img src="/images/thonny-install-ciruitpython.png" alt="Thonny installing CircuitPython" /></p>
+
+<p>Click <code>Install</code> to start the installation and wait for it to finish. The device will restart after the installation is completed.</p>
+
+<h3 id="install-dependencies"><strong>Install dependencies</strong></h3>
+
+<p>We need Adafruit&rsquo;s HID library which you can download from <a href="https://circuitpython.org/libraries">here</a>. Extract the contents of the zip file and copy <code>adafruit_hid</code> folder to the <code>lib</code> folder which is at the root of the Pico.</p>
+
+<h3 id="code-code-code"><strong>Code Code Code</strong></h3>
+
+<p>If you are using Thonny then open <code>code.py</code> file by pressing <code>CTRL + O</code> and paste in the following code.</p>
+
+<p><img src="/images/thonny-file-open.png" alt="Thonny file open" /></p>
+
+<blockquote>
+<p>NOTE: You will not see this dialog box if you have a wrong backend or no backend selected. You can change or select the right backend from the bottom right corner of of the Thonny IDE.</p>
+</blockquote>
+
+<pre class="brush:python">
+import usb_hid
+from adafruit_hid.mouse import Mouse
+from time import sleep
+
+m = Mouse(usb_hid.devices)
+
+while True:
+       m.move(-5, 0, 0)
+       sleep(0.5)
+       m.move(5, 0, 0)
+       sleep(0.5)
+</pre>
+
+<p>The line from <code>adafruit_hid.mouse import Mouse</code> imports the Mouse dependency, allowing us to control the mouse programmatically. The code is straightforward and can be tailored to your specific needs. In my case, I want to move the mouse slightly to keep my status active while I&rsquo;m away. You can increase the time interval beyond <code>0.5</code> seconds, as both Teams and Slack take a while to detect inactivity before marking your status as inactive.</p>
+
+<p>Currently, this Raspberry Pi Pico-based Mouse Jiggler is a fixture on my other always-on machine, saving me from having to re-login whenever I forget to move the mouse while deep in work.</p>
 
   </div>
   <div style="text-align:center; margin-top:10px">
