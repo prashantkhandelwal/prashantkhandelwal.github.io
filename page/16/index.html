@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-09-02T03:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-09-02T16:53:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,67 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/social-counter-jquery-plugin-to-get-twitter-facebook-and-feed-readers-count/">Social Counter: JQuery Plugin To Get Twitter, Facebook And Feed Readers Count</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Sep 2, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p>Appending my <a href="http://midnightprogrammer.net/post/Get-Twitter-Facebook-And-Feed-Readers-Count-In-ASPNET.aspx">previous post</a>, I have created a plugin in JQuery to get twitter followers count, facebook likes and feed readers count. In my previous post, I have shown a way to get the counts in ASP.NET and I have created this plugin so that everyone can use and show counts on their blogs or site.</p>
+
+<p>To get started add the two javascript files, one is the jquery file and the other one is the plugin file.</p>
+
+<pre class="brush:jscript">
+<script type="text/javascript" src="Scripts/jquery-1.4.1.js"></script>
+<script src="Scripts/jquery.SocialCounter.js" type="text/javascript"></script>
+</pre>
+
+<p>Before I proceed to show you how to get it done, I should explain a bit about my small plugin. This plugin accepts 2 parameters:</p>
+
+<ul>
+<li><strong>SocialSite:</strong> Name of the social site like <code>Twitter</code>, <code>Facebook</code> and <code>Feeds</code> (case-sensitive).</li>
+<li><strong>UName:</strong> This options holds the user name or the facebook URL or the feed reader URL or the user name.</li>
+</ul>
+
+<p>Now it&rsquo;s all on the developer/designer where he wants to show the counter. I have set 3 divs on my page with <code>ID</code>. It is not at all necessary to use divs, you can use whatever you want. To get the counts I will do the following on the <code>document.ready</code> function.</p>
+
+<pre class="brush:jscript">
+$(document).ready(function () {
+       $("#tweet").SocialCounter({ SocialSite: 'Twitter', UName: 'prashantmx' });
+       $("#FBLikes").SocialCounter({ SocialSite: 'Facebook', UName: 'http://facebook.com/audi' });
+       $("#FeedReader").SocialCounter({ SocialSite: 'Feeds', UName: 'Midnightprogrammer' });
+});
+</pre>
+
+<p><strong>Download: <a href="/files/jquery.SocialCounter.zip">jquery.SocialCounter.zip (889.00 bytes)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -522,36 +583,6 @@ public HtmlString Avatar(string email)
 <li><a href="http://msdn.microsoft.com/en-us/library/system.web.htmlstring.aspx">HtmlString Class - MSDN</a></li>
 <li><a href="http://nuget.org/List/Packages/microsoft-web-helpers">ASP.NET Web Helpers Library</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/angry-birds-theme-for-windows-7/">Angry Birds Theme For Windows 7</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jul 9, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>If you love playing Angry Birds on your PC or on your phone, then you will also love Angry Birds theme for Windows 7. The sound effects are cool, just like the one you hear while you play the game and the wallpapers are cool too. I like the red angry bird to sit on my desktop as it is the best wallpaper I can choose among the 6 wallpapers that comes with the theme.</p>
-
-<p><img src="/images/win7-angrybird-theme.png" alt="Windows 7 Angry Birds theme" /></p>
-
-<p>You can download the Angry Birds theme from the Microsoft downloads center <strong><a href="http://download.microsoft.com/download/4/8/E/48EE7950-8B46-4F4E-BAEE-072875FB2608/AngryBirds.themepack">here</a></strong></p>
 
   </div>
   

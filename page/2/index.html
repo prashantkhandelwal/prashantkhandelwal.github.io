@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2023-04-14T15:36:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2023-04-25T23:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,289 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-to-create-and-push-your-docker-images-to-azure-container-registry/">How to Create and Push your Docker images to Azure Container Registry</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Apr 25, 2023
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/docker">DOCKER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/go">GO</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p><img src="/images/acr+docker-header.png#center" alt="Docker+Azure ACR" /></p>
+
+<p><a href="https://hub.docker.com/">Docker Hub</a> or GitHub Container Registry also known as <a href="https://github.com/features/packages">ghcr.io</a> is a go to platform for most of the OSS developers and teams to host their Docker images. These platforms are free for open-source software, but you might need to upgrade from the free plan to use a paid plan so that your docker image is only available for your infrastructure use and not for public use.</p>
+
+<p>Azure provides Container Registry service where you can host your Docker images with ease and use the same docker pull and run command to pull and run the container on your machine, or you can also use these images to create containers when provisioning a new Web App which uses containers or with Azure Kubernetes Service (AKS).</p>
+
+<p>Let’s dive into how to create a simple Docker image and push it to Azure Container Registry (ACR). But before we get started, we need few things:</p>
+
+<ul>
+<li><a href="https://azure.microsoft.com/en-in/free/">Azure subscription</a></li>
+<li><a href="https://docs.docker.com/get-docker/">Docker</a></li>
+<li><a href="https://code.visualstudio.com/download">Visual Studio Code</a> or your favorite IDE</li>
+</ul>
+
+<h3 id="creating-azure-container-registry-in-azure"><strong>Creating Azure Container Registry in Azure</strong></h3>
+
+<p>Go to Azure portal and click on <code>Create a resource</code> and type <code>container registry</code>. Follow the steps and you’re done.</p>
+
+<p><img src="/images/acr-basic.png" alt="ACR Basic Tab" /></p>
+
+<p>After the resource is created, we have to do change a few configurations to get it to work. Go to <code>Access keys</code> and enable the <code>Admin user</code>. You can now see the <code>Username</code> and 2 <code>passwords</code> which you can use to login to ACR via <code>docker login</code> command.</p>
+
+<p><img src="/images/acr-settings.png" alt="ACR settings" /></p>
+
+<h3 id="creating-your-docker-image"><strong>Creating your Docker Image</strong></h3>
+
+<p>I have a small API application which I wrote in Go. It lets you fetch the lyrics of your favorite song. Here is the app in action.</p>
+
+<p><img src="/images/goazl.png" alt="goazl in action" /></p>
+
+<blockquote>
+<p>To see it in action on your local machine, <a href="https://github.com/prashantkhandelwal/goazl">clone the repo from GitHub</a> and copy-paste this URL in your browser. <a href="http://localhost:8989/lyrics?artist=eminem&amp;song=rap%20god">http://localhost:8989/lyrics?artist=eminem&amp;song=rap%20god</a></p>
+</blockquote>
+
+<p>To create a Docker image, we first have to create a file called <code>Dockerfile</code> and then add the below docker commands.</p>
+
+<pre class="brush: bash">
+# syntax=docker/dockerfile:1 
+
+FROM golang:1.20 
+
+# Set destination for COPY 
+WORKDIR /app 
+
+# Download Go modules 
+COPY go.mod go.sum ./ 
+
+RUN go mod download 
+
+COPY . ./ 
+
+# Build 
+RUN go build -o /goazl 
+
+EXPOSE 8989 
+
+# Run 
+CMD ["/goazl"] 
+</pre>
+
+<p>Save this file and execute the command below in your terminal:</p>
+
+<pre class="brush: bash">
+$ docker build –t goazl-default .
+</pre>
+
+<p><img src="/images/docker-defaultimage.png" alt="Docker default image" /></p>
+
+<p>The above command will take some time to execute and once it is completed successfully, you can execute another docker command to view the image it has created.</p>
+
+<pre class="brush: bash">
+$ docker images
+</pre>
+
+<p>You should always create a multi-stage docker image for your applications as it comes with some important benefits. You can read more about those benefits <a href="https://docs.docker.com/language/golang/build-images/#multi-stage-builds">here</a>.</p>
+
+<p>Here is the multi-stage Docker file which you should use:</p>
+
+<pre class="brush:bash">
+# syntax=docker/dockerfile:1 
+
+FROM golang:1.20 AS build-stage 
+
+# Set destination for COPY 
+WORKDIR /app 
+
+# Download Go modules 
+COPY go.mod go.sum ./ 
+RUN go mod download 
+
+COPY . ./ 
+
+# Build 
+RUN go build -o /goazl 
+
+FROM gcr.io/distroless/base-debian11 AS release-stage 
+
+WORKDIR /app 
+
+COPY --from=build-stage /goazl /goazl 
+
+EXPOSE 8989 
+
+# Run 
+ENTRYPOINT ["/goazl"] 
+</pre>
+
+<p>This time use this command to create another multi-stage docker image.</p>
+
+<pre class="brush:bash">
+$ docker build -t goazl-multistage .
+</pre>
+
+<p><img src="/images/docker-multistage.png" alt="Docker multi-stage image" /></p>
+
+<p>You can see the difference in size of these images.</p>
+
+<p><img src="/images/image-size-comparison.png" alt="Docker image size comparison" /></p>
+
+<p>You can see in the above screenshot that the image with <code>default</code> in the name cost me <code>1.11GB</code> of disk space as it includes all the go tool chain. This also poses a security risk. On the other hand you can look at the size of the <code>multistage</code> docker image which is only <code>41.1MB</code>.</p>
+
+<p>Now we have the image ready to push to ACR. Let’s configure Docker command line to use our Azure Container Registry.</p>
+
+<h3 id="pushing-docker-image-to-acr"><strong>Pushing Docker Image to ACR</strong></h3>
+
+<p>We will use the <code>docker login</code> command to login to the Container Registry.</p>
+
+<pre class="brush:bash">
+$ docker login ossacrprod.azurecr.io 
+</pre>
+
+<p>After this, the prompt will ask for username and password, which you can get from the Azure Portal. If all goes well then you should see something like this:</p>
+
+<p><img src="/images/docker-login.png" alt="Docker login" /></p>
+
+<p>With login done, we can proceed to tag our image and push it to ACR. For that, first list all the images by executing <code>docker images</code> command.</p>
+
+<p>Tag the image with the following command:</p>
+
+<pre class="brush:bash">
+$ docker tag goazl-multistage ossacrprod.azurecr.io/goazl:1.0 
+</pre>
+
+<p>I sometimes prefer using the registry name in front of my image name, but you can also use it without it like so:</p>
+
+<pre class="brush:bash">
+$ docker tag goazl-multistage goazl:1.0 
+</pre>
+
+<p>Notice that I am using the multi-stage image as it has less storage footprint than the default image. This also lets me save some cost in terms of storage in Azure and is also quicker to pull the image from the registry. Multi-stage images let you create secure images, and it is a recommended way to create docker images.</p>
+
+<p>The final step is to push the image to ACR using the <code>docker push</code> command:</p>
+
+<pre class="brush:bash">
+$ docker push ossacrprod.azurecr.io/goazl:1.0
+</pre>
+
+<p><img src="/images/docker-push-acr.png" alt="Docker push to ACR" /></p>
+
+<p>You can also check your docker image in Azure Container Registry using Azure portal:</p>
+
+<p><img src="/images/docker-image-acr.png" alt="Docker push to ACR" /></p>
+
+<p>You can also pull this image just like any other docker image you can pull from docker hub.</p>
+
+<pre class="brush:bash">
+$ docker pull ossacrprod.azurecr.io/goazl:1.0
+</pre>
+
+<p>To make things more convenient, you can use Azure CLI to list images in your ACR. <a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Install az cli</a> and get started by login in using your Azure credentials. After installation is done, open terminal and issue the below command:</p>
+
+<pre class="brush:bash">
+$ az login
+</pre>
+
+<p><img src="/images/azlogin.png" alt="az login command" /></p>
+
+<p>This command will open up your default web browser and ask for your Azure credentials. After you have successfully authenticated yourself, you can close the page. The terminal will display the list of the subscriptions you have. Depending under which subscription you have created your Azure Container Registry you should select that subscription. Here are some of the <code>az</code> commands which will help you select your subscription.</p>
+
+<blockquote>
+<p>Note that these steps are only needed if you have multiple Azure subscriptions. If you have one subscription, then you can skip these steps.</p>
+</blockquote>
+
+<p>To show which subscription is selected:</p>
+
+<pre class="brush:bash">
+$ az account show
+</pre>
+
+<p><img src="/images/azaccountshow.png" alt="az account show command" /></p>
+
+<p>If you want to see all the subscription you have/own:</p>
+
+<pre class="brush:bash">
+$ az account list
+</pre>
+
+<p>If you want to change the default subscription used by <code>az cli</code> to be different than that of the default one, then use the below command to explicitly use that subscription:</p>
+
+<pre class="brush:bash">
+$ az account set --subscription < subscription id >
+</pre>
+
+<p>Change <code>&lt;subscription id&gt;</code> to your subscription <code>id</code> you want to use. This is the id field in the <code>az account list</code> command output.</p>
+
+<p>After this you can verify the set subscription with the command:</p>
+
+<pre class="brush:bash">
+$ az account show
+</pre>
+
+<p>Once <code>az cli</code> is setup properly, we can now use it to list images in ACR.</p>
+
+<p>To list images in the container registry:</p>
+
+<pre class="brush:bash">
+$ az acr repository list --name ossacrprod --output table
+</pre>
+
+<p>The above command will query the container registry and return the list of all repositories. That is what <code>acr repository list</code> is doing here. It might be possible that you have multiple ACR in your subscription, therefore, <code>--name</code> flag is used to specify the name of the registry. The <code>--output</code> flag with value table is used to output the results in <code>table</code> format.</p>
+
+<p><img src="/images/az-acr-list.png" alt="az acr list command" /></p>
+
+<p>To view the tags of the image in your container registry:</p>
+
+<pre class="brush:bash">
+$ az acr repository show-tags --name ossacrprod --repository goazl --output table
+</pre>
+
+<p>This command is almost the same as the previous command with slight changes to it. The initial option is set to <code>acr repository show-tags</code> instead of <code>list</code> as we want to see the tags for a given image or repository. Then we set <code>--repository</code> flag with the name of the repository (<code>goazl</code>) for which we want to see all the tags.</p>
+
+<blockquote>
+<p>All images in ACR are referred as repositories.</p>
+</blockquote>
+
+<p><img src="/images/az-acr-tag.png" alt="az acr tag command" /></p>
+
+<h3 id="resources"><strong>Resources</strong></h3>
+
+<ul>
+<li><a href="https://docs.docker.com/desktop/install/mac-install/">Install Docker on Mac</a></li>
+<li><a href="https://docs.docker.com/desktop/install/windows-install/">Install Docker on Windows</a></li>
+<li><a href="https://docs.docker.com/desktop/install/linux-install/">Install Docker on Linux</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli">Install az CLI on Windows</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt">Install az CLI on Linux</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-macos">Install az CLI on Mac</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/container-registry/">Azure Container Registry — Documentation</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/">Azure CLI — Documentation</a></li>
+<li><a href="https://docs.docker.com/language/golang/build-images/">Docker — Build Images — Documentation</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -924,69 +1207,6 @@ $ echo PASSWORD
 <blockquote>
 <p>Note that the list of functions that you see in the <code>Deploy new Function</code> dialog will be different on Raspberry PI as OpenFaaS will only list the functions which are available for the platform on which it is running.</p>
 </blockquote>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/hosting-drawio-in-azure-webapp-containers/">Hosting Draw.IO In Azure Web App Containers</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 20, 2019
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/container">CONTAINER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/docker">DOCKER</a>
-      
-      
-      
-      
-    </span>
-    <p><a href="https://www.draw.io/">Draw.IO</a> is a great alternative for Microsoft Visio. It allows me to quickly draw flowcharts and diagrams. I have been using this for a long time and the best part is that <a href="https://github.com/jgraph/drawio">Draw.IO is open source on Github</a> with web and offline (desktop) version. I personally use desktop version but what if I would like to host it in my own org or would like to work with the web instance instead of the desktop version.</p>
-
-<p>The problem that I would be facing with the web version is that, it has some part of it written in Java. Fortunately, Draw.IO has an image hosted at docker hub form where I can pull the image and get it to work in no time. Instead of using the image on my local machine, I will try Web Apps for Containers in Azure. You may also know it as App Service in Azure.</p>
-
-<p>To get started with <a href="https://azure.microsoft.com/en-in/services/app-service/containers/">Web Apps for Containers</a> in Azure. Create a new resource in Azure portal and then search for Web Apps for Containers.</p>
-
-<p><img src="/images/webapps-containers.png" alt="Web apps for containers" /></p>
-
-<p>Give a name of your web app and fill in other information. For the <code>OS</code>, I have selected <code>Linux</code>. The next step is to select the <a href="https://hub.docker.com/r/fjudith/draw.io">official draw.io image</a> from <a href="https://hub.docker.com/">docker hub</a>.</p>
-
-<p><img src="/images/web-apps-drawio-image-container-dockerhub.png" alt="Add image from the docker hub public repo" /></p>
-
-<p>You can also select the image you want to host by providing the tag name. By default, it would pick up the latest even if you don’t provide it. You can check the different tags for draw.io and select the one you want to use. After selecting the right image with the tag, click <strong>Apply</strong> button to select the image for the container. The click <strong>Create</strong> button to create the web app with this container.</p>
-
-<blockquote>
-<p>Note that there is no Standard pricing tier available when you select Web Apps for Container. It makes use of the Premium tier to run the containers in and as PaaS offering.</p>
-</blockquote>
-
-<p>After the web app has been created successfully, you can navigate to the <strong>Container settings</strong> section under <strong>Settings</strong> section quickly. If you were quick, you will be able to see the logs in real-time and also see how the image is being pulled from docker hub and getting started. Below are the screenshots of the logs generated by my web app.</p>
-
-<p><img src="/images/web-apps-docker-log-1.png" alt="Docker image pull logs" /></p>
-
-<p><img src="/images/web-apps-docker-log-2.png" alt="Docker image pull logs" /></p>
-
-<p>You can clearly see in the logs that how the docker pull command was initiated and the command to start the container was executed. You can now navigate to the url of your web app to see the application in action.</p>
-
-<p><img src="/images/drawio-container-running.png" alt="Docker image pull logs" /></p>
-
-<p>When you visit the web app for the first time, it might take few extra seconds to load completely. This is a one time delay and after that the app will open up instantaneously.</p>
 
   </div>
   

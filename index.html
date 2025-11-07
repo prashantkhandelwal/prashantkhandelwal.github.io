@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2024-10-31T18:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2025-11-07T05:02:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,303 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/chatting-with-ollama-building-a-local-llm-web-app-in-minutes/">Chatting with Ollama: Building a Local LLM Web App in Minutes</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 7, 2025
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/ai">AI</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/ollama">OLLAMA</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/svelte">SVELTE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <p><a href="https://ollama.com/">Ollama</a> is a lightweight and user-friendly way to run LLMs locally. No need for complex setups and it makes it super easy to explore AI chat models from the comfort of your own device.</p>
+
+<p>This tutorial is a small part of a broader project I&rsquo;m working on, which involves using local LLMs and vision models to analyze data directly on-device. This approach helps reduce costs and addresses some of the privacy concerns raised by our customers.</p>
+
+<p><strong>Installation and Setup</strong></p>
+
+<p>Download and install Ollama from <a href="https://ollama.com/download">here</a>.</p>
+
+<p>Once the setup is complete, simply launch the Ollama application—it will open a ChatGPT-like interface that lets you interact with local LLMs.</p>
+
+<p><img src="/images/ollama-app.png" alt="Ollama App UI" /></p>
+
+<p>This UI makes it very easy for searching, downloading and communicating with different LLMs. You can also chat with the models which are in the cloud without downloading them. Note that you require a Ollama account in order to communicate with a cloud model.</p>
+
+<p>But we need to build a web based chat appliaction and that means that we have to interact with Ollama API which is running at <code>https://localhost:11434</code></p>
+
+<p><img src="/images/ollama-api-running.png" alt="Ollama API" /></p>
+
+<p>Everyting seems to be set up properly. Let&rsquo;s create a Python FastAPI endpoint which allows us to communicate with Ollama API. You can also use NodeJS, Go or .NET WebAPI to create a service endpoint.</p>
+
+<p>Create a Python virtual environment and install the below dependencies.</p>
+
+<pre class="brush:shell">
+pip install fastapi uvicorn requests httpx
+</pre>
+
+<p>The API uses a POST request and accepts three parameters: <code>prompt</code>, <code>model</code>, and <code>stream</code>.</p>
+
+<ul>
+<li><code>prompt</code> – The input message or query from the user.</li>
+<li><code>model</code> – Specifies which model to run the prompt against. If not provided, it defaults to l<code>lama3.2:latest</code>.</li>
+<li><code>stream</code> – Optional setting that defaults to <code>false</code>. Set it to <code>true</code> if you want the response to appear in a typing animation, similar to ChatGPT. Note: enabling streaming requires additional changes to the code below.</li>
+</ul>
+
+<blockquote>
+<p>For below version of code, requests and httpx packages are not required.</p>
+</blockquote>
+
+<pre class="brush:python">
+from fastapi import FastAPI
+from pydantic import BaseModel
+import requests
+
+app = FastAPI()
+
+class PromptRequest(BaseModel):
+    prompt: str
+    model: str = "llama3.2:latest"  # Default model, can be overridden in the request
+
+@app.post("/generate")
+async def generate_text(request: PromptRequest):
+    ollama_api_url = "http://localhost:11434/api/generate"
+    
+    payload = {
+        "model": request.model,
+        "prompt": request.prompt,
+        "stream": False # True for streaming responses
+    }
+    
+    try:
+        response = requests.post(ollama_api_url, json=payload)
+        response.raise_for_status()  # Raise an exception for bad status codes
+        
+        # Extract the generated text from Ollama's response
+        generated_text = response.json()["response"]
+        return {"response": generated_text}
+        
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Error communicating with Ollama: {e}"}
+</pre>
+
+<p>Run this API using <code>uvicorn</code>.</p>
+
+<pre class="brush:shell">
+uvicorn main:app
+</pre>
+
+<p>The API server will start on default <code>8000</code> port. If you wish to change the port then start the API using the below command.</p>
+
+<pre class="brush:shell">
+uvicorn main:app --port 8080
+</pre>
+
+<p>Let&rsquo;s check the API reponse using Postman.</p>
+
+<p><img src="/images/ollama-fastapi-postman.png" alt="Postman API Call" /></p>
+
+<p>It’s quite helpful to see the response streamed in real time, just like how ChatGPT displays it. So let&rsquo;s change the <code>stream</code> parameter to <code>true</code> and update our API code.</p>
+
+<pre class="brush:python highlight: [21]">
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
+import httpx
+import json
+import os
+
+app = FastAPI()
+
+class PromptRequest(BaseModel):
+    prompt: str
+    model: str = "llama3.2:latest"
+
+@app.post("/generate")
+async def generate_text(request: PromptRequest):
+    ollama_api_url = "http://localhost:11434/api/generate"
+    payload = {
+        "model": request.model,
+        "prompt": request.prompt,
+        "stream": True
+    }
+
+    async def stream_text():
+        async with httpx.AsyncClient(timeout=None) as client:
+            async with client.stream("POST", ollama_api_url, json=payload) as response:
+                async for line in response.aiter_lines():
+                    if line.strip():
+                        try:
+                            data = json.loads(line)
+                            chunk = data.get("response", "")
+                            if chunk:
+                                yield chunk
+                        except json.JSONDecodeError:
+                            continue
+
+    return StreamingResponse(stream_text(), media_type="text/plain")
+
+</pre>
+
+<p>Now we have a streaming response, let&rsquo;s make a UI, I am using Svelte. Start by creating a new project.</p>
+
+<pre class="brush:shell">
+npm create vite@latest ollama-chat -- --template svelte-ts
+</pre>
+
+<p>Update the <code>vite.config.ts</code> file to include a custom proxy setting for the development server. This setup ensures that any requests made to <code>/generate</code> are forwarded to <code>http://localhost:8000</code>, allowing the frontend to communicate seamlessly with a backend API like FastAPI. It also helps prevent CORS-related issues during development.</p>
+
+<pre class="brush:js">
+export default defineConfig({
+  plugins: [svelte()],
+   server: {
+    proxy: {
+      '/generate': 'http://localhost:8000'
+    }
+  }
+})
+</pre>
+
+<p>The response is formatted in <code>Markdown</code>, so to render it correctly, you&rsquo;ll need an additional npm package called <code>marked</code>. You can install it using the command below.</p>
+
+<pre class="brush:shell">
+npm install marked
+</pre>
+
+<blockquote>
+<p>Remember to change the port if your have setup the custom port for your API via uvicorn.</p>
+</blockquote>
+
+<p>Replace the code in <code>App.svelte</code> with the below code.</p>
+
+<pre class="brush:jscript">
+<script lang="ts">
+  import { marked } from 'marked';
+
+  let prompt: string = '';
+  let chat: string = '';
+  let chatHtml: string = '';
+  let loading: boolean = false;
+
+  async function sendPrompt(): Promise<void> {
+    if (!prompt.trim()) return;
+    chat = '';
+    chatHtml = '';
+    loading = true;
+
+    const res = await fetch('/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, model: 'llama3.2:latest' })
+    });
+
+    const reader = res.body?.getReader();
+    const decoder = new TextDecoder('utf-8');
+
+    if (reader) {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        chat += chunk;
+        chatHtml = marked(chat); // Convert Markdown to HTML
+      }
+    }
+
+    loading = false;
+  }
+</script>
+
+<style>
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 20px;
+  }
+  #chat {
+    margin-top: 20px;
+    background: #243434;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+  }
+  .chat-output {
+    text-align: left;
+  }
+</style>
+
+<h2>Ollama Chat</h2>
+<label for="prompt">Enter your prompt:</label><br>
+<textarea bind:value={prompt} id="prompt"></textarea><br>
+<button on:click={sendPrompt} disabled={loading}>
+  {loading ? 'Sending...' : 'Send'}
+</button>
+
+<div id="chat">
+  {#if loading}
+    <p>Loading...</p>
+  {:else if chatHtml}
+    <div class="chat-output">
+      {@html chatHtml}
+    </div>
+  {:else}
+    <p>No response yet.</p>
+  {/if}
+</div>
+</style>
+
+<h2>Ollama Chat</h2>
+<label for="prompt">Enter your prompt:</label><br>
+<textarea bind:value={prompt} id="prompt"></textarea><br>
+<button on:click={sendPrompt} disabled={loading}>
+  {loading ? 'Sending...' : 'Send'}
+</button>
+
+<div id="chat">{chat}</div>
+</pre>
+
+<p>Start the UI using the command</p>
+
+<pre class="brush:shell">
+npm run dev
+</pre>
+
+<p>We are now all set to run our local LLM based chat agent. Let&rsquo;s start by asking a question.</p>
+
+<p><img src="/images/ollama-chat-output.png" alt="Ollama web chat interface" /></p>
+
+<p>This code serves as a starting point. You can extend it by adding image or file upload functionality, allowing users to summarize content or ask questions based on the data within the uploaded document or image.</p>
+
+<p>Here is the <a href="https://github.com/prashantkhandelwal/ollama-chat">Github repo</a> where you can find the entire code.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -951,289 +1248,6 @@ func main() {
 <p>We see all our resources are successfully created in Azure portal.</p>
 
 <p><img src="/images/az-tf-result.png" alt="Azure resources created via automation" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/how-to-create-and-push-your-docker-images-to-azure-container-registry/">How to Create and Push your Docker images to Azure Container Registry</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 25, 2023
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/docker">DOCKER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/go">GO</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p><img src="/images/acr+docker-header.png#center" alt="Docker+Azure ACR" /></p>
-
-<p><a href="https://hub.docker.com/">Docker Hub</a> or GitHub Container Registry also known as <a href="https://github.com/features/packages">ghcr.io</a> is a go to platform for most of the OSS developers and teams to host their Docker images. These platforms are free for open-source software, but you might need to upgrade from the free plan to use a paid plan so that your docker image is only available for your infrastructure use and not for public use.</p>
-
-<p>Azure provides Container Registry service where you can host your Docker images with ease and use the same docker pull and run command to pull and run the container on your machine, or you can also use these images to create containers when provisioning a new Web App which uses containers or with Azure Kubernetes Service (AKS).</p>
-
-<p>Let’s dive into how to create a simple Docker image and push it to Azure Container Registry (ACR). But before we get started, we need few things:</p>
-
-<ul>
-<li><a href="https://azure.microsoft.com/en-in/free/">Azure subscription</a></li>
-<li><a href="https://docs.docker.com/get-docker/">Docker</a></li>
-<li><a href="https://code.visualstudio.com/download">Visual Studio Code</a> or your favorite IDE</li>
-</ul>
-
-<h3 id="creating-azure-container-registry-in-azure"><strong>Creating Azure Container Registry in Azure</strong></h3>
-
-<p>Go to Azure portal and click on <code>Create a resource</code> and type <code>container registry</code>. Follow the steps and you’re done.</p>
-
-<p><img src="/images/acr-basic.png" alt="ACR Basic Tab" /></p>
-
-<p>After the resource is created, we have to do change a few configurations to get it to work. Go to <code>Access keys</code> and enable the <code>Admin user</code>. You can now see the <code>Username</code> and 2 <code>passwords</code> which you can use to login to ACR via <code>docker login</code> command.</p>
-
-<p><img src="/images/acr-settings.png" alt="ACR settings" /></p>
-
-<h3 id="creating-your-docker-image"><strong>Creating your Docker Image</strong></h3>
-
-<p>I have a small API application which I wrote in Go. It lets you fetch the lyrics of your favorite song. Here is the app in action.</p>
-
-<p><img src="/images/goazl.png" alt="goazl in action" /></p>
-
-<blockquote>
-<p>To see it in action on your local machine, <a href="https://github.com/prashantkhandelwal/goazl">clone the repo from GitHub</a> and copy-paste this URL in your browser. <a href="http://localhost:8989/lyrics?artist=eminem&amp;song=rap%20god">http://localhost:8989/lyrics?artist=eminem&amp;song=rap%20god</a></p>
-</blockquote>
-
-<p>To create a Docker image, we first have to create a file called <code>Dockerfile</code> and then add the below docker commands.</p>
-
-<pre class="brush: bash">
-# syntax=docker/dockerfile:1 
-
-FROM golang:1.20 
-
-# Set destination for COPY 
-WORKDIR /app 
-
-# Download Go modules 
-COPY go.mod go.sum ./ 
-
-RUN go mod download 
-
-COPY . ./ 
-
-# Build 
-RUN go build -o /goazl 
-
-EXPOSE 8989 
-
-# Run 
-CMD ["/goazl"] 
-</pre>
-
-<p>Save this file and execute the command below in your terminal:</p>
-
-<pre class="brush: bash">
-$ docker build –t goazl-default .
-</pre>
-
-<p><img src="/images/docker-defaultimage.png" alt="Docker default image" /></p>
-
-<p>The above command will take some time to execute and once it is completed successfully, you can execute another docker command to view the image it has created.</p>
-
-<pre class="brush: bash">
-$ docker images
-</pre>
-
-<p>You should always create a multi-stage docker image for your applications as it comes with some important benefits. You can read more about those benefits <a href="https://docs.docker.com/language/golang/build-images/#multi-stage-builds">here</a>.</p>
-
-<p>Here is the multi-stage Docker file which you should use:</p>
-
-<pre class="brush:bash">
-# syntax=docker/dockerfile:1 
-
-FROM golang:1.20 AS build-stage 
-
-# Set destination for COPY 
-WORKDIR /app 
-
-# Download Go modules 
-COPY go.mod go.sum ./ 
-RUN go mod download 
-
-COPY . ./ 
-
-# Build 
-RUN go build -o /goazl 
-
-FROM gcr.io/distroless/base-debian11 AS release-stage 
-
-WORKDIR /app 
-
-COPY --from=build-stage /goazl /goazl 
-
-EXPOSE 8989 
-
-# Run 
-ENTRYPOINT ["/goazl"] 
-</pre>
-
-<p>This time use this command to create another multi-stage docker image.</p>
-
-<pre class="brush:bash">
-$ docker build -t goazl-multistage .
-</pre>
-
-<p><img src="/images/docker-multistage.png" alt="Docker multi-stage image" /></p>
-
-<p>You can see the difference in size of these images.</p>
-
-<p><img src="/images/image-size-comparison.png" alt="Docker image size comparison" /></p>
-
-<p>You can see in the above screenshot that the image with <code>default</code> in the name cost me <code>1.11GB</code> of disk space as it includes all the go tool chain. This also poses a security risk. On the other hand you can look at the size of the <code>multistage</code> docker image which is only <code>41.1MB</code>.</p>
-
-<p>Now we have the image ready to push to ACR. Let’s configure Docker command line to use our Azure Container Registry.</p>
-
-<h3 id="pushing-docker-image-to-acr"><strong>Pushing Docker Image to ACR</strong></h3>
-
-<p>We will use the <code>docker login</code> command to login to the Container Registry.</p>
-
-<pre class="brush:bash">
-$ docker login ossacrprod.azurecr.io 
-</pre>
-
-<p>After this, the prompt will ask for username and password, which you can get from the Azure Portal. If all goes well then you should see something like this:</p>
-
-<p><img src="/images/docker-login.png" alt="Docker login" /></p>
-
-<p>With login done, we can proceed to tag our image and push it to ACR. For that, first list all the images by executing <code>docker images</code> command.</p>
-
-<p>Tag the image with the following command:</p>
-
-<pre class="brush:bash">
-$ docker tag goazl-multistage ossacrprod.azurecr.io/goazl:1.0 
-</pre>
-
-<p>I sometimes prefer using the registry name in front of my image name, but you can also use it without it like so:</p>
-
-<pre class="brush:bash">
-$ docker tag goazl-multistage goazl:1.0 
-</pre>
-
-<p>Notice that I am using the multi-stage image as it has less storage footprint than the default image. This also lets me save some cost in terms of storage in Azure and is also quicker to pull the image from the registry. Multi-stage images let you create secure images, and it is a recommended way to create docker images.</p>
-
-<p>The final step is to push the image to ACR using the <code>docker push</code> command:</p>
-
-<pre class="brush:bash">
-$ docker push ossacrprod.azurecr.io/goazl:1.0
-</pre>
-
-<p><img src="/images/docker-push-acr.png" alt="Docker push to ACR" /></p>
-
-<p>You can also check your docker image in Azure Container Registry using Azure portal:</p>
-
-<p><img src="/images/docker-image-acr.png" alt="Docker push to ACR" /></p>
-
-<p>You can also pull this image just like any other docker image you can pull from docker hub.</p>
-
-<pre class="brush:bash">
-$ docker pull ossacrprod.azurecr.io/goazl:1.0
-</pre>
-
-<p>To make things more convenient, you can use Azure CLI to list images in your ACR. <a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Install az cli</a> and get started by login in using your Azure credentials. After installation is done, open terminal and issue the below command:</p>
-
-<pre class="brush:bash">
-$ az login
-</pre>
-
-<p><img src="/images/azlogin.png" alt="az login command" /></p>
-
-<p>This command will open up your default web browser and ask for your Azure credentials. After you have successfully authenticated yourself, you can close the page. The terminal will display the list of the subscriptions you have. Depending under which subscription you have created your Azure Container Registry you should select that subscription. Here are some of the <code>az</code> commands which will help you select your subscription.</p>
-
-<blockquote>
-<p>Note that these steps are only needed if you have multiple Azure subscriptions. If you have one subscription, then you can skip these steps.</p>
-</blockquote>
-
-<p>To show which subscription is selected:</p>
-
-<pre class="brush:bash">
-$ az account show
-</pre>
-
-<p><img src="/images/azaccountshow.png" alt="az account show command" /></p>
-
-<p>If you want to see all the subscription you have/own:</p>
-
-<pre class="brush:bash">
-$ az account list
-</pre>
-
-<p>If you want to change the default subscription used by <code>az cli</code> to be different than that of the default one, then use the below command to explicitly use that subscription:</p>
-
-<pre class="brush:bash">
-$ az account set --subscription < subscription id >
-</pre>
-
-<p>Change <code>&lt;subscription id&gt;</code> to your subscription <code>id</code> you want to use. This is the id field in the <code>az account list</code> command output.</p>
-
-<p>After this you can verify the set subscription with the command:</p>
-
-<pre class="brush:bash">
-$ az account show
-</pre>
-
-<p>Once <code>az cli</code> is setup properly, we can now use it to list images in ACR.</p>
-
-<p>To list images in the container registry:</p>
-
-<pre class="brush:bash">
-$ az acr repository list --name ossacrprod --output table
-</pre>
-
-<p>The above command will query the container registry and return the list of all repositories. That is what <code>acr repository list</code> is doing here. It might be possible that you have multiple ACR in your subscription, therefore, <code>--name</code> flag is used to specify the name of the registry. The <code>--output</code> flag with value table is used to output the results in <code>table</code> format.</p>
-
-<p><img src="/images/az-acr-list.png" alt="az acr list command" /></p>
-
-<p>To view the tags of the image in your container registry:</p>
-
-<pre class="brush:bash">
-$ az acr repository show-tags --name ossacrprod --repository goazl --output table
-</pre>
-
-<p>This command is almost the same as the previous command with slight changes to it. The initial option is set to <code>acr repository show-tags</code> instead of <code>list</code> as we want to see the tags for a given image or repository. Then we set <code>--repository</code> flag with the name of the repository (<code>goazl</code>) for which we want to see all the tags.</p>
-
-<blockquote>
-<p>All images in ACR are referred as repositories.</p>
-</blockquote>
-
-<p><img src="/images/az-acr-tag.png" alt="az acr tag command" /></p>
-
-<h3 id="resources"><strong>Resources</strong></h3>
-
-<ul>
-<li><a href="https://docs.docker.com/desktop/install/mac-install/">Install Docker on Mac</a></li>
-<li><a href="https://docs.docker.com/desktop/install/windows-install/">Install Docker on Windows</a></li>
-<li><a href="https://docs.docker.com/desktop/install/linux-install/">Install Docker on Linux</a></li>
-<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli">Install az CLI on Windows</a></li>
-<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt">Install az CLI on Linux</a></li>
-<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-macos">Install az CLI on Mac</a></li>
-<li><a href="https://learn.microsoft.com/en-us/azure/container-registry/">Azure Container Registry — Documentation</a></li>
-<li><a href="https://learn.microsoft.com/en-us/cli/azure/">Azure CLI — Documentation</a></li>
-<li><a href="https://docs.docker.com/language/golang/build-images/">Docker — Build Images — Documentation</a></li>
-</ul>
 
   </div>
   

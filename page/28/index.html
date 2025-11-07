@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-01-07T16:58:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-01-15T12:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,45 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/development-in-and-with-windows-7/">Windows 7 API Development and Training Kit</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 15, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft-windows">MICROSOFT WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>I recently installed Windows 7® Ultimate on my machine and found it more soothing and reliable in terms of preformance than Windows Vista® Ultimate. As a tech enthusiast, I do some serach on the internet and found two links from Microsoft website that will allow developers to develop applications specifically for Windows 7. The Windows API code pack allows developers to develop those features which are not available with .NET Framework. So to get started visit:</p>
+
+<ul>
+<li><a href="http://code.msdn.microsoft.com/WindowsAPICodePack">Windows® Code Pack API for Windows 7 &amp; Windows Vista</a></li>
+<li><a href="http://www.microsoft.com/downloads/details.aspx?familyid=1C333F06-FADB-4D93-9C80-402621C600E7&amp;displaylang=en">Windows Training Kit</a></li>
+</ul>
+
+<p>The training kit includes the demos and presentations, hand-on labs for developers. I haven&rsquo;t yet started with Windows 7 development. But as soon as I get started I will blog some demo for Windows 7.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -354,52 +393,6 @@ static List removeDuplicates(List inputList)
 <p>Now try opening your obfuscated application in reflector&hellip;.and this is what you will see.</p>
 
 <p><img src="/images/reflector-demo.png" alt=".NET Reflector application" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/retrieve-key-from-value-in-hash-table/">Retrieve Key from Value in Hash Table</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Dec 16, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>Working with hash tables is pretty simple but few days back I was having a problem in retrieving a key from a value in hash table. I was bit lazy to find a way myself, so I searched the net and here is what I got&hellip;.a simple piece of code which lead to me to complete my task and so I thought I should share it with everyone here.</p>
-
-<p><pre class="brush:csharp">
-public string FindKey(string Value, Hashtable HT)
-{
-       string Key = &ldquo;&rdquo;;
-       IDictionaryEnumerator e = HT.GetEnumerator();
-       while (e.MoveNext())
-       {
-            if (e.Value.ToString().Equals(Value))
-            {
-               Key = e.Key.ToString();
-            }
-       }
-       return Key;
-}
-</pre
-></p>
 
   </div>
   

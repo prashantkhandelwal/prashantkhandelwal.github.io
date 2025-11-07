@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-06-12T17:32:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-06-13T16:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,34 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/eject-and-pop-in-your-cd-dvd-with-a-hotkey/">Eject and Pop-in your CD / DVD with a hotkey</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 13, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>If you are annoyed with the malfunctioning of your CD/DVD ROM. This small utility will help you to eject and and again pop-in inside the ROM. Just press CTRL + Q to toggle. Place it anywhere you like on your system, I recommend to create a folder and then place a this utility inside it as it will installs on the first time you run the application and start-up with your windows the next time you boot in.</p>
+
+<p><strong>Download Link: <a href="/files/CDAX.zip">CDAX.zip (113.18 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -312,54 +340,6 @@ MessageBox.Show(StrValue);
 <p>Click the below link to download the full application.</p>
 
 <p><strong>Download: <a href="/files/DBBackup.zip">DBBackup.zip (290.99 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/import-csv-file-into-sql-server-using-bulk-insert/">Import CSV File Into SQL Server Using Bulk Insert</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 25, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>You have large data to import to SQL Server, and you have all the data in a CSV File (Comma Seperated Value file). Are you going to map the field one by one?</p>
-
-<p>OR just use a small function od SQL to import everything in the table. But before you proceed with this you need to map each column of CSV with the one with your table column. Look at the below quick example on how to use the BULK INSERT to import CSV file data into SQL Server.</p>
-
-<p><strong>Step 1:</strong> Create a CSV file.</p>
-
-<p><img src="/images/sql-bulkinsert-csv.jpg" alt="CSV file to bulk insert" /></p>
-
-<p><strong>Step 2:</strong> Create a table and map the fields accordingly: (Check below screenshot)</p>
-
-<p>Here is the CODE:</p>
-
-<pre class="brush:sql">
-BULK INSERT TestTable
-FROM 'c:\TestData.csv'  -- Full path of the CSV file
-WITH
-(
-FIELDTERMINATOR = ',', --CSV field delimiter
-ROWTERMINATOR = '\n'   --Use to shift the control to next row
-)
-</pre>
-
-<p><img src="/images/sql-bulkinsert-output.jpg" alt="SQL bulk insert ouput" /></p>
 
   </div>
   

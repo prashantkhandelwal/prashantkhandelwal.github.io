@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-08-07T13:12:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-08-19T15:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,102 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/aspnet-postback-issue-with-colorbox-jquery-plugin/">ASP.NET Postback Issue with Colorbox jQuery Plugin</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 19, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p>Yesterday, while working on a project I came across a weird problem while working with Colorbox jquery plugin and ASP.NET. The problem is not only with <a href="http://www.jacklmoore.com/colorbox">Colorbox</a> but also with another famous plugin called <a href="http://fancybox.net/">Fancybox</a>. If you plan to use the plugine just to show dialog boxes, then this plugin works perfectly fine. Integrating the plugin with ASP.NET works fine but prevents post back if you have server controls on the colorbox dialog box (which is actually an invisible div on the page). ASP.NET developers can consider this as a bug but actually it&rsquo;s not a bug, but a scenario missed in the plugin.</p>
+
+<p><img src="/images/aspnet-postback-issue.png" alt="ASP.NET page postback issue" /></p>
+
+<p>I have a button click for button labelled <code>Yes</code> which redirects me to the about page. Now when you try to click the button there will be no post back event. This is because Colorbox renders the <code>div</code> outside the <code>form</code> tag which hinders the post back event.</p>
+
+<p>Now to overcome this problem, you need to jump inside the Colorbox plugin code. The main function that add the content to the DOM or on the page is called <code>appendHTML</code>.</p>
+
+<pre class="brush: jscript">
+function appendHTML() {
+    if (!$box && document.body) {
+        init = false;
+ 
+        $window = $(window);
+        $box = $tag(div).attr({ id: colorbox, 'class': isIE ? prefix + (isIE6 ? 'IE6' : 'IE') : '' }).hide();
+        $overlay = $tag(div, "Overlay", isIE6 ? 'position:absolute' : '').hide();
+        $wrap = $tag(div, "Wrapper");
+        $content = $tag(div, "Content").append(
+            $loaded = $tag(div, "LoadedContent", 'width:0; height:0; overflow:hidden'),
+            $loadingOverlay = $tag(div, "LoadingOverlay").add($tag(div, "LoadingGraphic")),
+            $title = $tag(div, "Title"),
+            $current = $tag(div, "Current"),
+            $next = $tag(div, "Next"),
+            $prev = $tag(div, "Previous"),
+            $slideshow = $tag(div, "Slideshow").bind(event_open, slideshow),
+            $close = $tag(div, "Close")
+        );
+ 
+        $wrap.append( // The -1x3 Grid that makes up ColorBox
+            $tag(div).append(
+                $tag(div, "TopLeft"),
+                $topBorder = $tag(div, "TopCenter"),
+                $tag(div, "TopRight")
+            ),
+            $tag(div, false, 'clear:left').append(
+                $leftBorder = $tag(div, "MiddleLeft"),
+                $content,
+                $rightBorder = $tag(div, "MiddleRight")
+            ),
+            $tag(div, false, 'clear:left').append(
+                $tag(div, "BottomLeft"),
+                $bottomBorder = $tag(div, "BottomCenter"),
+                $tag(div, "BottomRight")
+            )
+        ).find('div div').css({ 'float': 'left' });
+ 
+        $loadingBay = $tag(div, false, 'position:absolute; width:9999px; visibility:hidden; display:none');
+ 
+        $groupControls = $next.add($prev).add($current).add($slideshow);
+ 
+        $(document.body).append($overlay, $box.append($wrap, $loadingBay));
+    }
+}
+</pre>
+
+<p>In the above method (which is an extract from the plugin), notice that the plugin is focusing on <code>document.body</code> whereas in order to get it working with the post back events we need to change the above highlighted lines with the one below:</p>
+
+<pre class="brush: jscript">
+if (!$box && document.forms[0]) {
+</pre>
+
+<p>And</p>
+
+<pre class="brush: jscript">
+$(document.forms[0]).append($overlay, $box.append($wrap, $loadingBay));
+</pre>
+
+<p>After the changes have been made, it&rsquo;s time to check again. Try clicking the button and check again. This time you will be redirected to the about page. Although, this seems to be simple problem, but there will be few fellow programmers who will scratch their head if they stuck in this sort of a problem. Hope this helps someone out there.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -612,134 +708,6 @@ public ActionResult Delete(int ContactID, FormCollection frm)
 <p><img src="/images/dapper-perf.png" alt="Dapper performance stats" /></p>
 
 <p>There are other ORMs that you can try like the <a href="https://github.com/robconery/massive">Massive ORM</a> and <a href="https://github.com/toptensoftware/PetaPoco">PetaPOCO</a>.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/infinite-scrolling-in-aspnet-with-jquery/">Infinite Scrolling In ASP.NET With jQuery</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 28, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>I didn&rsquo;t create the whole solution by myself. The initial idea is from the <a href="http://code.msdn.microsoft.com/VBASPNETInfiniteLoading-10c3f379">All-In-One Code Framework sample</a>. I was just customizing my BlogEngine and for one of the module I thought it would be nice not to use paging and I should go for infinite scrolling stuff. This idea seems cool to me and without wasting any time I just do a quick web search and I came across a solution which is a part of a <a href="http://1code.codeplex.com/">All-In-One Code Framework</a>. This was not the complete solution I was looking for but I can re-use the jQuery part in the sample.</p>
-
-<h4 id="assembling-jquery-part">Assembling jQuery Part</h4>
-
-<p>I just re-use the all jQuery script as it is without any major modification. The only change I made is the name of the web method in the <code>url</code> parameter of the Ajax method I have in page code behind and change the method name to <code>InfiniteScroll</code>:</p>
-
-<pre class="brush: jscript">
-function InfiniteScroll() {
-    $('#divPostsLoader').html('<img src="images/loader.gif">');
- 
-    //send a query to server side to present new content
-    $.ajax({
-        type: "POST",
-        url: "Default.aspx/GetData",
-        data: "{}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            if (data != "") {
-                $('.divLoadData:last').after(data.d);
-            }
-            $('#divPostsLoader').empty();
-        }
-    })
-};
-</pre>
-
-<p>I already have 2 <code>divs</code> in the page where the data is being loaded when the user scrolls down at the bottom of the page. This is the simplest Ajax call written in jQuery and I assume you are aware of the syntax and methods and require no explanation. What I require here is to call this function when the user scrolls at the bottom of the page. So how to know when the user scrolls and reach at the bottom of the page? Here is the method which fires the <code>InfiniteScroll()</code> function:</p>
-
-<pre class="brush: jscript">
-$(window).scroll(function () {
-    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-        InfiniteScroll();
-    }
-});
-</pre>
-
-<p>Make sure you put the <code>scroll</code> function inside the <code>document.ready</code> function. Now when the user scrolls at the bottom of the page then it will call the <code>InfiniteScroll()</code> function which in turn loads new data in the divLoadData div.</p>
-
-<h4 id="the-code-behind">The Code-Behind</h4>
-
-<p>In the code-behind create a <a href="http://msdn.microsoft.com/en-us/library/byxd99hx(v=vs.90).aspx">WebMethod</a> function that returns a HTML string. For this example I am loading all my blog posts title, post date and slug from my blog engine database which is a SQL Server CE 4.0. Here is the method:</p>
-
-<pre class="brush: csharp">
-[WebMethod]
-public static string GetData()
-{
-    RecordCount = RecordCount + 10;
-    string Sql = "SELECT Title, DateCreated, Slug FROM be_Posts ORDER BY Title OFFSET " + FirstCount + " ROWS FETCH NEXT 10 ROWS ONLY";
-    FirstCount = RecordCount;
-    StringBuilder sb = new StringBuilder();
-    dt = new DataTable();
-    da = new SqlCeDataAdapter(Sql, con);
-    con.Open();
-    da.Fill(dt);
- 
-    DataView dv = dt.DefaultView;
- 
-    foreach (DataRowView row in dv)
-    {
-        sb.AppendFormat("&lt;p&gt;Post Title" + " &lt;strong&gt;" + row["Title"] + "&lt;/strong&gt;");
-        sb.AppendFormat("&lt;p&gt;Post Date" + " &lt;strong&gt;" + row["DateCreated"] + "&lt;/strong&gt;");
-        sb.AppendFormat("&lt;p&gt;Slug" + " &lt;strong&gt;" + row["Slug"] + "&lt;/strong&gt;");
-        sb.AppendFormat("&lt;hr/&gt;");
-    }
- 
-    sb.AppendFormat("&lt;divstyle='height:15px;'&gt;&lt;/div&gt;");
-    con.Close();
-    return sb.ToString();
-}
-</pre>
-
-<p>Infinite scrolling is nothing but is a sort of automatic paging. Every time a user scrolls down at the bottom of the page, the query gets fired and gets the new set of data. As I am using SQL CE 4.0 the paging query is different than that of the SQL Server 2008.</p>
-
-<h4 id="query-for-sql-ce-4-0">Query for SQL CE 4.0:</h4>
-
-<pre class="brush: sql">
-SELECT Title, DateCreated, Slug FROM be_Posts ORDER BY Title OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY
-</pre>
-
-<p>Change the OFFSET and FETCH NEXT to get the next result set.</p>
-
-<h4 id="query-for-sql-server-2008">Query For SQL Server 2008</h4>
-
-<pre class="brush: sql">
-SELECT Title, DateCreated, Slug FROM ( 
-     SELECT
-          ROW_NUMBER() OVER (ORDER BY title) AS row, Title, DateCreated, Slug
-     FROM be_Posts
-) AS a WHERE row BETWEEN 1 AND 10
-</pre>
-
-<p>I have changed the query in the above code to get me the set of next results every time a user scrolls at the bottom of the page. When the user scrolls down I increment the <code>FirstCount</code> with 10 which is a value of RecordCount variable. I have attached the complete solution so you can try. I don&rsquo;t have the database included in the solution as it is my blog database. You have to create one to test it out.</p>
-
-<p><strong>Download</strong>: <a href="/files/InfiniteScroll.zip">InfiniteScroll.zip (2.28 mb)</a></p>
 
   </div>
   

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-03-06T10:58:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-03-16T16:35:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,79 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/upload-files-in-razor-with-jquery-uploadify-plugin/">Upload Files In RAZOR With jQuery Uploadify Plugin</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 16, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/mvc">MVC</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>A Few months back I wrote a <a href="http://midnightprogrammer.net/post/Upload-Multiple-Files-With-jQuery-Uploadify.aspx">post</a> on how to use jQuery plugin <a href="http://www.uploadify.com/">Uploadify</a> to upload single/multiple files without postback in ASP.NET. The program works similarly to simple file <a href="https://www.yousendit.com/">upload</a> sites in its ease of use. Now a few days back I was working on a demo project which is on MVC 3 Razor and I use the same plugin without any problems. But the files that are being uploaded are uploaded to the root folder instead of the folder I specified to upload the files. After a lot of head scratching, I was unable to find the actual problem as why the file was not being uploaded to the folder of my choice. The answer was hidden in the normal file upload code that I saw in a forum posted by a user. So I gave it a try and it WORKED!! I was about to blog about the usage of uploadify plugin, but before that one of my blog reader asked me a question about uploading the files in Razor, though it was a bit different but this way it is pretty.</p>
+
+<h4 id="how-do-i-do-it"><strong>How do I do it?</strong></h4>
+
+<p>Using the uploadify plugin in MVC 3 is the same as used with web forms, the only difference is that on the server-side we are going to use <code>Controller</code> and not a ASP.NET handler. Client side script is the same and there are only changes in <code>script</code> and <code>folder</code> parameter. Set the <code>multi</code> parameter to true if you wish to upload multiple files.</p>
+
+<pre class="brush:jscript">
+<script type="text/javascript">
+    $(window).load(
+    function () {
+        $("#fileuploader").fileUpload({
+            'uploader': '/Scripts/uploader.swf',
+            'cancelImg': '/Images/cancel.png',
+            'buttonText': 'Select Image',
+            'script': 'Home/Upload',
+            'folder': '/uploads',
+            'fileDesc': 'Image Files',
+            'fileExt': '*.jpg;*.jpeg;*.gif;*.png',
+            'multi': true,
+            'auto': true
+        });
+    }
+);
+</script>
+</pre>
+
+<p>The script tag specifies the method in the <code>Home Controller</code> which handles the file <code>upload</code>. The Upload method in the Home Controller:</p>
+
+<pre class="brush:csharp">
+public string Upload(HttpPostedFileBase fileData)
+{
+      var fileName = this.Server.MapPath("~/uploads/" + System.IO.Path.GetFileName(fileData.FileName));
+      fileData.SaveAs(fileName);
+      return "ok";
+}
+</pre>
+
+<p>Now you can use the uploadify plugin with MVC 3 Razor and upload files in a more effective and efficient way and that too with no postback.</p>
+
+<p><strong>Download: <a href="/files/FileUploader.zip">FileUploader.zip (572.92 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -813,53 +886,6 @@ http://localhost:5543/BingMap.aspx?lat=28.35&log=79.41667&place=Bareilly
 <li><a href="http://blogs.msdn.com/b/veplatform/">Bing Maps Team Blog</a></li>
 <li><a href="http://www.bing.com/community/site_blogs/b/maps/default.aspx">Bing Maps Community</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/reverse-those-short-urls/">Reverse Those Short URLs</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 2, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/utils">UTILS</a>
-      
-      
-      
-      
-    </span>
-    <p><a href="http://bit.ly/">Bit.ly</a> is one of the major short URL service provider. There are other also but Bit.ly is used by most of the users because of it&rsquo;s simplicity, API and statistics. But some notorious users create short URLs for the spam sites which doesn&rsquo;t make any sense to us. As you know by looking at the short URLs, they won&rsquo;t reveal anything. But there is a way to get the original/long URL through ASP.NET.</p>
-
-<p>Below is the method which takes short URL as a parameter.</p>
-
-<pre class="brush:csharp">
-public static string ReverseShortURL(string ShortURL)
-{
-        HttpWebRequest Webrequest = (HttpWebRequest)HttpWebRequest.Create(ShortURL);
-        HttpWebResponse Webresponse = (HttpWebResponse)Webrequest.GetResponse();
-        Uri uri = Webresponse.ResponseUri;
-        return uri.AbsoluteUri;
-}
-</pre>
-
-<p>The <code>Response.Uri</code> will get the actual URL which is being requested.</p>
-
-<p><img src="/images/reverse-short-url.png" alt="Reverse short URLs" /></p>
-
-<p><strong>Download: <a href="/files/ReverseShortURL.zip">ReverseShortURL.zip (335.87 kb)</a></strong></p>
 
   </div>
   

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2013-07-01T21:11:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2013-11-17T22:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,141 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/desktop-notifications-in-html5/">Desktop Notifications In HTML5</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 17, 2013
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/html5">HTML5</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>If you are using Google chat on your browser you can see a notification pop-up when a new chat message arrives. I don’t use Google chat or GTalk a lot for communication so I am not very well versed about its over all functionality and coolness. But one thing that always got my attention in the past was the notification that I get on my desktop from Google. This is a very cool feature and my colleagues find it a very important feature of chat as it get their attention immediately.</p>
+
+<p>HTML5 now gives us the ability to the developers to show Google like desktop notifications with a very little effort. Here is how you can accomplish this for one of your web applications. I am going to use <a href="http://notifications.spec.whatwg.org/">Notifications API</a> to show desktop notifications.</p>
+
+<pre class="brush: html">
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;HTML5 Notifications&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;input type="text" id="txt" /&gt;
+    &lt;input type="button"  value="Show as Notification"/&gt;
+    &lt;input type="button" value="Show Random Notification"/&gt;
+    &lt;input type="button" value="Show Random Notification (with icons)"/&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>This is the plain HTML with controls in place. I have a text box and three buttons which will call a JavaScript function to show the notification on the desktop. The first button will show the text entered by the user as a notification. The second button will show a random message as a notification and a third button will show the same random message but this time with an icon. To see it in action lets add the JavaScript code.</p>
+
+<pre class="brush: js">
+&lt;script&gt;
+function ShowTextAsNotification() {
+    ShowNotification("Custom Notification", document.getElementById("txt").value);
+}
+  
+function GetRandomText(ico) {
+    var Quotes = ["Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+                  "Copy and paste is a design error.",
+                  "I had a life once. Now I have a computer.",
+                  "Before software can be reusable it first has to be usable.",
+                  "Software sucks because users demand it to."];
+  
+    if (ico == false) {
+        ShowNotification("Famous Quotes", Quotes[Math.floor(Math.random() * (1 - 5 + 1) + 5)]);
+    }
+    else {
+        ShowNotificationsWithIcons("Famous Quotes", Quotes[Math.floor(Math.random() * (1 - 5 + 1) + 5)]);
+    }
+}
+function ShowNotification(title, body) {
+    Notification.requestPermission(function (perm) {
+        if (perm == "granted") {
+            var notification = new Notification(title, { body: body });
+            //Un-comment the below line if you want to close the notification after a certain period
+            //It not working on Chrome...I don't know why!!
+            //notification.onshow = function () {
+            //    setTimeout(notification.close, 5000)
+            //}
+        }
+    });
+}
+function ShowNotificationsWithIcons(title, body) {
+    Notification.requestPermission(function (perm) {
+        if (perm == "granted") {
+            var notification = new Notification(title, { icon: "Bomber.ico", body: body });
+        }
+    });
+}
+&lt;/script&gt;
+</pre>
+
+<p>The is pretty self-explanatory. The Notification API uses the <code>Notification.requestPermission</code> function to get the user consent before showing the notification on the desktop. The API documentation states that there are <a href="http://notifications.spec.whatwg.org/#permission">3 permissions</a>:</p>
+
+<ul>
+<li>default: This is equivalent to denied, but the user has made no explicit choice thus far.</li>
+<li>denied: This means user does not want notifications.</li>
+<li>granted: This means notifications can be displayed.</li>
+</ul>
+
+<p>On line 22 in the above code, you can see that the API checks for the request permission from the user. When it does that the user is prompted to either allow or deny the access of the API. You will be only asked once for this permission.</p>
+
+<p><img src="/images/html5-desktop-notification.png" alt="HTML5 desktop notification security approval" /></p>
+
+<p>The <em>perm</em> object is then checked for the permission, if “granted” then show the desktop notification to the user else there will be no notifications for the user. After the permission is granted from the user, initializes an instance of a Notification with <code>title</code> and <code>body</code>. You can say that title is the heading of the desktop notification and body is the text of the notification. You can also have an icon for the notification by setting the icon property.</p>
+
+<p>Run the sample and enter a text in the text box and click on the button labeled “Show as Notification”. As soon as you click the button, if you are running it for the very first time then you will be prompted by the browser to allow or deny the access or it will show the notification at the bottom right corner of your desktop.</p>
+
+<p><img src="/images/html5-custom-notification.png" alt="HTML5 desktop custom notification" /></p>
+
+<p>In the above notification, <code>Custom Notification</code> is the <em>title</em> and “<code>This is a desktop notification</code>“ is the body.</p>
+
+<p>Click the second button labeled “Show Random Notification”. Clicking this button will generate the same desktop notification but every time you click it it will generate a random message from an array and show it as a notification.</p>
+
+<p><img src="/images/html5-custom-notification2.png" alt="HTML5 desktop custom notification" /></p>
+
+<p>If you click the second button multiple times you will 3 notification at a time. The new notifications will be shown at the top of the current notification like this.</p>
+
+<p><img src="/images/html5-multiple-desktop-notifications.png" alt="HTML5 multiple desktop notification" /></p>
+
+<p>In case you click the button more than 3 times, you still be able to see these notifications until you close the one which are already visible. Once you close any of the notification the one in the queue will become visible.</p>
+
+<p>The icon can be displayed in the left portion of these notifications. Click the third button to see it in action. It will display the same random quotes but this time with an icon.</p>
+
+<p><img src="/images/html5-single-desktop-notification.png" alt="HTML5 desktop notification" /></p>
+
+<p>The only problem I am facing implementing the Notifications API is that I cannot close these notifications automatically after the set time. You can try using it on your browser by un-commenting the lines in the <code>ShowNotification()</code> function.</p>
+
+<h4 id="related-links">Related Links:</h4>
+
+<ul>
+<li><a href="http://notifications.spec.whatwg.org/">Notifications API – Documentation</a></li>
+<li><a href="https://github.com/whatwg/notifications">Notifications API – Github</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -470,35 +605,6 @@ PM> Install-Package Glimpse.ASP
 <li><a href="http://en.wikipedia.org/wiki/User:Svick/LinqToWiki">LINQtoWiki</a> – Library for accessing MediaWiki wikis (including Wikipedia) (<a href="https://github.com/svick/LINQ-to-Wiki">Source</a>)</li>
 <li><a href="http://modernuiicons.com/">ModernUIIcons</a> - Set of awesome icons for WP8 and Win8</li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/developer-buzz-dev-buzz-sharing-my-bookmarks/">Developer Buzz (Dev Buzz) - Sharing My Bookmarks</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 16, 2013
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/devbuzz">DEVBUZZ</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
-      
-      
-      
-      
-    </span>
-    <p>Dev Buzz is an abbreviated form of Developer Buzz which will be a carrier of my bookmarks. There is no point of saving me a bookmark if I can’t share out with other developers (this is my thought on bookmarks). Therefore, from today onward I’ll be doing a blog post week or may be monthly to share by bookmark with the rest of you guys and moreover I have a huge collection of funny programmer pics which also accompany my bookmarks. Hope you all like this.</p>
 
   </div>
   

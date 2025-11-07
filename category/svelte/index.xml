@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Svelte on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/svelte/</link>
+    <description>Recent content in Svelte on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 07 Nov 2025 05:02:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/svelte/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Chatting with Ollama: Building a Local LLM Web App in Minutes</title>
+      <link>https://prashantkhandelwal.github.io/post/chatting-with-ollama-building-a-local-llm-web-app-in-minutes/</link>
+      <pubDate>Fri, 07 Nov 2025 05:02:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/chatting-with-ollama-building-a-local-llm-web-app-in-minutes/</guid>
+      <description>Ollama is a lightweight and user-friendly way to run LLMs locally. No need for complex setups and it makes it super easy to explore AI chat models from the comfort of your own device.
+This tutorial is a small part of a broader project I&amp;rsquo;m working on, which involves using local LLMs and vision models to analyze data directly on-device. This approach helps reduce costs and addresses some of the privacy concerns raised by our customers.</description>
+    </item>
+    
+  </channel>
+</rss>

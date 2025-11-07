@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-10-27T01:15:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-11-08T20:31:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,85 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/download-albumsimages-from-picasa/">Download albums/images from Picasa</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 8, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>Picasa is an online photo sharing portal from Google. Users from around the globe use Picasa for storing and sharing their photos online. We can view and download images from the album, but only if it is public. We cannot view private albums and also cannot download images from any of the public albums if the owner of the album has denied the access for other users to download the images.</p>
+
+<p>But there is a way from which you can download the images. We are here going to use Google API to achieve this. You can download the Google API for .NET <a href="http://code.google.com/p/google-api-for-dotnet/">here</a>.</p>
+
+<p>To get started we have to first import the namespaces.</p>
+
+<pre class="brush:csharp">
+using Google.GData.Photos;
+using Google.GData.Client;
+using System.IO;
+using System.Net;
+</pre>
+
+<p>Now here is the method which we are going to use to download the images. The methods takes in two parameters username and the album name. To get the username for the album, check the url of the user profile. For e.g.: <a href="http://picasaweb.google.com/prashantmx">http://picasaweb.google.com/prashantmx</a>. Here the username is prashantmx, so the first parameter, username will be prashantmx and the albumname will be superbikes. Point to be noted is that there cannot be a white space between the username and albumname.</p>
+
+<pre class="brush:csharp">
+private static void DownAlbum(string UserN, string AlbumN)
+{
+    string fileName;
+    Uri uriPath;
+    WebClient HttpClient = new WebClient(); 
+    PhotoQuery query = new PhotoQuery(); 
+    query.Uri = new Uri(PhotoQuery.CreatePicasaUri(UserN, AlbumN)); 
+    PicasaService service = new PicasaService("PicasaAlbumDownloader"); 
+    PicasaFeed feed = (PicasaFeed)service.Query(query); 
+    Directory.SetCurrentDirectory(Application.StartupPath+"\\Downloads"); 
+ 
+    foreach (AtomEntry aentry in feed.Entries) 
+    {
+        uriPath = new Uri(aentry.Content.Src.ToString()); 
+        fileName = uriPath.LocalPath.Substring(uriPath.LocalPath.LastIndexOf('/') + 1);
+        try
+        {
+            Console.WriteLine("Downloading: " + fileName); 
+            HttpClient.DownloadFile(aentry.Content.Src.ToString(), fileName); 
+        }
+        catch (WebException we)
+        {
+            Console.WriteLine(we.Message); 
+        }
+    }
+         
+    Console.WriteLine("Download Complete!");  
+}
+</pre>
+
+<p>Output:</p>
+
+<p><img src="/images/picasa-downloader.jpg" alt="Picasa web album downloader" /></p>
+
+<p><strong>Download: <a href="/files/PicasaAlbumDownloader_COMMAND.zip">PicasaAlbumDownloader_COMMAND.zip (128.78 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -477,41 +556,6 @@ static void ReadReceipts()
  //Send the e-mail
  smtp.Send(mail);
 }
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/t-sql-recently-executed-query/">T-SQL: Recently Executed Query</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Oct 14, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
-      
-      
-      
-      
-    </span>
-    <p>I am a regular reader of Pinal Dave&rsquo;s blog <a href="http://www.sqlauthority.com/">SqlAuthority</a>. I always found something new in his blog to work with SQL Server. Here is something I would like to share: Get the recent executed SQL Queries from SQL Server.</p>
-
-<pre class="brush:sql">
-SELECT deqs.last_execution_time AS [Time], dest.TEXT AS [Query]
-FROM sys.dm_exec_query_stats AS deqs CROSS APPLY sys.dm_exec_sql_text(deqs.sql_handle)
-AS destORDER BY deqs.last_execution_time DESC
 </pre>
 
   </div>
