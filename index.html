@@ -196,7 +196,7 @@
 
 <p>This UI makes it very easy for searching, downloading and communicating with different LLMs. You can also chat with the models which are in the cloud without downloading them. Note that you require a Ollama account in order to communicate with a cloud model.</p>
 
-<p>But we need to build a web based chat appliaction and that means that we have to interact with Ollama API which is running at <code>https://localhost:11434</code></p>
+<p>But we need to build a web based chat application and that means that we have to interact with Ollama API which is running at <code>https://localhost:11434</code></p>
 
 <p><img src="/images/ollama-api-running.png" alt="Ollama API" /></p>
 
@@ -213,11 +213,11 @@ pip install fastapi uvicorn requests httpx
 <ul>
 <li><code>prompt</code> – The input message or query from the user.</li>
 <li><code>model</code> – Specifies which model to run the prompt against. If not provided, it defaults to l<code>lama3.2:latest</code>.</li>
-<li><code>stream</code> – Optional setting that defaults to <code>false</code>. Set it to <code>true</code> if you want the response to appear in a typing animation, similar to ChatGPT. Note: enabling streaming requires additional changes to the code below.</li>
+<li><code>stream</code> – Optional setting that defaults to <code>false</code>. Set it to <code>true</code> if you want the response to appear in a typing animation, similar to ChatGPT.</li>
 </ul>
 
 <blockquote>
-<p>For below version of code, requests and httpx packages are not required.</p>
+<p>Note: enabling streaming requires additional changes to the code below. For below version of code, requests and httpx packages are not required.</p>
 </blockquote>
 
 <pre class="brush:python">
@@ -265,7 +265,7 @@ uvicorn main:app
 uvicorn main:app --port 8080
 </pre>
 
-<p>Let&rsquo;s check the API reponse using Postman.</p>
+<p>Let&rsquo;s check the API response using Postman.</p>
 
 <p><img src="/images/ollama-fastapi-postman.png" alt="Postman API Call" /></p>
 
@@ -432,7 +432,7 @@ npm install marked
 <div id="chat">{chat}</div>
 </pre>
 
-<p>Start the UI using the command</p>
+<p>Start the UI using this command.</p>
 
 <pre class="brush:shell">
 npm run dev
