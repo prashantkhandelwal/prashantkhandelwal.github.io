@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-08-19T15:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-08-23T15:10:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,37 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/free-e-book-ux-guidelines-for-metro-style-apps-for-windows-8/">Free e-Book: UX Guidelines For Metro Style Apps For Windows 8</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Aug 23, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft made it available a free e-book for developers to understand UX Guidelines for Metro styled apps for Windows 8 and that too for both PC and tablets. This is an awesome resource which will let you know the basics and fundamentals while designing applications for PC annd tablets. As we all know that Windows 8 is the new OS with new UI design (metro) and it is necessary for every developer to know the basics before he starts developing the application for PC or for tablets. The e-book has it all from planning a metro app to making a stylish metro app.</p>
+
+<p><strong><a href="http://go.microsoft.com/fwlink/?LinkId=258743">Download</a></strong> your copy today.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -447,267 +478,6 @@ I was busy in few of my freelance projects and got a very rough weekends this wh
 <p>Now, something about the internals and history of the application. I created a windows application 2 years back and thought of porting the same application for the web. For the, web I used ASP.NET MVC 3 with jQuery but the internals of the application remains the same as it was for my windows app. To fetch the lyrics I use <a href="http://www.lyrdb.com/">LyrDB</a> and <a href="http://lyrics.wikia.com/Lyrics_Wiki">WikiLyrics</a> web services and for album art, album name, artist image etc. I used <a href="http://www.last.fm/api">Last.FM</a> web service. I package the whole stuff and what I got is the application which I was running since 2 years on my machine and now the same application is out for you, use it and suggest me something new if you anything in your minds.</p>
 
 <p>I am not yet finished with this application and you&rsquo;ll see more in coming days.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/working-with-micro-orm-dapper-in-mvc/">Working With Micro-ORM Dapper In MVC</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 19, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>I love working with MVC but I do have a hard time working with complex data with EntityFramework (EF). I heard of using inline SQL queries in MVC but don&rsquo;t know how to use it and will it have any performance issues? Few month&rsquo;s back I downloaded the <a href="http://code.google.com/p/stack-exchange-data-explorer/">StackOverflow (SO) Data Explorer</a> which is an open-source project built on MVC to explore data dump provided by SO. The thing that took my attention in that code was that they have been SQL queries to get the data from the database. This looks promising to me as the guys at SO will never compromise with performance. SO Data Explorer uses the micro-ORM called <a href="http://code.google.com/p/dapper-dot-net/">Dapper</a> which is authored by <a href="http://samsaffron.com/">Sam Saffron</a> of Stack Overlfow.</p>
-
-<h4 id="getting-dapper">Getting Dapper</h4>
-
-<p>Dapper is also available on NuGet or you can also drop <a href="http://code.google.com/p/dapper-dot-net/source/browse/Dapper/SqlMapper.cs">this</a> single file in your project which is hosted at Google Code. You can use the below NuGet command to install Dapper.</p>
-
-<p><img src="/images/dapper-nuget-cmd.png" alt="Dapper Nuget Command" /></p>
-
-<h4 id="usage">Usage</h4>
-
-<p>Performing CRUD operations in EF is simple for simple scenarios, but when the required data is complex I prefer using SQL queries with joins and other related stuff which make my work far much easier. To demonstrate how to use Dapper to perform CRUD operations, I am building a simple application to manage contacts. I started up with creating a model named <code>ContactModel</code>. You can copy the below code or you can have one for yourself.</p>
-
-<pre class="brush: csharp">
-public class Contacts
-{
-    [Key]
-    public int ContactID { get; set; }
-    public string Name { get; set; }
-    public string Address { get; set; }
-    public string Email { get; set; }
-    public string Skype { get; set; }
-}
-</pre>
-
-<p>The model is ready but we are not using EF Code First which created the database for us on the fly and therefore I have a bit more work to do. I&rsquo;ll now create a database with a table which is same like my model. After the table has been created now I will add a new class to my project where I will write functions which will help me in performing CRUD operations. I will talk about view and controllers later when I am done with my DB access class. For this sample application I have used SQL CE 4.0 DB, but if you wish you can use SQL Server DB.</p>
-
-<p>At the first, I just want to list down the contacts I have in the database. Practically this would have been the last thing to show in the example but I am showing this at first so you get an idea how Dapper works. As we have fresh database with no records, write down and insert query or just simply punch in the data in. Now in my data access class I will create a simple function which returns me the collection of <code>contacts</code>.</p>
-
-<pre class="brush: csharp">
-try
-{
-    using (SqlCeConnection con = new SqlCeConnection(ConStr))
-    {
-        con.Open();
-        var contacts = con.Query<Contacts>("Select Name, Address, Email, Skype from Contacts");
-        return contacts;
-     }
-}
-catch (Exception x)
-{
-    throw x;
-}
-</pre>
-
-<p>The above functions returns the collection of the contacts which I will use in my Index view where I am going to list down all the contacts I have with me (See the SQL query :) ). Add a new controller or use the existing <code>Home</code> controller and add the below <code>ActionResult</code> method <code>ListContacts</code>.</p>
-
-<pre class="brush: csharp">
-public ActionResult ListContacts()
-{
-    var db = new DB();
-    return View(db.GetContacts());
-}
-</pre>
-
-<p>I now must have a view which will display the list of all the contacts. Right-click on <code>ListContacts()</code> method and choose <code>Add View</code>. A pretty familiar dialog pops up like the one below.</p>
-
-<p><img src="/images/dapper-addview-dialog.png" alt="Add new view dialog" /></p>
-
-<p>Nothing fancy here, just select the model class as the <code>Contacts</code> and Scaffold template as List. Hit F5 and change the URL to <code>{View}/ListContacts</code> and you will be able to see the list of contacts.</p>
-
-<p><img src="/images/dapper-app-view.png" alt="Application displaying data using dapper" /></p>
-
-<h4 id="performing-insert-update-and-delete-operations">Performing INSERT/UPDATE and DELETE operations</h4>
-
-<p>To insert the data in the database create the below method in the DB access class:</p>
-
-<pre class="brush: csharp">
-public bool CreateContact(Contacts contact)
-{
-    try
-    {
-        using (SqlCeConnection con = new SqlCeConnection(ConStr))
-        {
-            con.Open();
- 
-            string sqlQuery = "INSERT INTO Contacts([Name],[Address],[Email],[Skype]) VALUES (@Name,@Address,@Email,@Skype)";
-            con.Execute(sqlQuery,
-                                  new
-                                  {
-                                      contact.Name,
-                                      contact.Address,
-                                      contact.Email,
-                                      contact.Skype
-                                  });
-        }
-        return true;
-    }
-    catch (Exception x)
-    {
-        return false;
-    }
-}
-</pre>
-
-<p>I have a normal INSERT statement which will insert the records for me. The point that you need to note is that it is executed by the <code>Execute</code> extension method of the <code>SqlCeConnection</code> class. If you use SQL Server then the class will be <code>SqlConnection</code> class. Returning to controller and just to remind you that if we were working with EF which would have done the CRUD part for us then you must be aware that there are 2 <code>ActionResult</code> methods which were required for this purpose. One will just return the view and the other one with <code>[HttpPost]</code> attribute will create the record. I require a create view so I can add contacts. Follow the same steps you have followed above while creating the <code>ListContacts</code> view. For your further help here are the 2 ActionResult methods to create a new record (I am sure you can create a view!! Just right-click <code>Create()</code> method and click <code>AddView</code> and the scaffold is <code>Create</code>).</p>
-
-<pre class="brush: csharp">
-public ActionResult Create()
-{
-    return View();
-}
-
-[HttpPost]
-public ActionResult Create(Contacts contact)
-{
-    var db = new DB();
-    bool isCreated = db.CreateContact(contact);
-    if (isCreated)
-    {
-        return RedirectToAction("ListContacts");
-    }
-    else
-    {
-        return View();
-    }
-}
-</pre>
-
-<p>The process of updating a contact will be similar like we have done for the insert. Before updating a contact I need to get the details of the contact when the user clicks on the <code>Edit</code> link on the page. When the user clicks the <code>Edit</code> hyperlink on the list page, the contact ID will be paased as a parameter.</p>
-
-<pre class="brush: csharp">
-public Contacts GetContactByID(int ContactId)
-{
-    using (SqlCeConnection con = new SqlCeConnection(ConStr))
-    {
-        con.Open();
-        string strQuery = string.Format("Select ContactID, Name, Address, Email, Skype from Contacts where " +
-        "ContactID={0}", ContactId);
-        var customer = con.Query&lt;Contacts&gt;(strQuery).Single&lt;Contacts&gt;();
-        return customer;
-    }
-}
- 
-public bool UpdateContact(Contacts contact)
-{
-    try
-    {
-        using (SqlCeConnection con = new SqlCeConnection(ConStr))
-        {
-            con.Open();
-            string sqlQuery = "UPDATE Contacts SET Name =@Name, Address =@Address, Address = @Address, " +
-            "Email = Email, Skype = @Skype WHERE ContactID=@ContactID";
-            con.Execute(sqlQuery, new
-            {
-                contact.Name,
-                contact.Address,
-                contact.Email,
-                contact.Skype,
-                contact.ContactID
-            });
-        }
-        return true;
-    }
-    catch (Exception)
-    {
-        return false;
-    }
-}
-</pre>
-
-<p>The <code>GetContactByID</code> method will accept the contactId which is passed as a parameter to the <code>Edit</code> ActionResult method. I am calling this method from the <code>Edit</code> ActionResult. The main purpose of this method is to fetch the contact details on the basis of the ID passed to it. The returned Contacts serves as a model to the <code>Edit</code> view which then populates the details of the contact I want to edit. I assume here you know how to create a <code>View</code>. Here is my <code>Edit</code> and <code>Edit</code> with HttpPost which does the actual update work. The <code>UpdateContact</code> method will get called from the <code>Edit ActionResult</code> method which is attributed with <code>HttpPost</code>.</p>
-
-<pre class="brush: csharp">
-public ActionResult Edit(int ContactID)
-{
-    var db = new DB();
-    return View(db.GetContactByID(ContactID));
-}
- 
-[HttpPost]
-public ActionResult Edit(Contacts contact)
-{
-    var db = new DB();
-    db.UpdateContact(contact);
-    return RedirectToAction("ListContacts");
-}
-</pre>
-
-<p>Following the same procedure that I followed for insert and update I am going to implement the delete functionality. The below code will be used to delete the contact details.</p>
-
-<pre class="brush: csharp">
-public bool DeleteContact(int ContactID)
- {
-     try
-     {
-         using (SqlCeConnection con = new SqlCeConnection(ConStr))
-         {
-             con.Open();
-             string sqlQuery = "DELETE FROM Contacts WHERE ContactID=@ContactID";
-             con.Execute(sqlQuery, new { ContactID });
-         }
-         return true;
-     }
-     catch (Exception)
-     {
-         return false;
-     }
- }
-</pre>
-
-<p>And for your ease, here are the 2 ActionResult methods.</p>
-
-<pre class="brush: csharp">
-public ActionResult Delete(int ContactID)
-{
-    var db = new DB();
-    return View(db.GetContactByID(ContactID));
-}
- 
-[HttpPost]
-public ActionResult Delete(int ContactID, FormCollection frm)
-{
-    var db = new DB();
-    bool IsDeleted = db.DeleteContact(ContactID);
-    if (IsDeleted)
-    {
-        return RedirectToAction("ListContacts");
-    }
-    else
-    {
-        return View();
-    }
-}
-</pre>
-
-<p>This is it. A simple application where you can perform CRUD operations using SQL queries with micro-ORM Dapper.</p>
-
-<h4 id="performance">Performance</h4>
-
-<p>Another reason for using a micro-ORM, Dapper in my case, but if you check the documentation you can see the table which clearly state the difference between the different ORMs.</p>
-
-<p><img src="/images/dapper-perf.png" alt="Dapper performance stats" /></p>
-
-<p>There are other ORMs that you can try like the <a href="https://github.com/robconery/massive">Massive ORM</a> and <a href="https://github.com/toptensoftware/PetaPoco">PetaPOCO</a>.</p>
 
   </div>
   

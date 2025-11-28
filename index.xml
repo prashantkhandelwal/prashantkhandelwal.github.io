@@ -6,10 +6,21 @@
     <description>Recent content on Midnight Programmer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Nov 2025 05:02:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Nov 2025 10:41:00 +0000</lastBuildDate>
     
 	<atom:link href="https://prashantkhandelwal.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Conditional Compilation in Rust with Feature Flags</title>
+      <link>https://prashantkhandelwal.github.io/post/conditional-compilation-in-rust-with-feature-flags/</link>
+      <pubDate>Thu, 27 Nov 2025 10:41:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/conditional-compilation-in-rust-with-feature-flags/</guid>
+      <description>I was checking out the OpenObserve — an open-source observability tool which you can self-host or use their cloud offering which offers free, standard and enterprise tier to choose from.
+Written completely in rust so I thought of checking the codebase on Github to get myself more aquatinted with rust language. While doing so I found a #[cfg(feature = &amp;quot;enterprise&amp;quot;)] being used in many places.
+Looking at it, one can tell that any function or block decorated with this attribute is conditional, available only if the feature is enabled.</description>
+    </item>
     
     <item>
       <title>Chatting with Ollama: Building a Local LLM Web App in Minutes</title>

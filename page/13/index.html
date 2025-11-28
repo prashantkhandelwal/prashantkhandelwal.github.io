@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-04-28T12:53:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-05-19T12:50:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,267 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/working-with-micro-orm-dapper-in-mvc/">Working With Micro-ORM Dapper In MVC</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 19, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I love working with MVC but I do have a hard time working with complex data with EntityFramework (EF). I heard of using inline SQL queries in MVC but don&rsquo;t know how to use it and will it have any performance issues? Few month&rsquo;s back I downloaded the <a href="http://code.google.com/p/stack-exchange-data-explorer/">StackOverflow (SO) Data Explorer</a> which is an open-source project built on MVC to explore data dump provided by SO. The thing that took my attention in that code was that they have been SQL queries to get the data from the database. This looks promising to me as the guys at SO will never compromise with performance. SO Data Explorer uses the micro-ORM called <a href="http://code.google.com/p/dapper-dot-net/">Dapper</a> which is authored by <a href="http://samsaffron.com/">Sam Saffron</a> of Stack Overlfow.</p>
+
+<h4 id="getting-dapper">Getting Dapper</h4>
+
+<p>Dapper is also available on NuGet or you can also drop <a href="http://code.google.com/p/dapper-dot-net/source/browse/Dapper/SqlMapper.cs">this</a> single file in your project which is hosted at Google Code. You can use the below NuGet command to install Dapper.</p>
+
+<p><img src="/images/dapper-nuget-cmd.png" alt="Dapper Nuget Command" /></p>
+
+<h4 id="usage">Usage</h4>
+
+<p>Performing CRUD operations in EF is simple for simple scenarios, but when the required data is complex I prefer using SQL queries with joins and other related stuff which make my work far much easier. To demonstrate how to use Dapper to perform CRUD operations, I am building a simple application to manage contacts. I started up with creating a model named <code>ContactModel</code>. You can copy the below code or you can have one for yourself.</p>
+
+<pre class="brush: csharp">
+public class Contacts
+{
+    [Key]
+    public int ContactID { get; set; }
+    public string Name { get; set; }
+    public string Address { get; set; }
+    public string Email { get; set; }
+    public string Skype { get; set; }
+}
+</pre>
+
+<p>The model is ready but we are not using EF Code First which created the database for us on the fly and therefore I have a bit more work to do. I&rsquo;ll now create a database with a table which is same like my model. After the table has been created now I will add a new class to my project where I will write functions which will help me in performing CRUD operations. I will talk about view and controllers later when I am done with my DB access class. For this sample application I have used SQL CE 4.0 DB, but if you wish you can use SQL Server DB.</p>
+
+<p>At the first, I just want to list down the contacts I have in the database. Practically this would have been the last thing to show in the example but I am showing this at first so you get an idea how Dapper works. As we have fresh database with no records, write down and insert query or just simply punch in the data in. Now in my data access class I will create a simple function which returns me the collection of <code>contacts</code>.</p>
+
+<pre class="brush: csharp">
+try
+{
+    using (SqlCeConnection con = new SqlCeConnection(ConStr))
+    {
+        con.Open();
+        var contacts = con.Query<Contacts>("Select Name, Address, Email, Skype from Contacts");
+        return contacts;
+     }
+}
+catch (Exception x)
+{
+    throw x;
+}
+</pre>
+
+<p>The above functions returns the collection of the contacts which I will use in my Index view where I am going to list down all the contacts I have with me (See the SQL query :) ). Add a new controller or use the existing <code>Home</code> controller and add the below <code>ActionResult</code> method <code>ListContacts</code>.</p>
+
+<pre class="brush: csharp">
+public ActionResult ListContacts()
+{
+    var db = new DB();
+    return View(db.GetContacts());
+}
+</pre>
+
+<p>I now must have a view which will display the list of all the contacts. Right-click on <code>ListContacts()</code> method and choose <code>Add View</code>. A pretty familiar dialog pops up like the one below.</p>
+
+<p><img src="/images/dapper-addview-dialog.png" alt="Add new view dialog" /></p>
+
+<p>Nothing fancy here, just select the model class as the <code>Contacts</code> and Scaffold template as List. Hit F5 and change the URL to <code>{View}/ListContacts</code> and you will be able to see the list of contacts.</p>
+
+<p><img src="/images/dapper-app-view.png" alt="Application displaying data using dapper" /></p>
+
+<h4 id="performing-insert-update-and-delete-operations">Performing INSERT/UPDATE and DELETE operations</h4>
+
+<p>To insert the data in the database create the below method in the DB access class:</p>
+
+<pre class="brush: csharp">
+public bool CreateContact(Contacts contact)
+{
+    try
+    {
+        using (SqlCeConnection con = new SqlCeConnection(ConStr))
+        {
+            con.Open();
+ 
+            string sqlQuery = "INSERT INTO Contacts([Name],[Address],[Email],[Skype]) VALUES (@Name,@Address,@Email,@Skype)";
+            con.Execute(sqlQuery,
+                                  new
+                                  {
+                                      contact.Name,
+                                      contact.Address,
+                                      contact.Email,
+                                      contact.Skype
+                                  });
+        }
+        return true;
+    }
+    catch (Exception x)
+    {
+        return false;
+    }
+}
+</pre>
+
+<p>I have a normal INSERT statement which will insert the records for me. The point that you need to note is that it is executed by the <code>Execute</code> extension method of the <code>SqlCeConnection</code> class. If you use SQL Server then the class will be <code>SqlConnection</code> class. Returning to controller and just to remind you that if we were working with EF which would have done the CRUD part for us then you must be aware that there are 2 <code>ActionResult</code> methods which were required for this purpose. One will just return the view and the other one with <code>[HttpPost]</code> attribute will create the record. I require a create view so I can add contacts. Follow the same steps you have followed above while creating the <code>ListContacts</code> view. For your further help here are the 2 ActionResult methods to create a new record (I am sure you can create a view!! Just right-click <code>Create()</code> method and click <code>AddView</code> and the scaffold is <code>Create</code>).</p>
+
+<pre class="brush: csharp">
+public ActionResult Create()
+{
+    return View();
+}
+
+[HttpPost]
+public ActionResult Create(Contacts contact)
+{
+    var db = new DB();
+    bool isCreated = db.CreateContact(contact);
+    if (isCreated)
+    {
+        return RedirectToAction("ListContacts");
+    }
+    else
+    {
+        return View();
+    }
+}
+</pre>
+
+<p>The process of updating a contact will be similar like we have done for the insert. Before updating a contact I need to get the details of the contact when the user clicks on the <code>Edit</code> link on the page. When the user clicks the <code>Edit</code> hyperlink on the list page, the contact ID will be paased as a parameter.</p>
+
+<pre class="brush: csharp">
+public Contacts GetContactByID(int ContactId)
+{
+    using (SqlCeConnection con = new SqlCeConnection(ConStr))
+    {
+        con.Open();
+        string strQuery = string.Format("Select ContactID, Name, Address, Email, Skype from Contacts where " +
+        "ContactID={0}", ContactId);
+        var customer = con.Query&lt;Contacts&gt;(strQuery).Single&lt;Contacts&gt;();
+        return customer;
+    }
+}
+ 
+public bool UpdateContact(Contacts contact)
+{
+    try
+    {
+        using (SqlCeConnection con = new SqlCeConnection(ConStr))
+        {
+            con.Open();
+            string sqlQuery = "UPDATE Contacts SET Name =@Name, Address =@Address, Address = @Address, " +
+            "Email = Email, Skype = @Skype WHERE ContactID=@ContactID";
+            con.Execute(sqlQuery, new
+            {
+                contact.Name,
+                contact.Address,
+                contact.Email,
+                contact.Skype,
+                contact.ContactID
+            });
+        }
+        return true;
+    }
+    catch (Exception)
+    {
+        return false;
+    }
+}
+</pre>
+
+<p>The <code>GetContactByID</code> method will accept the contactId which is passed as a parameter to the <code>Edit</code> ActionResult method. I am calling this method from the <code>Edit</code> ActionResult. The main purpose of this method is to fetch the contact details on the basis of the ID passed to it. The returned Contacts serves as a model to the <code>Edit</code> view which then populates the details of the contact I want to edit. I assume here you know how to create a <code>View</code>. Here is my <code>Edit</code> and <code>Edit</code> with HttpPost which does the actual update work. The <code>UpdateContact</code> method will get called from the <code>Edit ActionResult</code> method which is attributed with <code>HttpPost</code>.</p>
+
+<pre class="brush: csharp">
+public ActionResult Edit(int ContactID)
+{
+    var db = new DB();
+    return View(db.GetContactByID(ContactID));
+}
+ 
+[HttpPost]
+public ActionResult Edit(Contacts contact)
+{
+    var db = new DB();
+    db.UpdateContact(contact);
+    return RedirectToAction("ListContacts");
+}
+</pre>
+
+<p>Following the same procedure that I followed for insert and update I am going to implement the delete functionality. The below code will be used to delete the contact details.</p>
+
+<pre class="brush: csharp">
+public bool DeleteContact(int ContactID)
+ {
+     try
+     {
+         using (SqlCeConnection con = new SqlCeConnection(ConStr))
+         {
+             con.Open();
+             string sqlQuery = "DELETE FROM Contacts WHERE ContactID=@ContactID";
+             con.Execute(sqlQuery, new { ContactID });
+         }
+         return true;
+     }
+     catch (Exception)
+     {
+         return false;
+     }
+ }
+</pre>
+
+<p>And for your ease, here are the 2 ActionResult methods.</p>
+
+<pre class="brush: csharp">
+public ActionResult Delete(int ContactID)
+{
+    var db = new DB();
+    return View(db.GetContactByID(ContactID));
+}
+ 
+[HttpPost]
+public ActionResult Delete(int ContactID, FormCollection frm)
+{
+    var db = new DB();
+    bool IsDeleted = db.DeleteContact(ContactID);
+    if (IsDeleted)
+    {
+        return RedirectToAction("ListContacts");
+    }
+    else
+    {
+        return View();
+    }
+}
+</pre>
+
+<p>This is it. A simple application where you can perform CRUD operations using SQL queries with micro-ORM Dapper.</p>
+
+<h4 id="performance">Performance</h4>
+
+<p>Another reason for using a micro-ORM, Dapper in my case, but if you check the documentation you can see the table which clearly state the difference between the different ORMs.</p>
+
+<p><img src="/images/dapper-perf.png" alt="Dapper performance stats" /></p>
+
+<p>There are other ORMs that you can try like the <a href="https://github.com/robconery/massive">Massive ORM</a> and <a href="https://github.com/toptensoftware/PetaPoco">PetaPOCO</a>.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -460,212 +721,6 @@ SELECT Title, DateCreated, Slug FROM (
 <p>I will be surprised if you have not heard about this plugin. One of the most amazing and powerful plugin or I should say a library that can make your images speak or work on their own. I am not going to describe what it does, so you have to go and look for yourself. Visit the <a href="http://webdev.stephband.info/parallax.html">demo page</a>.</p>
 
 <p><img src="/images/jparallac-plugin.png" alt="jParallax plugin" /></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/minify-your-css-javascript-with-squishit/">Minify Your CSS &amp; Javascript With SquishIt</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 15, 2012
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p>No one likes if their favourite site is loading up slow. Using CSS sprites instead of using individual images and minify javascript and css files is a way to minimize the request send to the server and also saves you few KBs or may be even MBs. If your site is high on using javacript and CSS then you should minimize them.</p>
-
-<p>I recently used <a href="http://nuget.org/packages/SquishIt">SquishIt</a> to combine/minimize my CSS and javascript files. I found 2 major benefits, first, I am able to combine all of my CSS files into one and minimize it, and second it reduces the request sent to the server to load several .css and .js files. In a typical web application I can have one style sheet and one javascript or jQuery file, but if I am planning to use some plugins then there might be more than one style sheet and javascript files which will get loaded on every page request. Here is an example of a sample web forms application loading two css and javascript files which includes the plugin code.</p>
-
-<p><img src="/images/console-network-tab.png" alt="Loading time of static assets in browser console" /></p>
-
-<p>Here you can see that there are 4 requests in total to load site CSS and Javascript files. Though in this case the size of the file is less but when you have really large files then it can really affect your site performance and also save MBs in a long run. So, what happens when I use SquishIt? Install the package by firing the below command at <a href="http://nuget.org/">NuGet</a> console.</p>
-
-<p><img src="/images/nuget-squishit.png" alt="Nuget SquishIt Command" /></p>
-
-<p>SquishIt is not an independent package, it has dependencies which is doing all the work of minifying and compressing CSS and JS files behind the scenes.</p>
-
-<p><img src="/images/nuget-dependencies.png" alt="Nuget dependencies" /></p>
-
-<p>After the package is installed successfully, time to squish the files. Open the web page or the master page where you are loading CSS and JS files (in my case it is <code>site.master</code>) and add a reference to the SquishIt assembly on the top of that page.</p>
-
-<pre class="brush: csharp">
-<%@ Import Namespace="SquishIt.Framework" %>
-</pre>
-
-<p>In the head section of your page we can then combine all the CSS and JS files and then render them into ONE single file. There are two different methods to minimize CSS and JS files i.e. <code>Bundle.Css()</code> for CSS files and <code>Bundle.JavaScript()</code> for JS files. Here is an example:</p>
-
-<p><strong>To bundle CSS:</strong></p>
-
-<pre class="brush: csharp">
-<%= Bundle.Css()
-       .Add("Styles/adipoli.css")
-       .Add("Styles/Site.css")
-       .Render("Styles/squishstyle#.css")
-%>
-</pre>
-
-<p><strong>To bundle JavaScript:</strong></p>
-
-<pre class="brush: csharp">
-<%= Bundle.JavaScript()
-       .Add("Scripts/jquery-1.7.1.min.js")
-       .Add("Scripts/jquery.adipoli.min.js")
-       .Render("Scripts/squishjs#.js")
-%>
-</pre>
-
-<p>You can go on adding all the css and javascript files using the <code>Add()</code> method. After all the files has been added call the <code>Render()</code> method. You can say that the <code>Add()</code> method just keep all the files in a stack and the <code>Render()</code> method will combine and minimize the files. If you look closely in the <code>Render()</code> method has a new file name with a (hash) <code>#</code>. The hash symbol is just generates a new unique id of the bundled script.</p>
-
-<p>When you run the application and check the network call stack in your browser, you&rsquo;ll find that the files are not combined. The page is still loading 4 files!? To overcome this set the <code>debug</code> mode to <code>false</code> in the <code>web.config</code> file.</p>
-
-<pre class="brush: xml">
-&lt;compilation debug="false" targetFramework="4.0" /&gt;
-</pre>
-
-<p>Now if you look in the network call stack, you will find the files have been squished and minimised and compressed!!</p>
-
-<p><img src="/images/console-loading-time.png" alt="Console log for asset loading time after the use of SquishIT" /></p>
-
-<p>And here are my saving statistics:</p>
-
-<p><strong>Without SquishIt:</strong></p>
-
-<p>Four requests in total!!</p>
-
-<table>
-<thead>
-<tr>
-<th>Name/Path</th>
-<th>Type</th>
-<th>Size Content</th>
-<th>Time Latency</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>adipoli.cs</td>
-<td>text/css</td>
-<td>683B</td>
-<td>62ms</td>
-</tr>
-
-<tr>
-<td>/Styles</td>
-<td>text/css</td>
-<td>441B</td>
-<td>55ms</td>
-</tr>
-
-<tr>
-<td>Site.css</td>
-<td>text/css</td>
-<td>4.40KB</td>
-<td>68ms</td>
-</tr>
-
-<tr>
-<td>/Styles</td>
-<td>text/css</td>
-<td>4.16KB</td>
-<td>61ms</td>
-</tr>
-
-<tr>
-<td>jquery-1.7.1.min.js</td>
-<td>application/x-javascript</td>
-<td>109.91KB</td>
-<td>80ms</td>
-</tr>
-
-<tr>
-<td>/Scripts</td>
-<td>application/x-javascript</td>
-<td>109.65KB</td>
-<td>67ms</td>
-</tr>
-
-<tr>
-<td>jquery.adipoli.min.js</td>
-<td>application/x-javascript</td>
-<td>7.57KB</td>
-<td>242ms</td>
-</tr>
-
-<tr>
-<td>/Scripts</td>
-<td>application/x-javascript</td>
-<td>7.32KB</td>
-<td>163ms</td>
-</tr>
-</tbody>
-</table>
-
-<p><strong>The Squish effect:</strong></p>
-
-<p>Two requests in total. Check out the file size and content being loaded.</p>
-
-<table>
-<thead>
-<tr>
-<th>Name/Path</th>
-<th>Type</th>
-<th>Size Content</th>
-<th>Time Latency</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>squishstyle6788C36F832FE70161B88F2D08193F3E.css</td>
-<td>text/css</td>
-<td>2.95KB</td>
-<td>80ms</td>
-</tr>
-
-<tr>
-<td>/Styles</td>
-<td>text/css</td>
-<td>2.71KB</td>
-<td>72ms</td>
-</tr>
-
-<tr>
-<td>squishjs0F44BB5917C6332E4D49DFCDA5F3556D.js</td>
-<td>application/x-javascript</td>
-<td>98.29KB</td>
-<td>91ms</td>
-</tr>
-
-<tr>
-<td>/Scripts</td>
-<td>text/css</td>
-<td>98.03KB</td>
-<td>76ms</td>
-</tr>
-</tbody>
-</table>
-
-<p>The same can be done in MVC with this <a href="http://nuget.org/packages/SquishIt.Mvc">NuGet package</a>.</p>
 
   </div>
   

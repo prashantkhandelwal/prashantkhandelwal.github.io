@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-07-20T00:40:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-07-23T15:57:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,172 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/import-excel-to-sql-table/">Import Excel to SQL Table</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 23, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/t-sql">T-SQL</a>
+      
+      
+      
+      
+    </span>
+    <p>Using bulk operations using code with sql can be complex, time consuming and tedious for most of the programmers. I just used a stored procedure in one of my projects instead of traversing from cell to cell and save the value in the database, so I search the net and found this SQL Stored Procedure achieve this. I have just copied and paste the code as it is.</p>
+
+<pre class="brush:sql">
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+go
+--drop procedure sp_excel_Convert_Excel_To_Table
+--go
+Create procedure [dbo].[sp_excel_Convert_Excel_To_Table]
+(
+@excel_full_file_name varchar(666)
+,@convert_to_table_name varchar(50)
+,@transfer_to_table bit=1
+,@clear_existing_records_first bit=1
+,@good int =null output
+,@error_code int =null
+,@error_description varchar(255) = null output
+)
+as
+set nocount on
+declare @command varchar(8000)
+-- copy excel file under temp and change worksheet name
+set @good=0
+set @error_description = ''
+set @error_code=0
+declare @object int
+,@hr int
+,@src varchar(255)
+exec @hr = master.dbo.sp_OACreate 'Excel.Application', @object out
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '1. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=1
+set @good=0
+goto error
+end
+exec @hr = master.dbo.sp_OASetProperty @object, 'DisplayAlerts', 'false'
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '2. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=2
+set @good=0
+goto error
+end
+declare @workbook int
+,@workbook_path_save_as varchar(666)
+set @workbook_path_save_as = 'c:\test.xls'
+exec @hr = master.dbo.sp_oaMethod @Object,'WorkBooks.Open',@workbook out,@excel_full_file_name
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '3. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=3
+set @good=0
+goto error
+end
+exec @hr = master.dbo.sp_OASetProperty @object, 'Workbooks(1).Worksheets(1).Name','excel_data'
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '4. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=4
+set @good=0
+goto error
+end
+exec @hr = master.dbo.sp_oaMethod @workbook ,'SaveAs',null,@workbook_path_save_as
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '5. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=5
+set @good=0
+goto error
+end
+-- get full file name
+exec @hr = master.dbo.sp_OAGetProperty @object, 'Workbooks(1).FullName',
+@workbook_path_save_as output
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '6. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=6
+set @good=0
+goto error
+end
+exec @hr = master.dbo.sp_oaMethod @Object,'Application.Quit'--,@workbook out,@workbook_path
+if @hr <> 0
+begin
+exec master.dbo.sp_OAGetErrorInfo @object, @src out, @error_description out
+set @error_description = '7. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=7
+set @good=0
+goto error
+end
+if @transfer_to_table = 1
+begin
+if @clear_existing_records_first=1
+begin
+set @command = 'delete from ' + @convert_to_table_name
+exec (@command)
+end
+-- copy records from excel into table:
+set @command = 'insert into ' + @convert_to_table_name +
+' select * from ' +
+' OpenRowSet(''MSDASQL'' '+
+', ''Driver={Microsoft Excel Driver (*.xls)};'+
+'DBQ=' + @workbook_path_save_as + ''''+
+',''SELECT * FROM [excel_data$]'')'
+print @command
+exec (@command)
+set @command = 'select * from ' + @convert_to_table_name
+exec (@command)
+end
+error:
+select @error_description as 'Error', @error_code as 'Error Code'
+exec @hr = master.dbo.sp_OADestroy @workbook
+if @hr <> 0
+begin
+set @error_description = '7. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=7
+set @good=0
+end
+exec @hr = master.dbo.sp_OADestroy @object
+if @hr <> 0
+begin
+set @error_description = '8. ' + isnull(@error_description,'N/A')
+select hr=convert(varbinary(4),@hr), source=@src, description=@error_description
+set @error_code=8
+set @good=0
+end
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -356,53 +522,6 @@ using System.IO;
 <p>I am not going to write on and on and just make it going boring, so it&rsquo;s better just download the code and check the comments, they are one liners, but clears everything.</p>
 
 <p><strong>Download Full Application Here: <a href="/files/DBBackup.zip">DBBackup.zip (290.99 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/set-the-default-printer-for-printing-programatically/">Set the default printer for printing programatically</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 16, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>You need to print the document but you don&rsquo;t want to go to control panel or printer and faxes options and just want to get it changed automatically. You can even set the shared local network printer with this code.</p>
-
-<p>Just with the code you can override the system settings and change the default printer for your system.</p>
-
-<p>You need to use the namespace so in order to use the <code>DLLImport</code> attribute.</p>
-
-<pre class="brush:csharp">
-using System.Runtime.Interopservices;
-//Set default printer to the one available with your system or network.
-[DllImport("Winspool.drv")]
-private static extern bool SetDefaultPrinter(string printerName);
-</pre>
-
-<p>Now on button click or on form load just change the printer you want to use while printing and then change it back to the one before.</p>
-
-<pre class="brush:csharp">
-//Set the default printer. I have set it as my Adobe PDF printer
-SetDefaultPrinter("Adobe PDF");
-</pre>
 
   </div>
   

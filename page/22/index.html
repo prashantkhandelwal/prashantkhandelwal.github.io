@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-09-25T22:21:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-11-30T13:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,162 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/a-time-wrapper-class-in-c/">A Time Wrapper Class in C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 30, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
+      
+      
+      
+      
+    </span>
+    <p>I was just surfing the net in search for some fundoo tutorial on WPF and by chance (I don&rsquo;t meant to visit that site), I get this class which I feel is pretty helpful. A simple wrapper class to conver time. the class allows you to convert:</p>
+
+<ol>
+<li>To Days</li>
+<li>To Hours</li>
+<li>To Minutes</li>
+<li>To Seconds</li>
+<li>To MilliSeconds</li>
+</ol>
+
+<p>This can be pretty usefull. The class is as follows:</p>
+
+<pre class="brush:csharp">
+using System;
+ 
+public static class TimeSpanUtil
+{
+    #region To days
+    public static double ConvertMillisecondsToDays(double milliseconds)
+    {
+        return TimeSpan.FromMilliseconds(milliseconds).TotalDays;
+    }
+ 
+    public static double ConvertSecondsToDays(double seconds)
+    {
+        return TimeSpan.FromSeconds(seconds).TotalDays;
+    }
+ 
+    public static double ConvertMinutesToDays(double minutes)
+    {
+        return TimeSpan.FromMinutes(minutes).TotalDays;
+    }
+ 
+    public static double ConvertHoursToDays(double hours)
+    {
+        return TimeSpan.FromHours(hours).TotalDays;
+    }
+    #endregion
+ 
+    #region To hours
+    public static double ConvertMillisecondsToHours(double milliseconds)
+    {
+        return TimeSpan.FromMilliseconds(milliseconds).TotalHours;
+    }
+ 
+    public static double ConvertSecondsToHours(double seconds)
+    {
+        return TimeSpan.FromSeconds(seconds).TotalHours;
+    }
+ 
+    public static double ConvertMinutesToHours(double minutes)
+    {
+        return TimeSpan.FromMinutes(minutes).TotalHours;
+    }
+ 
+    public static double ConvertDaysToHours(double days)
+    {
+        return TimeSpan.FromHours(days).TotalHours;
+    }
+    #endregion
+ 
+    #region To minutes
+    public static double ConvertMillisecondsToMinutes(double milliseconds)
+    {
+        return TimeSpan.FromMilliseconds(milliseconds).TotalMinutes;
+    }
+ 
+    public static double ConvertSecondsToMinutes(double seconds)
+    {
+        return TimeSpan.FromSeconds(seconds).TotalMinutes;
+    }
+ 
+    public static double ConvertHoursToMinutes(double hours)
+    {
+        return TimeSpan.FromHours(hours).TotalMinutes;
+    }
+ 
+    public static double ConvertDaysToMinutes(double days)
+    {
+        return TimeSpan.FromDays(days).TotalMinutes;
+    }
+    #endregion
+ 
+    #region To seconds
+    public static double ConvertMillisecondsToSeconds(double milliseconds)
+    {
+        return TimeSpan.FromMilliseconds(milliseconds).TotalSeconds;
+    }
+ 
+    public static double ConvertMinutesToSeconds(double minutes)
+    {
+        return TimeSpan.FromMinutes(minutes).TotalSeconds;
+    }
+ 
+    public static double ConvertHoursToSeconds(double hours)
+    {
+        return TimeSpan.FromHours(hours).TotalSeconds;
+    }
+ 
+    public static double ConvertDaysToSeconds(double days)
+    {
+        return TimeSpan.FromDays(days).TotalSeconds;
+    }
+    #endregion
+ 
+    #region To milliseconds
+    public static double ConvertSecondsToMilliseconds(double seconds)
+    {
+        return TimeSpan.FromSeconds(seconds).TotalMilliseconds;
+    }
+ 
+    public static double ConvertMinutesToMilliseconds(double minutes)
+    {
+        return TimeSpan.FromMinutes(minutes).TotalMilliseconds;
+    }
+ 
+    public static double ConvertHoursToMilliseconds(double hours)
+    {
+        return TimeSpan.FromHours(hours).TotalMilliseconds;
+    }
+ 
+    public static double ConvertDaysToMilliseconds(double days)
+    {
+        return TimeSpan.FromDays(days).TotalMilliseconds;
+    }
+    #endregion
+}
+</pre>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -552,106 +708,6 @@ iyG2DnYpkLUFyPw5OnTpE_t7p_duRJ5wcVOHoC_/edin.jpg
 <p>This is not enough, now the question here is how can one upload files to SkyDrive, we can use the web interface provided by the SkyDrive&hellip;..!!? But how about using it as a network drive on your My Computer. You can download <a href="http://www.gladinet.com/p/download_starter_direct.htm">Gladient Cloud Desktop</a> to map the SkyDrive or any other online service you are using to store your files, like Amazon S3 or Picasaweb to share photos.</p>
 
 <p><strong>UPDATE:</strong> <a href="http://coolthingoftheday.blogspot.com/">Greg Duncan</a> share his experience with SkyDrive with me. I recommend you to read it <a href="http://midnightprogrammer.net/post/efficient-use-of-windows-skydrive#comment">here</a>.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/add-openid-login-support-in-your-aspnet-application/">Add OpenID Login Support In Your ASP.NET Application</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 29, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/visual-studio">VISUAL STUDIO</a>
-      
-      
-      
-      
-    </span>
-    <p><img align="right" src="/images/oauth-logo.png" alt="OAuth logo"/></p>
-
-<p>Few days back I was looking at Scott Hanselman and friend&rsquo;s Open Source Nerddinner project, learning and grabbing some new things from there. Apart from looking some internals I looked at the OpenID implementation. This was all a week ago and now it&rsquo;s time for me to write and give some thoughts on DotNetOpenAuth. For folks who are new to OpenID I am going to demonstrate how you can implement one in your project with ease.</p>
-
-<p>To get started download the <a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a> API and extract the contents from the zip file. The download also includes some samples for you to get you started. Kickstart by creating a new ASP.NET webforms project. I am just using a default template for my application, you can use the one you like or start by creating a new page. Why I am using the default template for ASP.NET webform project? well you get to know later. So now when we are done creating a new ASP.NET webform project, time to add OpenID stuff in the project. Right click <code>References</code> and select <code>Add Reference</code>. Browse to the <code>bin</code> folder where you have extracted the contents of the downloaded zip file. Select <code>DotNetOpenAuth.dll</code> and click OK.</p>
-
-<p><strong>Changing the web.config:</strong></p>
-
-<p>A minor change in the web.config is required. Find the below lines in your web.config file:</p>
-
-<pre class="brush:xml">
-&lt;authentication mode="Forms"&gt;&lt;forms loginUrl="~/Account/Login.aspx"
-timeout="2880" /&gt;&lt;/authentication&gt;
-</pre>
-
-<p>and replace it with:</p>
-
-<pre class="brush:xml">
-&lt;authentication mode="Forms"&gt;&lt;forms defaultUrl="/default.aspx"
-loginUrl="~/Account/login.aspx"/&gt;&lt;/authentication&gt;
-</pre>
-
-<p>In the above configuration, <code>loginUrl</code> will always point towards to the login page and the <code>defaultUrl</code> will always point towards the page/URL which will be displayed when the authentication is successfull.</p>
-
-<p><strong>Implemeting OpenID support:</strong></p>
-
-<p>To implement OpenID support, open <code>login.aspx</code> page in the design view and then drag the OpenIdLogin from the toolbox on the page just after the default login implementation ends or where you want to have OpenID login. If you are not able to view the control, then you can browse the same <code>dll</code> you have add a reference in the above step.</p>
-
-<p><img src="/images/oauth-vs-toolbox.png" alt="OAuth control in VS control box" /></p>
-
-<p>If you want to implement this manually then register the control at the top of the page and then use it on the page.</p>
-
-<p><strong>Register the control:</strong></p>
-
-<pre class="brush:xml">
-&lt;%@ Register Assembly="DotNetOpenAuth" Namespace="DotNetOpenAuth.OpenId.RelyingParty"
-TagPrefix="rp" %&gt;
-</pre>
-
-<p><strong>To use the control on the page you can then simply write:</strong></p>
-
-<pre class="brush:xml">
-&lt;rp:OpenIdLogin ID="OpenIdLogin1" runat="server"&gt;&lt;/rp:OpenIdLogin&gt;
-</pre>
-
-<p>All done now and it&rsquo;s time to test our application. Hit <code>F5</code> and login with your openID. The page rendered in front of you is</p>
-
-<p><img src="/images/oauth-webapp-login.png" alt="OAuth control rendered in web app" /></p>
-
-<p>Enter your openID and click login. You will be redirected to the official OpenID login page.</p>
-
-<p><img src="/images/oauth-page.png" alt="OAuth page for authentication" /></p>
-
-<p>Enter your password for openID account and after the authentication is successfull you will be re-directed to the default page. Remember the web.config configuration we did!!? If everything goes well you can see your openID name login name on the top of the page.</p>
-
-<p><img src="/images/oauth-success.png" alt="OAuth success page" /></p>
-
-<p>This is the simplest way to implement openID. You can also implement openID on your ASP.NET MVC project to add some flexibility for you site users. Apart from this you can also download the <a href="https://www.ohloh.net/p/dotnetopenauth/download?package=DotNetOpenAuth+project+templates&amp;release=3.4.5">Visual Studio 2010 template</a>.</p>
-
-<p><strong>Download: <a href="/files/DOTNETOAUTH.zip">DOTNETOAUTH.zip (542.85 kb)</a></strong></p>
-
-<p><strong>Related Links:</strong></p>
-
-<ul>
-<li><a href="http://www.dotnetopenauth.net/">DotNetOpenAuth</a></li>
-<li><a href="http://blog.nerdbank.net">http://blog.nerdbank.net</a></li>
-<li><a href="https://www.idselector.com/">https://www.idselector.com/</a></li>
-<li><a href="http://www.hanselman.com/blog/TheWeeklySourceCode25OpenIDEdition.aspx">Scott Hanselman - Weekly Source Code 25</a></li>
-</ul>
 
   </div>
   

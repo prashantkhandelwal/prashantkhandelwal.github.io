@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.49" />
+
+    
+    
+    
+
+<title>Conditional Compilation in Rust with Feature Flags • Midnight Programmer</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Conditional Compilation in Rust with Feature Flags"/>
+<meta name="twitter:description" content="I was checking out the OpenObserve — an open-source observability tool which you can self-host or use their cloud offering which offers free, standard and enterprise tier to choose from.
+Written completely in rust so I thought of checking the codebase on Github to get myself more aquatinted with rust language. While doing so I found a #[cfg(feature = &quot;enterprise&quot;)] being used in many places.
+Looking at it, one can tell that any function or block decorated with this attribute is conditional, available only if the feature is enabled."/>
+
+<meta property="og:title" content="Conditional Compilation in Rust with Feature Flags" />
+<meta property="og:description" content="I was checking out the OpenObserve — an open-source observability tool which you can self-host or use their cloud offering which offers free, standard and enterprise tier to choose from.
+Written completely in rust so I thought of checking the codebase on Github to get myself more aquatinted with rust language. While doing so I found a #[cfg(feature = &quot;enterprise&quot;)] being used in many places.
+Looking at it, one can tell that any function or block decorated with this attribute is conditional, available only if the feature is enabled." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://prashantkhandelwal.github.io/post/conditional-compilation-in-rust-with-feature-flags/" /><meta property="article:published_time" content="2025-11-27T10:41:00&#43;00:00"/>
+<meta property="article:modified_time" content="2025-11-27T10:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+
+
+    
+
+
+<link rel="stylesheet" href="/css/hyde-hyde.css">
+<link rel="stylesheet" href="/css/print.css" media="print">
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://prashantkhandelwal.github.io/">Midnight Programmer</a>
+      </span>
+      
+      
+      
+      <div class="author-image">
+        <img src="https://prashantkhandelwal.github.io//img/prashantk.jpg" alt="Author Image" class="img--circle img--headshot element--center"> 
+      </div>
+      
+      <p class="site__description">
+         Programming For Fun 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">Midnight Programmer</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/archive/"><i class='fa fa-road'></i>
+						<span>Archive</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/top-posts/"><i class='fa fa-star fa-fw'></i>
+						<span>Top Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/contact/"><i class='fa fa-envelope fa-fw'></i>
+						<span>Contact</span>
+					</a>
+				</li>
+			 
+		
+		</li>
+	</ul>
+</div>
+
+        <section class="social">
+	
+	
+	
+	<a href="https://github.com/prashantkhandelwal" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="http://feeds.feedburner.com/MidnightProgrammer" rel="me"><i class="fa fa-rss fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://instagram.com/prashantkhandelwal" rel="me"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	
+	
+	<a href="https://linkedin.com/in/khandelwalprashant" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://medium.com/@prashantkhandelwal" rel="me"><i class="fab fa-medium fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    <p class="copyright">
+      &copy; 2025 Pashant Khandelwal
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/2.5/in/"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc-sa/2.5/in/88x31.png" alt="Creative Commons License" class="thinglinkFiltered"></a>
+      
+    </p>
+  </div>
+  <div>
+  </div>
+</div>
+
+        <div class="content container">
+            
+    <article>
+  <header>
+    <h1 class="item__title--big">Conditional Compilation in Rust with Feature Flags</h1>
+    
+    
+<div class="post__meta">
+    
+    
+    <span>
+        <i class="fas fa-calendar-alt"></i> Nov 27, 2025
+    </span>
+    
+    
+    
+    
+    
+    
+    
+    
+    <a class="badge badge-category" href="/category/rust">RUST</a>
+    
+    
+    
+    
+    
+    
+    <br />
+    
+</div>
+
+  </header>
+  
+  
+  <div class="post">
+    <div style="text-align: -webkit-center;">
+<img src="/images/rust-feature-flag.png" alt="Rust feature flag" />
+</div>
+
+<p>I was checking out the <a href="https://openobserve.ai/">OpenObserve</a> — an open-source observability tool which you can self-host or use their cloud offering which offers free, standard and enterprise tier to choose from.</p>
+
+<p>Written completely in rust so I thought of checking the codebase on <a href="https://github.com/openobserve/openobserve">Github</a> to get myself more aquatinted with rust language. While doing so I found a <code>#[cfg(feature = &quot;enterprise&quot;)]</code> being used in many places.</p>
+
+<p>Looking at it, one can tell that any function or block decorated with this attribute is conditional, available only if the feature is enabled. But does this happen at compile time or runtime? If it’s compile time, the code will be compiled into the binary solely when the feature is turned on.</p>
+
+<p>To test this and to gain more understanding on this, I created a rust application where I added <code>features</code> section in the <code>cargo.toml</code> file and added two features <code>opensource</code> and <code>enterprise</code> Kind of similar to the offering of OpenObserve. Here is my final <code>cargo.toml</code> file.</p>
+
+<pre class="brush:text">
+[package]
+name = "cfgfeature"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+community = []
+enterprise = []
+</pre>
+
+<p>I updated my main.rs to this. I kept the <code>hello world</code> in the end.</p>
+
+<pre class="brush:c">
+fn main() {
+   #[cfg(feature = "enterprise")]
+   enterprise_feature();
+
+   println!("Welcome to the app!");
+}
+
+#[cfg(feature = "enterprise")]
+fn enterprise_feature() {
+    println!("Enterprise feature activated!");
+}
+</pre>
+
+<p>If I use just the <code>cargo run</code> command without specifying the <code>--features</code> flag, you will see the output <code>Welcome to the app</code>! which is expected. But the other function call like <code>enterprise_feature</code> was not even considered for execution. This is because of the <code>#cfg[(feature)]</code> attribute in Rust which is used to conditionally compile code only when the <code>enterprise</code> feature is enabled in the crate and passed as a parameter with the <code>--features</code> flag while building or running the program.</p>
+
+<p>To make a binary which has the <code>enterprise</code> feature enabled, I can re-run the same command but this time, I will use <code>--features</code> flag.</p>
+
+<pre class="brush:shell">
+$ cargo run --features enterprise
+</pre>
+
+<p>Now you we can see the output from our <code>enterprise_feature</code> function as well.</p>
+
+<pre class="brush:c">
+$ cargo run --features enterprise
+   Compiling cfgfeature v0.1.0 (F:\Code\rust\cfgfeature)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s
+     Running `target\debug\cfgfeature.exe`
+Enterprise feature activated!
+Welcome to the app!
+</pre>
+
+<p>When the <code>enterprise</code> feature is <strong>not enabled</strong>, any code marked with <code>#[cfg(feature = &quot;enterprise&quot;)]</code> is <strong>completely excluded</strong> from compilation. That means:</p>
+
+<ul>
+<li>The <code>enterprise_feature</code> function won’t be compiled.</li>
+<li>It won’t exist in the final binary.</li>
+<li>It won’t consume any space or resources.</li>
+<li>You can’t call it unless the feature is enabled — doing so would result in a compile-time error.</li>
+</ul>
+
+<p>This is one of Rust’s powerful mechanisms for <strong>feature gating</strong>, allowing you to build modular, efficient binaries tailored to specific use cases or environments.</p>
+
+<p>Let’s modify the above code a bit and look at some other ways of using this. Notice how I am marking a <code>println!</code> macro with <code>#[cfg(not(feature = &quot;enterprise&quot;))]</code> This will print the line<code>Enterprise features are not enabled</code> if I do not compile the code with <code>--features enterprise</code> flag. This line will not be printed if you pass the <code>--features enterprise</code> flag.</p>
+
+<pre class="brush:c">
+fn main() {
+    println!("Welcome to the app!");
+
+    #[cfg(feature = "enterprise")]
+    enterprise_feature();
+
+    #[cfg(not(feature = "enterprise"))]
+    println!("Enterprise features are not enabled.");
+}
+
+#[cfg(feature = "enterprise")]
+fn enterprise_feature() {
+    println!("Enterprise feature is enabled!");
+}
+</pre>
+
+<p>Running the above program with <code>cargo run</code> results in this output —</p>
+
+<pre class="brush:shell">
+$ cargo run
+   Compiling cfgfeature v0.1.0 (F:\Code\rust\cfgfeature)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.34s
+     Running `target\debug\cfgfeature.exe`
+Welcome to the app!
+Enterprise features are not enabled.
+</pre>
+
+<p>Here is a final example I would like to share. Consider the below code where I have two features <code>enterprise</code> and <code>community</code> and two functions <code>enterprise_feature</code> and <code>community_feature</code> marked with them respectively. But the main eye-catcher in code below are 3 different <code>main</code> functions.</p>
+
+<pre class="brush:c">
+#[cfg(feature = "enterprise")]
+fn enterprise_feature() {
+    println!("Enterprise feature activated!");
+}
+
+#[cfg(feature = "community")]
+fn community_feature() {
+    println!("Community feature activated!");
+}
+
+#[cfg(feature = "enterprise")]
+fn main() {
+    enterprise_feature();
+}
+
+#[cfg(feature = "community")]
+fn main() {
+    community_feature();
+}
+
+#[cfg(not(any(feature = "enterprise", feature = "community")))]
+fn main() {
+    println!("Not using enterprise or community feature.");
+}
+</pre>
+
+<p>This code uses conditional compilation to define different <code>main</code> functions based on enabled feature flags:</p>
+
+<ul>
+<li>If the <code>enterprise</code> feature is enabled, the main function calls <code>enterprise_feature()</code>.</li>
+<li>If the <code>community</code> feature is enabled, the main function calls <code>community_feature()</code>.</li>
+<li>If neither <code>enterprise</code> nor <code>community</code> features are enabled—i.e., the program is built without the <code>--features</code> flag—the fallback <code>main</code> function runs, printing a default message.</li>
+</ul>
+
+<p>Here is the output of the above program if I try to run it without any feature flag —</p>
+
+<pre class="brush:shell">
+$ cargo run
+   Compiling cfgfeature v0.1.0 (F:\Code\rust\cfgfeature)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.54s
+     Running `target\debug\cfgfeature.exe`
+Not using enterprise or community feature.
+</pre>
+
+<p>Output of the above program when I run it using the <code>--features enterprise</code> flag —</p>
+
+<pre class="brush:shell">
+$ cargo run --features enterprise
+   Compiling cfgfeature v0.1.0 (F:\Code\rust\cfgfeature)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.35s
+     Running `target\debug\cfgfeature.exe`
+Enterprise feature activated!
+</pre>
+
+<p>Here are other logical combinations that you can use —</p>
+
+<ul>
+<li>Only if <code>enterprise</code> is enabled — <code>#[cfg(feature = &quot;enterprise&quot;)]</code></li>
+<li>Only if both <code>enterprise</code> and <code>community</code> are enabled — <code>#[cfg(all(feature = &quot;enterprise&quot;, feature = &quot;community&quot;))]</code></li>
+<li>Only if exactly one of them is enabled — <code>#[cfg(any(feature = &quot;enterprise&quot;, feature = &quot;community&quot;))]</code></li>
+<li>Only if neither is enabled — <code>#[cfg(not(any(feature = &quot;enterprise&quot;, feature = &quot;community&quot;)))]</code></li>
+</ul>
+
+<p>You can also use this with <code>modules</code> and <code>crates</code> to conditionally compile them based on feature flags. Here is an example.</p>
+
+<pre class="brush:c">
+#[cfg(not(feature = "enterprise"))]
+pub mod basic_features;
+
+#[cfg(feature = "enterprise")]
+pub mod enterprise_features;
+</pre>
+
+<p>This ensures that only one of the modules is compiled depending on the feature flag. You can also use it inside the module itself to conditionally compile functions or structs.</p>
+
+<blockquote>
+<p>You can conditionally include dependencies based on features.</p>
+</blockquote>
+
+  </div>
+  <div style="text-align:center; margin-top:10px">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-5924643983709476",
+        enable_page_level_ads: true
+      });
+    </script>
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/post/chatting-with-ollama-building-a-local-llm-web-app-in-minutes/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Chatting with Ollama: Building a Local LLM Web App in Minutes</span>
+    </a>
+    
+    
+</div>
+
+
+  
+
+  
+    
+        
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+
+    (function () {
+    if (location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === "") {
+      return;
+    }
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    var disqus_shortname = 'localblog-3';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || 
+      document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+<noscript>
+  Please enable JavaScript to view the
+  <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by
+  <span class="logo-disqus">Disqus</span>
+</a>
+
+    
+
+
+</article>
+ 
+
+
+
+
+        </div>
+        
+    
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-QYXJT2TJCG', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"
+  integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
+  crossorigin="anonymous">
+</script>
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shCore.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/styles/shThemeDefault.min.css"
+  rel="stylesheet"
+/>
+
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shCore.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCSharp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCss.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushJScript.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPlain.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushSql.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushXml.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPowerShell.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushPython.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushBash.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushCpp.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/SyntaxHighlighter/3.0.83/scripts/shBrushRuby.min.js"
+></script>
+
+<script>
+  SyntaxHighlighter.defaults["gutter"] = true;
+  SyntaxHighlighter.defaults["smart-tabs"] = true;
+  SyntaxHighlighter.defaults["auto-links"] = true;
+  SyntaxHighlighter.defaults["collapse"] = false;
+  SyntaxHighlighter.defaults["light"] = false;
+  SyntaxHighlighter.defaults["tab-size"] = 4;
+  SyntaxHighlighter.defaults["toolbar"] = false;
+  SyntaxHighlighter.defaults["wrap-lines"] = true;
+  SyntaxHighlighter.all();
+</script>
+
+
+
+    
+
+
+
+    </body>
+</html>

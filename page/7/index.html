@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2014-06-15T07:39:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2015-06-07T08:07:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,104 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/how-generic-the-code-can-be-resolving-type-t-at-compile-time/">How Generic The Code Can Be - Resolving Type T at Compile Time</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 7, 2015
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>It is fun working with Generics, but sometimes it just won&rsquo;t work as I intended it to work. While working on a personal project, I was trying to write the code as generic as possible so I can re-use the functions or extension methods in my other projects as well. But it is not always the case, things will not always work as you want it to be. Here is the case of what I was trying to do.</p>
+
+<p>I am working extensively on JSON in this project, so I thought of creating an extension method for the classes I want to serialize to JSON and save it to the file system. Creating the extension method was not a problem, but it turned out to my surprise that I just can’t use the extension method on type T. If I would have paid attention to the detail here before writing the function, I would have noticed the problem. Before I tell you what I did here, here is the extension method which will serialize class to JSON string.</p>
+
+<pre class="brush: csharp">
+public static string ToJSON&lt;T&gt;(this T Entity) where T : class
+{
+    return JsonConvert.SerializeObject(Entity);
+}
+</pre>
+
+<p>As I want only classes to be serialize, I have a constraint in place that assure me that this extension method should be used when the T is of type Class. I agree with the fact the creating an extension method just for a simple work is an over kill but I am just lazy about writing this line again and again. The application I am working on can support multiple databases and for that I am using Dependency Injection (DI). I wrote this function keeping in mind that I just have to pass the model name i.e. class object and this function will then save the JSON string from the serialized class to the file system.</p>
+
+<pre class="brush: csharp">
+public bool Save&lt;T&gt;(T Entity, string Path) where T : class
+{
+    bool IsSaved = false;
+    try
+    {
+        if (!Path.IsNullOrEmpty())
+        {
+            File.AppendAllText(Path, Entity.ToJSON());
+            IsSaved = true;
+        }
+        return IsSaved;
+    }
+    catch (Exception x)
+    {
+        throw x;
+    }
+}
+</pre>
+
+<p>The above code will not compile. This is because, there is no way for the compiler to know the type of <code>Entity</code> object we are passing. The constraints has nothing to do with it. It is just the compiler who has to know what kind of type it is dealing with. In this case we have a type T which is not resolved at compile time and hence the <code>ToJSON()</code> extension method I am using above, is an assumption from my part that <code>Entity</code> is a class, is not going to work. The important point here is that T is going to resolve at runtime and before that if we try to use the extension method (meant only for class) on type T, the intellisense will never show the <code>ToJSON()</code> extension method in the list.</p>
+
+<p>Now to overcome this problem, we have to make some changes to the above code in order to have the information which the compiler can use and allow us to make use of the ToJSON()extension method. As there is a constraint in place for this function which will only allow us to pass class object as a first parameter, but the case is still the same. The <code>Save</code> function will never know what is the actual type of the <code>Entity</code>. Therefore we can use the Entity object and get the name of the Class like so.</p>
+
+<pre class="brush: csharp">
+string className = Entity.GetType().Name;
+</pre>
+
+<p>This gives us the name of the class and now we can use it to get the actual type of T and convert it to that type (which will be class). Once we have a class we can then use our ToJSON() extension method. Here is the updated code.</p>
+
+<pre class="brush: csharp">
+public bool Save&lt;T&gt;(T Entity, string Path) where T : class
+{
+    bool IsSaved = false;
+    try
+    {
+        if (!Path.IsNullOrEmpty())
+        {
+            if (Entity.GetType().Name == "Board")
+                File.AppendAllText(Path, Convert.ChangeType(Entity, typeof(Board)).ToJSON());
+            else if (Entity.GetType().Name == "Story")
+                File.AppendAllText(Path, Convert.ChangeType(Entity, typeof(Story)).ToJSON());
+ 
+            IsSaved = true;
+        }
+        return IsSaved;
+    }
+    catch (Exception x)
+    {
+        throw x;
+    }
+}
+</pre>
+
+<p>This code will compile and saves the JSON string to the specified path on execution. Notice the <code>Convert.ChangeType</code> function. It’s simple function which you can use to convert one type to your desired type. The only drawback here will be that you have to come here and update the function whenever you have a type of class added in the project which you want to serialize to JSON. The code is still pretty sleek according to me for the type of task I am trying to accomplish.</p>
+
+<p>The type T is very useful, but sometimes it may not solve all your problem.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -911,36 +1009,6 @@ return View();
 <ul>
 <li><a href="https://github.com/robconery/biggy">Biggy - Github</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/new-blogging-engine/">New Blogging Engine!</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Apr 3, 2014
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
-      
-      
-      
-      
-    </span>
-    <p>I like <a href="http://wordpress.org/">Wordpress</a> but not as much as I like <a href="http://www.dotnetblogengine.net/">BlogEngine.NET</a>. I have to move to Wordpress because of a very serious issue in BlogEngine.NET. I am on a shared hosting and they are very peculiar about the memory/CPU usage of a site. So, The problem I faced was that if I use SQL Server CE as your data store than it will increase the disk usage time which in turn shuts down my site application pool and cause 503 service unavailable error. This was very annoying and to keep up my blog up and running I have to suddenly switch to Wordpress before I can figure out the exact cause of this problem.</p>
-
-<p>I still have no issue with Wordpress, but I can&rsquo;t enhance it the way I can do it with BlogEngine.NET because it&rsquo;s in PHP. I decided to switch to BlogEngine once but then I thought it would be good to write a simple blog engine from scratch. So I fired up Visual Studio and start a new MVC web project. I worked on previous versions of MVC and I was aware of things which can be done more quickly than the traditional way. Writing a blog engine from scratch was a great way of learning a new technology. I am very much familiar with MVC so I opted to try some new stuff this time.</p>
-
-<p>There is a lot of work pending but user facing part of my blog is completely ready by the end of this week or may be earlier than that. I want to thank <a href="http://odetocode.com/">K. Scott Allen</a> for his valuable tips for creating a custom blog engine.</p>
 
   </div>
   

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-12-26T01:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-12-27T16:10:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,102 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-jquery-to-get-your-tweets/">Using jQuery To Get Your Tweets</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 27, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/tweet.png" alt="Twitter bird"/></p>
+
+<p>If you are a blogger and using Twitter, then you must want to show some of your latest tweets on your blog space. I do have a custom widget for my blog which can display 3 of my latest tweets and I can customize it show more of my tweets. But the widgets cannot be used in every scenario and this is why some people find it difficult to use the widget provided by Twitter to display their tweets. What if they want to show their last tweet on the top of the page inside a DIV? A friend of mine set up his new WordPress blog and want to have a DIV on the top of the page which displays his last post and that he can customize. By customize I mean that he can set the number of tweets he wants to display, can show his profile picture and get his last tweet. The script file contains only three methods at this moment. I will add some other functions later on.</p>
+
+<p><strong>How does this work?</strong></p>
+
+<p>It is just a javascript file and there is nothing new about it. What you need to do is to have a DIV or any HTML element or ASP.NET server control with id as <code>'tweet-div'</code>. For this example I am using a DIV to show my tweets. I choose DIV because I can set it position to absolute and set on the image to show my latest tweet on an image I got from <a href="http://www.iconfinder.com/">Iconsinder</a>. It is a pretty twitter imageand there are other images also which you can use, but for non-commercial purpose only. First, take a look at the jQuery script I wrote to do all the stuff:</p>
+
+<pre class="brush:jscript">
+function GetLastTweet(UserName) {
+    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
+    $.getJSON(url, function (tweet) {
+        $("#tweet-div").html(tweet[0].text);
+    });
+}
+ 
+function GetTweets(UserName, NoOfTweets) {
+    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
+    $.getJSON(url, function (tweets) {
+        for (var i = 0; i < NoOfTweets; i++) {
+            $("#tweet-div").append(tweets[i].text + "<br/>");
+        }
+    });
+}
+ 
+function GetProfileImage(UserName) {
+    url = 'http://api.twitter.com/1/statuses/user_timeline/' + UserName + '.json?callback=?';
+    $.getJSON(url, function (image) {
+        $("#ProfileImage").attr('src', image[0].user.profile_image_url);
+    });
+}
+</pre>
+
+<p>To communicate with the Twitter API, I am using JSON. Plan to go for XML only if you are using it on the server side code. As you can see it is pretty easy to work with JSON in jQuery. The methods:</p>
+
+<ul>
+<li><strong>GetLastTweet(UserName)</strong> will get the last tweet of any user. Pass the twitter user name as a parameter.</li>
+<li><strong>GetTweets(UserName, NoOfTweets)</strong> will get the specified number of tweets for the user. the first parameter will be the twitter user name and the second parameter will be the number of tweets you want to display.</li>
+<li><strong>GetProfileImage(UserName)</strong> will get the profle image of the user.</li>
+</ul>
+
+<p>*<strong>Note:</strong> Please change the element <strong>ID</strong> in the script file according to your element id on the page.*</p>
+
+<p>And just in case if you are feeling lazy to write the the HTML markup:</p>
+
+<pre class="brush:html">
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;@prashantmx on Twitter!&lt;/title&gt;
+    &lt;script src="Scripts/jquery-1.4.1.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="Scripts/Tweet.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;link href="style/style.css" rel="stylesheet" type="text/css" /&gt;
+&lt;/head&gt;
+&lt;body onload="GetLastTweet('prashantmx');"&gt;
+&lt;img src="images/1293447412_bird_sign.png" alt="twitterbird" /&gt;
+&lt;div id ="tweet-div"&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>I am using an image of twitter bird to show my last tweet. And here is what my last tweet looks like:</p>
+
+<p>If you want to use the below image or other images like this then go to Iconfinder. There is a good collection of twitter birds images as shown below and choose which best suites your requirement.</p>
+
+<p><img src="/images/tweet-display.png" alt="Tweet displayed on page" /></p>
+
+<p><strong>Download: <a href="/files/Twitter.zip">Twitter.zip (159.92 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -466,162 +562,6 @@ RemoveMenu(hMenu, menuItemCount - 1, MF_BYPOSITION);
 <li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-java">Crystal Reports for Eclipse</a></li>
 <li><a href="http://www.sdn.sap.com/irj/boc/crystalreports-dotnet?rid=/webcontent/uuid/b0875577-f476-2b10-de9b-a8759527e1c3">.NET Articles</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/a-time-wrapper-class-in-c/">A Time Wrapper Class in C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Nov 30, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/code-snippets">CODE SNIPPETS</a>
-      
-      
-      
-      
-    </span>
-    <p>I was just surfing the net in search for some fundoo tutorial on WPF and by chance (I don&rsquo;t meant to visit that site), I get this class which I feel is pretty helpful. A simple wrapper class to conver time. the class allows you to convert:</p>
-
-<ol>
-<li>To Days</li>
-<li>To Hours</li>
-<li>To Minutes</li>
-<li>To Seconds</li>
-<li>To MilliSeconds</li>
-</ol>
-
-<p>This can be pretty usefull. The class is as follows:</p>
-
-<pre class="brush:csharp">
-using System;
- 
-public static class TimeSpanUtil
-{
-    #region To days
-    public static double ConvertMillisecondsToDays(double milliseconds)
-    {
-        return TimeSpan.FromMilliseconds(milliseconds).TotalDays;
-    }
- 
-    public static double ConvertSecondsToDays(double seconds)
-    {
-        return TimeSpan.FromSeconds(seconds).TotalDays;
-    }
- 
-    public static double ConvertMinutesToDays(double minutes)
-    {
-        return TimeSpan.FromMinutes(minutes).TotalDays;
-    }
- 
-    public static double ConvertHoursToDays(double hours)
-    {
-        return TimeSpan.FromHours(hours).TotalDays;
-    }
-    #endregion
- 
-    #region To hours
-    public static double ConvertMillisecondsToHours(double milliseconds)
-    {
-        return TimeSpan.FromMilliseconds(milliseconds).TotalHours;
-    }
- 
-    public static double ConvertSecondsToHours(double seconds)
-    {
-        return TimeSpan.FromSeconds(seconds).TotalHours;
-    }
- 
-    public static double ConvertMinutesToHours(double minutes)
-    {
-        return TimeSpan.FromMinutes(minutes).TotalHours;
-    }
- 
-    public static double ConvertDaysToHours(double days)
-    {
-        return TimeSpan.FromHours(days).TotalHours;
-    }
-    #endregion
- 
-    #region To minutes
-    public static double ConvertMillisecondsToMinutes(double milliseconds)
-    {
-        return TimeSpan.FromMilliseconds(milliseconds).TotalMinutes;
-    }
- 
-    public static double ConvertSecondsToMinutes(double seconds)
-    {
-        return TimeSpan.FromSeconds(seconds).TotalMinutes;
-    }
- 
-    public static double ConvertHoursToMinutes(double hours)
-    {
-        return TimeSpan.FromHours(hours).TotalMinutes;
-    }
- 
-    public static double ConvertDaysToMinutes(double days)
-    {
-        return TimeSpan.FromDays(days).TotalMinutes;
-    }
-    #endregion
- 
-    #region To seconds
-    public static double ConvertMillisecondsToSeconds(double milliseconds)
-    {
-        return TimeSpan.FromMilliseconds(milliseconds).TotalSeconds;
-    }
- 
-    public static double ConvertMinutesToSeconds(double minutes)
-    {
-        return TimeSpan.FromMinutes(minutes).TotalSeconds;
-    }
- 
-    public static double ConvertHoursToSeconds(double hours)
-    {
-        return TimeSpan.FromHours(hours).TotalSeconds;
-    }
- 
-    public static double ConvertDaysToSeconds(double days)
-    {
-        return TimeSpan.FromDays(days).TotalSeconds;
-    }
-    #endregion
- 
-    #region To milliseconds
-    public static double ConvertSecondsToMilliseconds(double seconds)
-    {
-        return TimeSpan.FromSeconds(seconds).TotalMilliseconds;
-    }
- 
-    public static double ConvertMinutesToMilliseconds(double minutes)
-    {
-        return TimeSpan.FromMinutes(minutes).TotalMilliseconds;
-    }
- 
-    public static double ConvertHoursToMilliseconds(double hours)
-    {
-        return TimeSpan.FromHours(hours).TotalMilliseconds;
-    }
- 
-    public static double ConvertDaysToMilliseconds(double days)
-    {
-        return TimeSpan.FromDays(days).TotalMilliseconds;
-    }
-    #endregion
-}
-</pre>
 
   </div>
   

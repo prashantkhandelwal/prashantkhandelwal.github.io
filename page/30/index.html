@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-11-08T20:31:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-11-11T19:44:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,139 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/word-automation-in-c/">Word Automation in C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 11, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      
+      
+      
+      
+    </span>
+    <p>Here in this tutorial I have used a word document template and mail merge option of the Word to automate the word document creation.</p>
+
+<p>I have use mail merge option to set the fields and make the document fill through my application. We can also set the location of the text that we want to display in the word document programmatically.</p>
+
+<p>So to get started we have to first make a template which is a word document template file (.dot file).</p>
+
+<p>Open a new word document. Design the template as you like and once you are done then save the document in a word 97-2009 template.</p>
+
+<p><img src="/images/word-dot-file.jpg" alt="Saving word template file" /></p>
+
+<p>Once the document is designed, it’s now time to set the merge fields. To set the mail merge fields in word 2007, navigate to <code>Insert&gt;Quick Parts&gt;Fields</code>.</p>
+
+<p><img src="/images/word-options.jpg" alt="Word field option" /></p>
+
+<p>Select <code>Merge Field</code> from the <code>Field names:</code> and give a <code>Field Name:</code> a name which we will need in our code.</p>
+
+<p><img src="/images/word-merge-option.jpg" alt="Word merge option" /></p>
+
+<p>Likewise, we need to set all the fields in the document and in the end the document looks like this:</p>
+
+<p><img src="/images/word-template.jpg" alt="Word template file" /></p>
+
+<p>Create a new windows application in Visual Studio.</p>
+
+<p>Design application so that you have all the text fields. I have created small and very simple interface to demonstrate this automation.</p>
+
+<p><img src="/images/word-win-app.jpg" alt="Application for word mail merge" /></p>
+
+<p>As we are performing office automation we first need to add requisite libraries. Library name can be different as it depends on the office version installed on your machine. To add reference in your application, right-click <code>References</code> in solution explorer.</p>
+
+<p><img src="/images/word-lib-reference.jpg" alt="Adding application reference" /></p>
+
+<p>You will be prompted with <code>Add Reference</code> box.</p>
+
+<p><img src="/images/word-assembly-reference.jpg" alt="Word assembly reference" /></p>
+
+<p>Here under .NET tab choose Microsoft.Office.Interop.Word. You need to check the version as office 2003 and office 2007 will get different version installed on the system. Select the appropriate version and click OK.</p>
+
+<p>When you add the reference, you will see the following reference added under reference which you can see under solution explorer.</p>
+
+<p><img src="/images/word-sol-explorer.jpg" alt="Solution explorer with dependencies" /></p>
+
+<p>To get the word document reference in the code we need to use the below references (namespaces).</p>
+
+<pre class="brush:csharp">
+using Microsoft.Office;
+using Word = Microsoft.Office.Interop.Word;
+</pre>
+
+<p>Initialize the word application with word document</p>
+
+<pre class="brush:csharp">
+Object oMissing = System.Reflection.Missing.Value;
+Object oTrue = true;
+Object oFalse = false;
+Word.Application oWord = new Word.Application();
+Word.Document oWordDoc = new Word.Document();
+</pre>
+
+<p>To make sure that the application preview the word document, set the Visible property to true of word application.</p>
+
+<pre class="brush:csharp">
+oWord.Visible = true;
+</pre>
+
+<p>Set the template path This is the same word template file which you have created.</p>
+
+<pre class="brush:csharp">
+Object oTemplatePath = System.Windows.Forms.Application.StartupPath+"\\Report.dot";
+</pre>
+
+<p>Then pass the template object path to the word document object.</p>
+
+<pre class="brush:csharp">
+oWordDoc = oWord.Documents.Add(ref oTemplatePath, ref oMissing, ref oMissing, ref oMissing);
+</pre>
+
+<p>Now count all merge fields in the document so we can have the field name through which we can access their location in the document. We are not, in actual accessing the location but want their reference so we can set their text and auto fill the document. I have used foreach loop to traverse all the merge fields.</p>
+
+<pre class="brush:csharp">
+foreach (Word.Field myMergeField in oWordDoc.Fields)
+{
+    iTotalFields++;
+    Word.Range rngFieldCode = myMergeField.Code; 
+    String fieldText = rngFieldCode.Text;
+     
+    if (fieldText.StartsWith(" MERGEFIELD"))
+    {
+        Int32 endMerge = fieldText.IndexOf("\\");
+        Int32 fieldNameLength = fieldText.Length - endMerge;
+        String fieldName = fieldText.Substring(11, endMerge - 11);
+        fieldName = fieldName.Trim(); 
+        if (fieldName == "Name")
+        {
+            myMergeField.Select(); 
+            oWord.Selection.TypeText(txt_name.Text);
+        }
+        }
+}
+</pre>
+
+<p>One thing that you should notice that the merge field starts with MERGEFIELD <Mergefield name> for e.g.: in our case all the fields are like this <code>MERGEFIELD\\NAME</code>, <code>MERGEFIELD\\ADDRESS</code>, and likewise for every mergefield. And in the end a simple if condition which check the name of the field and update the field text.</p>
+
+<p>Execute you application and fill in all the text boxes in the application and hit Generate button, after which you will see the document completed.</p>
+
+<p><img src="/images/word-app-demo.jpg" alt="Word app demo" /></p>
+
+<p><strong>Download: <a href="/files/WordDemo.zip">WordDemo.zip (51.65 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -441,121 +574,6 @@ ReportDocument crReportDocument = new ReportDocument();
 crReportDocument.Load("C:\\report.rpt");
 crReportDocument.SetParameterValue("id", 115);
 crReportDocument.SetDatabaseLogon("sa", "pass#word1", "MX", "AdventureWorks"); crystalReportViewer1.ReportSource = crReportDocument;
-</pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/requesting-deliveryread-receipt-from-c-using-mailmessage-class/">Requesting delivery/read receipt from C# using MailMessage class</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Oct 16, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>Sending e-mail through code is easy, but how do we get to know that an e-mail that we send is delivered and read by the intended recipient. When we send e-mail through code we can request a delivery notification and read receipt from the receiver, similar to the way we do in outlook. But the problem is not every mail server supports this kind of request from the code. We set a mail header while sending mail from code which is then processed by the mail server and the sender of the mail gets the intended response. I have test the below code with Microsoft Exchange Server and it works perfectly fine. So let’s see what the code has:</p>
-
-<p>First we need the namespace to use MailMessage class.</p>
-
-<pre class="brush:csharp">
-using System.Net;
-using System.Net.Mail;
-</pre>
-
-<p>Initialize MailMessage class and set To, From, Subject and Body parameters</p>
-
-<pre class="brush:csharp">
-//create the mail message
-MailMessage mail = new MailMessage();
-//set the addresses
-mail.From = new MailAddress("prashantmx@xyz.com"); mail.To.Add("ankur@abc.com"); //set the content mail.Subject = "This is an email"; mail.Body = "this is the body content of the email.";
-</pre>
-
-<p>Now we have to set the Header property of the mail message class to request read/delivery recipt. As usual I first want to get notified for the e-mail I have sent has been delivered or not and then I want to get notified when my e-mail has been read by the recipient. Here I have also commented the deprecated method which is used in the previous version of .NET framework.</p>
-
-<pre class="brush:csharp">
-//This method has been deprecated.
-//mail.Headers.Add("Return-Receipt-To", "prashantmx@xyz.com");
-//Use this if you need a delivery notification of an email. DeliveryNotificationOption is an //umeration and can be used to set the delivery notification on the following options:
-//1. Delay
-//2. Never
-//3. None
-//4. OnFailure
-//5. OnSuccess
-/You can use also use OnFailure enum with OnSuccess enum. If in case the e-mail fails to 
-//delivered you'll get notification for both the cases
-mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnSuccess;
-//Add "Disposition-Notification-To" for Read receipt
-mail.Headers.Add("Disposition-Notification-To", "");
-</pre>
-
-<p>When you set the headers for requesting delivery and read receipt, set the mail server and login credentials for the domain or for the e-mail service you use and then in the end call the Send method to send the e-mail.</p>
-
-<pre class="brush:csharp">
-//Set the SMTP server. You can also set the hostname instead of IP Address
-SmtpClient smtp = new SmtpClient("192.168.1.5"); 
-//Set the user network/domain credentials
-NetworkCredential netCredit = new NetworkCredential("prashant@xyz.com", "pass#word1", "DOMAIN_NAME");
-//Get SMTP to authenticate the credentials
-smtp.Credentials = netCredit;
-//Send the e-mail
-smtp.Send(mail);
-</pre>
-
-<p>As I mentioned earlier also I have tested the above code with Exchange server only and it works perfectly. Here is the complete listing of the code :</p>
-
-<pre class="brush:csharp">
-static void ReadReceipts()
-{
- //create the mail message
- MailMessage mail = new MailMessage();
- //set the addresses
- mail.From = new MailAddress("prashantmx@xyz.com");
- mail.To.Add("ankur@abc.com");
- //set the content
- mail.Subject = "This is an email";
- mail.Body = "this is the body content of the email.";
- //This method has been deprecated.
- //mail.Headers.Add("Return-Receipt-To", "prashantmx@xyz.com"); 
- //Use this if you need an delivery notification of an email.             //DeliveryNotificationOption is an enumeration
- //and can be used to set the delivery notification on the following options:
- //1. Delay
- //2. Never
- //3. None
- //4. OnFailure
- //5. OnSuccess
- //You can use also use OnFailure enum with OnSuccess enum. If in case the e-mail
- //fails to delivered you'll get notification for both the cases
- mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnSuccess;
- //Add "Disposition-Notification-To" for Read receipt
- mail.Headers.Add("Disposition-Notification-To", "");
-  
- //Set the SMTP server. You can also set the hostname instead of IP Address
- SmtpClient smtp = new SmtpClient("192.168.1.5"); 
- //Set the user network/domain credentials
- NetworkCredential netCredit =             new NetworkCredential("prashant@xyz.com", "pass#word1", "DOMAIN_NAME");
-         //Get SMTP to authenticate the credentials
- smtp.Credentials = netCredit;
- //Send the e-mail
- smtp.Send(mail);
-}
 </pre>
 
   </div>
