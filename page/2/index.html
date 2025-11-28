@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2023-05-04T11:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2023-06-02T23:34:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,172 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/geo-distributed-load-testing-via-k6-and-azure-container-instance/">Geo-Distributed Load Testing via K6 and Azure Container Instances</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 2, 2023
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/containers">CONTAINERS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/k6">K6</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/testing">TESTING</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>My team at Microsoft is responsible for building tools that enhance customer experience when you contact Microsoft support. Although our tools are never used by customers directly but they play an essential role in improving the experience and overall cost reductions. This means that our work is critical for the overall success and it should perform under variance of load, especially on holidays.</p>
+
+<h3 id="problem-statement"><strong>Problem Statement</strong></h3>
+
+<p>Team wants to test their application from different geographies and mark the metrics used.</p>
+
+<p>I am not the primary team member leading the load testing project but it interests me a lot on how the other team is going to achieve this. Although they have a different plan to get this done, I came up with my own simple but useful way of getting these tests done via Azure Container Instances.</p>
+
+<p>To accomplish this, I plan to use <a href="https://k6.io/">K6</a> load testing tool which is built specifically for engineering teams and by well-known <a href="https://grafana.com/">Grafana Labs.</a> I need to setup Azure Container Instances with K6 image and configure it with Azure File Share which acts as a volume mount.</p>
+
+<h3 id="setting-up-resources-in-azure"><strong>Setting up resources in Azure</strong></h3>
+
+<p>I will start up by setting a <code>Resource Group</code> in Azure and I will name it <code>cannon</code>. You can name it anything you want.</p>
+
+<blockquote>
+<p>I am using Azure CLI aka AZ CLI. If you have not setup AZ CLI for Azure, then I strongly suggest you do so. If you still choose not to use this, then you can still use Azure Portal, Terraform etc. to create these resources.</p>
+</blockquote>
+
+<h3 id="create-a-new-resource-group"><strong>Create a new Resource Group</strong></h3>
+
+<pre class="brush:bash">
+$ az group ceate --name cannon --location eastus
+</pre>
+
+<h3 id="create-a-new-azure-storage-account"><strong>Create a new Azure Storage Account</strong></h3>
+
+<p>I need an Azure Storage account because File Share service is a part of Azure Storage.</p>
+
+<p>The below command will create a new Azure Storage account inside the resource group cannon with <code>Performance</code> tier as <code>Standard</code> and <code>Redundancy</code> as <code>Locally-redundant storage</code>. You can change these values as per your need.</p>
+
+<pre class="brush:bash">
+$ az storage account create --name geoloadteststore \
+ --resource-group cannon \
+ --location eastus \
+ --sku Standard_LRS
+ </pre>
+
+<h3 id="create-a-new-file-share"><strong>Create a new File Share</strong></h3>
+
+<p>The below command will create a new file share which I will use as a volume mount for my Azure Container Instance.</p>
+
+<pre class="brush:bash">
+az storage share create \
+--account-name geoloadteststore \
+--name loadtestresults \
+--quota 1
+</pre>
+
+<p>In the above command, <code>account-name</code> and <code>name</code> are mandatory, <code>quota</code> is a non-mandatory parameter, but I have used it to ensure that the share size is not set to default which is <strong>5TB</strong>. Setting <code>quota</code> as 1 will set the size of my share to be <strong>1GB</strong>.</p>
+
+<h3 id="create-and-run-azure-container-instance"><strong>Create and run Azure Container Instance</strong></h3>
+
+<p>When I create a new Azure Container Instance, it will use an image to create a container and run it. This means that I don’t have to run the container explicitly unless there is an error.</p>
+
+<p>Here is an AZ command that will create a new Azure Container Instance and execute the load test using K6.</p>
+
+<pre class="brush:bash">
+az container create -n k6demo \
+--resource-group cannon \
+--location eastus
+--image grafana/k6:latest \
+--azure-file-volume-account-name geoloadteststore \
+--azure-file-volume-account-key RhGutivQKlz5llXx9gPxM/CP/dlXWLw5x6/SHyCl+GtLZeRp9cAYEByYTo3vL2EFAy0Nz0H+n1CV+AStTNGEmA== \
+--azure-file-volume-share-name loadtestresults \
+--azure-file-volume-mount-path /results \
+--command-line "k6 run --duration 10s --vus 5 /results/tests/script_eastus.js --out json=/results/logs/test_results_eastus.json" \
+--restart-policy Never
+</pre>
+
+<p>The above command has lots of details and few parts of it require some good attention. For most of the part, things are simple to understand. The <a href="https://hub.docker.com/r/grafana/k6">image</a> that I am using is provided to us by Grafana from their verified Docker Hub account. I then use the Azure File share information to setup the volume mount.</p>
+
+<p>The important part here is the way the volume mount is used. The <code>--azure-file-volume-mount-path</code> has the value <code>/results</code> which will be a mount path in the container. This means that you <strong>don&rsquo;t have to create a folder</strong> named <strong>results</strong> in the file share. If you take your attention to the next parameter <code>--command-line</code>, you can see that the K6 test script is being read from <code>/result/tests</code> folder and output of the command is stored in <code>/results/logs</code>. If you wish, you can also use a full path of a blob storage or even an S3 bucket to read your script file.</p>
+
+<p>Navigate to the file share in Azure Portal and create 2 folders named <code>logs</code> and <code>tests</code>.</p>
+
+<p><img src="/images/logsntestfolders.png" alt="logs and test folder" /></p>
+
+<p>Inside the tests folder, add a K6 script file you have created. I have created multiple script files for different locations.</p>
+
+<p><img src="/images/test-folder-content.png" alt="Contents of the tests folder" /></p>
+
+<p>For this example, I am using a demo script with some changes to it. Note the change in the name of the summary file. It contains the location name for easy identification of logs.</p>
+
+<pre class="brush:js">
+import http from "k6/http";
+import { sleep } from "k6";
+
+export default function () {
+  http.get("https://test.k6.io");
+  sleep(1);
+}
+
+export function handleSummary(data) {
+  return {
+    "/results/logs/summary_eastus.json": JSON.stringify(data), //the default data object
+  };
+}
+</pre>
+
+<p>As per K6 documentation, I have added an additional function named <code>handleSummary</code>. This function will generate the summary for the entire test and save it in the JSON format which later I can use for visualization. This is the same output you will see when you run the K6 on your console. The other file which is referenced in the command above called <code>test_results_eastus.json</code> will have details about every test run.</p>
+
+<p>I execute the <code>az container create</code> command three times for 3 different regions.</p>
+
+<p><img src="/images/container-instances-for-testing.png" alt="Container instances for testing" /></p>
+
+<p>I have 3 Azure Container Instances which ran by K6 load test for 3 different locations. You can also see the location for each Azure Container Instance in the above screenshot. After the load test is finished, I can now view my JSON logs in the file share.</p>
+
+<p><img src="/images/load-testing-results.png" alt="Load testing results" /></p>
+
+<p>This way I can run the load test on my web apps or services hosted from anywhere or at least from all the Azure regions.</p>
+
+<h3 id="improvement-areas"><strong>Improvement Areas</strong></h3>
+
+<p>With the above working as expected, I think there are few things that I can really improve on.</p>
+
+<h4 id="automation"><strong>Automation</strong></h4>
+
+<p>The entire work is manual and is error prone. It will be good to automate this entire process with less user intervention when it comes to execution. Writing load tests would be user responsibility though. Going forward, I would like to automate the creation of all these resources using Terraform and then execute the TF scripts automatically. If you want to do this for any of your Terraforms projects, refer my article on <strong><a href="https://medium.com/@prashantkhandelwal/create-azure-resources-programmatically-by-executing-terraform-commands-in-go-ff2182513ee2">medium</a></strong>.</p>
+
+<h4 id="visualization"><strong>Visualization</strong></h4>
+
+<p>After getting the test logs from the File Share, I also want to see what the load test results look like. As of now there is no tool I have to do so. But there are few I found on the GitHub that allow me to visualize the output of K6 load tests. Maybe I would write one or use an open-source, I am not sure about that at the moment.</p>
+
+<p>I hope you enjoyed this article and learn one or more things related to Azure and K6. Here are few more resources that will be helpful.</p>
+
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/container?view=azure-cli-latest">az contianer cli - documentation</a></li>
+<li><a href="https://k6.io/docs/">K6 - Official documentation</a></li>
+<li><a href="https://k6.io/docs/results-output/end-of-test/custom-summary/">handleSummary or Custom Summary with K6</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -1336,125 +1502,6 @@ func main() {
 <ul>
 <li><a href="https://github.com/chromedp/chromedp">Chromedp GitHub Repository</a></li>
 <li><a href="https://github.com/chromedp/examples">Chromedp Examples GitHub Repository</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/marvel-comics-universe-graph-db/">Marvel Comics Universe Graph Database</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jan 3, 2023
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net">.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/database">DATABASE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/graph">GRAPH</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/gremlin">GREMLIN</a>
-      
-      
-      
-      
-    </span>
-    <p>In the past decade Marvel has gathered a lot of fans following which eventually led all the fans to know more about how the Marvel comics universe characters, stories, events are mapped or linked to each other.</p>
-
-<p>In 2017 (if I am remembering it correctly), at Microsoft Build event, Microsoft announces Bot framework and did a demo with CosmosDB graph database which uses Gremlin query from <a href="https://tinkerpop.apache.org/">Apache TinkerPop</a>. It was a great demo, and I was really impressed by how they did it but unfortunately, I was unable to find the source code for that demo anywhere. So, I thought I should at least get the graph database for my own use and then sometime later will work on building a NLU bot.</p>
-
-<p>To get started I will be setting up the database using Apache TinkerPop and not CosmosDB due to cost and development speed. Will make use of <a href="https://github.com/apache/tinkerpop/tree/master/gremlin-dotnet">Gremlin.NET</a> - a wrapper around Gremlin Query Language. Let&rsquo;s <a href="https://tinkerpop.apache.org/download.html">download Apache TinkerPop Gremlin Server and Console</a>. These will be downloaded in .zip file, so extract them into a folder and navigate to the <code>bin</code> directory inside each extracted folder and using the command/shell prompt execute the <code>.bat</code> file if you&rsquo;re on Windows else <code>.sh</code> file if you are on Linux or WSL on Windows.</p>
-
-<p><img src="/images/gremlin-server-start.png" alt="Gremlin Server Start" />
-<img src="/images/gremlin-console-start.png" alt="Gremlin Console Start" /></p>
-
-<p>After both the server and console are running, go to console terminal window and connect to the local TinkerPop server. Note that the console is independent of the server running on the local machine. If you are assuming that it will automatically connect to the running local instance of the server, then you are wrong. Therefore, we have to connect to the local server instance by executing the below command in the Gremlin console.</p>
-
-<pre class="brush: shell">
-gremlin> :remote connect tinkerpop.server conf/remote.yaml session
-</pre>
-
-<p>If you are unable to connect to the local server instance, then it might be a problem with your config file (.yaml) which you can find under <code>conf</code> folder in your <code>console</code> folder. Here are the contents of my <code>remote.yaml</code> file.</p>
-
-<pre class="brush: text">
-hosts: [localhost]
-port: 8182
-serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GraphBinaryMessageSerializerV1, config: { serializeResultToString: true }}
-</pre>
-
-<p>With connection established, now we can import the <code>graphson</code> data in the database. You can also refer to my <a href="https://github.com/prashantkhandelwal/mcugraph">Github repo</a> where I have used the raw data from the web to generate the edges and vertices for all Marvel characters. The <a href="https://syntagmatic.github.io/marvel/data/hero-network.csv">raw data</a> which is in csv format has some repetitive connections. The repo code ensures that there are no duplicate connections. You can also refer to the code if you plan to connect and play with TinkerPop graph database. Running the code and setting up the database will be a bit time-consuming, so I would suggest to download the <code>mcu.json</code> file from the repo and then importing it, which will happen in a few seconds.</p>
-
-<p>The data file which you downloaded from the repo <code>mcu.json</code> should be stored on the Gremlin server current working directory. After you place the file, execute the below command on the Gremlin console.</p>
-
-<pre class="brush: shell">
-gremlin> :> g.io("mcu.json").read().iterate()
-</pre>
-
-<p>The above command will take a few seconds to execute and then it will return you back to the <code>gremlin</code> console. We can now verify the data by executing this command.</p>
-
-<pre class="brush: shell">
-gremlin> :> graph
-</pre>
-
-<p>If all goes well, you should see the output below of the above command.</p>
-
-<p><img src="/images/gremlin-marvel-data-stats.png" alt="Gremlin marvel database stats" /></p>
-
-<p>Let&rsquo;s write some Gremlin queries and find out some information. Go to Gremlin console and test these below queries.</p>
-
-<p>How many people does Cap know?</p>
-
-<pre class="brush: shell">
-gremlin> :> g.V().has("name","CAPTAIN AMERICA").outE("knows").count()
-</pre>
-
-<p>And who are those people?</p>
-
-<pre class="brush: shell">
-gremlin> :> g.V().has("name","CAPTAIN AMERICA").out("knows").values("name")
-</pre>
-
-<p>Characters who have <code>IRON</code> in their name. Note that this is case-sensitive.</p>
-
-<pre class="brush: shell">
-gremlin> :> g.V().has('name', containing('IRON')).values('name')
-</pre>
-
-<p>As this is a graph database, it will be nice if we can visualize the data visually. There are few visualization tools I have used so far and <a href="https://gdotv.com/">GDotV</a> seems to a be popular one.</p>
-
-<p><img src="/images/gremlin-gdotv-explorer.png" alt="GDotV Greamlin Visualization Tool" /></p>
-
-<p>You can also visualize using this simple open-source graph visualization tool called <a href="https://github.com/prabushitha/gremlin-visualizer">gremlin-visualizer</a>. There are other visualization tools as well in case you want to work with some advanced feature sets. I personally make use of the basic console and mix of <code>gdotv</code> <code>gremlin-visualizer</code> as it fits my needs. For example, you will be able to execute this query below and see the visualization in <code>gremlin-visualizer</code> but unable to get this query to execute in <code>gdotv</code> version 1.0.1.</p>
-
-<pre class="brush: shell">
-g.V().has('hero', 'id', "CAPTAIN AMERICA").outE("knows").inV()
-</pre>
-
-<p><img src="/images/gremlin-visualizer-ui.png" alt="Gremlin-Visualizer - Visualization Tool" /></p>
-
-<p><strong>Reference &amp; Resources</strong></p>
-
-<ul>
-<li><a href="https://github.com/prashantkhandelwal/mcugraph/">Github - mcugraph</a></li>
-<li><a href="https://github.com/apache/tinkerpop/tree/master/gremlin-dotnet">Github - Gremlin.NET</a></li>
-<li><a href="https://github.com/prabushitha/gremlin-visualizer">Github - gremlin-visualizer</a></li>
-<li><a href="https://kelvinlawrence.net/book/Gremlin-Graph-Guide.html">Kelvin Lawrence Book - Practical Gremlin</a></li>
-<li><a href="https://tinkerpop.apache.org/docs/current/tutorials/getting-started/">Apache TinkerPop - Getting Started</a></li>
 </ul>
 
   </div>

@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2025-11-27T10:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2025-11-28T08:41:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,178 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/building-a-hidden-website-with-python-and-tor/">Building a Hidden Website with Python and Tor</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Nov 28, 2025
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/python">PYTHON</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/tor">TOR</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    <div style="text-align: -webkit-center;">
+<img src="/images/tor-python.png" alt="Tor Python" />
+</div>
+
+<p>In this post, I will walk through how you can create and host a simple website using Python and serve it as a Tor hidden service — nothing shady, just pure geeky fun.</p>
+
+<p>Let’s begin by installing Tor. If you’re already familiar with the Tor browser, feel free to proceed. But if you’re new to it, you can learn more about the service <a href="https://www.torproject.org/">here</a>.</p>
+
+<p>The Tor browser includes a Tor binary (<code>tor.exe</code>) that can be used to start a service or install it as a Windows service. To locate it, navigate to the folder where Tor is installed. On my system, it&rsquo;s located at: <code>D:\Programs\Tor Browser\Browser\TorBrowser\Tor</code>.</p>
+
+<p>While the initial part of the path may vary depending on your installation location, the rest of the directory structure remains consistent.</p>
+
+<p>Since we’re hosting a website using Python, there’s no need to launch the Tor Browser. Instead, we’ll start Tor as a service using the <code>tor.exe</code> binary. Normally, launching the Tor Browser automatically starts this service in the background, but when running it manually, we need a runtime configuration file (<code>torrc</code>). Below is a sample configuration file with minimal settings—just enough to get the site up and running. For security reasons we would like to have the Tor control port to be password protected . You can generate the password using the <code>tor.exe</code> with this command.</p>
+
+<pre class="bush:shell">
+tor.exe --hash-password Msft#win123
+</pre>
+
+<p>Copy the output of the above command and save it to the <code>torrc</code> file along with other configurations. Here is the final configuration file.</p>
+
+<pre class="brush:shell">
+ControlPort 9151
+SOCKSPort 9050
+HashedControlPassword 16:EA735EE7099CC752600CFC4A4BD2F0CE737BA55864A78711C7672E699C
+</pre>
+
+<p>The port settings mentioned above might differ on your system. If the service fails to start or your web application can’t connect to it, this is likely the cause.</p>
+
+<p>Open command prompt in administrator mode if you are on Windows. Start the tor service by executing the below command.</p>
+
+<pre class="brush:shell">
+tor.exe -f <path to your torrc file>
+</pre>
+
+<p><img src="/images/tor-service-start.png" alt="TOR Service Start" /></p>
+
+<p>If you do not want to get into a hassle of running this command for starting the service again and again, then you can install tor as a service. To do that use the <code>tor.exe</code> with <code>--service install</code> arguments and pass the <code>torrc</code> file path as a argument to <code>-f</code> flag.</p>
+
+<pre class="brush:shell">
+tor.exe --service install -options -f F:\code\torpy\torrc
+</pre>
+
+<p>On Windows, you can place the <code>torrc</code> file at <code>C:\Users\AppData\Roaming\tor</code>, which is the default location used by <code>tor.exe</code>. Once it&rsquo;s in place, you can run the command as shown below.</p>
+
+<pre class="brush:shell">
+tor.exe --service install
+</pre>
+
+<p>If you wish to delete the installed service, use the <code>sc</code> command available on Windows.</p>
+
+<pre class="brush:shell">
+sc delete tor
+</pre>
+
+<p>With the Tor service now running, create a new folder — feel free to name it <code>TorWeb</code> or anything you prefer. Inside this folder, set up a Python virtual environment and install the necessary dependencies to enable communication with the Tor service.</p>
+
+<pre class="brush:shell">
+pip install stem flask
+</pre>
+
+<p>Here is the entire Python code.</p>
+
+<pre class="brush:python">
+from stem.control import Controller
+from flask import Flask, render_template
+
+if __name__ == "__main__":
+
+    app = Flask("TorWeb")
+    port = 5000
+    host = "127.0.0.1"
+    hidden_svc_dir = "e:/web"
+
+    @app.route('/')
+    def index():
+        return render_template('index.html')
+    
+    print('* Getting controller')
+    controller = Controller.from_port(address="127.0.0.1", port=9151)
+    try:
+        controller.authenticate(password="Msft#win123")
+        controller.set_options([
+            ("HiddenServiceDir", hidden_svc_dir),
+            ("HiddenServicePort", "80 %s:%s" % (host, str(port)))
+        ])
+        svc_name = open(hidden_svc_dir + "/hostname", "r").read().strip()
+        print("* Created host: ", svc_name)
+    except Exception as e:
+        print(e)
+    app.run()
+</pre>
+
+<ul>
+<li><code>stem.control</code>: Lets you interact with the Tor process via control port.</li>
+<li><code>flask</code> : Python web framework. You can use some other light-weight framework of your choice.</li>
+<li><code>render_template</code>: Lets you render HTML templates.</li>
+</ul>
+
+<pre class="brush:python">
+controller = Controller.from_port(address="127.0.0.1", port=9151)
+</pre>
+
+<p>Connects to the Tor control port (usually <code>9051</code> or <code>9151</code> depending on your setup).</p>
+
+<pre class="brush:python">
+controller.set_options([
+    ("HiddenServiceDir", hidden_svc_dir),
+    ("HiddenServicePort", "80 127.0.0.1:5000")
+])
+</pre>
+
+<p><img src="/images/hidden-service-directory.png" alt="Hidden Service Directory" /></p>
+
+<p><code>HiddenServiceDir</code> is a path to the directory where Tor will store hidden service data like <code>hostname</code>, <code>private_key</code> etc. This code tells Tor to create a hidden service and store its config in <code>E:\web</code> folder. <code>HiddenServicePort</code> forwards incoming traffic on port <code>80</code> to flask application at <code>127.0.0.1:5000</code>.</p>
+
+<pre class="brush:python">
+svc_name = open(hidden_svc_dir + "/hostname", "r").read().strip()
+print("* Created host: ", svc_name)
+</pre>
+
+<p>This reads the generated <code>.onion</code> address from the <code>hostname</code> file and prints it.</p>
+
+<p>Just to make my first dark web page cool, I asked ChatGPT to render a cool looking HTML page. Copy this HTML page inside a <code>template</code> folder so it can be used with Flask.</p>
+
+<p>Run the app</p>
+
+<p><img src="/images/tor-web-app.png" alt="TOR Web App Start" /></p>
+
+<p>For enhanced security and greater control, it’s advisable to use a dedicated web server configured with recommended best practices.</p>
+
+<p>You will not be able to open the Tor browser on your system as the Tor service is already running and the browser will not be able to connect to the instance which is already running. Although, Tor browser can connect to the existing Tor service but this is not typical and is not recommended to use.</p>
+
+<p>I am using a different machine to view my application using a Tor browser.</p>
+
+<blockquote>
+<p>Note that the loading of the page might be slow as it solely depends on the Tor network connectivity. It can take up to several minutes for the page to load.</p>
+</blockquote>
+
+<p><img src="/images/tor-web-app-running.png" alt="TOR Web App Start" /></p>
+
+<p>The souce code along with the <code>torrc</code> file used above can be found in <a href="https://github.com/prashantkhandelwal/labcode/tree/main/tor-flask-app">this repo path</a>.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -816,172 +988,6 @@ while True:
 <li><a href="https://www.emulatorgames.net/">Emulator Games</a></li>
 <li><a href="https://www.emulatorgames.net/roms/">ROMs for all platform emulators</a></li>
 <li><a href="https://www.emulatorgames.net/emulators/">Other emulators</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/geo-distributed-load-testing-via-k6-and-azure-container-instance/">Geo-Distributed Load Testing via K6 and Azure Container Instances</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 2, 2023
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/containers">CONTAINERS</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/k6">K6</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/testing">TESTING</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>My team at Microsoft is responsible for building tools that enhance customer experience when you contact Microsoft support. Although our tools are never used by customers directly but they play an essential role in improving the experience and overall cost reductions. This means that our work is critical for the overall success and it should perform under variance of load, especially on holidays.</p>
-
-<h3 id="problem-statement"><strong>Problem Statement</strong></h3>
-
-<p>Team wants to test their application from different geographies and mark the metrics used.</p>
-
-<p>I am not the primary team member leading the load testing project but it interests me a lot on how the other team is going to achieve this. Although they have a different plan to get this done, I came up with my own simple but useful way of getting these tests done via Azure Container Instances.</p>
-
-<p>To accomplish this, I plan to use <a href="https://k6.io/">K6</a> load testing tool which is built specifically for engineering teams and by well-known <a href="https://grafana.com/">Grafana Labs.</a> I need to setup Azure Container Instances with K6 image and configure it with Azure File Share which acts as a volume mount.</p>
-
-<h3 id="setting-up-resources-in-azure"><strong>Setting up resources in Azure</strong></h3>
-
-<p>I will start up by setting a <code>Resource Group</code> in Azure and I will name it <code>cannon</code>. You can name it anything you want.</p>
-
-<blockquote>
-<p>I am using Azure CLI aka AZ CLI. If you have not setup AZ CLI for Azure, then I strongly suggest you do so. If you still choose not to use this, then you can still use Azure Portal, Terraform etc. to create these resources.</p>
-</blockquote>
-
-<h3 id="create-a-new-resource-group"><strong>Create a new Resource Group</strong></h3>
-
-<pre class="brush:bash">
-$ az group ceate --name cannon --location eastus
-</pre>
-
-<h3 id="create-a-new-azure-storage-account"><strong>Create a new Azure Storage Account</strong></h3>
-
-<p>I need an Azure Storage account because File Share service is a part of Azure Storage.</p>
-
-<p>The below command will create a new Azure Storage account inside the resource group cannon with <code>Performance</code> tier as <code>Standard</code> and <code>Redundancy</code> as <code>Locally-redundant storage</code>. You can change these values as per your need.</p>
-
-<pre class="brush:bash">
-$ az storage account create --name geoloadteststore \
- --resource-group cannon \
- --location eastus \
- --sku Standard_LRS
- </pre>
-
-<h3 id="create-a-new-file-share"><strong>Create a new File Share</strong></h3>
-
-<p>The below command will create a new file share which I will use as a volume mount for my Azure Container Instance.</p>
-
-<pre class="brush:bash">
-az storage share create \
---account-name geoloadteststore \
---name loadtestresults \
---quota 1
-</pre>
-
-<p>In the above command, <code>account-name</code> and <code>name</code> are mandatory, <code>quota</code> is a non-mandatory parameter, but I have used it to ensure that the share size is not set to default which is <strong>5TB</strong>. Setting <code>quota</code> as 1 will set the size of my share to be <strong>1GB</strong>.</p>
-
-<h3 id="create-and-run-azure-container-instance"><strong>Create and run Azure Container Instance</strong></h3>
-
-<p>When I create a new Azure Container Instance, it will use an image to create a container and run it. This means that I don’t have to run the container explicitly unless there is an error.</p>
-
-<p>Here is an AZ command that will create a new Azure Container Instance and execute the load test using K6.</p>
-
-<pre class="brush:bash">
-az container create -n k6demo \
---resource-group cannon \
---location eastus
---image grafana/k6:latest \
---azure-file-volume-account-name geoloadteststore \
---azure-file-volume-account-key RhGutivQKlz5llXx9gPxM/CP/dlXWLw5x6/SHyCl+GtLZeRp9cAYEByYTo3vL2EFAy0Nz0H+n1CV+AStTNGEmA== \
---azure-file-volume-share-name loadtestresults \
---azure-file-volume-mount-path /results \
---command-line "k6 run --duration 10s --vus 5 /results/tests/script_eastus.js --out json=/results/logs/test_results_eastus.json" \
---restart-policy Never
-</pre>
-
-<p>The above command has lots of details and few parts of it require some good attention. For most of the part, things are simple to understand. The <a href="https://hub.docker.com/r/grafana/k6">image</a> that I am using is provided to us by Grafana from their verified Docker Hub account. I then use the Azure File share information to setup the volume mount.</p>
-
-<p>The important part here is the way the volume mount is used. The <code>--azure-file-volume-mount-path</code> has the value <code>/results</code> which will be a mount path in the container. This means that you <strong>don&rsquo;t have to create a folder</strong> named <strong>results</strong> in the file share. If you take your attention to the next parameter <code>--command-line</code>, you can see that the K6 test script is being read from <code>/result/tests</code> folder and output of the command is stored in <code>/results/logs</code>. If you wish, you can also use a full path of a blob storage or even an S3 bucket to read your script file.</p>
-
-<p>Navigate to the file share in Azure Portal and create 2 folders named <code>logs</code> and <code>tests</code>.</p>
-
-<p><img src="/images/logsntestfolders.png" alt="logs and test folder" /></p>
-
-<p>Inside the tests folder, add a K6 script file you have created. I have created multiple script files for different locations.</p>
-
-<p><img src="/images/test-folder-content.png" alt="Contents of the tests folder" /></p>
-
-<p>For this example, I am using a demo script with some changes to it. Note the change in the name of the summary file. It contains the location name for easy identification of logs.</p>
-
-<pre class="brush:js">
-import http from "k6/http";
-import { sleep } from "k6";
-
-export default function () {
-  http.get("https://test.k6.io");
-  sleep(1);
-}
-
-export function handleSummary(data) {
-  return {
-    "/results/logs/summary_eastus.json": JSON.stringify(data), //the default data object
-  };
-}
-</pre>
-
-<p>As per K6 documentation, I have added an additional function named <code>handleSummary</code>. This function will generate the summary for the entire test and save it in the JSON format which later I can use for visualization. This is the same output you will see when you run the K6 on your console. The other file which is referenced in the command above called <code>test_results_eastus.json</code> will have details about every test run.</p>
-
-<p>I execute the <code>az container create</code> command three times for 3 different regions.</p>
-
-<p><img src="/images/container-instances-for-testing.png" alt="Container instances for testing" /></p>
-
-<p>I have 3 Azure Container Instances which ran by K6 load test for 3 different locations. You can also see the location for each Azure Container Instance in the above screenshot. After the load test is finished, I can now view my JSON logs in the file share.</p>
-
-<p><img src="/images/load-testing-results.png" alt="Load testing results" /></p>
-
-<p>This way I can run the load test on my web apps or services hosted from anywhere or at least from all the Azure regions.</p>
-
-<h3 id="improvement-areas"><strong>Improvement Areas</strong></h3>
-
-<p>With the above working as expected, I think there are few things that I can really improve on.</p>
-
-<h4 id="automation"><strong>Automation</strong></h4>
-
-<p>The entire work is manual and is error prone. It will be good to automate this entire process with less user intervention when it comes to execution. Writing load tests would be user responsibility though. Going forward, I would like to automate the creation of all these resources using Terraform and then execute the TF scripts automatically. If you want to do this for any of your Terraforms projects, refer my article on <strong><a href="https://medium.com/@prashantkhandelwal/create-azure-resources-programmatically-by-executing-terraform-commands-in-go-ff2182513ee2">medium</a></strong>.</p>
-
-<h4 id="visualization"><strong>Visualization</strong></h4>
-
-<p>After getting the test logs from the File Share, I also want to see what the load test results look like. As of now there is no tool I have to do so. But there are few I found on the GitHub that allow me to visualize the output of K6 load tests. Maybe I would write one or use an open-source, I am not sure about that at the moment.</p>
-
-<p>I hope you enjoyed this article and learn one or more things related to Azure and K6. Here are few more resources that will be helpful.</p>
-
-<ul>
-<li><a href="https://learn.microsoft.com/en-us/cli/azure/container?view=azure-cli-latest">az contianer cli - documentation</a></li>
-<li><a href="https://k6.io/docs/">K6 - Official documentation</a></li>
-<li><a href="https://k6.io/docs/results-output/end-of-test/custom-summary/">handleSummary or Custom Summary with K6</a></li>
 </ul>
 
   </div>

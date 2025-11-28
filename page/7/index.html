@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2015-06-07T08:07:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2015-06-14T08:15:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,71 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/free-e-books-from-microsoft-and-telerik-that-you-should-be-reading/">Free e-Books From Microsoft And Telerik That You Should Be Reading</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 14, 2015
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/cloud">CLOUD</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I am involving myself in reading book these days rather than reading blogs. Here are 2 free e-books, one from Microsoft Press with a valuable insights on Cloud, <code>Fundamental of Azure</code> and the other from Telerik, <code>The Developer's Guide</code> To The New .NET. I encourage you to read both the books, but if you are not about cloud then you should read the book from Telerik.</p>
+
+<p><strong><a href="http://blogs.msdn.com/b/microsoft_press/archive/2015/02/03/free-ebook-microsoft-azure-essentials-fundamentals-of-azure.aspx">Microsoft Press - Fundamentals of Azure</a></strong> (<a href="http://aka.ms/697225pdf">Download</a>)</p>
+
+<p><img src="/images/azure-fundamental-book.png" alt="Azure Fundamental Book" /></p>
+
+<h4 id="from-microsoft-press">From Microsoft Press</h4>
+
+<blockquote>
+<p>The “Microsoft Azure Essentials” series helps you advance your technical skills with Microsoft Azure. “Microsoft Azure Essentials: Fundamentals of Azure” introduces developers and IT professionals to the wide range of capabilities in Azure. The authors—both Microsoft MVPs in Azure—present conceptual and how-to content for seven key areas and describe management tools and business cases.</p>
+</blockquote>
+
+<p><strong>Telerik - The Developer&rsquo;s Guide To The New .NET</strong> (<a href="http://www.telerik.com/campaigns/devcraft/developers-guide-dotnet">Download</a>)</p>
+
+<p><img src="/images/telerik-dotnet-guide.png" alt="Telerik .NET Book" /></p>
+
+<p>From Telerik</p>
+
+<blockquote>
+<p>This ebook is no fluff–just a developer-to-developer breakdown of what’s in store for .NET in 2015. Included are code snippets and step-by-step tutorials on handy new features and techniques.</p>
+
+<p>Download for free, and learn more about:</p>
+</blockquote>
+
+<ul>
+<li>Visual Studio 2015</li>
+<li>.NET core goes open source</li>
+<li>Cross platform development with .NET</li>
+<li>C# 6.0</li>
+<li>Roslyn</li>
+<li>Windows 10</li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -834,181 +899,6 @@ public class Albums
 <p>The duration of the operation depends on the amount of images you have in your folder. The lesser the number of images the fast the query will get executed. Here just for fun I have used Biggy JSON store to save the content details of the folder. If you want to remove it from your implementation, please do so. You may have to change some functions in order to get all other things working fine.</p>
 
 <p>You can <a href="https://github.com/prashantkhandelwal/DriveGallery">download the complete source code from Github</a>. I am still working on it to make it more flexible and good looking. As I am not a designer and I seriously lack when it comes to web designs. Thanks to <a href="http://getbootstrap.com/">Twitter bootstrap</a> to make it look a bit good.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/json-based-document-storage-using-biggy-in-aspnet-mvc/">JSON Based Document Storage Using Biggy In ASP.NET MVC</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 3, 2014
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    
-
-<p>While working with a small web based project many developers will take advantage of web.config and XML files to read settings for the application. Using web.config is a good way but you cannot change the settings from within the application and when done manually it causes the website to restart. XML is good but many of us has a problem when it comes to update the details in XML. <a href="https://github.com/robconery/biggy">Biggy</a> is an awesome library developed by <a href="http://www.wekeroad.com/">Rob Conery</a> to work with document storage. It does a lot well more than you can think of if you are not following the project closely on Github. For now I am just going to show you how you can use Biggy to save your application data in JSON based document storage.</p>
-
-<p>The library is not available on <a href="http://nuget.org/">NuGet</a>, so you have to download or fork the whole solution from Github and then build it. Create a new MVC application and add the reference of the Biggy assemblies you just build.</p>
-
-<blockquote>
-<p>Remove Newtonsoft.Json assembly that is added in your project by default when it is created by Visual Studio. The version of assembly seems to be incompatible with Biggy. Instead use the one which accompanies Biggy.</p>
-</blockquote>
-
-<p>Add a new model in your application and name it <code>settings</code>. The settings may depend on your application, as I am using it for my blog I have settings like blog name, blog description, posts per page and disable comments after &lsquo;x&rsquo; days.</p>
-
-<pre class="brush: csharp">
-public class Settings
-{
-    public string BlogName { get; set; }
-    public string BlogDescription { get; set; }
-    public string PostsPerPage { get; set; }
-    public string CommentDays { get; set; }
-}
-</pre>
-
-<p>I am manually building my view but you can use scaffolding if you wish to save your time. On submit of the form, the details will be sent to the server where my controller method will save the settings in the JSON file. Here is my view and controller code.</p>
-
-<pre class="brush: html">
-@model BiggyJSONDataStore.Models.Settings
-@{
-    ViewBag.Title = "Settings Page";
-   }
- 
-&lt;div class="row"&gt;
-    @using (Html.BeginForm("Settings", "Home", FormMethod.Post))
-    {
-        &lt;label&gt;Blog Name&lt;/label&gt;
-        @Html.TextBoxFor(m =&gt; m.BlogName, new { @id = "blogname" })
-        &lt;br /&gt;
-        &lt;label&gt;Blog Description&lt;/label&gt;
-        @Html.TextBoxFor(m =&gt; m.BlogDescription, new { @id = "blogdesc" })
-        &lt;br /&gt;
-        &lt;label&gt;Posts per Page&lt;/label&gt;
-        @Html.TextBoxFor(m =&gt; m.PostsPerPage, new { @id = "postsperpage" })
-        &lt;br /&gt;
-        &lt;label&gt;Disable comments after&lt;/label&gt;
-        @Html.TextBoxFor(m =&gt; m.CommentDays, new { @id = "commentdays" })
-        &lt;label&gt;days&lt;/label&gt;&lt;br /&gt;
-        &lt;input id="btnSave" type="submit" value="Save Settings" /&gt;
-    }
-&lt;/div&gt;
-</pre>
-
-<p><img src="/images/biggy-ui.png" alt="App to save info using Biggy" /></p>
-
-<p>When the first time the page is loaded I want to check if there are settings in the file or not. If settings are there then render my view with settings. So the default <code>GET</code> view will look like this.</p>
-
-<pre class="brush: csharp">
-IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
-try
-{
-    var data = settingStore.Load().Single();
-    return View(data);
-}
-catch { }
- 
-return View();
-</pre>
-
-<p>The settingStore object is being created and creates a new file in the <code>Data</code> folder in the application root. the <code>dbPath</code> parameter specifies where the file (JSON file in this case) is saved, which is the web root. The <code>Load()</code> method of the <code>settingStore</code> will load all the data in the JSON file. In this case I have only single set of setting so I will use the <code>Single()</code> method to get the single setting record and not <code>IEnumerable&lt;Settings&gt;</code>.</p>
-
-<pre class="brush: csharp">
-IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
- 
-var store = new BiggyList&lt;Settings&gt;(settingStore);
- 
-var newSettings = new Settings();
- 
-newSettings.BlogName = setting.BlogName;
-newSettings.BlogDescription = setting.BlogDescription;
-newSettings.PostsPerPage = setting.PostsPerPage;
-newSettings.CommentDays = setting.CommentDays;
- 
-store.Add(newSettings);
-store.Update(setting);
- 
-return View();
-</pre>
-
-<p>The above code will add a new settings to the JSON file.</p>
-
-<pre class="brush: plain">
-{"BlogName":"Midnight Programmer","BlogDescription":"Programming For Fun","PostsPerPage":"10","CommentDays":"90"}
-</pre>
-
-<p>At this point if you keep pressing save button by entering different values a new entry will be added to the JSON file. To avoid this you have to update the details instead of adding it over and over again in the JSON file.</p>
-
-<pre class="brush: csharp">
-IBiggyStore&lt;Settings&gt; settingStore = new JsonStore&lt;Settings&gt;(dbPath: HttpRuntime.AppDomainAppPath);
- 
-var store = new BiggyList&lt;Settings&gt;(settingStore);
- 
-var newSettings = new Settings();
- 
-Settings data = null;
-try
-{
-    data = settingStore.Load().Single();
-}
-catch { }
- 
- 
-if (data != null)
-{
-    data.BlogName = setting.BlogName;
-    data.BlogDescription = setting.BlogDescription;
-    data.PostsPerPage = setting.PostsPerPage;
-    data.CommentDays = setting.CommentDays;
-    store.Update(data);
-}
-else
-{
-    newSettings.BlogName = setting.BlogName;
-    newSettings.BlogDescription = setting.BlogDescription;
-    newSettings.PostsPerPage = setting.PostsPerPage;
-    newSettings.CommentDays = setting.CommentDays;
-    store.Add(newSettings);
-    store.Update(setting);
-}
- 
-return View();
-</pre>
-
-<p>As you can see that the store object <code>Add</code> method is not called but only the <code>Update</code> method is called in case if the data object is not null.</p>
-
-<p><img src="/images/biggy-ui-2.png" alt="App to save info using Biggy" /></p>
-
-<p>If you plan to save multiple records in the file, then make sure you use identifier in order to get the required details.</p>
-
-<h4 id="references">References</h4>
-
-<ul>
-<li><a href="https://github.com/robconery/biggy">Biggy - Github</a></li>
-</ul>
 
   </div>
   

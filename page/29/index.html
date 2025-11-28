@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-12-24T00:18:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-12-24T14:30:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,46 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/manage-your-azure-storage-with-ease-with-azure-storage-explorer-and-cloud-storage-studio/">Manage your Azure storage with ease!</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Dec 24, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/azure">AZURE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>If your are using Windows Azure for storing files here are the tools you should love to use to manage your Azure cloud storage.</p>
+
+<p><a href="https://azure.microsoft.com/en-in/features/storage-explorer/">Azure Storage Explorer</a></p>
+
+<p>And</p>
+
+<p><a href="https://download.cnet.com/Cloud-Storage-Studio/3000-18500_4-75939984.html">Cloud Storage Studio</a></p>
+
+<p>If you don&rsquo;t have an Azure account, then have one <a href="https://azure.com">HERE</a></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -379,170 +419,6 @@ INSERT INTO OPENROWSET ('Microsoft.Jet.OLEDB.4.0', 'Excel 8.0;Database=c:\contac
 --For Office 2007 (.XLSX) format
 INSERT INTO OPENROWSET ('Microsoft.ACE.OLEDB.12.0', 'Excel 8.0;Database=c:\contact.xlsx;','SELECT * FROM [Sheet1$]')SELECT * FROM authors
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/using-background-worker-in-c/">Using Background Worker in C#</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Nov 27, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/.net-framework">.NET FRAMEWORK</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>Performance of an application matters a lot for a developer. None of the developer wants his application freezes or crashes. But what are measures a developer should takes to keep it all good going. When I used to develop application I saw whenever I try to perform some heavy or bulky task like uploading files, copying files from place to other and other DB related but heavy task which includes CPU as well as hard drive.</p>
-
-<p>Most of our application that we develop today require simultaneous functions to perform but with performance. We guarantee our client…yes the application can handle all the functions but on the stake of performance. The major fallback of any application is limiting a user to perform one task at a time. So how do we deal with application freezing and crashing?</p>
-
-<p>Working with Microsoft .NET framework we have worked with threads through which we can handle all the tasks simultaneously under one main application thread. You can perform smaller operations with the help of Threading class, instead I prefer using Background Worker class to implement to perform all my heavy duty operations.
-Background worker class is introduced in .NET framework 2.0 and using this class makes it easy to execute long running operations on a separate thread, support cancellation, progress reporting and marshalling results back to the UI thread.</p>
-
-<p>Below image which provides an overview of background worker class which found <a href="http://www.danielmoth.com/">here</a>.</p>
-
-<p><img src="/images/background-worker-class.png" alt="BackgroundWorker class diagram" /></p>
-
-<p>Now we will see how to use background worker class to perform heavy operations.</p>
-
-<p>First create a new windows application as shown below.</p>
-
-<p><img src="/images/bgw-win-app.jpg" alt="BackgroundWorker windows form app" /></p>
-
-<p>Get to the design mode and drag &amp; drop the background worker component.</p>
-
-<p><img src="/images/bgw-control.jpg" alt="BackgroundWorker control" /></p>
-
-<p>Set the properties of the background worker:</p>
-
-<p>Set <code>GenerateMember</code> and <code>Modifiers</code> as it is. In the sample application we have a progress bar which reports the percentage of the task completed so we need to set the <code>WorkerReportsProgress</code> to <code>true</code> and similarly if we want the user to cancel the running operation then set the <code>WorkerSupportsCancellation</code> to <code>true</code>.</p>
-
-<p><img src="/images/bgw-properties.jpg" alt="BackgroundWorker properties" /></p>
-
-<p>Now the next step is to create 3 methods:</p>
-
-<ol>
-<li>DoWork: This is the main method which is responsible to handle the large operation. The code here is not different than the usual code.</li>
-<li>ProgressChanged: This method reports the change in the progress of the operation performed by the background worker DoWork method.</li>
-<li>RunWorkerCompleted: This method checks the RunWorkerCompletedEventArgs and perform action accordingly.</li>
-</ol>
-
-<p><img src="/images/bgw-events.jpg" alt="BackgroundWorker events" /></p>
-
-<p>So how do we code these methods? It’s easy and not a complex task as it sounds, so let’s have a look at these methods….</p>
-
-<p>To carry on with this example, I am using an AventureWorks database I have query the table Person.Contact as it has a large number of records, around 19K. Now here, to set the progress bar you first need to set the maximum property of the progress bar so we can show the progress completed.</p>
-
-<p>Starting with the Start button:</p>
-
-<pre class="brush:csharp">
-private void btn_start_Click(object sender, EventArgs e)
-{
-//Starts the backgroundworker process asynchronously
-bgw.RunWorkerAsync(); 
-btn_start.Enabled = false;
-}
-</pre>
-
-<p>The DoWork method:</p>
-
-<pre class="brush:csharp">
-//Background worker DoWork method. Here we will perform our heavy duty tasks.
-//I have used a simple datareader object to traverse all the rows in the table. 
-//The table has around 19K rows.
-private void bgw_DoWork(object sender, DoWorkEventArgs e)
-{
-  try
-  {
-    int i = 0;
-    cmd = new SqlCommand("SELECT * FROM Person.Contact", con);
-    con.Open();
-    dr = cmd.ExecuteReader();
-    while(dr.Read())
-    {
-        i = i + 1;
-        //report to the backgroungworker progreechanged event of the background worker class
-        bgw.ReportProgress(i);
-        Thread.Sleep(1);
-        //Called and check if the cancellation of the operation is pending. If returned true
-        //DoWorkEventArgs object cancels the operation.
-        if (bgw.CancellationPending)
-        {
-            e.Cancel = true;
-            return;
-        }
-    }
-   }
-   catch (Exception x)
-   {
-    MessageBox.Show("An error occured while performing operation" + x);
-   }
-   finally
-   {
-    con.Close();
-   }
-}
-</pre>
-
-<p>The RunWorkerCompleted Method:</p>
-
-<pre class="brush:csharp">
-private void bgw_RunWorkerCompleted(object sender,RunWorkerCompletedEventArgs e)
-{
-    if (e.Cancelled)
-    {
-        MessageBox.Show("Operation Cancelled");
-        btn_start.Enabled = true;
-    }
-    else
-    {
-        MessageBox.Show("Operation Completed");
-        btn_start.Enabled = true;
-    }
-}
-</pre>
-
-<p>The ProgressChanged Method:</p>
-
-<pre class="brush:csharp">
-private void bgw_ProgressChanged(object sender, ProgressChangedEventArgs e)
-{
-    //Report porogress bar change
-    progress.Value = e.ProgressPercentage;
-}
-</pre>
-
-<p>Ending up with the cancel button:</p>
-
-<pre class="brush:csharp">
-//To cancel async operation
-private void btn_cancel_Click(object sender, EventArgs e)
-{
-     //To cancel the asynchronous operation
-     bgw.CancelAsync();
-     progress.Value = 0;
-     btn_start.Enabled = true;
-}
-</pre>
-
-<p>So when your application is traversing the records and suddenly you think that you should quit the job and work on other part of the application, just hit the cancel button and the large operation will get cancelled withoud any freezing and hanging of your application.</p>
-
-<p><strong>Download: <a href="/files/BackgroundWorkerDemo.zip">BackgroundWorkerDemo.zip (43.69 kb)</a></strong></p>
 
   </div>
   

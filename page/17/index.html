@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-07-16T13:00:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-07-31T14:58:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,113 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/using-recaptcha-in-aspnet-webforms-and-mvc/">Using ReCaptcha In ASP.NET WebForms And MVC</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jul 31, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/recaptcha-logo.jpg" alt="Re-captcha Logo"/></p>
+
+<p>ReCaptcha is now being used widely by many websites especially where there is a possibility of spamming the website, blog or a forum. Here I will show you on how you can use ReCaptcha in ASP.NET and MVC. Get a ReCaptcha Gobal Key and ASP.NET ReCaptcha DLL. Once you get the global key we are ready to go.</p>
+
+<p><strong>ReCaptcha in WebForms</strong></p>
+
+<p>Fire Visual Studio and create a new ASP.NET web forms project. First add a ReCaptcha DLL in the project and as we are talking about a user control we will have to register the control. On the top of the page use the register directive to register the ReCaptcha control.</p>
+
+<pre class="brush:csharp">
+<%@ register tagprefix="recaptcha" namespace="Recaptcha" assembly="Recaptcha" %>
+</pre>
+
+<p>Now on the page, we will use the control.</p>
+
+<pre class="brush:csharp">
+&lt;recaptcha:recaptchacontrol id="recaptcha" runat="server" publickey="public key"  privatekey="private key" />
+</pre>
+
+<p>You will get the public key and the private key when you register for the ReCaptcha global key. This will render the ReCaptcha control on the page.</p>
+
+<p><img src="/images/captcha-render.png" alt="Captcha control render" /></p>
+
+<p>Notice that I have also placed a button and the label (with no text) on the page along with the ReCaptcha control. On the submit button we will check the <a href="http://msdn.microsoft.com/en-us/library/system.web.ui.page.isvalid.aspx">Page.IsValid</a> method. If the ReCaptcha text entered by the user is correct then the Page.IsValid method will return true else it will return false. Therefore the code on the submit button will be as follows:</p>
+
+<pre class="brush:csharp">
+if (Page.IsValid)
+{
+      lblStatus.Text = "Captcha Validated!";
+}
+else
+{
+      lblStatus.Text = "Invalid Captcha!";
+}
+</pre>
+
+<p>This is it, hit F5 and try it out. We are now done implementing ReCaptcha in web forms and now we will see it in action in MVC.</p>
+
+<p><strong>ReCaptcha in MVC</strong></p>
+
+<p>Create a new MVC project in Visual Studio and I am using MVC 3 with RAZOR View Engine. To implement ReCaptcha in MVC, we will be using <code>Microsoft Web Helpers</code>. I assume you are aware of <a href="http://nuget.org/">NuGet</a>. Just in case if you are not aware of the Microsoft Web ` read my post on <a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View</a>. Microsoft web helpers allow us to use ReCaptcha in a very easy way. In WebForms we have used a DLL to render the ReCaptcha control on the page, but with Microsoft web helpers we can render the control with a single line of code. As you have used NuGet to install Microsoft Web Helpers library, make sure that you also use the correct namespace on the top of the page.</p>
+
+<pre class="brush:csharp">
+@using Microsoft.Web.Helpers;
+ 
+@using (Html.BeginForm("Submit", "Home", FormMethod.Post))
+{
+    @ReCaptcha.GetHtml(publicKey: "&lt;public key&gt;", theme: "red")
+}
+</pre>
+
+<p>I have rendered the control inside the form because when the data gets submitted after user enters the text the <code>Submit</code> method of the <code>Home</code> controller gets fired and check the captcha text entered by the user. As you know we have two keys with us, one is a public key and the other is a private key. We have used the public key to render the control on the page and we will now use the private key to validate the captcha. Also make sure that in order to use the ReCaptcha class on server side code you need to add the <code>Microsoft.Web.Helpers</code> namespace.</p>
+
+<pre class="brush:csharp">
+[HttpPost]
+public ActionResult Submit()
+{
+        if (ReCaptcha.Validate(privateKey: "&lt;private key&gt;"))
+        {
+             return Content("Valid Captcha");
+        }
+        else
+       {
+            return Content("InValid Captcha");
+       }
+}
+</pre>
+
+<p>The ReCaptcha class of the web helpers provides a method to validate the entered text by the user. The private key of the ReCaptcha is passed as a parameter in order to validate the captcha text.</p>
+
+<p>Using ReCaptcha with ASP.NET WebForms or MVC is pretty simple and easy. Here are some of the links which I feel you might find useful.</p>
+
+<ul>
+<li><a href="http://midnightprogrammer.net/post/Working-With-Microsoft-Web-Helpers-In-MVC-3-Razor-View.aspx">Working With Microsoft Web Helpers In MVC 3 Razor View.</a></li>
+<li><a href="http://www.google.com/recaptcha/whyrecaptcha">Get Recaptcha.</a></li>
+<li><a href="http://mvcrecaptcha.codeplex.com/">MVC ReCaptcha - Codeplex</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -577,44 +684,6 @@ while (true)
 <li><a href="http://10rem.net/blog/2010/09/24/using-a-4x20-hd44780-controlled-lcd-display-with-the-netduino">Using a 4x20 HD44780-controlled LCD Display with the Netduino - Pete Brown</a></li>
 <li><a href="http://blog.bobcravens.com/2010/09/gps-using-the-netduino/">GPS using the Netduino - Bob Cravens</a></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/how-to-be-a-rockstar-freelancer/">How To Be A Rockstar Freelancer</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Jun 10, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/musings">MUSINGS</a>
-      
-      
-      
-      
-    </span>
-    <p>A friend of mine who is a freelancer purchased the PDF version of this book and sends over me a copy to read today. If you are a freelancer or working from home then this is the book you should read and follow. I am bit lazy in reading non-tech related books or articles but this book is worth reading as compared to some other tech books. I am reading this book at the moment and I must said that this is the best book available for freelancers and for the people who are working from home.</p>
-
-<p>I always wanted to be a freelancer but somehow I got into the job thing. Maybe not today but in the near future I will start freelancing but part-time. It&rsquo;s the right time for me to start following to the guidelines in this book so when I start I will have a complete picture in my head about my work and time.</p>
-
-<p>Here is the quote from the publisher&rsquo;s (Rockable Press) site:</p>
-
-<blockquote>
-<p>Covering everything from getting started to expanding your business, How to Be a Rockstar Freelancer is the official <a href="http://freelanceswitch.com/">FreelanceSwitch</a> book. Written by Collis &amp; Cyan Ta’eed – the founders of the site – it’s packed with new information, advice and insights not covered on the blog.</p>
-
-<p>If you want to start your freelance career the right way, then How to Be a Rockstar Freelancer will give you everything you need to become the best freelancer in town!</p>
-</blockquote>
-
-<p>You can purchase this book online from the <a href="http://rockablepress.com/books/rockstar-freelancer/">Rockable Press website</a>. There are two versions of this book available one is in PDF and a paperback copy. And don&rsquo;t forgot to check other stuff on their website, they also have some other Rocking books.</p>
 
   </div>
   

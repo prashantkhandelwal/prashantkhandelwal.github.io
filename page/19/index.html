@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2011-03-17T16:03:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2011-03-17T17:16:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,46 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-live-theme-for-blogenginenet/">Windows Live Theme For BlogEngine.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 17, 2011
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/blogengine.net">BLOGENGINE.NET</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/win-theme-blogengine.png" alt="Windows live theme for blog engine"/></p>
+
+<p>I have now been using <a href="http://blogengine.codeplex.com/">BlogEngine</a> for 2 years now and I was kinda fed up with the standard theme I have been since starting which I have modified a bit to look more prettier. I am not saying it&rsquo;s bad but it&rsquo;s too much now, I should do a makeover of my blog. Now the BlogEngine community is not as big and vast as that of the most popular blogging engine <a href="http://www.wordpress.org/">Wordpress</a> and therefore it is hard to get beautiful <a href="http://www.blogenginetheme.com/">themes for BlogEngine</a>.</p>
+
+<p>This time I made my mind and sat down to create a new theme for my blog from scratch (LOL!!) but with the help of some good looking Wordpress theme. So I began my search and what I got is the one I have been looking for in the past when I started blogging. I found a Wordpress theme which resembles Windows Live default blue skin. It looks good to me so I download and start changing the looks for my blog. I don&rsquo;t know if I have messed up, but I like it and so my blog is up with a new Windows Live theme. There are few other customizations that I have done with the theme that works for my blog like after every post you see a Google Ads (let me know if they are annoying, which I feel they are not), logos of the sites having a reference of my blog and some other internal stuff (simple HTML and server-side work). This is the case with me, for you there are no hiccups, just copy and paste the Windows Live theme folder inside Themes folder and you are done.</p>
+
+<p>This theme is based on the standard theme template for BlogEngine. If you have any suggestions to make the theme look more beautiful in some way or the other (as I am not a designer) please do share with me and all of us in the community.</p>
+
+<p><strong>Download: <a href="files/WindowsLive.zip">WindowsLive.zip (70.33 kb)</a></strong></p>
+
+<p><strong>UPDATE:</strong> There is a slight change in the style.css file. The image above is broken when a blog is viewed in a large display.</p>
+
+<p>it is now been fixed. Please download the latest style sheet from the link below.</p>
+
+<p><a href="/files/style.css">style.css (13.91 kb)</a></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -665,51 +705,6 @@ As has become customary, we will give you a window to migrate off and ask us any
 <p>You know why there is <code>Title</code> and <code>Description</code>. The <code>ApplicationPath</code> will have the fully qualified name of the application path or just the name of the programs that can be executed with their name. <code>IconResourcePath</code> will have a fully qualified path of the icon. If your application have an icon embedded in the application, then you can just set the application exe path or name else you can have a fully qualified path of the icon file.</p>
 
 <p>To add a new Jumplist, add a new <JumpTask> tag with the above mentioned tags and for every Jumplist item you need to do the same.</p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/how-to-free-up-gigs-of-space-on-your-window-7-machine/">How To Free Up Gigs of Space On Your Window 7 Machine</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Feb 19, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/microsoft">MICROSOFT</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>I am now using Windows 7 since its beta release and so far my experience is awesome. But as a developer the hard drive space is always been a problem for me, no matter how many external drives or other stoarge devices you have connected to your machine but the disk space on the host machine is always a primary problem. Windows 7 is more stable OS in Windows family so far (I found it more stable than Win XP) and the reason it is being more stable because everytime you install a program on your Win 7 machine, it automatically creates a snapshot of the host drive. This is because if anything goes wrong with the program or it just crashes causing problems, Windows 7 can recover automatically from that state with the snapshot created before the installation.</p>
-
-<p>But these snapshots hogs up a lot of hard drive sapce and there is no way that you can copy them and place it in a different drive or just change the location of the snapshots been taken by the OS. Therefore to maintain the balance, the OS automatically deletes the last/oldest snapshot from the hard drive resulting some free space for the user and for other processes of the system.  If you no longer require the snapshots (only if you think that your machine is running perfectly fine) execute the below command to delete all the snapshots created so far:</p>
-
-<pre class ="brush:shell">
-c:\>vssadmin delete shadows /for=c: /all
-</pre>
-
-<p>In the above command /for parameter should have the letter of your Windows OS drive. In my case it is C: (as in majority of the cases it will be <code>C:</code>)</p>
-
-<p>Just in case if you don&rsquo;t want to delete all the snapshots then instead of using the <code>/all</code> parameter use the <code>/oldest</code> parameter. This will dleete the oldest snapshot from the drive:</p>
-
-<pre class ="brush:shell">
-c:\>vssadmin delete shadows /for=c: /oldest
-</pre>
-
-<p>This will free up some GIGs of space if you are using it for the first time and if you are using it quite frequently then also you end up with MBs of free space.</p>
 
   </div>
   

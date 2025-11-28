@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-03-26T03:47:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-03-28T02:08:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,118 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-7-development-creating-jumplist-in-windows-7/">Windows 7 Development: Creating Jumplist In Windows 7</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Mar 28, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/api">API</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p>I am quite fascinated with Windows 7 before even I get it started using it. Actually I have just started on a fun project for my personal use which includes jump list. Why I am doing this? To navigate and get access to the application and internet addresses I need anytime. I am tired of typing addresses and navigating to the programs I frequently use. I have just started so I thought I must blog about my jump list experience with you all. You won&rsquo;t believe but I am still using Visual Studio 2008 with .NETFX 3.5. Ok, Let&rsquo;s talk about some Windows development. In my last post on Windows 7 development I explain how can you have Aero effects for your Windows applications. If you haven&rsquo;t read my post on <a href="http://midnightprogrammer.net/post/windows-7-development-aero-effects-in-net-applications">Aero effects in Windows Application</a> then you should have a look at this.</p>
+
+<p>Windows 7 API Code Pack comes packed up with some serious development stuff for Windows 7. If you don&rsquo;t have it yet then check my post for Windows 7 Development resources.</p>
+
+<p>We all know and view the new taskbar in Windows 7 and when your program got pinned in the taskbar you can simply left click to run your program or right-click to view more options associated with your program. To make it more clear I give you an example. I use Winsnap (a tool to take screenshots with dropshadows) to take screenshots and yes I use it quite frequently, so I pinned it to my taskbar.</p>
+
+<p><img src="/images/win7-jumplist.png" alt="Windows 7 jumplist" /></p>
+
+<p>That&rsquo;s the third icon from the Windows start button. When I click it normally it opens up the Winsnap application and show me the panel from where I can take and make settings for my next screenshot. but when I right-click the pinned Winsnap icon on my taskbar it show me the same basic settings which I will be using if I would have launched the application.</p>
+
+<p><img src="/images/win7-jumplist-options.png" alt="Windows 7 jumplist options" /></p>
+
+<p>Now when I have to take screenshots with my utility I just right-click Winsnap icon pinned to my taskbar and I am done. The items that you see under the heading Tasks is having all your jump list items. It is indeed possible to have some common functions from your application to be included in the jump list or can have some external links for applications like calculator, notepad, paint etc. If you don&rsquo;t know (just in case) if you can pin something on the taskbar then you can also unpin it.</p>
+
+<p>I hope now I am quite clear with jump list in Windows 7. So lets gets our hands on developing an application with jump list.</p>
+
+<p><strong>Getting Started</strong></p>
+
+<p>Start it up creating a simple windows forms application with a name of your choice. As we are delaing with Windows 7 API we need to have it added in our project references. Files you need to add to references are:</p>
+
+<ul>
+<li>Microsoft.WindowsAPICodePack.DLL</li>
+<li>Microsoft.WindowsAPICodePack.Shell.DLL</li>
+</ul>
+
+<p>You can have these API libraries once you donwlod the API code pack. After you are done adding the required references, you can switch to the code window and do the rest of the work.</p>
+
+<p><strong>Creating Jump List</strong></p>
+
+<p>Start up with adding the namespace:</p>
+
+<pre class="brush:csharp">
+using Microsoft.WindowsAPICodePack.Taskbar;
+using Microsoft.WindowsAPICodePack.Shell;
+</pre>
+
+<p>Create a jump list by calling <code>CreateJumpList</code> method, which is a part of <code>Microsoft.WindowsAPICodePack.Taskbar.JumpList</code> namespace.</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+</pre>
+
+<p>If you want to show the most recent files you have used, then you can do that by using this line of code:</p>
+
+<pre class="brush:csharp">
+list.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
+</pre>
+
+<p><code>JumpListKnownCategoryType</code> is an enumeration which will let you accomplish this. You can also have some other available options.</p>
+
+<ul>
+<li><strong>Frequent:</strong> Display the frequent known category.</li>
+<li><strong>Neither:</strong> Don&rsquo;t display either known category. You must have atleast one user task and or custom category link in order to not see the default &lsquo;Recent&rsquo; known category.</li>
+<li><strong>Recent:</strong> Display the recent known category.</li>
+</ul>
+
+<p>To add some commonly used applications to the jump list then you can have it with in less than a jiffy. Create a <code>JumpListLink</code> class object and associate it with the <code>JumpList</code> class object. I use notepad a lot to note down my work, now I want to add to the jump list and I code it this way:</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
+"notepad.exe");
+JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
+list.AddUserTasks(JLink);
+list.Refresh();
+</pre>
+
+<p>One line of code can be used to include icon for your program. The <code>IconReference</code> property will let you add the icon the jump list item. Set the default value to &lsquo;0&rsquo;, if you want to use the default icon for the application.</p>
+
+<pre class="brush:csharp">
+JumpList list = JumpList.CreateJumpList();
+string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
+"notepad.exe");
+JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
+JLink.IconReference = new IconReference(SysPath, 0);
+list.AddUserTasks(JLink);
+</pre>
+
+<p><img src="/images/win7-customjumplist.png" alt="Windows 7 jumplist" /></p>
+
+<p>Categorizing programs is bit easy this way. I can categorize web URLs, my favourites programs and some other places/links on my computer. There is lot more you can do with Jump Lists. I hope the explaination above can let you create your own applications with jump lists.</p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -363,116 +475,6 @@ function CallService() {
 <p>I have added a bit of CSS to show ajax loading style animation. I am not covering it here but sure I will in the later Jquery posts. In my next post I will cover on how to fetch data from the SQL Server using a web service.</p>
 
 <p><strong>Download: <a href="/files/JqueryAjaxParams.zip">JqueryAjaxParams.zip (94.76 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/calling-aspnet-web-service-using-jquery-part-i/">Calling ASP.NET Web Service Using Jquery - Part I</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 5, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      
-      
-      
-      
-    </span>
-    <p>Jquery is now one of the most favorite JavaScript frameworks to play around. It offers some more advance feature to the developers and UI designers to accomplish their task easily and more conveniently. Take an example of AJAX and think where you can face the problems when you have to deal with different browsers who support XMLHTTP request and the one who don’t. I remember, I use to initialize the AJAX’s XMLHTTP object keeping in mind what will be my client’s browser. So, on the first go I have to detect the client’s browser and then set the XMLHTTP object and then process requests.</p>
-
-<p>But Jquery gives us a tons of features to be happy and so as with handling data. In Jquery we have not to worry about what will our client’s browser and what will be the request object. Jquery handles all this for us and makes its pretty easy to use.</p>
-
-<p>So start up with creating a new ASP.NET website project.</p>
-
-<p><img src="/images/ajax-new-proj.png" alt="Create new project" /></p>
-
-<p>When you create a new project a new page named Default.aspx is added by default. I am going to use the same page in this example. If you wish you can change the name of the page. Add a button on the page and a label to show text.</p>
-
-<p><img src="/images/ajax-markup.png" alt="Markup" /></p>
-
-<p>Right-Click the project and add choose New Item. Add a new Web Service.</p>
-
-<p><img src="/images/ajax-websrv.png" alt="Add web service" /></p>
-
-<p>After this add the below code to the web service code behind file. But before you do that there are some things we need to keep in mind. Let’s talk about a normal web service which we are going to consume in a normal way i.e. using the server-side code. But this is not the case I am explaining here. What we are going to do is to consume the web service on the client-side using Jquery.</p>
-
-<p>Now the changes that you have to made in the code-behind file to allow the web service to be consumed by the client-side script is as follows:</p>
-
-<p>First you have to add or un-comment the attribute above of the web service class. This attribute allows the web service to be called from the client-side script (Jquery or other client-side scripts).</p>
-
-<pre class="brush:plain">
-[System.Web.Script.Services.ScriptService]
-</pre>
-
-<p>After this you can write your method the same way you use to write with attribute [WebMethod]. I am just writing a simple method which will return a string.</p>
-
-<pre class="brush:csharp">
-[WebMethod]
-Public string Hello()
-{
-    Return “Welcome to ASP.NET Web Services and Jquery”;
-}
-</pre>
-
-<p>We have our web service ready and now we have to write client-side script to consume this webservice. The method in our web service will return only a plain simple string to the client. First I have added a button and a label to the page. On button click I have called the method (Jquery method) which will call the web service. The response of the web service is then shown on the label. On the page from where we are calling the web service, add the following Jquery script to call the web service.</p>
-
-<pre class="brush:jscript">
-function CallService()
-{
-      &dollar;.ajax({
-          type: "POST",
-          url: "Service.asmx/Hello",
-          data: "{}",
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success: OnSuccess,
-          error: OnError
-      });
-}
-
-function OnSuccess(data, status) 
-{
-      &dollar;("#lblResult").html(data.d);
-}
- 
-function OnError(request, status, error)
-{
-      &dollar;("#lblResult").html(request.statusText);
-}
-</pre>
-
-<p>In the above code I have created a method and named it CallService(). Inside this method there are several parameters that we have to set to call the web service.</p>
-
-<ul>
-<li><strong>type:</strong> Can be POST or GET. Web Services do not work with &ldquo;GET&rdquo; by default, as to prevent cross-site request forgeries. (Thanks <a href="http://leedumond.com/">Lee Dumond</a> for pointing this out to me)</li>
-<li><strong>url:</strong> Name of the web service. In the above code you can see I have called the web method ‘Hello’ from the web service named ‘Service’. If you are consuming or calling other web service which is not a part of your project or solution then you need to enter the fully qualified name of the web service with method name you are going to call.</li>
-<li><strong>data:</strong> In this example the data will remain empty, as we are only calling a method which return a simple string and don’t accept any parameter. If the method has some parameters then we will pass the parameters. I will explain on passing parameters in my coming posts.</li>
-<li><strong>contentType:</strong> Should remain the same.</li>
-<li><strong>datatype:</strong> Should remain as it is.</li>
-<li><strong>success:</strong> Here I have called the OnSuccess when the call is complete successfully. If you check the OnSuccess method you will see that I have set the returned result from the web service to the label. In the OnSuccess method body you see ‘data.d’. The ‘d’ here is the short form of data.</li>
-<li><strong>Error:</strong> Same as I have done with OnSuccess. If any error occurred while retrieving the data then the OnError method is invoked.</li>
-</ul>
-
-<p>Run the project and see it in action.</p>
-
-<p><img src="/images/ajax-web-demo.png" alt="Web app demo" /></p>
-
-<p>In my coming post on calling web service in ASP.NET using Jquery I will show on how to pass parameters to a web service and get the result and on how can we interact with SQL Server to fetch data and lots of other stuff in Jquery and ASP.NET.</p>
-
-<p><strong>Download: <a href="/files/JqueryAjaxDemo.zip">JqueryAjaxDemo.zip (87.55 kb)</a></strong></p>
 
   </div>
   

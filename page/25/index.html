@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2010-05-23T21:01:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2010-05-29T22:42:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,53 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/windows-7-logon-screen-changer/">Windows 7 Logon Screen Changer</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> May 29, 2010
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/projects">PROJECTS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
+      
+      
+      
+      
+    </span>
+    <p><img align="right" src="/images/womm-logo.png" alt="Works on my machine"/></p>
+
+<p>Recently I was reading an article on some Windows 7 forums on how to change Windows Logon Background. There are manual steps which helps me to change the longon background, but its tedious if I have to do it manually everytime. So I decided to make a tool which can do it for me.</p>
+
+<p>I start up a new project in Visual Studio 2010 and create a new windows application. I am not writing about how I did it, I am just giving away this tool for use. Just Browse and click Change Logon Screen and you are done.</p>
+
+<p><img src="/images/win7-logon-screen-changer.png" alt="Windows 7 logon screen changer" /></p>
+
+<p>Press WIN+L to lock your computer and check your new logon screen. There is only one limitation, you cannot select an image which is larger than 256KB.</p>
+
+<p><strong>Download: <a href="/files/Win7 Logon ScreenChanger.zip">Win7 LogonScreenChanger.zip (49.21 kb)</a></strong></p>
+
+<p><strong>Source Code: <a href="/files/Win7LogonScreenChanger.zip">Win7LogonScreenChanger.zip (139.44 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -493,118 +540,6 @@ GO
 <p><img src="/images/sqlclr-execution-output.png" alt="SQL CLR procedure output" /></p>
 
 <p><strong>Download: <a href="/files/IPInfo.zip">IPInfo.zip (19.46 kb)</a></strong></p>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/windows-7-development-creating-jumplist-in-windows-7/">Windows 7 Development: Creating Jumplist In Windows 7</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Mar 28, 2010
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/api">API</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/windows">WINDOWS</a>
-      
-      
-      
-      
-    </span>
-    <p>I am quite fascinated with Windows 7 before even I get it started using it. Actually I have just started on a fun project for my personal use which includes jump list. Why I am doing this? To navigate and get access to the application and internet addresses I need anytime. I am tired of typing addresses and navigating to the programs I frequently use. I have just started so I thought I must blog about my jump list experience with you all. You won&rsquo;t believe but I am still using Visual Studio 2008 with .NETFX 3.5. Ok, Let&rsquo;s talk about some Windows development. In my last post on Windows 7 development I explain how can you have Aero effects for your Windows applications. If you haven&rsquo;t read my post on <a href="http://midnightprogrammer.net/post/windows-7-development-aero-effects-in-net-applications">Aero effects in Windows Application</a> then you should have a look at this.</p>
-
-<p>Windows 7 API Code Pack comes packed up with some serious development stuff for Windows 7. If you don&rsquo;t have it yet then check my post for Windows 7 Development resources.</p>
-
-<p>We all know and view the new taskbar in Windows 7 and when your program got pinned in the taskbar you can simply left click to run your program or right-click to view more options associated with your program. To make it more clear I give you an example. I use Winsnap (a tool to take screenshots with dropshadows) to take screenshots and yes I use it quite frequently, so I pinned it to my taskbar.</p>
-
-<p><img src="/images/win7-jumplist.png" alt="Windows 7 jumplist" /></p>
-
-<p>That&rsquo;s the third icon from the Windows start button. When I click it normally it opens up the Winsnap application and show me the panel from where I can take and make settings for my next screenshot. but when I right-click the pinned Winsnap icon on my taskbar it show me the same basic settings which I will be using if I would have launched the application.</p>
-
-<p><img src="/images/win7-jumplist-options.png" alt="Windows 7 jumplist options" /></p>
-
-<p>Now when I have to take screenshots with my utility I just right-click Winsnap icon pinned to my taskbar and I am done. The items that you see under the heading Tasks is having all your jump list items. It is indeed possible to have some common functions from your application to be included in the jump list or can have some external links for applications like calculator, notepad, paint etc. If you don&rsquo;t know (just in case) if you can pin something on the taskbar then you can also unpin it.</p>
-
-<p>I hope now I am quite clear with jump list in Windows 7. So lets gets our hands on developing an application with jump list.</p>
-
-<p><strong>Getting Started</strong></p>
-
-<p>Start it up creating a simple windows forms application with a name of your choice. As we are delaing with Windows 7 API we need to have it added in our project references. Files you need to add to references are:</p>
-
-<ul>
-<li>Microsoft.WindowsAPICodePack.DLL</li>
-<li>Microsoft.WindowsAPICodePack.Shell.DLL</li>
-</ul>
-
-<p>You can have these API libraries once you donwlod the API code pack. After you are done adding the required references, you can switch to the code window and do the rest of the work.</p>
-
-<p><strong>Creating Jump List</strong></p>
-
-<p>Start up with adding the namespace:</p>
-
-<pre class="brush:csharp">
-using Microsoft.WindowsAPICodePack.Taskbar;
-using Microsoft.WindowsAPICodePack.Shell;
-</pre>
-
-<p>Create a jump list by calling <code>CreateJumpList</code> method, which is a part of <code>Microsoft.WindowsAPICodePack.Taskbar.JumpList</code> namespace.</p>
-
-<pre class="brush:csharp">
-JumpList list = JumpList.CreateJumpList();
-</pre>
-
-<p>If you want to show the most recent files you have used, then you can do that by using this line of code:</p>
-
-<pre class="brush:csharp">
-list.KnownCategoryToDisplay = JumpListKnownCategoryType.Recent;
-</pre>
-
-<p><code>JumpListKnownCategoryType</code> is an enumeration which will let you accomplish this. You can also have some other available options.</p>
-
-<ul>
-<li><strong>Frequent:</strong> Display the frequent known category.</li>
-<li><strong>Neither:</strong> Don&rsquo;t display either known category. You must have atleast one user task and or custom category link in order to not see the default &lsquo;Recent&rsquo; known category.</li>
-<li><strong>Recent:</strong> Display the recent known category.</li>
-</ul>
-
-<p>To add some commonly used applications to the jump list then you can have it with in less than a jiffy. Create a <code>JumpListLink</code> class object and associate it with the <code>JumpList</code> class object. I use notepad a lot to note down my work, now I want to add to the jump list and I code it this way:</p>
-
-<pre class="brush:csharp">
-JumpList list = JumpList.CreateJumpList();
-string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
-"notepad.exe");
-JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
-list.AddUserTasks(JLink);
-list.Refresh();
-</pre>
-
-<p>One line of code can be used to include icon for your program. The <code>IconReference</code> property will let you add the icon the jump list item. Set the default value to &lsquo;0&rsquo;, if you want to use the default icon for the application.</p>
-
-<pre class="brush:csharp">
-JumpList list = JumpList.CreateJumpList();
-string SysPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),
-"notepad.exe");
-JumpListLink JLink = new JumpListLink(SysPath,"Notepad.exe");
-JLink.IconReference = new IconReference(SysPath, 0);
-list.AddUserTasks(JLink);
-</pre>
-
-<p><img src="/images/win7-customjumplist.png" alt="Windows 7 jumplist" /></p>
-
-<p>Categorizing programs is bit easy this way. I can categorize web URLs, my favourites programs and some other places/links on my computer. There is lot more you can do with Jump Lists. I hope the explaination above can let you create your own applications with jump lists.</p>
 
   </div>
   

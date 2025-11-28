@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2009-06-16T15:17:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2009-06-21T15:59:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,52 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/backuprestore-sql-database-using-c/">Backup/Restore SQL database using C#</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jun 21, 2009
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/sql-server">SQL SERVER</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/utils">UTILS</a>
+      
+      
+      
+      
+    </span>
+    <p>Microsoft’s .NET framework provides the flexibility to Backup and Restore SQL server database. A few lines to populate the names of all the server instances, create backups and then restore the backups. The application what you see here is a part of an application, so when you create backups and restore it will use the same path hardcoded in the code itself. You can change the way you like it.</p>
+
+<p><img src="/images/sqldb-backup-app.jpg" alt="SQL datbase backup app" /></p>
+
+<p>Namespace you need to add:</p>
+
+<pre class="brush:csharp">
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Common;
+using System.IO;
+</pre>
+
+<p>I am not going to write on and on and just make it going boring, so it&rsquo;s better just download the code and check the comments, they are one liners, but clears everything.</p>
+
+<p><strong>Download Full Application Here: <a href="/files/DBBackup.zip">DBBackup.zip (290.99 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -320,36 +366,6 @@ while (HexValue.Length > 0)
 // Show the converted value
 MessageBox.Show(StrValue); 
 </pre>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/printing-word-documents-without-showing-print-dialog/">Printing word documents without showing Print Dialog</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> May 29, 2009
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/c">C#</a>
-      
-      
-      
-      
-    </span>
-    <p>Just one Click! and documents queued to the printer. The code will provide you the full flexiblity to set the default printer and also to set other word document settings. I used the code to convert the word document to PDF using Adobe PDF printer driver, as I was unable to get the code to convert the word files to PDF using DLLs.Cool</p>
-
-<p>Download the code and don&rsquo;t forget to look at the comments.</p>
-
-<p><strong>Download: <a href="/filesdocprntpdf.zip">docprntpdf.zip (645.83 kb)</a></strong></p>
 
   </div>
   

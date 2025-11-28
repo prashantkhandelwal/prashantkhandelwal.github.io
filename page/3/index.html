@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2021-01-04T20:27:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2023-01-03T10:34:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,125 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/marvel-comics-universe-graph-db/">Marvel Comics Universe Graph Database</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 3, 2023
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/.net">.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/c">C#</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/database">DATABASE</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/graph">GRAPH</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/gremlin">GREMLIN</a>
+      
+      
+      
+      
+    </span>
+    <p>In the past decade Marvel has gathered a lot of fans following which eventually led all the fans to know more about how the Marvel comics universe characters, stories, events are mapped or linked to each other.</p>
+
+<p>In 2017 (if I am remembering it correctly), at Microsoft Build event, Microsoft announces Bot framework and did a demo with CosmosDB graph database which uses Gremlin query from <a href="https://tinkerpop.apache.org/">Apache TinkerPop</a>. It was a great demo, and I was really impressed by how they did it but unfortunately, I was unable to find the source code for that demo anywhere. So, I thought I should at least get the graph database for my own use and then sometime later will work on building a NLU bot.</p>
+
+<p>To get started I will be setting up the database using Apache TinkerPop and not CosmosDB due to cost and development speed. Will make use of <a href="https://github.com/apache/tinkerpop/tree/master/gremlin-dotnet">Gremlin.NET</a> - a wrapper around Gremlin Query Language. Let&rsquo;s <a href="https://tinkerpop.apache.org/download.html">download Apache TinkerPop Gremlin Server and Console</a>. These will be downloaded in .zip file, so extract them into a folder and navigate to the <code>bin</code> directory inside each extracted folder and using the command/shell prompt execute the <code>.bat</code> file if you&rsquo;re on Windows else <code>.sh</code> file if you are on Linux or WSL on Windows.</p>
+
+<p><img src="/images/gremlin-server-start.png" alt="Gremlin Server Start" />
+<img src="/images/gremlin-console-start.png" alt="Gremlin Console Start" /></p>
+
+<p>After both the server and console are running, go to console terminal window and connect to the local TinkerPop server. Note that the console is independent of the server running on the local machine. If you are assuming that it will automatically connect to the running local instance of the server, then you are wrong. Therefore, we have to connect to the local server instance by executing the below command in the Gremlin console.</p>
+
+<pre class="brush: shell">
+gremlin> :remote connect tinkerpop.server conf/remote.yaml session
+</pre>
+
+<p>If you are unable to connect to the local server instance, then it might be a problem with your config file (.yaml) which you can find under <code>conf</code> folder in your <code>console</code> folder. Here are the contents of my <code>remote.yaml</code> file.</p>
+
+<pre class="brush: text">
+hosts: [localhost]
+port: 8182
+serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GraphBinaryMessageSerializerV1, config: { serializeResultToString: true }}
+</pre>
+
+<p>With connection established, now we can import the <code>graphson</code> data in the database. You can also refer to my <a href="https://github.com/prashantkhandelwal/mcugraph">Github repo</a> where I have used the raw data from the web to generate the edges and vertices for all Marvel characters. The <a href="https://syntagmatic.github.io/marvel/data/hero-network.csv">raw data</a> which is in csv format has some repetitive connections. The repo code ensures that there are no duplicate connections. You can also refer to the code if you plan to connect and play with TinkerPop graph database. Running the code and setting up the database will be a bit time-consuming, so I would suggest to download the <code>mcu.json</code> file from the repo and then importing it, which will happen in a few seconds.</p>
+
+<p>The data file which you downloaded from the repo <code>mcu.json</code> should be stored on the Gremlin server current working directory. After you place the file, execute the below command on the Gremlin console.</p>
+
+<pre class="brush: shell">
+gremlin> :> g.io("mcu.json").read().iterate()
+</pre>
+
+<p>The above command will take a few seconds to execute and then it will return you back to the <code>gremlin</code> console. We can now verify the data by executing this command.</p>
+
+<pre class="brush: shell">
+gremlin> :> graph
+</pre>
+
+<p>If all goes well, you should see the output below of the above command.</p>
+
+<p><img src="/images/gremlin-marvel-data-stats.png" alt="Gremlin marvel database stats" /></p>
+
+<p>Let&rsquo;s write some Gremlin queries and find out some information. Go to Gremlin console and test these below queries.</p>
+
+<p>How many people does Cap know?</p>
+
+<pre class="brush: shell">
+gremlin> :> g.V().has("name","CAPTAIN AMERICA").outE("knows").count()
+</pre>
+
+<p>And who are those people?</p>
+
+<pre class="brush: shell">
+gremlin> :> g.V().has("name","CAPTAIN AMERICA").out("knows").values("name")
+</pre>
+
+<p>Characters who have <code>IRON</code> in their name. Note that this is case-sensitive.</p>
+
+<pre class="brush: shell">
+gremlin> :> g.V().has('name', containing('IRON')).values('name')
+</pre>
+
+<p>As this is a graph database, it will be nice if we can visualize the data visually. There are few visualization tools I have used so far and <a href="https://gdotv.com/">GDotV</a> seems to a be popular one.</p>
+
+<p><img src="/images/gremlin-gdotv-explorer.png" alt="GDotV Greamlin Visualization Tool" /></p>
+
+<p>You can also visualize using this simple open-source graph visualization tool called <a href="https://github.com/prabushitha/gremlin-visualizer">gremlin-visualizer</a>. There are other visualization tools as well in case you want to work with some advanced feature sets. I personally make use of the basic console and mix of <code>gdotv</code> <code>gremlin-visualizer</code> as it fits my needs. For example, you will be able to execute this query below and see the visualization in <code>gremlin-visualizer</code> but unable to get this query to execute in <code>gdotv</code> version 1.0.1.</p>
+
+<pre class="brush: shell">
+g.V().has('hero', 'id', "CAPTAIN AMERICA").outE("knows").inV()
+</pre>
+
+<p><img src="/images/gremlin-visualizer-ui.png" alt="Gremlin-Visualizer - Visualization Tool" /></p>
+
+<p><strong>Reference &amp; Resources</strong></p>
+
+<ul>
+<li><a href="https://github.com/prashantkhandelwal/mcugraph/">Github - mcugraph</a></li>
+<li><a href="https://github.com/apache/tinkerpop/tree/master/gremlin-dotnet">Github - Gremlin.NET</a></li>
+<li><a href="https://github.com/prabushitha/gremlin-visualizer">Github - gremlin-visualizer</a></li>
+<li><a href="https://kelvinlawrence.net/book/Gremlin-Graph-Guide.html">Kelvin Lawrence Book - Practical Gremlin</a></li>
+<li><a href="https://tinkerpop.apache.org/docs/current/tutorials/getting-started/">Apache TinkerPop - Getting Started</a></li>
+</ul>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -822,37 +941,6 @@ private static byte[] ConvertStreamToByteArray(Stream input)
 <li><a href="https://docs.microsoft.com/en-in/azure/cognitive-services/computer-vision/quickstarts/csharp#optical-character-recognition-ocr-with-computer-vision-api-using-ca-nameocr-a">OCR with Computer Vision API - Documentation</a></li>
 </ul></li>
 </ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/enable-multi-factor-authentication-mfa-for-users-in-azure-active-directory/">Enable Multi Factor Authentication (MFA) For Users In Azure Active Directory</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Aug 31, 2017
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/azure">AZURE</a>
-      
-      
-      
-      
-    </span>
-    <p>A video tutorial on how you can enable Multi Factor Authentication or MFA as it is called, for the users in the Azure Active Directory.</p>
-
-<p><a href="https://www.youtube.com/watch?v=cUFhOsKZ0uc&amp;t=1s" title="Enable Multi Factor Authentication for users in Azure Active Directory"><img src="http://img.youtube.com/vi/cUFhOsKZ0uc/0.jpg" alt="Enable Multi Factor Authentication for users in Azure Active Directory" /></a></p>
 
   </div>
   

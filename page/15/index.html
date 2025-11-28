@@ -23,7 +23,7 @@
 <meta property="og:description" content="Programming For Fun" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://prashantkhandelwal.github.io/" />
-<meta property="og:updated_time" content="2012-01-22T13:19:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
+<meta property="og:updated_time" content="2012-01-28T12:00:00&#43;00:00"/><meta property="og:site_name" content="Midnight Programmer" />
 
 
     
@@ -150,6 +150,240 @@
             
 <div class="post-list">
   
+  
+  <div class="post-list__item">
+    <span class="item__title--big">
+      <a href="/post/html5-file-drag-and-drop-upload-with-jquery-and-aspnet/">HTML5 File Drag and Drop Upload With jQuery and ASP.NET</a>
+      
+    </span>
+    <span class="item__date">
+      <i class="fas fa-calendar-alt"></i> Jan 28, 2012
+    </span>
+    
+    <span>
+      
+      
+      
+      
+      
+      
+      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/html5">HTML5</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
+      &nbsp;
+      
+      <a class="badge badge-category" href="/category/web">WEB</a>
+      
+      
+      
+      
+    </span>
+    
+
+<p>I came across an article on <a href="http://tutorialzine.com/">Tutorialzine</a> which demonstrate <a href="http://tutorialzine.com/2011/09/html5-file-upload-jquery-php/">file drag and drop upload with jQuery and PHP</a>. As a curious reader, I downloaded the sample files and took a look and also get it running on my LINUX VM. It worked like a charm. But I am a Windows user and .NET programmer, the question is how can I do the same in ASP.NET?</p>
+
+<p>So, to get myself started I used the same downloaded files that I used to check the PHP version of the file drag and drop. The only thing that we are not going to re-use out of these files is the php file. You can delete it if you wish or keep it, it&rsquo;s of no harm to our ASP.NET app.</p>
+
+<h4 id="updating-the-jquery-part">Updating The jQuery Part</h4>
+
+<p>This example uses an awesome plugin from Weixi Yen and you can found the plugin and it&rsquo;s sample usage (documentation) on <a href="http://www.github.com/weixiyen/jquery-filedrop">GitHub</a>. The basic or I should say the default functionality provided by this plugin is to allow users to drag and drop the files from desktop to the browser. But before you actually get started with the plugin, I strongly recommend that you make yourself familiar with the parameters and configurations of the plugin.</p>
+
+<p>Open the <code>script.js</code> file and change the URL to point to the web service or the page which will upload the posted file. Here I want you to pay attention to the javascript function named <code>createImage</code>. This method accepts the <code>file</code> as a parameter and returns the image or file data in <a href="http://en.wikipedia.org/wiki/Base64">Base64</a> format. This is the data which actually gets posted when the user drops a file to the upload area on the web page. This is all up to you whether you want to use a web service or a normal web page to accept the posted file/data. Here is my <code>script.js</code> file looks like after the changes.</p>
+
+<pre class="brush: js, highlight:[10,11,33,34,35,36,37,38,39,40,41,42]">
+$(function () {
+ 
+    var dropbox = $('#dropbox'),
+        message = $('.message', dropbox);
+ 
+    dropbox.filedrop({
+        paramname: 'pic',
+        maxfiles: 5,
+        maxfilesize: 100,
+        //url: '/Uploader.asmx/Upload',
+        url: '/Default.aspx',
+ 
+        uploadFinished: function (i, file, response) {
+            $.data(file).addClass('done');
+        },
+ 
+        error: function (err, file) {
+            switch (err) {
+                case 'BrowserNotSupported':
+                    showMessage('Your browser does not support HTML5 file uploads!');
+                    break;
+                case 'TooManyFiles':
+                    alert('Too many files! Please select 5 at most! (configurable)');
+                    break;
+                case 'FileTooLarge':
+                    alert(file.name + ' is too large! Please upload files up to 2mb (configurable).');
+                    break;
+                default:
+                    break;
+            }
+        },
+ 
+        // Called before each upload is started
+        //        beforeEach: function (file) {
+        //            if (!file.type.match(/^image\//)) {
+        //                alert('Only images are allowed!');
+ 
+        //                // Returning false will cause the
+        //                // file to be rejected
+        //                return false;
+        //            }
+        //        },
+ 
+        uploadStarted: function (i, file, len) {
+            createImage(file);
+        },
+ 
+        progressUpdated: function (i, file, progress) {
+            $.data(file).find('.progress').width(progress);
+        }
+ 
+    });
+ 
+    var template = '&lt;div class="preview"&gt;' +
+                        '&lt;span class="imageHolder"&gt;' +
+                            '&lt;img /&gt;' +
+                            '&lt;span class="uploaded"&gt;&lt;/span&gt;' +
+                        '&lt;/span&gt;' +
+                        '&lt;div class="progressHolder"&gt;' +
+                            '&lt;div class="progress"&gt;&lt;/div&gt;' +
+                        '&lt;/div&gt;' +
+                    '&lt;/div&gt;';
+ 
+ 
+    function createImage(file) {
+ 
+        var preview = $(template),
+            image = $('img', preview);
+ 
+        var reader = new FileReader();
+ 
+        image.width = 100;
+        image.height = 100;
+ 
+        reader.onload = function (e) {
+ 
+            // e.target.result holds the DataURL which
+            // can be used as a source of the image:
+            //alert(e.target.result);
+            image.attr('src', e.target.result);
+        };
+ 
+        // Reading the file as a DataURL. When finished,
+        // this will trigger the onload function above:
+        reader.readAsDataURL(file);
+ 
+        message.hide();
+        preview.appendTo(dropbox);
+ 
+        // Associating a preview container
+        // with the file, using jQuery's $.data():
+ 
+        $.data(file, preview);
+    }
+ 
+    function showMessage(msg) {
+        message.html(msg);
+    }
+ 
+});
+</pre>
+
+<p>Check out line number 10 and 11. I have change the <code>url</code> parameter to the one where my files are going to be posted. It can be a webservice or just a normal web page. The other two parameters <code>maxfiles</code> and <code>maxfilesize</code> defines the number of file that can be uploaded asynchronously and maximum size of the file that can be uploaded in MBs respectively. Also note that the demo that you download from the original source will have a validation that the files that are being uploaded by the user should only be images. If you want to override this rule then uncomment the lines from 33-42. This is it from the jQuery/script part. Now time to move on the server side code.</p>
+
+<h4 id="the-server-side-code">The Server Side Code</h4>
+
+<p>To remind you again that we are posting a file to a web service or to a web page and therefore that code for our web service or on our page will look something like this:</p>
+
+<p><strong>If you are using a web service to upload the posted file:</strong></p>
+
+<pre class="brush:csharp">
+[WebMethod]
+[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+public string Upload()
+{
+       HttpContext postedContext = HttpContext.Current;
+       HttpPostedFile file = postedContext.Request.Files[0];
+       string name = file.FileName;
+       byte[] binaryWriteArray = new
+       byte[file.InputStream.Length];
+       file.InputStream.Read(binaryWriteArray, 0,
+       (int)file.InputStream.Length);
+       FileStream objfilestream = new FileStream(Server.MapPath("uploads//" + name), FileMode.Create, FileAccess.ReadWrite);
+       objfilestream.Write(binaryWriteArray, 0,
+       binaryWriteArray.Length);
+       objfilestream.Close();
+       string[][] JaggedArray = new string[1][];
+       JaggedArray[0] = new string[] { "File was uploaded successfully" };
+       JavaScriptSerializer js = new JavaScriptSerializer();
+       string strJSON = js.Serialize(JaggedArray);
+       return strJSON;
+}
+</pre>
+
+<p>Nothing fancy or complicated in the above code. Remember, the files will send to the web service one by one and not in a collection and this is the reason I am working with one file at a time and not with file collections. In my case I have used a web service that return me JSON result which I can show it to the user, though it is not necessary, but just in case if you want to have one for your web service you need to use 2 using statements:</p>
+
+<pre class="brush:csharp">
+using System.Web.Script.Serialization;
+using System.Web.Script.Services;
+</pre>
+
+<p><strong>If you are using a web page to upload the posted file:</strong></p>
+
+<pre class="brush:csharp">
+HttpContext postedContext = HttpContext.Current;
+HttpPostedFile file = postedContext.Request.Files[0];
+string name = file.FileName;
+byte[] binaryWriteArray = new
+byte[file.InputStream.Length];
+file.InputStream.Read(binaryWriteArray, 0,
+(int)file.InputStream.Length);
+FileStream objfilestream = new FileStream(Server.MapPath("uploads//" + name), FileMode.Create, FileAccess.ReadWrite);
+objfilestream.Write(binaryWriteArray, 0,
+binaryWriteArray.Length);
+objfilestream.Close();
+string[][] JaggedArray = new string[1][];
+JaggedArray[0] = new string[] { "File was uploaded successfully" };
+JavaScriptSerializer js = new JavaScriptSerializer();
+string strJSON = js.Serialize(JaggedArray);
+Response.Write(strJSON);
+Response.End();
+</pre>
+
+<p>Same code as I have for the web service, put the above code on the page_load event.</p>
+
+<h4 id="caution"><strong>Caution!!</strong></h4>
+
+<p>While I was working around with the above code and configuration of the plugin I came across an error that won&rsquo;t allow me to upload heavy files or I should say large files. The error that I received is:</p>
+
+<p><strong>System.Web.HttpException: Maximum request length exceeded</strong></p>
+
+<p>To overcome this error you have make the below configuration in your <code>web.config</code> file inside &lt;system.web&gt;</p>
+
+<pre class="brush:plain">
+&lt;httpRuntime maxRequestLength="102400" executionTimeout="1200" />
+</pre>
+
+<p>A word of caution here, though it will solve your problem but:</p>
+
+<ul>
+<li>If the <code>maxrequestLength</code> is TOO BIG then you will be open to DOS attacks.</li>
+<li>The default <code>executionTimeout</code> is 360 seconds. Change it accordingly and only if you are running on really slow connections.</li>
+</ul>
+
+<p>This is it, if you have followed the steps above then try uploading some file. And if you haven&rsquo;t and lazy to put all the pieces together then download the code from the below and try it.</p>
+
+<p><strong>Download: <a href="/files/HTML5DragNDrpFileUpload.zip">HTML5DragNDrpFileUpload.zip (58.15 kb)</a></strong></p>
+
+  </div>
   
   <div class="post-list__item">
     <span class="item__title--big">
@@ -468,119 +702,6 @@ $(document).ready(function () {
 <li><a href="http://api.wikia.com/wiki/LyricWiki_API%2FSOAP">WikiLyrics API Documentation</a></li>
 <li><a href="http://www.lyrdb.com/services/lws-tech.php">LYRDB Web Services</a></li>
 <li><a href="http://www.chartlyrics.com/api.aspx">ChartLyrics API</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post-list__item">
-    <span class="item__title--big">
-      <a href="/post/upload-and-show-image-without-post-back-with-jquery/">Upload and Show Image Without Post Back With Jquery</a>
-      
-    </span>
-    <span class="item__date">
-      <i class="fas fa-calendar-alt"></i> Sep 11, 2011
-    </span>
-    
-    <span>
-      
-      
-      
-      
-      
-      
-      <a class="badge badge-category" href="/category/asp.net">ASP.NET</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/asp.net-mvc">ASP.NET MVC</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/jquery">JQUERY</a>
-      &nbsp;
-      
-      <a class="badge badge-category" href="/category/web">WEB</a>
-      
-      
-      
-      
-    </span>
-    <p>Previously in a lot of hurry I wrote a post on <a href="http://midnightprogrammer.net/post/Upload-Files-In-RAZOR-With-jQuery-Uploadify-Plugin.aspx">how to upload files in MVC3 with the help of Uploadify</a>, a famous jQuery plugin to upload files. If you have not heard about it yet, then it is time for you to check and find out what this plugin can do for you. Appending my last post about <a href="http://www.uploadify.com/">this plugin</a> (which was not very well written) I tried one more thing with it today. This time I am trying to upload an image and then show it inside a DIV without a post back. If you have the source code from the previous post, then it will be good as you need not to start from the scratch.</p>
-
-<p>I assume that you are a good designer as I am not. I am saying this because I really got a blank head in designing. Therefore it is up to you how you are going to show off the images on the page, I am just telling you a way to do that. I am using MVC3 for this example but it will work for both web forms and MVC. The only difference in MVC and web forms is in the server side code which is responsible to upload the file. If you are using MVC3 then your method to upload the file in the controller will be something like this:</p>
-
-<pre class="brush:csharp">
-public string Upload(HttpPostedFileBase fileData)
-{
-        var fileName = this.Server.MapPath("~/uploads/" + System.IO.Path.GetFileName(fileData.FileName));
-        fileData.SaveAs(fileName);
-        return "OK";
-}
-</pre>
-
-<p>As we are using <code>Uploadify</code>, we now have to make changes in some of the parameters of the plugin. The <code>Upload</code> method is inside home controller, so the <code>script</code> parameter of the plugin will be <code>/Home/Upload</code>. For my convenience I have changed the <code>multi</code> and <code>auto</code> parameter to <code>false</code> and <code>true</code> respectively. By now this is the jQuery code I have:</p>
-
-<pre class="brush:jscript">
-<script type="text/javascript">
-$(window).load(
-function () {
-    $("#fileuploader").fileUpload({
-        'uploader': '/Scripts/uploader.swf',
-        'cancelImg': '/Images/cancel.png',
-        'buttonText': 'Select Image',
-        'script': 'Home/Upload',
-        'folder': '/uploads',
-        'fileDesc': 'Image Files',
-        'fileExt': '*.jpg;*.jpeg;*.gif;*.png',
-        'multi': false,
-        'auto': true
-    });
-}
-);
-</script>
-</pre>
-
-<p>In the end I append one more parameter <code>onComplete</code> which gets fired when the plugin finish uploading the file. To get the uploaded path of the image I am using <code>fileObj.filePath</code> and <code>response</code> to check if the file has been uploaded successfully or not. If the <code>response</code> I received after the uploading of the file is completed is <code>ok</code> then I will set the html to show the image in another DIV. Below is the complete configuration of the plugin.</p>
-
-<pre class="brush:jscript">
-<script type="text/javascript">
-$(window).load(
-function () {
-    $("#fileuploader").fileUpload({
-        'uploader': '/Scripts/uploader.swf',
-        'cancelImg': '/Images/cancel.png',
-        'buttonText': 'Select Image',
-        'script': 'Home/Upload',
-        'folder': '/uploads',
-        'fileDesc': 'Image Files',
-        'fileExt': '*.jpg;*.jpeg;*.gif;*.png',
-        'multi': false,
-        'auto': true,
-        'onComplete': function (event, ID, fileObj, response) {
-            if (response == "OK") {
-                $("#uImg").addClass("loading");
-                var htmlString = "<img src=\"" + fileObj.filePath + "\" alt=\"" + fileObj.name + "\" />";
-                $("#uImg").html(htmlString);
-                $("#uImg").removeClass("loading");
-            }
-        }
-    });
-}
-);
-</script>
-</pre>
-
-<p><img src="/images/image-without-postback-js.png" alt="ASP.NET app to upload the image" /></p>
-
-<p>Just to demonstrate I have placed an alert message box with the <code>response</code> which got fired on the <code>onComplete</code> event after the image has been uploaded successfully. After this I have created a html string which is actually a html img tag with <code>src</code> and <code>alt</code> tags. I have then set the same html string to another DIV which acts as a holder of the image being uploaded. Here is an output after the image is uploaded. Just to remind you, it is all done without post back.</p>
-
-<p><img src="/images/image-without-postback-output.png" alt="Image displayed without postback" /></p>
-
-<p>This is it, try it yourself and I recommend you to check out the <a href="http://www.uploadify.com/documentation/">documentation</a> of the plugin I used. Check out the other links below and one more thing that I would like you to do is to set the <code>multi</code> property of the plugin to <code>true</code> and the try uploading multiple images. If you end up making something awesome then do share with me/us.</p>
-
-<p><strong>Related Links:</strong></p>
-
-<ul>
-<li><a href="http://midnightprogrammer.net/post/Upload-Files-In-RAZOR-With-jQuery-Uploadify-Plugin.aspx">Upload File in RAZOR With jQuery Uploadify Plugin</a></li>
-<li><a href="http://www.uploadify.com/documentation/">Uploadify Plugin Documentation</a></li>
 </ul>
 
   </div>
