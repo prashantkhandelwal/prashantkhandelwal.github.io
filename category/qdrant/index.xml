@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Qdrant on Midnight Programmer</title>
+    <link>https://prashantkhandelwal.github.io/category/qdrant/</link>
+    <description>Recent content in Qdrant on Midnight Programmer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Mar 2026 13:27:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://prashantkhandelwal.github.io/category/qdrant/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Reverse Image Search for Developers: Qdrant &#43; Python &#43; Svelte</title>
+      <link>https://prashantkhandelwal.github.io/post/reverse-image-search-for-developer-qdrant-python-svelte/</link>
+      <pubDate>Fri, 27 Mar 2026 13:27:00 +0000</pubDate>
+      
+      <guid>https://prashantkhandelwal.github.io/post/reverse-image-search-for-developer-qdrant-python-svelte/</guid>
+      <description>By converting images into vector embeddings and storing them in a specialized database, we can build systems that understand visual similarity at scale. This approach opens doors to applications in e-commerce, media management, and even creative tools where images drive discovery.
+So today we will see how to build your own image search engine using Python FASTAPI and Qdrant, which is a high-performance open-source vector similarity search database. But what exactly a vector is?</description>
+    </item>
+    
+  </channel>
+</rss>
