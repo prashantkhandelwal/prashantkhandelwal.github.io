@@ -13,8 +13,8 @@ html {
   font-size: 17px;
   line-height: 1.667em; }
   @media (min-width: 38em) {
-    html {
-      font-size: 20px; } }
+      html {
+        font-size: 17px; } }
 
 body {
   color: #515151;
@@ -291,8 +291,7 @@ a {
     text-decoration: none; }
 
 .content {
-  padding-bottom: 2rem;
-  padding-top: 2rem;
+  padding: 2rem 1rem;
   /*padding-left: 1.5rem;
   max-width: 70rem;*/ }
 
@@ -761,7 +760,7 @@ a.badge-tag {
 @media (min-width: 992px) {
   html,
   body {
-    font-size: 20px; }
+    font-size: 17px; }
   .content {
     margin-left: 20rem;
     margin-right: 2rem;
